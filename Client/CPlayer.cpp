@@ -23,7 +23,8 @@ CPlayer::CPlayer() :
 	m_fSpeed(200.f),
 	m_vPrevPos{},
 	m_eState(EPLAYER_STATE::END),
-	m_ePrevState(EPLAYER_STATE::END)
+	m_ePrevState(EPLAYER_STATE::END),
+	m_iFaceDir(0)
 {
 	CreateCollider();
 	CreateAnimator();
@@ -64,7 +65,8 @@ CPlayer::CPlayer(const CPlayer& _Other)	:
 	m_fSpeed(_Other.m_fSpeed),
 	m_vPrevPos{},
 	m_eState(EPLAYER_STATE::END),
-	m_ePrevState(EPLAYER_STATE::END)
+	m_ePrevState(EPLAYER_STATE::END),
+	m_iFaceDir(0)
 {
 }
 
