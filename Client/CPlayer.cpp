@@ -24,7 +24,7 @@ CPlayer::CPlayer() :
 	m_vPrevPos{},
 	m_eState(EPLAYER_STATE::END),
 	m_ePrevState(EPLAYER_STATE::END),
-	m_iFaceDir(0),
+	m_iFaceDir(1),
 	m_fRunStartAcc(0.f),
 	m_fJumpTimeAcc(0.f),
 	m_iJumpStack(2)
@@ -86,41 +86,38 @@ CPlayer::~CPlayer()
 void CPlayer::Tick()
 {
 	Vec2 vPos = GetPos();
-	// 왼쪽 이동
-	if(IS_PRESSED(EKEY::LEFT))
+
+	if (IS_TAP(EKEY::LEFT))
 	{
+		m_iFaceDir = -1;
+		GetAnimator()->Play(L"Run_Start_Left", false);
+	}
+	else if (IS_TAP(EKEY::RIGHT))
+	{
+		m_iFaceDir = 1;
+		GetAnimator()->Play(L"Run_Start_Right", false);
+	}
+	// 왼쪽 이동
+	else if(IS_PRESSED(EKEY::LEFT))
+	{
+		m_fRunStartAcc += DELTATIME;
+		if (0.9f < m_fRunStartAcc)
+			m_eState = EPLAYER_STATE::WALK_LEFT;
+
 		vPos.x -= m_fSpeed * DELTATIME;
 		//GetRigidBody()->AddForce(Vec2(-1000.f, 0.f));
 	}
 	// 오른쪽 이동
-	if (IS_PRESSED(EKEY::RIGHT))
+	else if (IS_PRESSED(EKEY::RIGHT))
 	{
+		m_fRunStartAcc += DELTATIME;
+		if (0.9f < m_fRunStartAcc)
+			m_eState = EPLAYER_STATE::WALK_RIGHT;
+
 		vPos.x += m_fSpeed * DELTATIME;
 		//GetRigidBody()->AddForce(Vec2(1000.f, 0.f));
 	}
-	//// 위로 이동
-	//if (IS_PRESSED(EKEY::UP))
-	//{
-	//	GetRigidBody()->AddForce(Vec2(0.f, -30000.f));
-	//}
-	//// 아래로 이동
-	//if (IS_PRESSED(EKEY::DOWN))
-	//{
-	//	GetRigidBody()->AddForce(Vec2(0.f, 30000.f));
-	//}
-	//if (IS_TAP(EKEY::UP))
-	//	GetAnimator()->Play(L"WALK_UP", true);
-	//if(IS_TAP(EKEY::DOWN))
-	//	GetAnimator()->Play(L"WALK_DOWN", true);
-	//if (IS_TAP(EKEY::LEFT))
-	//{
-	//	m_eState = EPLAYER_STATE::WALK_START_LEFT;
-	//}
-	//if (IS_TAP(EKEY::RIGHT))
-	//{
-	//	m_eState = EPLAYER_STATE::WALK_START_RIGHT;
-	//}
-	if (IS_PRESSED(EKEY::SPACE))
+	else if (IS_PRESSED(EKEY::SPACE))
 	{
 		if (IS_PRESSED(EKEY::DOWN))
 			GetRigidBody()->OffGround();
@@ -149,44 +146,29 @@ void CPlayer::Tick()
 		//	Instantiate(pMissile, GetPos(), ELAYER::PLAYER_PROJECTILE);
 		//}
 	}
-
-	Vec2 vDir = (GetPos() - m_vPrevPos);
-
-	if (0.f < vDir.y)
-		m_eState = EPLAYER_STATE::FALL;
-	else if (0.f > vDir.y)
-		m_eState = EPLAYER_STATE::JUMP;
-	if (0.f < vDir.x)
+	else if(IS_NONE(EKEY::LEFT) && IS_NONE(EKEY::RIGHT))
 	{
-		m_iFaceDir = 1;
-		m_fRunStartAcc += DELTATIME;
-		m_eState = EPLAYER_STATE::WALK_START_RIGHT;
-		if (0.9f < m_fRunStartAcc)
-			m_eState = EPLAYER_STATE::WALK_RIGHT;
-	}
-	else if (0.f > vDir.x)
-	{
-		m_iFaceDir = -1;
-		m_fRunStartAcc += DELTATIME;
-		m_eState = EPLAYER_STATE::WALK_START_LEFT;
-		if (0.9f < m_fRunStartAcc)
-			m_eState = EPLAYER_STATE::WALK_LEFT;
-	}
-	else
-	{
+		m_fRunStartAcc = 0.f; 
 		m_eState = EPLAYER_STATE::IDLE1;
-		m_fRunStartAcc = 0.f;
-		m_iJumpStack = 1;
 	}
 
+	//Vec2 vDir = (GetPos() - m_vPrevPos);
+
+	//if (0.f < vDir.y)
+	//	m_eState = EPLAYER_STATE::FALL;
+	//else if (0.f > vDir.y)
+	//	m_eState = EPLAYER_STATE::JUMP;
+	//else if(0.f == vDir.x && 0.f == vDir.y)
+	//{
+
+	//}
+
+	ChangeAnim();
+
+	m_ePrevState = m_eState;
 
 	// 부모 오브젝트의 Tick도 실행시킨다(Component Tick을 실행시키기 위해)
 	CObj::Tick();
-
-	if (m_eState != m_ePrevState)
-		ChangeAnim();
-
-	m_ePrevState = m_eState;
 	
 	m_vPrevPos = GetPos();
 
@@ -212,26 +194,23 @@ void CPlayer::EndOverlap(CCollider* _pOther)
 
 void CPlayer::ChangeAnim()
 {
+	if (m_eState == m_ePrevState)
+		return;
+
 	switch (m_eState)
 	{
 	case EPLAYER_STATE::IDLE1:
-		if (m_iFaceDir == 1)
+		if (1 == m_iFaceDir)
 			GetAnimator()->Play(L"Idle_Right", true);
 		else if(-1 == m_iFaceDir)
 			GetAnimator()->Play(L"Idle_Left", true);
 		break;
-	case EPLAYER_STATE::WALK_START_LEFT:
-		//GetAnimator()->Play(L"WALK_LEFT", true);
-		GetAnimator()->Play(L"Run_Start_Left", false);
-		break;
-	case EPLAYER_STATE::WALK_START_RIGHT:
-		//GetAnimator()->Play(L"WALK_RIGHT", true);
-		GetAnimator()->Play(L"Run_Start_Right", false);
-		break;
 	case EPLAYER_STATE::WALK_LEFT:
+		m_iFaceDir = -1;
 		GetAnimator()->Play(L"Run_Left", true);
 		break;
 	case EPLAYER_STATE::WALK_RIGHT:
+		m_iFaceDir = 1;
 		GetAnimator()->Play(L"Run_Right", true);
 		break;
 	case EPLAYER_STATE::JUMP:

@@ -23,6 +23,8 @@
 
 #define IS_TAP(key) CKeyMgr::GetInst()->GetKeyState(key) == EKEY_STATE::TAP
 #define IS_PRESSED(key) CKeyMgr::GetInst()->GetKeyState(key) == EKEY_STATE::PRESSED
+#define IS_RELEASED(key) CKeyMgr::GetInst()->GetKeyState(key) == EKEY_STATE::RELEASED
+#define IS_NONE(key) CKeyMgr::GetInst()->GetKeyState(key) == EKEY_STATE::NONE
 
 #define PI 3.14f
 #define TILE_SIZE 64	

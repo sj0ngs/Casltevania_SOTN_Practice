@@ -55,7 +55,6 @@ public:
     virtual void EndOverlap(CCollider* _pOther) override;
 
 public:
-
     void ChangeAnim();
 };
 

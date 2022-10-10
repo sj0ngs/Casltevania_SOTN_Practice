@@ -105,8 +105,10 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 		MessageBox(nullptr, L"해당 Animation 없음", L"Animation 재생 오류", MB_OK);
 		return;
 	}
+
 	// 현재 애니메이션을 찾은 애니메이션으로 지정한다
 	m_pCurAnim = pAnim;
+
 	m_pCurAnim->Reset();
 	m_bRepeat = _bRepeat;
 }
