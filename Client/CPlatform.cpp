@@ -19,7 +19,7 @@ CPlatform::CPlatform()	:
 {
 	CreateCollider();
 
-	GetCollider()->SetScale(Vec2(200.f, 200.f));
+	GetCollider()->SetScale(Vec2(1000.f, 100.f));
 }
 
 CPlatform::~CPlatform()

@@ -26,6 +26,11 @@ private:
     EPLAYER_STATE m_ePrevState;
     int m_iFaceDir;
 
+    float m_fRunStartAcc;
+    float m_fJumpTimeAcc;
+
+    int m_iJumpStack;
+
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
 
