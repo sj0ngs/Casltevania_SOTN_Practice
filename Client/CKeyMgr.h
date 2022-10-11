@@ -68,9 +68,7 @@ public:
 	void Tick();
 
 public:
-	EKEY_STATE GetKeyState(EKEY _Key)
-	{
-		return m_vecKey[(UINT)_Key].State;
-	}
+	EKEY_STATE GetKeyState(EKEY _Key) { return m_vecKey[(UINT)_Key].State; }
+	bool IsNoEnter();
 };
 

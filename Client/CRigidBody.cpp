@@ -17,7 +17,7 @@ CRigidBody::CRigidBody(CObj* _pOwner) :
 	m_fGravityVLimit(10000.f),
 	m_fGravityAccel(100.f),
 	m_bGravityUse(false),
-	m_iGround(0)
+	m_bGround(false)
 {
 }
 
@@ -32,7 +32,7 @@ CRigidBody::CRigidBody(const CRigidBody& _Other)	:
 	m_fGravityVLimit(_Other.m_fGravityVLimit),
 	m_fGravityAccel(_Other.m_fGravityAccel),
 	m_bGravityUse(_Other.m_bGravityUse),
-	m_iGround(0)
+	m_bGround(false)
 {
 }
 
@@ -51,7 +51,7 @@ void CRigidBody::Final_Tick()
 
 	m_vVelocity += vAccel * DELTATIME;
 
-	if (m_bGravityUse && (0 < m_iGround) || !m_bGravityUse)
+	if (m_bGravityUse && m_bGround || !m_bGravityUse)
 	{
 		// 마찰 가속도
 		Vec2 vFriction = -m_vVelocity;
@@ -70,7 +70,7 @@ void CRigidBody::Final_Tick()
 	}
 
 	// 중력 적용 + 공중 상태 --> 중력
-	if (m_bGravityUse && !(0 < m_iGround))
+	if (m_bGravityUse && !m_bGround)
 	{
 		Vec2 vGravityAccel = Vec2(0.f, m_fGravityAccel);
 		m_vVelocity += vGravityAccel * DELTATIME;

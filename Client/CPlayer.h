@@ -29,7 +29,7 @@ private:
     float m_fRunStartAcc;
     float m_fJumpTimeAcc;
 
-    int m_iJumpStack;
+    bool m_bDoubleJump;
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
@@ -43,7 +43,6 @@ public:
 
 public:
     CPlayer();
-    CPlayer(const CPlayer& _Other);
     ~CPlayer();
 
 public:

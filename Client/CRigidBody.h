@@ -20,7 +20,7 @@ private:
     float   m_fGravityAccel;
     bool    m_bGravityUse;
 
-    int    m_iGround;          // 중력 방해
+    bool    m_bGround;          // 지상에 존재하는지
  
 public:
     void AddForce(Vec2 _vForce) { m_vForce += _vForce; }
@@ -42,9 +42,9 @@ public:
     void SetGravityAccel(float _fAccel) { m_fGravityAccel = _fAccel; }
     void SetGravity(bool _bSet) { m_bGravityUse = _bSet; }
 
-    void OnGround() { ++m_iGround; m_vVelocity.y = 0; };
-    void OffGround() { --m_iGround; }
-    bool IsGround() { return 0 < m_iGround; }
+    void OnGround() { m_bGround = true; m_vVelocity.y = 0; };
+    void OffGround() { m_bGround = false; }
+    bool IsGround() { return m_bGround; }
 
 public:
     CLONE(CRigidBody);

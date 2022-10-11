@@ -111,3 +111,14 @@ void CKeyMgr::Tick()
 		}
 	}
 }
+
+bool CKeyMgr::IsNoEnter()
+{
+	for (size_t i = 0; i < m_vecKey.size(); i++)
+	{
+		if (EKEY_STATE::NONE != m_vecKey[i].State)
+			return false;
+	}
+
+	return true;
+}

@@ -82,7 +82,6 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 	}
 	else
 	{
-
 		// 왼쪽에서 접근했을 때
 		if (0.f < vDir.x)
 		{
