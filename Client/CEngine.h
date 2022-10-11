@@ -19,21 +19,14 @@ private:
 	HPEN m_arrPen[(UINT)EPEN_TYPE::END];
 
 public:
-	HWND GetMainWnd()	// 윈도우 핸들 리턴함수
-	{
-		return m_hMainWnd;
-	}
-
-	HPEN GetPen(EPEN_TYPE _Type)
-	{
-		return m_arrPen[(UINT)_Type];
-	}
-
+	HWND GetMainWnd() { return m_hMainWnd; } // 윈도우 핸들 리턴함수
+	HPEN GetPen(EPEN_TYPE _Type) { return m_arrPen[(UINT)_Type]; }
 	HDC GetMainDC() { return m_hDC; }
-
 	//HDC GetBackDC() { return m_pMemTex->GetDC(); }
-
 	POINT GetResolution() { return m_ptResolution; }
+
+	void ChangeWindowSize(UINT _iWidth, UINT _iHeight);
+
 private:
 	void Tick();	// 갱신
 	void Render();	// 랜더링

@@ -37,19 +37,14 @@ void CEngine::Init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
 	m_ptResolution.x = _iWidth;
 	m_ptResolution.y = _iHeight;
 
-	// 윈도우 크기 설정
-	RECT rt = {0, 0, (LONG)_iWidth, (LONG)_iHeight};
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true);
-	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
-
 	// HDC 초기화
 	m_hDC = GetDC(m_hMainWnd);
 
+	// 윈도우 크기 설정
+	ChangeWindowSize(m_ptResolution.x, m_ptResolution.y);
+
 	// 자주 사용하는 팬과 브러쉬를 세팅
 	CreatePenBrush();
-
-	// 백버퍼 용 텍스쳐 제작
-	m_pMemTex = CResMgr::GetInst()->CreateTexture(L"BackBuffer", m_ptResolution.x, m_ptResolution.y);
 
 	CPathMgr::GetInst()->Init();
 	CTimeMgr::GetInst()->Init();
@@ -91,13 +86,6 @@ void CEngine::Render()
 	CTimeMgr::GetInst()->Render();
 }
 
-void CEngine::CreatePenBrush()
-{
-	m_arrPen[(UINT)EPEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
-	m_arrPen[(UINT)EPEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-	m_arrPen[(UINT)EPEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
-}
-
 void CEngine::Progress()
 {
 	// 논리적인 연산
@@ -108,3 +96,38 @@ void CEngine::Progress()
 
 	CEventMgr::GetInst()->Tick();
 }
+
+void CEngine::CreatePenBrush()
+{
+	m_arrPen[(UINT)EPEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_arrPen[(UINT)EPEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_arrPen[(UINT)EPEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+}
+
+void CEngine::ChangeWindowSize(UINT _iWidth, UINT _iHeight)
+{
+	m_ptResolution.x = _iWidth;
+	m_ptResolution.y = _iHeight;
+
+	RECT rt = { 0, 0, m_ptResolution.x, m_ptResolution.y };
+
+	HMENU hMenu = GetMenu(m_hMainWnd);
+
+	if(nullptr != hMenu)
+		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true);
+	else
+		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
+
+	SetWindowPos(m_hMainWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
+
+	// 백버퍼가 없으면 생성
+	if (nullptr == m_pMemTex)
+	{
+		// 백버퍼 용 텍스쳐 제작
+		m_pMemTex = CResMgr::GetInst()->CreateTexture(L"BackBuffer", m_ptResolution.x, m_ptResolution.y);
+	}
+	// 백버퍼가 있으면 사이즈 조정
+	else
+		m_pMemTex->Resize(m_ptResolution.x, m_ptResolution.y);
+}
+

@@ -12,6 +12,7 @@ private:
 public:
     void SetAtlas(CTexture* _pTex) { m_pAtlas = _pTex; }
     void SetImgIdx(int _iImgIdx);
+    void AddImgIdx();
 
 public:
     CLONE(CTile);
@@ -23,5 +24,9 @@ public:
 public:
     virtual void Tick() override;
     virtual void Render(HDC _DC)    override;
+
+public:
+    void Save(FILE* _pFile);
+    void Load(FILE* _pFile);
 };
 

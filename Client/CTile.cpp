@@ -2,6 +2,8 @@
 #include "CTile.h"
 
 #include "CCamera.h"
+#include "CResMgr.h"
+
 #include "CTexture.h"
 
 CTile::CTile()	:
@@ -45,6 +47,57 @@ void CTile::Render(HDC _DC)
 	//	(int)(vPos.y + TILE_SIZE));
 }
 
+void CTile::Save(FILE* _pFile)
+{
+	// 위치
+	Vec2 vPos = GetPos();
+	fwrite(&vPos, sizeof(Vec2), 1, _pFile);
+
+	// 아틀라스 이미지 정보
+	bool bAtlas = m_pAtlas;
+	fwrite(&bAtlas, sizeof(bool), 1, _pFile);
+
+	if (bAtlas)
+	{
+		// 키값 저장
+		wstring strKey = m_pAtlas->GetKey();
+		SaveWString(strKey, _pFile);
+
+		// 경로 저장
+		wstring strRelativePath = m_pAtlas->GetPath();
+		SaveWString(strRelativePath, _pFile);
+	}
+
+	// 이미지 인덱스 정보
+	fwrite(&m_iImgIdx, sizeof(int), 1, _pFile);
+}
+
+void CTile::Load(FILE* _pFile)
+{
+	// 위치
+	Vec2 vPos;
+	fread(&vPos, sizeof(Vec2), 1, _pFile);
+	SetPos(vPos);
+
+	// 아틀라스 이미지 정보
+	bool bAtlas = false;
+	fread(&bAtlas, sizeof(bool), 1, _pFile);
+
+	if (bAtlas)
+	{
+		// 키값, 경로 불러오기
+		wstring strKey, strRelativePath;
+		LoadWString(strKey, _pFile);
+		LoadWString(strRelativePath, _pFile);
+
+		// 불러온 정보로 텍스처 로딩
+		m_pAtlas = CResMgr::GetInst()->LoadTexture(strKey, strRelativePath);
+	}
+
+	// 이미지 인덱스 정보
+	fread(&m_iImgIdx, sizeof(int), 1, _pFile);
+}
+
 void CTile::SetImgIdx(int _iImgIdx)
 {
 	assert(m_pAtlas);
@@ -56,4 +109,18 @@ void CTile::SetImgIdx(int _iImgIdx)
 	assert(iImgMaxCount > _iImgIdx);
 
 	m_iImgIdx = _iImgIdx;
+}
+
+void CTile::AddImgIdx()
+{
+	assert(m_pAtlas);
+
+	int iCol = m_pAtlas->GetWidth() / TILE_SIZE;
+	int iRow = m_pAtlas->GetHeight() / TILE_SIZE;
+	int iImgMaxCount = iCol * iRow;
+
+	++m_iImgIdx;
+
+	if (iImgMaxCount <= m_iImgIdx)
+		m_iImgIdx = 0;
 }

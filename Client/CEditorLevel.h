@@ -1,9 +1,24 @@
 #pragma once
 #include "CLevel.h"
 
+enum class EEDITOR_MODE
+{
+    TILE,
+    ANIMATINON,
+    OBJECT,
+
+
+    NONE
+};
+
 class CEditorLevel :
     public CLevel
 {
+private:
+    HMENU m_hMenu;
+
+    EEDITOR_MODE m_eMode;
+
 public:
     CEditorLevel();
     ~CEditorLevel();
@@ -16,5 +31,13 @@ public:
     virtual void Tick() override;
     virtual void Enter()    override;
     virtual void Exit() override;
+
+private:
+    void Update();
+    void Tile_Update();
+
+public:
+    void SaveTile();
+    void LoadTile();
 };
 

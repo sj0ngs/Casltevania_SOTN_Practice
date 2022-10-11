@@ -16,6 +16,8 @@ public:
 
     HDC GetDC() { return m_hDC; }
 
+    void Resize(UINT _iWidth, UINT _iHeight);
+
 public:
     CTexture();
     ~CTexture();

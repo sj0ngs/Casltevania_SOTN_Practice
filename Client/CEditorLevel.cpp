@@ -8,15 +8,21 @@
 #include "CResMgr.h"
 #include "CCamera.h"
 #include "CLevelMgr.h"
+#include "CPathMgr.h"
 
+#include "CTexture.h"
 #include "CTile.h"
 
-CEditorLevel::CEditorLevel()
+CEditorLevel::CEditorLevel()	:
+	m_hMenu(nullptr),
+	m_eMode(EEDITOR_MODE::TILE)
 {
 }
 
 CEditorLevel::~CEditorLevel()
 {
+	if(nullptr != m_hMenu)
+		DestroyMenu(m_hMenu);
 }
 
 void CEditorLevel::Init()
@@ -44,25 +50,140 @@ void CEditorLevel::Tick()
 {
 	CLevel::Tick();
 
-	if (IS_TAP(EKEY::key0))
+	if (IS_TAP(EKEY::ENTER))
 	{
 		ChangeLevel(ELEVEL_TYPE::START);
 	}
+
+	if (IS_TAP(EKEY::key1))
+		m_eMode = EEDITOR_MODE::TILE;
+	if (IS_TAP(EKEY::key2))
+		m_eMode = EEDITOR_MODE::ANIMATINON;
+	if (IS_TAP(EKEY::key3))
+		m_eMode = EEDITOR_MODE::OBJECT;
+	if (IS_TAP(EKEY::key0))
+		m_eMode = EEDITOR_MODE::NONE;
+
+	Update();
 }
 
 void CEditorLevel::Enter()
 {
+	// 메뉴바 생성
+	if (nullptr == m_hMenu)
+		m_hMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_CLIENT));
+
+	HWND hWnd = CEngine::GetInst()->GetMainWnd();
+	SetMenu(hWnd, m_hMenu);
+	
+	POINT ptResolution = CEngine::GetInst()->GetResolution();
+	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
+
 	Init();
 }
 
 void CEditorLevel::Exit()
 {
+	HWND hWnd = CEngine::GetInst()->GetMainWnd();
+	SetMenu(hWnd, nullptr);
+
+	POINT ptResolution = CEngine::GetInst()->GetResolution();
+	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
 }
 
+void CEditorLevel::Update()
+{
+	switch (m_eMode)
+	{
+	case EEDITOR_MODE::TILE:
+		Tile_Update();
+		break;
+	case EEDITOR_MODE::ANIMATINON:
 
+		break;
+	case EEDITOR_MODE::OBJECT:
 
+		break;
+	case EEDITOR_MODE::NONE:
+		return;
+	}
+}
 
+void CEditorLevel::Tile_Update()
+{
+	if (IS_TAP(EKEY::LBTN))
+	{
+		// 마우스 위치를 받아서 실제좌표로 변환
+		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 
+		int iCol = (int)vMousePos.x / TILE_SIZE;
+		int iRow = (int)vMousePos.y / TILE_SIZE;
+
+		if (0.f <= vMousePos.x && (int)GetTileXCount() > iCol &&
+			0.f <= vMousePos.y && (int)GetTileYCount() > iRow)
+		{
+			int iIdx = iRow * GetTileXCount() + iCol;
+
+			const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+			((CTile*)vecTile[iIdx])->AddImgIdx();
+		}
+	}
+
+	if (IS_TAP(EKEY::key8))
+		SaveTile();
+
+	if (IS_TAP(EKEY::key9))
+		LoadTile();
+}
+
+void CEditorLevel::SaveTile()
+{
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
+	strFilePath += L"tile\\test.tile";
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
+
+	// 타일 가로 새로 개수 저장
+	UINT iTileXCount = GetTileXCount();
+	UINT iTileYCount = GetTileYCount();
+
+	fwrite(&iTileXCount, sizeof(UINT), 1, pFile);
+	fwrite(&iTileYCount, sizeof(UINT), 1, pFile);
+
+	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+	for (size_t i = 0; i < vecTile.size(); i++)
+	{
+		((CTile*)vecTile[i])->Save(pFile);
+	}
+
+	fclose(pFile);
+}
+
+void CEditorLevel::LoadTile()
+{
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
+	strFilePath += L"tile\\test.tile";
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strFilePath.c_str(), L"rb");
+
+	// 타일 가로 새로 불러오고 타일 생성
+	UINT iTileXCount = 0, iTileYCount = 0;
+
+	fread(&iTileXCount, sizeof(UINT), 1, pFile);
+	fread(&iTileYCount, sizeof(UINT), 1, pFile);
+
+	CreateTile(iTileXCount, iTileYCount);
+
+	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+	for (size_t i = 0; i < vecTile.size(); i++)
+	{
+		((CTile*)vecTile[i])->Load(pFile);
+	}
+
+	fclose(pFile);
+}
 
 
 // ======================
@@ -79,7 +200,7 @@ INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDOK)
 		{
-			// 입력된 숫자 받아오기
+			// edit control에서 입력된 숫자 받아오기
 			int iTileXCount =  GetDlgItemInt(hDlg, IDC_EDIT1, nullptr, true);
 			int iTileYCount =  GetDlgItemInt(hDlg, IDC_EDIT2, nullptr, true);
 
@@ -89,9 +210,19 @@ INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 				return (INT_PTR)TRUE;
 			}
 
+			// 지정된 숫자로 타일을 새로 생성한다
 			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
-
 			pCurLevel->CreateTile(iTileXCount, iTileYCount);
+
+			// 각 타일에다가 사용할 아틀라스 이미지 및 인덱스 설정
+			CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
+
+			const vector<CObj*>& vecTile = pCurLevel->GetLayer(ELAYER::TILE);
+			for (size_t i = 0; i < vecTile.size(); i++)
+			{
+				((CTile*)vecTile[i])->SetAtlas(pTex);
+				((CTile*)vecTile[i])->SetImgIdx(0);
+			}
 
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;

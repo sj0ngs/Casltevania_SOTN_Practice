@@ -30,11 +30,16 @@ int g_arrVK[(UINT)EKEY::END] =
 	'D',
 	'F',
 
-	VK_NUMPAD0,
-	VK_NUMPAD1,
-	VK_NUMPAD2,
-	VK_NUMPAD3,
-	VK_NUMPAD4
+	'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'7',
+	'8',
+	'9'
 };
 
 CKeyMgr::CKeyMgr()	:

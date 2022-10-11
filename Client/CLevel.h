@@ -13,6 +13,10 @@ private:
     UINT                m_iTileYCount;
 
 public:
+    UINT GetTileXCount()    const { return m_iTileXCount; }
+    UINT GetTileYCount()    const { return m_iTileYCount; }
+
+public:
     CLONE_DEACTIVATE(CLevel);
 
 public:
