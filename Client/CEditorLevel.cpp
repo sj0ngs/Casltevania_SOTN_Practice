@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "CEditorLevel.h"
 
+#include "resource.h"
+
 #include "CEngine.h"
 #include "CKeyMgr.h"
 #include "CResMgr.h"
 #include "CCamera.h"
+#include "CLevelMgr.h"
 
 #include "CTile.h"
 
@@ -74,7 +77,26 @@ INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 		return (INT_PTR)TRUE;
 
 	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		if (LOWORD(wParam) == IDOK)
+		{
+			// 입력된 숫자 받아오기
+			int iTileXCount =  GetDlgItemInt(hDlg, IDC_EDIT1, nullptr, true);
+			int iTileYCount =  GetDlgItemInt(hDlg, IDC_EDIT2, nullptr, true);
+
+			if (!(iTileXCount && iTileYCount))
+			{
+				MessageBox(nullptr, L"타일 개수를 지정하세요.", L"타일 생성 오류", MB_OK);
+				return (INT_PTR)TRUE;
+			}
+
+			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
+
+			pCurLevel->CreateTile(iTileXCount, iTileYCount);
+
+			EndDialog(hDlg, LOWORD(wParam));
+			return (INT_PTR)TRUE;
+		}
+		else if(LOWORD(wParam) == IDCANCEL)
 		{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;

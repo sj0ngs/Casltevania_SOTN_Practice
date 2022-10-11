@@ -238,10 +238,6 @@ void CPlayer::ChangeAnim()
 
 
 
-
-
-
-
 // ====================
 // MISSILE_MAKE_EXAMPLE
 // ====================
