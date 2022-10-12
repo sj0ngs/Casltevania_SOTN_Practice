@@ -4,7 +4,6 @@
 class CStartLevel :
     public CLevel
 {
-
 public:
     CStartLevel();
     ~CStartLevel();

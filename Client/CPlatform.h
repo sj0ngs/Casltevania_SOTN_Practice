@@ -1,6 +1,15 @@
 #pragma once
 #include "CObj.h"
 
+enum class EPLATFORM_STATUS
+{
+	NONE,
+	UP,
+	LEFT,
+	RIGHT,
+	DOWN
+};
+
 class CPlayer;
 
 class CPlatform	:
@@ -16,6 +25,8 @@ private:
 	Vec2 m_vRightTop;
 	Vec2 m_vLeftDown;
 	Vec2 m_vRightDown;
+
+	map<UINT, EPLATFORM_STATUS> m_mapPlatformStatus;
 
 	EPLATFORM_STATUS m_PlatformStatus;
 

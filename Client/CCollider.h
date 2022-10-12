@@ -16,15 +16,12 @@ private:
 
 public:
     void SetOffsetPos(Vec2 _vOffsetPos) { m_vOffsetPos = _vOffsetPos; }
-
     Vec2 GetOffsetPos() { return m_vOffsetPos; }
 
     void SetFinalPos(Vec2 _vFinalPos) { m_vFinalPos = _vFinalPos; }
-
     Vec2 GetFinalPos() { return m_vFinalPos; }
 
     void SetScale(Vec2 _vScale) { m_vScale = _vScale; }
-
     Vec2 GetScale() { return m_vScale; }
 
 public:

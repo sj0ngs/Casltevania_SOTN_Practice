@@ -76,12 +76,3 @@ enum class ECAMERA_EFFECT
 	FADE_OUT,
 	FADE_IN
 };
-
-enum class EPLATFORM_STATUS
-{
-	NONE,
-	UP,
-	LEFT,
-	RIGHT,
-	DOWN
-};

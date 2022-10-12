@@ -40,7 +40,7 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 	
 	Vec2 vDir = vPlayerPos - vPlayerPrevPos;
 
-	// 추락중일 때
+	// 플레이어가 추락 중일 때
 	if (0.f < vDir.y)
 	{
 		// 윗변에 교점이 생겼다면 종료
@@ -80,7 +80,8 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 			return;
 		}
 	}
-	else
+	// 벽에 부딪혔을때
+	else if(0.f == vDir.y)
 	{
 		// 왼쪽에서 접근했을 때
 		if (0.f < vDir.x)
@@ -94,6 +95,11 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 			RightCheck(pPlayer);
 			return;
 		}
+	}
+	// 처음부터 플랫폼이랑 겹쳤을 때(디버그용)
+	else
+	{
+		m_mapPlatformStatus.insert(make_pair(pPlayer->GetId(), EPLATFORM_STATUS::NONE));
 	}
 
 	//if (0.f < fDir)
@@ -122,11 +128,39 @@ void CPlatform::EndOverlap(CCollider* _pOther)
 	if (nullptr == pPlayer)
 		return;
 
-	if (m_PlatformStatus == EPLATFORM_STATUS::UP)
+	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pPlayer->GetId());
+
+	switch (iter->second)
+	{
+	case EPLATFORM_STATUS::UP:
 	{
 		pPlayer->GetRigidBody()->OffGround();
-		m_PlatformStatus = EPLATFORM_STATUS::NONE;
 	}
+		break;
+	case EPLATFORM_STATUS::LEFT:
+	{
+		int iMoveState = pPlayer->GetMoveState();
+		iMoveState ^= RIGHT_BLOCK;
+		pPlayer->SetMoveState(iMoveState);
+	}
+		break;
+	case EPLATFORM_STATUS::RIGHT:
+	{
+		int iMoveState = pPlayer->GetMoveState();
+		iMoveState ^= LEFT_BLOCK;
+		pPlayer->SetMoveState(iMoveState);
+	}
+		break;
+	case EPLATFORM_STATUS::DOWN:
+	{
+		int iMoveState = pPlayer->GetMoveState();
+		iMoveState ^= UP_BLOCK;
+		pPlayer->SetMoveState(iMoveState);
+	}
+		break;
+	}
+
+	m_mapPlatformStatus.erase(iter);
 }
 
 void CPlatform::SetPoint()
@@ -158,6 +192,8 @@ bool CPlatform::UpCheck(CPlayer* _pPlayer)
 		&& (m_vRightTop.x + vPlayerScale.x / 2.f) >= vUPMeetPoint.x)
 	{
 		_pPlayer->GetRigidBody()->OnGround();
+		_pPlayer->ResetJump();
+		m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::UP));
 
 		float fDist = fabsf(GetPos().y - vPlayerPos.y);
 		float fLength = GetCollider()->GetScale().y / 2.f;
@@ -168,7 +204,6 @@ bool CPlatform::UpCheck(CPlayer* _pPlayer)
 			vPlayerPos.y -= (fLength - fDist);
 			_pPlayer->SetPos(vPlayerPos);
 		}
-		m_PlatformStatus = EPLATFORM_STATUS::UP;
 		return true;
 	}
 
@@ -196,15 +231,17 @@ bool CPlatform::DownCheck(CPlayer* _pPlayer)
 		float fDist = fabsf(GetPos().y - vPlayerPos.y);
 		float fLength = GetCollider()->GetScale().y / 2.f;
 
+		int iMoveState = _pPlayer->GetMoveState();
+		iMoveState |= UP_BLOCK;
+		_pPlayer->SetMoveState(iMoveState);
+
+		m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::DOWN));
+
 		if (fLength > fDist)
 		{
 			vPlayerPos.y += vPlayerScale.y / 2.f;
-			vPlayerPos.y += (fLength - fDist + 1.f);
+			vPlayerPos.y += (fLength - fDist);
 			_pPlayer->SetPos(vPlayerPos);
-			Vec2 Veclocity = _pPlayer->GetRigidBody()->GetVelocity();
-			Veclocity.y = 0.f;
-			_pPlayer->GetRigidBody()->SetVelocity(Veclocity);
-
 		}
 		return true;
 	}
@@ -219,13 +256,16 @@ void CPlatform::LeftCheck(CPlayer* _pPlayer)
 	float fDist = fabsf(GetPos().x - vPlayerPos.x);
 	float fLength = (GetCollider()->GetScale().x + vPlayerScale.x) / 2.f;
 
+	int iMoveState = _pPlayer->GetMoveState();
+	iMoveState |= RIGHT_BLOCK;
+	_pPlayer->SetMoveState(iMoveState);
+	
+	m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::LEFT));
+
 	if (fLength > fDist)
 	{
-		vPlayerPos.x -= (fLength - fDist + 1.f);
+		vPlayerPos.x -= (fLength - fDist);
 		_pPlayer->SetPos(vPlayerPos);
-		Vec2 Veclocity = _pPlayer->GetRigidBody()->GetVelocity();
-		Veclocity.x = 0.f;
-		_pPlayer->GetRigidBody()->SetVelocity(Veclocity);
 	}
 }
 
@@ -237,12 +277,15 @@ void CPlatform::RightCheck(CPlayer* _pPlayer)
 	float fDist = fabsf(GetPos().x - vPlayerPos.x);
 	float fLength = (GetCollider()->GetScale().x + vPlayerScale.x) / 2.f;
 
+	int iMoveState = _pPlayer->GetMoveState();
+	iMoveState |= LEFT_BLOCK;
+	_pPlayer->SetMoveState(iMoveState);
+
+	m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::RIGHT));
+
 	if (fLength > fDist)
 	{
-		vPlayerPos.x += (fLength - fDist + 1.f);
+		vPlayerPos.x += (fLength - fDist);
 		_pPlayer->SetPos(vPlayerPos);
-		Vec2 Veclocity = _pPlayer->GetRigidBody()->GetVelocity();
-		Veclocity.x = 0.f;
-		_pPlayer->GetRigidBody()->SetVelocity(Veclocity);
 	}
 }

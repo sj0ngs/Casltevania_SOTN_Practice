@@ -1,6 +1,7 @@
 #pragma once
 #include "CComponent.h"
 
+// 강체는 중력만 구현한다
 class CObj;
 class CRigidBody :
     public CComponent
