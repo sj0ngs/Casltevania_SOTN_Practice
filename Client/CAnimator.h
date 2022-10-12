@@ -23,6 +23,7 @@ public:
 
 public:
     virtual void Tick() override;
+    virtual void Final_Tick()   override;
     virtual void Render(HDC _hDC)   override;
 
 public:

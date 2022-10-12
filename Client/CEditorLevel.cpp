@@ -12,6 +12,8 @@
 
 #include "CTexture.h"
 #include "CTile.h"
+#include "CUI.h"
+#include "CButton.h"
 
 CEditorLevel::CEditorLevel()	:
 	m_hMenu(nullptr),
@@ -30,6 +32,12 @@ void CEditorLevel::Init()
 	// 카메라 시점
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
+
+	// UI 배치
+	CUI* pButtonUI = new CButton;
+	pButtonUI->SetScale(Vec2(100.f, 50.f));
+	pButtonUI->SetPos(Vec2(vResolution.x - pButtonUI->GetScale().x - 10.f, 10.f));
+	AddObj(pButtonUI, ELAYER::UI);
 
 	// 타일이 사용할 아틀라스 이미지 설정
 	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
@@ -138,11 +146,36 @@ void CEditorLevel::Tile_Update()
 
 void CEditorLevel::SaveTile()
 {
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += L"tile\\test.tile";
+	// open a file name
+	OPENFILENAME ofn = {};
+
+	wstring strTileFolderPath = CPathMgr::GetInst()->GetContentPath();
+	strTileFolderPath += L"tile\\";
+
+	// 탐색기로 설정한 위치의 경로 값이 들어간다
+	wchar_t szFilePath[256] = {};
+
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	// 파일 필터를 세팅할 수 있다
+	ofn.lpstrFilter = L"Tile\0*.tile\0ALL\0*.*";
+	// 최초에 보여줄 파일 세팅의 인덱스
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
+	ofn.lpstrInitialDir = strTileFolderPath.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetSaveFileName(&ofn))
+		return;
 
 	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
+	_wfopen_s(&pFile, szFilePath, L"wb");
 
 	if (nullptr != pFile)
 	{
@@ -165,11 +198,36 @@ void CEditorLevel::SaveTile()
 
 void CEditorLevel::LoadTile()
 {
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += L"tile\\test.tile";
+	// open a file name
+	OPENFILENAME ofn = {};
+
+	wstring strTileFolderPath = CPathMgr::GetInst()->GetContentPath();
+	strTileFolderPath += L"tile\\";
+
+	// 탐색기로 설정한 위치의 경로 값이 들어간다
+	wchar_t szFilePath[256] = {};
+
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	// 파일 필터를 세팅할 수 있다
+	ofn.lpstrFilter = L"Tile\0*.tile\0ALL\0*.*";
+	// 최초에 보여줄 파일 세팅의 인덱스
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
+	ofn.lpstrInitialDir = strTileFolderPath.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetOpenFileName(&ofn))
+		return;
 
 	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strFilePath.c_str(), L"rb");
+	_wfopen_s(&pFile, szFilePath, L"rb");
 	
 	if (nullptr != pFile)
 	{

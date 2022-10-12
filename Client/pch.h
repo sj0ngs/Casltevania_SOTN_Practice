@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#include <commdlg.h>
 #include <tchar.h>
 #include <crtdbg.h>
 

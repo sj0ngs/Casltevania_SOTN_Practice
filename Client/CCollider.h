@@ -34,6 +34,7 @@ public:
 
 public:
     virtual void Tick() override;
+    virtual void Final_Tick()   override;
     virtual void Render(HDC _DC)   override;
 
 public:

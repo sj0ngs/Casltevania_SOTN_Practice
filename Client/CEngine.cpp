@@ -9,6 +9,7 @@
 #include "CPathMgr.h"
 #include "CCamera.h"
 #include "CResMgr.h"
+#include "CUIMgr.h"
 
 #include "CTexture.h"
 
@@ -65,6 +66,9 @@ void CEngine::Tick()
 
 	// 변경점 기반 충돌체크
 	CCollisionMgr::GetInst()->Tick();
+
+	// UI 처리
+	CUIMgr::GetInst()->Tick();
 }
 
 void CEngine::Render()

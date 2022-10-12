@@ -100,8 +100,11 @@
     <Filter Include="Game\04. Object\UI">
       <UniqueIdentifier>{4238b155-0ea3-4634-a8ce-afb87bf6fee5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\02. Mananger\08.UIManager">
+    <Filter Include="Game\02. Mananger\08. UIManager">
       <UniqueIdentifier>{640b7abc-b304-4db9-8800-d7496c4d8c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\UI\Button">
+      <UniqueIdentifier>{c2eca512-903e-4aa0-8132-ff4d815748a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +223,10 @@
       <Filter>Game\04. Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="CUIMgr.h">
-      <Filter>Game\02. Mananger\08.UIManager</Filter>
+      <Filter>Game\02. Mananger\08. UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CButton.h">
+      <Filter>Game\04. Object\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +336,10 @@
       <Filter>Game\04. Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="CUIMgr.cpp">
-      <Filter>Game\02. Mananger\08.UIManager</Filter>
+      <Filter>Game\02. Mananger\08. UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CButton.cpp">
+      <Filter>Game\04. Object\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
