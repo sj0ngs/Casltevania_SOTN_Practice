@@ -97,6 +97,12 @@
     <Filter Include="Game\04. Object\TIle">
       <UniqueIdentifier>{66ac63ed-c75e-44a1-9ccf-4a218652be0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\UI">
+      <UniqueIdentifier>{4238b155-0ea3-4634-a8ce-afb87bf6fee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\02. Mananger\08.UIManager">
+      <UniqueIdentifier>{640b7abc-b304-4db9-8800-d7496c4d8c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -210,6 +216,12 @@
     <ClInclude Include="CTile.h">
       <Filter>Game\04. Object\TIle</Filter>
     </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>Game\04. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIMgr.h">
+      <Filter>Game\02. Mananger\08.UIManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -313,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>Game\04. Object\TIle</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>Game\04. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIMgr.cpp">
+      <Filter>Game\02. Mananger\08.UIManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

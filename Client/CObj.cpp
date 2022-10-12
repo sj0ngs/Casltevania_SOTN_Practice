@@ -91,14 +91,14 @@ void CObj::Tick()
 
 void CObj::Final_Tick()
 {
-	if (nullptr != m_pCollider)
-		m_pCollider->Final_Tick();
+	if (nullptr != m_pRigidBody)
+		m_pRigidBody->Final_Tick();
 
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Final_Tick();
 
-	if (nullptr != m_pRigidBody)
-		m_pRigidBody->Final_Tick();
+	if (nullptr != m_pCollider)
+		m_pCollider->Final_Tick();
 }
 
 void CObj::Render(HDC _DC)

@@ -144,20 +144,23 @@ void CEditorLevel::SaveTile()
 	FILE* pFile = nullptr;
 	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
 
-	// 타일 가로 새로 개수 저장
-	UINT iTileXCount = GetTileXCount();
-	UINT iTileYCount = GetTileYCount();
-
-	fwrite(&iTileXCount, sizeof(UINT), 1, pFile);
-	fwrite(&iTileYCount, sizeof(UINT), 1, pFile);
-
-	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
-	for (size_t i = 0; i < vecTile.size(); i++)
+	if (nullptr != pFile)
 	{
-		((CTile*)vecTile[i])->Save(pFile);
-	}
+		// 타일 가로 새로 개수 저장
+		UINT iTileXCount = GetTileXCount();
+		UINT iTileYCount = GetTileYCount();
 
-	fclose(pFile);
+		fwrite(&iTileXCount, sizeof(UINT), 1, pFile);
+		fwrite(&iTileYCount, sizeof(UINT), 1, pFile);
+
+		const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+		for (size_t i = 0; i < vecTile.size(); i++)
+		{
+			((CTile*)vecTile[i])->Save(pFile);
+		}
+
+		fclose(pFile);
+	}
 }
 
 void CEditorLevel::LoadTile()
@@ -167,22 +170,25 @@ void CEditorLevel::LoadTile()
 
 	FILE* pFile = nullptr;
 	_wfopen_s(&pFile, strFilePath.c_str(), L"rb");
-
-	// 타일 가로 새로 불러오고 타일 생성
-	UINT iTileXCount = 0, iTileYCount = 0;
-
-	fread(&iTileXCount, sizeof(UINT), 1, pFile);
-	fread(&iTileYCount, sizeof(UINT), 1, pFile);
-
-	CreateTile(iTileXCount, iTileYCount);
-
-	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
-	for (size_t i = 0; i < vecTile.size(); i++)
+	
+	if (nullptr != pFile)
 	{
-		((CTile*)vecTile[i])->Load(pFile);
-	}
+		// 타일 가로 새로 불러오고 타일 생성
+		UINT iTileXCount = 0, iTileYCount = 0;
 
-	fclose(pFile);
+		fread(&iTileXCount, sizeof(UINT), 1, pFile);
+		fread(&iTileYCount, sizeof(UINT), 1, pFile);
+
+		CreateTile(iTileXCount, iTileYCount);
+
+		const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+		for (size_t i = 0; i < vecTile.size(); i++)
+		{
+			((CTile*)vecTile[i])->Load(pFile);
+		}
+
+		fclose(pFile);
+	}
 }
 
 

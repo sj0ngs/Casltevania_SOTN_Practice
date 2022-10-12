@@ -60,6 +60,7 @@ enum class ELAYER
 	FORCE,
 	PLATFORM,
 
+	UI = 15,
 	END = 16
 };
 
