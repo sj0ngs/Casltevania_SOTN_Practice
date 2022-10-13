@@ -12,6 +12,7 @@ private:
 public:
     void SetCameraAffected(bool _bSet) { m_bCmrAfctd = _bSet; }
     bool IsMouseOn() const { return m_bMouseOn; }
+    bool IsLbtnDown() const { return m_bLbtnDown; }
 
 public:
     CLONE(CUI);

@@ -87,15 +87,21 @@ void CPlayer::Tick()
 		{
 			m_iFaceDir = -1;
 			if (m_iPrevFaceDir == m_iFaceDir)
-				m_eState = EPLAYER_ANIM_STATE::WALK_START_LEFT;
+			{
+				GetAnimator()->Play(L"Walk_Start_Left", false);
+				//m_eState = EPLAYER_ANIM_STATE::WALK_START_LEFT;
+			}
 			else
 				m_eState = EPLAYER_ANIM_STATE::TURN_AROUND_LEFT;
 		}
 		else if (IS_TAP(EKEY::RIGHT))
 		{
 			m_iFaceDir = 1;
-			if (m_iPrevFaceDir == m_iFaceDir)	
-				m_eState = EPLAYER_ANIM_STATE::WALK_START_RIGHT;
+			if (m_iPrevFaceDir == m_iFaceDir)
+			{
+				GetAnimator()->Play(L"Walk_Start_Right", false);
+				//m_eState = EPLAYER_ANIM_STATE::WALK_START_RIGHT;
+			}
 			else
 				m_eState = EPLAYER_ANIM_STATE::TURN_AROUND_RIGHT;
 		}
@@ -110,6 +116,36 @@ void CPlayer::Tick()
 			GetRigidBody()->SetGravity(false);
 			GetRigidBody()->OffGround();
 			m_eState = EPLAYER_ANIM_STATE::JUMP;
+		}
+		// 왼쪽 이동
+		else if (IS_PRESSED(EKEY::LEFT))
+		{
+			m_fRunStartAcc += DELTATIME;
+			if (0.9f < m_fRunStartAcc)
+			{
+				m_iFaceDir = -1;
+				GetAnimator()->Play(L"Walk_Left", true);
+				//m_eState = EPLAYER_ANIM_STATE::WALK_LEFT;
+			}
+			
+			// 왼쪽 이동 방해 상태가 아니라면 이동
+			if(!(LEFT_BLOCK & m_iMoveState))
+				vPos.x -= m_fSpeed * DELTATIME;
+		}
+		// 오른쪽 이동
+		else if (IS_PRESSED(EKEY::RIGHT))
+		{
+			m_fRunStartAcc += DELTATIME;
+			if (0.9f < m_fRunStartAcc)
+			{
+				m_iFaceDir = 1;
+				GetAnimator()->Play(L"Walk_Right", true);
+				//m_eState = EPLAYER_ANIM_STATE::WALK_RIGHT;
+			}
+
+			// 오른쪽 이동 방해 상태가 아니라면 이동
+			if(!(RIGHT_BLOCK & m_iMoveState))
+				vPos.x += m_fSpeed * DELTATIME;
 		}
 		// 숙이면 콜리전 크기와 오프셋을 변경해주고 이동 상태를 변경해준다
 		else if (IS_TAP(EKEY::DOWN))
@@ -129,32 +165,19 @@ void CPlayer::Tick()
 			m_eState = EPLAYER_ANIM_STATE::DUCK_UP;
 			m_iMoveState ^= DUCK;
 		}
-		// 왼쪽 이동
-		else if (IS_PRESSED(EKEY::LEFT))
+		else if (IS_TAP(EKEY::LSHIFT))
 		{
-			m_fRunStartAcc += DELTATIME;
-			if (0.9f < m_fRunStartAcc)
-				m_eState = EPLAYER_ANIM_STATE::WALK_LEFT;
-			
-			// 왼쪽 이동 방해 상태가 아니라면 이동
-			if(!(LEFT_BLOCK & m_iMoveState))
-				vPos.x -= m_fSpeed * DELTATIME;
-		}
-		// 오른쪽 이동
-		else if (IS_PRESSED(EKEY::RIGHT))
-		{
-			m_fRunStartAcc += DELTATIME;
-			if (0.9f < m_fRunStartAcc)
-				m_eState = EPLAYER_ANIM_STATE::WALK_RIGHT;
 
-			// 오른쪽 이동 방해 상태가 아니라면 이동
-			if(!(RIGHT_BLOCK & m_iMoveState))
-				vPos.x += m_fSpeed * DELTATIME;
 		}
+		// 아무 키도 입력되지 않으면 아이들
 		else if (CKeyMgr::GetInst()->IsNoEnter())
 		{
 			m_fRunStartAcc = 0.f;
-			m_eState = EPLAYER_ANIM_STATE::IDLE1;
+			//m_eState = EPLAYER_ANIM_STATE::IDLE1;
+			if (1 == m_iFaceDir)
+				GetAnimator()->Play(L"Idle_Right", true);
+			else if (-1 == m_iFaceDir)
+				GetAnimator()->Play(L"Idle_Left", true);
 		}
 	}
 	// 공중에 있을 때
@@ -204,13 +227,13 @@ void CPlayer::Tick()
 	}
 	
 	// 애니메이션 상태의 변화가 있었을 때 해당 애니메이션을 play 해준다
-	ChangeAnim();
+	//ChangeAnim();
 
 	// 부모 오브젝트의 Tick도 실행시킨다(Component Tick을 실행시키기 위해)
 	CObj::Tick();
 
 	// 이전 프레임 플레이어 정보들 저장(나중에 구조제로 관리 할수도 있음)
-	m_ePrevState = m_eState;
+	//m_ePrevState = m_eState;
 	m_iPrevFaceDir = m_iFaceDir;
 	m_vPrevPos = GetPos();
 

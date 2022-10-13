@@ -13,6 +13,8 @@
 #define IDC_CLIENT                      109
 #define IDR_MAINFRAME                   128
 #define IDD_TILECOUNT                   129
+#define IDD_DIALOG1                     131
+#define IDD_ANIMATION                   131
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define ID_32771                        32771
@@ -28,7 +30,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        130
+#define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           110

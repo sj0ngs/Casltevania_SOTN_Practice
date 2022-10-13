@@ -14,8 +14,7 @@ CPlatform::CPlatform()	:
 	m_vLeftTop{},
 	m_vRightTop{},
 	m_vLeftDown{},
-	m_vRightDown{},
-	m_PlatformStatus(EPLATFORM_STATUS::NONE)
+	m_vRightDown{}
 {
 	CreateCollider();
 
@@ -129,6 +128,9 @@ void CPlatform::EndOverlap(CCollider* _pOther)
 		return;
 
 	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pPlayer->GetId());
+
+	if (iter == m_mapPlatformStatus.end())
+		return;
 
 	switch (iter->second)
 	{

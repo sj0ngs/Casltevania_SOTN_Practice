@@ -4,12 +4,19 @@
 #include "CLevelMgr.h"
 #include "CEditorLevel.h"
 
-CButton::CButton()
+CButton::CButton()	:
+	m_pInst(nullptr),
+	m_pDelegateFunc(nullptr)
 {
 }
 
 CButton::~CButton()
 {
+}
+
+void CButton::Render(HDC _DC)
+{
+	CUI::Render(_DC);
 }
 
 void CButton::MouseLbtnClicked()
@@ -20,4 +27,9 @@ void CButton::MouseLbtnClicked()
 	//	return;
 
 	//pLevel->SaveTile();
+
+	if (m_pInst && m_pDelegateFunc)
+	{
+		(m_pInst->*m_pDelegateFunc)();
+	}
 }

@@ -3,6 +3,7 @@
 
 class CTexture;
 class CAnimator;
+
 class CAnimation :
     public CEntity
 {

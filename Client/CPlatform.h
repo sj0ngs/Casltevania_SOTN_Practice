@@ -28,8 +28,7 @@ private:
 
 	map<UINT, EPLATFORM_STATUS> m_mapPlatformStatus;
 
-	EPLATFORM_STATUS m_PlatformStatus;
-
+	// 플랫폼 스테이터스 벡터 때문에 복사 생성자 따로 만들어 줘야함
 public:
 	CLONE(CPlatform);
 

@@ -110,6 +110,9 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 		return;
 	}
 
+	if (m_pCurAnim == pAnim)
+		return;
+
 	// 현재 애니메이션을 찾은 애니메이션으로 지정한다
 	m_pCurAnim = pAnim;
 

@@ -34,10 +34,16 @@ void CEditorLevel::Init()
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
 
 	// UI 배치
-	CUI* pButtonUI = new CButton;
-	pButtonUI->SetScale(Vec2(100.f, 50.f));
-	pButtonUI->SetPos(Vec2(vResolution.x - pButtonUI->GetScale().x - 10.f, 10.f));
-	AddObj(pButtonUI, ELAYER::UI);
+	CButton* pSaveTileButton = new CButton;
+	pSaveTileButton->SetScale(Vec2(100.f, 50.f));
+	pSaveTileButton->SetPos(Vec2(vResolution.x - pSaveTileButton->GetScale().x - 10.f, 10.f));
+	pSaveTileButton->SetDelegate(this, (DELEGATE)&CEditorLevel::SaveTile);
+	AddObj(pSaveTileButton, ELAYER::UI);
+
+	CButton* pLoadTileButton = pSaveTileButton->Clone();
+	pLoadTileButton->SetPos(Vec2(vResolution.x - pLoadTileButton->GetScale().x - 10.f, 70.f));
+	pLoadTileButton->SetDelegate(this, (DELEGATE)&CEditorLevel::LoadTile);
+	AddObj(pLoadTileButton, ELAYER::UI);
 
 	// 타일이 사용할 아틀라스 이미지 설정
 	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
