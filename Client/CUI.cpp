@@ -51,7 +51,7 @@ void CUI::Render(HDC _DC)
 	HBRUSH hPrevBrush = (HBRUSH)SelectObject(_DC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
 
 	// 카메라에 영향을 받으면(몬스터 HP 등) 랜더 포즈로 변환
-	Vec2 vPos = GetPos();
+	Vec2 vPos = GetFinalPos();
 	if (m_bCmrAfctd)
 	{
 		vPos = CCamera::GetInst()->GetRenderPos(vPos);
