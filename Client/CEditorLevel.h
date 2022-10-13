@@ -35,6 +35,9 @@ public:
 private:
     void Update();
     void Tile_Update();
+    void Animation_Update();
+    void Object_Update();
+    void CreateUI(Vec2 _vResolution);
 
 public:
     void SaveTile();

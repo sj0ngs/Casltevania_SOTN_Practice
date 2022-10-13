@@ -27,39 +27,6 @@ CEditorLevel::~CEditorLevel()
 		DestroyMenu(m_hMenu);
 }
 
-void CEditorLevel::Init()
-{
-	// 카메라 시점
-	Vec2 vResolution = CEngine::GetInst()->GetResolution();
-	CCamera::GetInst()->SetLook(vResolution / 2.f);
-
-	// UI 배치
-	CButton* pSaveTileButton = new CButton;
-	pSaveTileButton->SetScale(Vec2(100.f, 50.f));
-	pSaveTileButton->SetPos(Vec2(vResolution.x - pSaveTileButton->GetScale().x - 10.f, 10.f));
-	pSaveTileButton->SetDelegate(this, (DELEGATE)&CEditorLevel::SaveTile);
-	AddObj(pSaveTileButton, ELAYER::UI);
-
-	CButton* pLoadTileButton = pSaveTileButton->Clone();
-	pLoadTileButton->SetPos(Vec2(vResolution.x - pLoadTileButton->GetScale().x - 10.f, 70.f));
-	pLoadTileButton->SetDelegate(this, (DELEGATE)&CEditorLevel::LoadTile);
-	AddObj(pLoadTileButton, ELAYER::UI);
-
-	// 타일이 사용할 아틀라스 이미지 설정
-	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
-
-	// 타일 생성
-	CreateTile(8,6);
-
-	// 각 타일에다가 사용할 아틀라스 이미지 및 인덱스 설정
-	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);	
-	for (size_t i = 0; i < vecTile.size(); i++)
-	{
-		((CTile*)vecTile[i])->SetAtlas(pTex);
-		((CTile*)vecTile[i])->SetImgIdx((int)i);
-	}
-}
-
 void CEditorLevel::Tick()
 {
 	CLevel::Tick();
@@ -148,6 +115,14 @@ void CEditorLevel::Tile_Update()
 
 	if (IS_TAP(EKEY::key9))
 		LoadTile();
+}
+
+void CEditorLevel::Animation_Update()
+{
+}
+
+void CEditorLevel::Object_Update()
+{
 }
 
 void CEditorLevel::SaveTile()

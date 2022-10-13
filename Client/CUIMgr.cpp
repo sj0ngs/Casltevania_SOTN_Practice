@@ -29,6 +29,8 @@ void CUIMgr::Tick()
 	{
 		CUI* pUI = (CUI*)vecUI[i];
 
+		//CUI* pPriorityUI = GetPriorityUI(pParentUI);
+
 		// UI 위에 마우스가 올라와 있다
 		if (pUI->IsMouseOn())
 		{
