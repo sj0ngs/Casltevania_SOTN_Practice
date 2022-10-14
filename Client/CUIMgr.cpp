@@ -82,7 +82,7 @@ CUI* CUIMgr::GetPriorityUI(CUI* _pParentUi)
 		if (pUI->IsMouseOn())
 		{	
 			if (bLbtReleased && nullptr != pPriorityUI && pPriorityUI->IsLbtnDown())
-				pUI->m_bLbtnDown = false;
+				pPriorityUI->m_bLbtnDown = false;
 
 			pPriorityUI = pUI;
 		}

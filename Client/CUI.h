@@ -36,8 +36,6 @@ public:
         m_vecChildUI.push_back(_pChildUI);
     }
 
-
-
 public:
     CLONE(CUI);
 
