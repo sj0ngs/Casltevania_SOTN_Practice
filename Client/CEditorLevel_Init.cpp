@@ -70,4 +70,7 @@ void CEditorLevel::CreateUI(Vec2 _vResolution)
 	pPanel->AddChildUI(pSaveTileButton);
 	pPanel->AddChildUI(pLoadTileButton);
 	AddObj(pPanel, ELAYER::UI);
+
+	CUI* pOtherPanel = pPanel->Clone();
+	AddObj(pOtherPanel, ELAYER::UI);
 }

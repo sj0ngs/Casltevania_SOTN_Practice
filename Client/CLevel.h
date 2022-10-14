@@ -39,5 +39,7 @@ public:
     void DeleteObject(ELAYER _Layer);
 
     void CreateTile(UINT _X, UINT _Y);
+
+    void SetFocusedUI(CObj* _pUI);
 };
 

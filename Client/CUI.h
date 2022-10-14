@@ -28,6 +28,7 @@ public:
     bool IsLbtnDown() const { return m_bLbtnDown; }
 
     CUI* GetParentUI() const { return m_pParentUI; }
+    const vector<CUI*>& GetChildUI()  { return m_vecChildUI; }
 
     void AddChildUI(CUI* _pChildUI)
     {
@@ -35,11 +36,14 @@ public:
         m_vecChildUI.push_back(_pChildUI);
     }
 
+
+
 public:
     CLONE(CUI);
 
 public:
     CUI();
+    CUI(const CUI& _Other);
     ~CUI();
 
 public:

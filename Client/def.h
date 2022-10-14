@@ -77,3 +77,11 @@ enum class ECAMERA_EFFECT
 	FADE_OUT,
 	FADE_IN
 };
+
+enum class ECOLLIDER_TYPE : UINT8
+{
+	BOX,
+	LINE,
+	PIXEL,
+	CIRCLE
+};

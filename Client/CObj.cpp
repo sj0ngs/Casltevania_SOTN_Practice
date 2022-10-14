@@ -7,21 +7,7 @@
 #include "CCollider.h"
 #include "CAnimator.h"
 #include "CRigidBody.h"
-
-void CObj::CreateCollider()
-{
-	m_pCollider = new CCollider(this);
-}
-
-void CObj::CreateAnimator()
-{
-	m_pAnimator = new CAnimator(this);
-}
-
-void CObj::CreateRigidBody()
-{
-	m_pRigidBody = new CRigidBody(this);
-}
+#include "CLineCollider.h"
 
 // 오브젝트 dead 처리 함수
 void CObj::SetDead()
@@ -109,6 +95,36 @@ void CObj::Render(HDC _DC)
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Render(_DC);
 }
+
+void CObj::CreateCollider(ECOLLIDER_TYPE _eType)
+{
+	switch (_eType)
+	{
+	case ECOLLIDER_TYPE::BOX:
+		m_pCollider = new CCollider(this);
+		break;
+	case ECOLLIDER_TYPE::LINE:
+		m_pCollider = new CLineCollider(this);
+		break;
+	case ECOLLIDER_TYPE::PIXEL:
+		break;
+	case ECOLLIDER_TYPE::CIRCLE:
+		break;
+	default:
+		break;
+	}
+}
+
+void CObj::CreateAnimator()
+{
+	m_pAnimator = new CAnimator(this);
+}
+
+void CObj::CreateRigidBody()
+{
+	m_pRigidBody = new CRigidBody(this);
+}
+
 
 void CObj::BeginOverlap(CCollider* _pOther)
 {

@@ -109,6 +109,12 @@
     <Filter Include="Game\04. Object\UI\Panel">
       <UniqueIdentifier>{60982b1d-7727-43e3-bbb7-6ac16b290eb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\05. Component\Collider\LineCollider">
+      <UniqueIdentifier>{8d716962-9dad-4734-abb4-ba7ef2b68bcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Diagonal">
+      <UniqueIdentifier>{0ee9b08a-05a6-4c60-bc59-2e3431ecd335}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -234,6 +240,12 @@
     <ClInclude Include="CPanel.h">
       <Filter>Game\04. Object\UI\Panel</Filter>
     </ClInclude>
+    <ClInclude Include="CLineCollider.h">
+      <Filter>Game\05. Component\Collider\LineCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiagonal.h">
+      <Filter>Game\04. Object\Diagonal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -352,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="CPanel.cpp">
       <Filter>Game\04. Object\UI\Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineCollider.cpp">
+      <Filter>Game\05. Component\Collider\LineCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiagonal.cpp">
+      <Filter>Game\04. Object\Diagonal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

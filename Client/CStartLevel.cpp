@@ -12,6 +12,7 @@
 #include "CMonster.h"
 #include "CForce.h"
 #include "CPlatform.h"
+#include "CDiagonal.h"
 
 CStartLevel::CStartLevel()
 {
@@ -86,13 +87,18 @@ void CStartLevel::Tick()
 
 	if (IS_TAP(EKEY::LBTN))
 	{
-		CForce* pForce = new CForce;
-		pForce->SetLifeTime(1.5f);
-		pForce->SetForceScale(1000.f);
-		pForce->SetForceRadius(250.f);
+		//CForce* pForce = new CForce;
+		//pForce->SetLifeTime(1.5f);
+		//pForce->SetForceScale(1000.f);
+		//pForce->SetForceRadius(250.f);
 
+		//Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+		//Instantiate(pForce, vMousePos, ELAYER::FORCE);
+
+		CDiagonal* pDiagonal = new CDiagonal;
+		pDiagonal->SetScale(Vec2(200.f, -100.f));
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		Instantiate(pForce, vMousePos, ELAYER::FORCE);
+		Instantiate(pDiagonal, vMousePos, ELAYER::PLATFORM);
 	}
 
 	if (IS_TAP(EKEY::RBTN))

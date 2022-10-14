@@ -98,3 +98,25 @@ void CLevel::CreateTile(UINT _X, UINT _Y)
 		}
 	}
 }
+
+void CLevel::SetFocusedUI(CObj* _pUI)
+{
+	vector<CObj*>& vecUI = m_arrLayer[(UINT)ELAYER::UI];
+
+	if (vecUI.back() == _pUI)
+		return;
+
+	vector<CObj*>::iterator iter = vecUI.begin();
+
+	for (; iter != vecUI.end(); ++iter)
+	{
+		if ((*iter) == _pUI)
+		{
+			vecUI.erase(iter);
+			vecUI.push_back(_pUI);
+			return;
+		}
+	}
+
+	assert(nullptr);
+}

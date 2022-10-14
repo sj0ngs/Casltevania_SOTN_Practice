@@ -27,7 +27,7 @@ public:
     void SetScale(Vec2 _pt) { m_vScale = _pt; }
     Vec2 GetScale() { return m_vScale; }
 
-    void CreateCollider();
+    void CreateCollider(ECOLLIDER_TYPE _eType = ECOLLIDER_TYPE::BOX);
     CCollider* GetCollider() { return m_pCollider; }
 
     void CreateAnimator();

@@ -7,7 +7,9 @@
 #include "CLevel.h"
 #include "CUI.h"
 
-CUIMgr::CUIMgr()
+CUIMgr::CUIMgr()	:
+	m_pFocusedUI(nullptr),
+	m_pPriorityUI(nullptr)
 {
 }
 
@@ -25,27 +27,68 @@ void CUIMgr::Tick()
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
 	const vector<CObj*>& vecUI = pCurLevel->GetLayer(ELAYER::UI);
 
-	for (size_t i = 0; i < vecUI.size(); i++)
+	for (int i = (int)vecUI.size() - 1; 0 <= i; i--)
 	{
-		CUI* pUI = (CUI*)vecUI[i];
+		m_pPriorityUI = GetPriorityUI((CUI*)vecUI[i]);
 
-		//CUI* pPriorityUI = GetPriorityUI(pParentUI);
+		if (nullptr == m_pPriorityUI)
+			continue;
 
-		// UI 위에 마우스가 올라와 있다
-		if (pUI->IsMouseOn())
+		// 마우스 온 이벤트 호출
+		m_pPriorityUI->MouseOn();
+
+		// Lbtn이 눌러졌다면 UI 상태를 눌러짐으로 바꾼다
+		if (bLbtDown)
 		{
-			// 마우스 온 이벤트 호출
-			pUI->MouseOn();
+			m_pPriorityUI->MouseLbtnDown();
 
-			// Lbtn이 눌러졌다면 UI 상태를 눌러짐으로 바꾼다
-			if (bLbtDown)
-				pUI->MouseLbtnDown();
-			// Lbtn이 때졌고 UI가 눌러져 있었다면 클릭 이벤트 호출
-			if (bLbtReleased && pUI->m_bLbtnDown)
-				pUI->MouseLbtnClicked();
+			m_pFocusedUI = (CUI*)vecUI[i];
+			pCurLevel->SetFocusedUI(m_pFocusedUI);
+			break;
 		}
-		// 안 올라와 있으면 다운 초기화
-		if(bLbtReleased)
+
+		// Lbtn이 때졌고 UI가 눌러져 있었다면 클릭 이벤트 호출
+		else if (bLbtReleased && m_pPriorityUI->m_bLbtnDown)
+		{
+			m_pPriorityUI->MouseLbtnClicked();
+			m_pPriorityUI->m_bLbtnDown = false;
+		}
+	}
+}
+
+CUI* CUIMgr::GetPriorityUI(CUI* _pParentUi)
+{
+	bool bLbtReleased = IS_RELEASED(EKEY::LBTN);
+
+	CUI* pPriorityUI = nullptr;
+
+	static list<CUI*> queue;
+	queue.clear();
+	queue.push_back(_pParentUi);
+
+	while (!queue.empty())
+	{
+		CUI* pUI = queue.front();
+		queue.pop_front();
+
+		const vector<CUI*>& vecChildUI = pUI->GetChildUI();
+
+		for (size_t i = 0; i < vecChildUI.size(); i++)
+		{
+			queue.push_back(vecChildUI[i]);
+		}
+
+		// UI 상태 확인
+		if (pUI->IsMouseOn())
+		{	
+			if (bLbtReleased && nullptr != pPriorityUI && pPriorityUI->IsLbtnDown())
+				pUI->m_bLbtnDown = false;
+
+			pPriorityUI = pUI;
+		}
+		else if(bLbtReleased)
 			pUI->m_bLbtnDown = false;
 	}
+
+	return pPriorityUI;
 }

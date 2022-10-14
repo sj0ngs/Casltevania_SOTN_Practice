@@ -16,6 +16,21 @@ CUI::CUI()	:
 {
 }
 
+CUI::CUI(const CUI& _Other)		:
+	CObj(_Other),
+	m_pParentUI(nullptr),
+	m_pIdleTex(_Other.m_pIdleTex),
+	m_vFinalPos{},
+	m_bLbtnDown(false),
+	m_bMouseOn(false),
+	m_bCmrAfctd(_Other.m_bCmrAfctd)
+{
+	for (size_t i = 0; i < _Other.m_vecChildUI.size(); i++)
+	{
+		AddChildUI(_Other.m_vecChildUI[i]->Clone());
+	}
+}
+
 CUI::~CUI()
 {
 	for (size_t i = 0; i < m_vecChildUI.size(); i++)
@@ -93,7 +108,7 @@ void CUI::SetIdleTex(CTexture* _pTex)
 
 void CUI::MouseOnCheck()
 {
-	Vec2 vPos = GetPos();
+	Vec2 vPos = GetFinalPos();
 	if (m_bCmrAfctd)
 		vPos = CCamera::GetInst()->GetRenderPos(vPos);
 
