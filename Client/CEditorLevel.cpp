@@ -110,6 +110,26 @@ void CEditorLevel::Tile_Update()
 		}
 	}
 
+	// 우클릭을 누르면 타일 이미지를 없앤다
+	if (IS_TAP(EKEY::RBTN))
+	{
+		// 마우스 위치를 받아서 실제좌표로 변환
+		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+
+		int iCol = (int)vMousePos.x / TILE_SIZE;
+		int iRow = (int)vMousePos.y / TILE_SIZE;
+
+		if (0.f <= vMousePos.x && (int)GetTileXCount() > iCol &&
+			0.f <= vMousePos.y && (int)GetTileYCount() > iRow)
+		{
+			int iIdx = iRow * GetTileXCount() + iCol;
+
+			const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
+
+			((CTile*)vecTile[iIdx])->SetImgIdx(-1);
+		}
+	}
+
 	if (IS_TAP(EKEY::key8))
 		SaveTile();
 

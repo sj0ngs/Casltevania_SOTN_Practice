@@ -95,11 +95,6 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 			return;
 		}
 	}
-	// Ã³À½ºÎÅÍ ÇÃ·§ÆûÀÌ¶û °ãÃÆÀ» ¶§(µð¹ö±×¿ë)
-	else
-	{
-		m_mapPlatformStatus.insert(make_pair(pPlayer->GetId(), EPLATFORM_STATUS::NONE));
-	}
 
 	//if (0.f < fDir)
 	//{

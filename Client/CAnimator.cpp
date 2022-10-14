@@ -100,6 +100,19 @@ CAnimation* CAnimator::LoadAnimation(const wstring& _strRelativePath)
 	return pAnim;
 }
 
+bool CAnimator::IsAnimationFinish(const wstring& _strName)
+{
+	// 받아온 정보의 애니메이션이 존재하는지 확인
+	CAnimation* pAnim = FindAnimation(_strName);
+	if (nullptr == pAnim)
+	{
+		MessageBox(nullptr, L"해당 Animation 없음", L"Animation 재생 오류", MB_OK);
+		return false;
+	}
+
+	return pAnim->IsFinish();
+}
+
 void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 {
 	// 받아온 정보의 애니메이션이 존재하는지 확인

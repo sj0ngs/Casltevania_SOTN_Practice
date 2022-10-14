@@ -31,6 +31,7 @@ public:
                          Vec2 _vSize, int _iMaxFrmCount, float _fDuration);
     CAnimation* FindAnimation(const wstring& _strName);
     CAnimation* LoadAnimation(const wstring& _strRelativePath);
+    bool IsAnimationFinish(const wstring& _strName);
 
 public:
     void Play(const wstring& _strName, bool _bRepeat);

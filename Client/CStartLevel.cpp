@@ -31,9 +31,9 @@ void CStartLevel::Init()
 	pObj->SetPos(Vec2(500.f, 100.f));
 	AddObj(pObj, ELAYER::PLAYER);
 
-	//pObj = pObj->Clone();
-	//pObj->SetPos(Vec2(700.f, 100.f));
-	//AddObj(pObj, ELAYER::PLAYER);
+	pObj = pObj->Clone();
+	pObj->SetPos(Vec2(700.f, 100.f));
+	AddObj(pObj, ELAYER::PLAYER);
 
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(Vec2(300.f, 100.f));

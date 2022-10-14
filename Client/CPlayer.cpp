@@ -120,8 +120,9 @@ void CPlayer::Tick()
 		// 왼쪽 이동
 		else if (IS_PRESSED(EKEY::LEFT))
 		{
+			// walk start 애니메이션이 끝나면 재생되도록 설정
 			m_fRunStartAcc += DELTATIME;
-			if (0.9f < m_fRunStartAcc)
+			if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Left"))
 			{
 				m_iFaceDir = -1;
 				GetAnimator()->Play(L"Walk_Left", true);
@@ -136,7 +137,7 @@ void CPlayer::Tick()
 		else if (IS_PRESSED(EKEY::RIGHT))
 		{
 			m_fRunStartAcc += DELTATIME;
-			if (0.9f < m_fRunStartAcc)
+			if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Right"))
 			{
 				m_iFaceDir = 1;
 				GetAnimator()->Play(L"Walk_Right", true);
@@ -186,10 +187,10 @@ void CPlayer::Tick()
 		m_fJumpTimeAcc += DELTATIME;
 
 		// 공중에서 점프키 계속 누르고 있으면 상승
-		if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_fJumpTimeAcc)
+		if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_fJumpTimeAcc && !(m_iMoveState & UP_BLOCK))
 		{
-			if (!(UP_BLOCK & m_iMoveState))
-				vPos.y -= 400.f * DELTATIME;
+			//if(!(m_iMoveState & UP_BLOCK))
+			vPos.y -= 600.f * DELTATIME;
 		}
 		// 체공시간이 지났거나, 스페이스 바 입력을 멈추면 중력을 다시 줌
 		else
@@ -199,7 +200,7 @@ void CPlayer::Tick()
 		}
 		
 		// 공중에서 점프키 한번 더 누르면 더블 점프
-		if (IS_TAP(EKEY::SPACE) && m_bDoubleJump && !(m_iMoveState & UP_BLOCK))
+		if (IS_TAP(EKEY::SPACE) && m_bDoubleJump)
 		{
 			m_bDoubleJump = false;
 			m_fJumpTimeAcc = 0.f;
