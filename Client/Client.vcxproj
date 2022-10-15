@@ -144,7 +144,7 @@
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CComponent.h" />
-    <ClInclude Include="CDiagonal.h" />
+    <ClInclude Include="CLine.h" />
     <ClInclude Include="CEditorLevel.h" />
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEntity.h" />
@@ -154,7 +154,7 @@
     <ClInclude Include="CLevel.h" />
     <ClInclude Include="CLevelMgr.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="CLineCollider.h" />
+    <ClInclude Include="CLineCollisionMgr.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObj.h" />
@@ -189,7 +189,7 @@
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CComponent.cpp" />
-    <ClCompile Include="CDiagonal.cpp" />
+    <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CEditorLevel.cpp" />
     <ClCompile Include="CEditorLevel_Init.cpp" />
     <ClCompile Include="CEngine.cpp" />
@@ -199,7 +199,7 @@
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CLevelMgr.cpp" />
-    <ClCompile Include="CLineCollider.cpp" />
+    <ClCompile Include="CLineCollisionMgr.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObj.cpp" />

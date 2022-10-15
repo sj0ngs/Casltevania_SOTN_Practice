@@ -2,12 +2,14 @@
 #include "CEntity.h"
 
 class CObj;
+class CLine;
 
 class CLevel :
     public CEntity
 {
 private:
     std::vector<CObj*> m_arrLayer[(UINT)ELAYER::END];
+    std::vector<CLine*> m_vecLine;
 
     UINT                m_iTileXCount;
     UINT                m_iTileYCount;

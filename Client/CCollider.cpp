@@ -10,7 +10,6 @@ CCollider::CCollider(CObj* _pOwner)	:
 	m_vOffsetPos{},
 	m_vFinalPos{},
 	m_vScale{},
-	m_eColliderType(ECOLLIDER_TYPE::BOX),
 	m_iOverlapCount(0)
 {
 }
@@ -19,7 +18,6 @@ CCollider::CCollider(const CCollider& _Other)	:
 	CComponent(nullptr),
 	m_vOffsetPos(_Other.m_vOffsetPos),
 	m_vScale(_Other.m_vScale),
-	m_eColliderType(_Other.m_eColliderType),
 	m_iOverlapCount(0)
 {
 }

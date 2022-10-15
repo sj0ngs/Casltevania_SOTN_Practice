@@ -7,15 +7,15 @@ class CUI :
     public CObj
 {
 private:
-    vector<CUI*>    m_vecChildUI;
-    CUI*            m_pParentUI;
-    Vec2            m_vFinalPos;
+    vector<CUI*>    m_vecChildUI;   // 자식 ui 
+    CUI*            m_pParentUI;    // 부모 ui
+    Vec2            m_vFinalPos;    // 최상위 부모 ui 부터 오프셋을 줘서 계산한 자신의 최종 위치
 
-    CTexture*       m_pIdleTex;
-
-    bool            m_bLbtnDown;
-    bool            m_bMouseOn;
-    bool            m_bCmrAfctd;
+    CTexture*       m_pIdleTex;     // 일반 텍스쳐
+ 
+    bool            m_bLbtnDown;    // 좌버튼이 눌러졌는지 여부
+    bool            m_bMouseOn;     // 마우스가 자신에 올라와 있는지 여부
+    bool            m_bCmrAfctd;    // 카메라에 영향을 받는지 여부
 
 public:
     void SetIdleTex(CTexture* _pTex);
@@ -32,6 +32,7 @@ public:
 
     void AddChildUI(CUI* _pChildUI)
     {
+        // 자신을 부모로 지정해준달
         _pChildUI->m_pParentUI = this;
         m_vecChildUI.push_back(_pChildUI);
     }

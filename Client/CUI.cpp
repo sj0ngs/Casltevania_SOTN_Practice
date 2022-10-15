@@ -16,6 +16,7 @@ CUI::CUI()	:
 {
 }
 
+// 자식 UI나 부모 UI를 깊은 복사로 복사해와야 하므로 사용자 지정 복사 생성자 작성
 CUI::CUI(const CUI& _Other)		:
 	CObj(_Other),
 	m_pParentUI(nullptr),
@@ -25,14 +26,17 @@ CUI::CUI(const CUI& _Other)		:
 	m_bMouseOn(false),
 	m_bCmrAfctd(_Other.m_bCmrAfctd)
 {
+	// 원본의 자식 UI를 복사떠서 자신의 자식 UI 벡터에 넣어준다
 	for (size_t i = 0; i < _Other.m_vecChildUI.size(); i++)
 	{
+		// AddChildUI 함수에서 자동으로 부모를 자신으로 지정해준다
 		AddChildUI(_Other.m_vecChildUI[i]->Clone());
 	}
 }
 
 CUI::~CUI()
 {
+	// 자식 UI 벡터안에 모든 UI를 동적해제 해준다
 	for (size_t i = 0; i < m_vecChildUI.size(); i++)
 	{
 		delete m_vecChildUI[i];
@@ -42,15 +46,19 @@ CUI::~CUI()
 void CUI::Tick()
 {
 	// 위치 갱신
+	// 자신이 최상위 부모 UI일수도 있으니 현재 위치를 최종 위치로 잡아준다
 	m_vFinalPos = GetPos();
+	// 부모가 있다면 자신이 최상위 부모UI가 아닌것이다
 	if (m_pParentUI)
 	{
+		// 자신의 위치를 오프셋 값으로 사용한다
 		m_vFinalPos += m_pParentUI->GetFinalPos();
 	}
 
 	// 마우스 온 체크
 	MouseOnCheck();
 		
+	// 자기 부모들의 Tick도 전부 돌려준다
 	for (size_t i = 0; i < m_vecChildUI.size(); i++)
 	{
 		m_vecChildUI[i]->Tick();
@@ -99,6 +107,7 @@ void CUI::SetIdleTex(CTexture* _pTex)
 {
 	m_pIdleTex = _pTex;
 
+	// 아이들 텍스쳐의 너비와 높이로 자신의 스케일을 지정한다
 	if (nullptr != _pTex)
 	{
 		Vec2 vScale = Vec2((float)m_pIdleTex->GetWidth(), (float)m_pIdleTex->GetHeight());
@@ -106,9 +115,11 @@ void CUI::SetIdleTex(CTexture* _pTex)
 	}
 }
 
+// 마우스 포인터가 자신 위에 올라와 있는지 체크한다
 void CUI::MouseOnCheck()
 {
 	Vec2 vPos = GetFinalPos();
+	// 마우스에 영향을 받는다면 랜더포즈를 가져온다
 	if (m_bCmrAfctd)
 		vPos = CCamera::GetInst()->GetRenderPos(vPos);
 

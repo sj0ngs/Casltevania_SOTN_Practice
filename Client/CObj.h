@@ -13,6 +13,8 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
     Vec2        m_vPos;  // 위치 정보
     Vec2        m_vScale; // 가로 세로 길이 정보
 
+    Vec2        m_PrevPos;
+
     // Component
     CCollider*  m_pCollider;
     CAnimator*  m_pAnimator;
@@ -27,7 +29,9 @@ public:
     void SetScale(Vec2 _pt) { m_vScale = _pt; }
     Vec2 GetScale() { return m_vScale; }
 
-    void CreateCollider(ECOLLIDER_TYPE _eType = ECOLLIDER_TYPE::BOX);
+    Vec2 GetPrevPos() { return m_PrevPos; }
+
+    void CreateCollider();
     CCollider* GetCollider() { return m_pCollider; }
 
     void CreateAnimator();

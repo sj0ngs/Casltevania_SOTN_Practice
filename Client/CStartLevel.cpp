@@ -3,6 +3,7 @@
 
 #include "CEngine.h"
 #include "CCollisionMgr.h"
+#include "CLineCollisionMgr.h"
 #include "CResMgr.h"
 #include "CCamera.h"
 #include "CKeyMgr.h"
@@ -12,7 +13,7 @@
 #include "CMonster.h"
 #include "CForce.h"
 #include "CPlatform.h"
-#include "CDiagonal.h"
+#include "CLine.h"
 
 CStartLevel::CStartLevel()
 {
@@ -51,6 +52,7 @@ void CStartLevel::Init()
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER_PROJECTILE);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::PLATFORM);
+	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::PLAYER);
 	
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
@@ -95,10 +97,10 @@ void CStartLevel::Tick()
 		//Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 		//Instantiate(pForce, vMousePos, ELAYER::FORCE);
 
-		CDiagonal* pDiagonal = new CDiagonal;
-		pDiagonal->SetScale(Vec2(200.f, -100.f));
+		CLine* pLine = new CLine;
+		pLine->SetScale(Vec2(200.f, 200.f));
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		Instantiate(pDiagonal, vMousePos, ELAYER::PLATFORM);
+		Instantiate(pLine, vMousePos, ELAYER::LINE);
 	}
 
 	if (IS_TAP(EKEY::RBTN))

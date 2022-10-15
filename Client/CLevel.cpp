@@ -2,6 +2,7 @@
 #include "CLevel.h"
 #include "CObj.h"
 
+#include "CLine.h"
 #include "CTile.h"
 
 CLevel::CLevel()	:
@@ -70,6 +71,15 @@ void CLevel::DeleteAllObject()
 		}
 		m_arrLayer[i].clear();
 	}
+
+	for (size_t i = 0; i < m_vecLine.size(); i++)
+	{
+		if (m_vecLine[i]->IsDead())
+			continue;
+
+		DYNAMIC_DELETE(m_vecLine[i]);
+	}
+	m_vecLine.clear();
 }
 
 void CLevel::DeleteObject(ELAYER _Layer)

@@ -57,8 +57,10 @@ enum class ELAYER
 	MONSTER,
 	PLAYER_PROJECTILE,
 	MONSTER_PROJECTILE,
+	ITEM,
 	FORCE,
 	PLATFORM,
+	LINE,
 
 	UI = 15,
 	END = 16
@@ -78,10 +80,10 @@ enum class ECAMERA_EFFECT
 	FADE_IN
 };
 
-enum class ECOLLIDER_TYPE : UINT8
+// 두 직선 사이의 관계
+enum class ERLTNS_TWOST
 {
-	BOX,
-	LINE,
-	PIXEL,
-	CIRCLE
+	EQUAL,
+	PARELLEL,
+	MEET
 };

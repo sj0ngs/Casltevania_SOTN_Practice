@@ -157,7 +157,7 @@ struct tLine
 {
 	Vec2 v1;	// 지나는 점 1
 	Vec2 v2;	// 지나는 점 2
-	
+	Vec2 vGradient;		// 직선의 기울기 벡터 표현식
 	float fGradient;	// 직선의 기울기
 	float fYIntercept;	// y 절편
 
@@ -168,6 +168,7 @@ public:
 	tLine()	:
 		v1{},
 		v2{},
+		vGradient{},
 		fGradient(0.f),
 		fYIntercept(0.f),
 		bIsX(false),
@@ -178,6 +179,7 @@ public:
 	tLine(Vec2 _v1, Vec2 _v2)	:
 		v1(_v1),
 		v2(_v2),
+		vGradient{},
 		fGradient(0.f),
 		fYIntercept(0.f),
 		bIsX(false),
@@ -185,22 +187,28 @@ public:
 	{
 		if (v1 != v2)
 		{
-			Vec2 vGradient = (v1 - v2);
+			Vec2 Gradient = v1 - v2;
+			Gradient.Normalize();
+			vGradient = Gradient;
 			fGradient = vGradient.y / vGradient.x;
 			fYIntercept = -(fGradient * v1.x) + v1.y;
 		}
+		// x = a 직선일 때
 		else if (v1.x == v2.x && v1.y != v2.y)
 		{
+			vGradient = Vec2(0.f, 1.f);
 			bIsX = true;
 			fYIntercept = v1.x;
 		}
+		// y = b 직선일 때
 		else if (v1.x != v2.x && v1.y == v2.y)
 		{
+			vGradient = Vec2(1.f, 0.f);
 			bIsY = true;
 			fYIntercept = v1.y;
 		}
-		else
-			assert(false);
+		//else
+		//	assert(false);
 	}
 
 public:
@@ -240,5 +248,31 @@ public:
 		vResult.x = (-fYIntercept + _Other.fYIntercept) / (fGradient - _Other.fGradient);
 		vResult.y = (fGradient * _Other.fYIntercept - _Other.fGradient * fYIntercept) / (fGradient - _Other.fGradient);
 		return vResult;
+	}
+
+	ERLTNS_TWOST MeetPoint(tLine _Other, Vec2& _MeetPoint)
+	{
+		if (fGradient == _Other.fGradient)
+			return ERLTNS_TWOST::PARELLEL;
+
+		// x = a 방정식알때
+		if (bIsX)
+		{
+			_MeetPoint.x = fYIntercept;
+			_MeetPoint.y = _Other.fGradient * fYIntercept + _Other.fYIntercept;
+		}
+		// y = b 방정식일때
+		else if (bIsY)
+		{
+			_MeetPoint.x = (fYIntercept - _Other.fYIntercept) / _Other.fGradient;
+			_MeetPoint.y = fYIntercept;
+		}
+		else
+		{
+			_MeetPoint.x = (-fYIntercept + _Other.fYIntercept) / (fGradient - _Other.fGradient);
+			_MeetPoint.y = (fGradient * _Other.fYIntercept - _Other.fGradient * fYIntercept) / (fGradient - _Other.fGradient);
+		}
+
+		return ERLTNS_TWOST::MEET;
 	}
 };

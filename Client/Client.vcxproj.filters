@@ -109,11 +109,11 @@
     <Filter Include="Game\04. Object\UI\Panel">
       <UniqueIdentifier>{60982b1d-7727-43e3-bbb7-6ac16b290eb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\05. Component\Collider\LineCollider">
-      <UniqueIdentifier>{8d716962-9dad-4734-abb4-ba7ef2b68bcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\04. Object\Diagonal">
+    <Filter Include="Game\04. Object\Line">
       <UniqueIdentifier>{0ee9b08a-05a6-4c60-bc59-2e3431ecd335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\02. Mananger\04. Collision\LineCollision">
+      <UniqueIdentifier>{233d0ea3-3fcb-46af-995e-d4e8af74d320}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,11 +240,11 @@
     <ClInclude Include="CPanel.h">
       <Filter>Game\04. Object\UI\Panel</Filter>
     </ClInclude>
-    <ClInclude Include="CLineCollider.h">
-      <Filter>Game\05. Component\Collider\LineCollider</Filter>
+    <ClInclude Include="CLine.h">
+      <Filter>Game\04. Object\Line</Filter>
     </ClInclude>
-    <ClInclude Include="CDiagonal.h">
-      <Filter>Game\04. Object\Diagonal</Filter>
+    <ClInclude Include="CLineCollisionMgr.h">
+      <Filter>Game\02. Mananger\04. Collision\LineCollision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,9 +353,6 @@
     <ClCompile Include="CUI.cpp">
       <Filter>Game\04. Object\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CUIMgr.cpp">
-      <Filter>Game\02. Mananger\08. UIManager</Filter>
-    </ClCompile>
     <ClCompile Include="CButton.cpp">
       <Filter>Game\04. Object\UI\Button</Filter>
     </ClCompile>
@@ -365,11 +362,14 @@
     <ClCompile Include="CPanel.cpp">
       <Filter>Game\04. Object\UI\Panel</Filter>
     </ClCompile>
-    <ClCompile Include="CLineCollider.cpp">
-      <Filter>Game\05. Component\Collider\LineCollider</Filter>
+    <ClCompile Include="CLine.cpp">
+      <Filter>Game\04. Object\Line</Filter>
     </ClCompile>
-    <ClCompile Include="CDiagonal.cpp">
-      <Filter>Game\04. Object\Diagonal</Filter>
+    <ClCompile Include="CUIMgr.cpp">
+      <Filter>Game\03. Level\01. Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineCollisionMgr.cpp">
+      <Filter>Game\02. Mananger\04. Collision\LineCollision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

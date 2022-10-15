@@ -5,6 +5,7 @@
 #include "CKeyMgr.h"
 #include "CLevelMgr.h"
 #include "CCollisionMgr.h"
+#include "CLineCollisionMgr.h"
 #include "CEventMgr.h"
 #include "CPathMgr.h"
 #include "CCamera.h"
@@ -66,6 +67,7 @@ void CEngine::Tick()
 
 	// 변경점 기반 충돌체크
 	CCollisionMgr::GetInst()->Tick();
+	CLineCollisionMgr::GetInst()->Tick();
 
 	// UI 처리
 	CUIMgr::GetInst()->Tick();

@@ -139,29 +139,6 @@ void CCollisionMgr::CollisionBtwLayer(ELAYER _Left, ELAYER _Right)
 
 bool CCollisionMgr::CollisionBtwCollider(CCollider* _pLeft, CCollider* _pRight)
 {
-	ECOLLISION_TYPE eType = ECOLLISION_TYPE::BOX_TO_BOX;
-
-	if ((ECOLLIDER_TYPE::LINE == _pLeft->GetColliderType() && ECOLLIDER_TYPE::BOX == _pRight->GetColliderType()) ||
-		(ECOLLIDER_TYPE::BOX == _pLeft->GetColliderType() && ECOLLIDER_TYPE::LINE == _pRight->GetColliderType()))
-		eType = ECOLLISION_TYPE::BOX_TO_LINE;
-	else if (ECOLLIDER_TYPE::LINE == _pLeft->GetColliderType() && ECOLLIDER_TYPE::LINE == _pRight->GetColliderType())
-		eType = ECOLLISION_TYPE::LINE_TO_LINE;
-
-	switch (eType)
-	{
-	case ECOLLISION_TYPE::BOX_TO_BOX:
-		return CollisionBoxToBox(_pLeft, _pRight);
-	case ECOLLISION_TYPE::BOX_TO_LINE:
-		return CollisionBoxToLine(_pLeft, _pRight);
-	case ECOLLISION_TYPE::LINE_TO_LINE:
-		return false;
-	default:
-		return false;
-	}
-}
-
-bool CCollisionMgr::CollisionBoxToBox(CCollider* _pLeft, CCollider* _pRight)
-{
 	Vec2 vLeftPos = _pLeft->GetFinalPos();
 	Vec2 vLeftScale = _pLeft->GetScale();
 	Vec2 vRightPos = _pRight->GetFinalPos();
@@ -175,9 +152,3 @@ bool CCollisionMgr::CollisionBoxToBox(CCollider* _pLeft, CCollider* _pRight)
 
 	return true;
 }
-
-bool CCollisionMgr::CollisionBoxToLine(CCollider* _pLeft, CCollider* _pRight)
-{
-	return false;
-}
-
