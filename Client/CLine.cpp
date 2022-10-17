@@ -20,7 +20,8 @@ CLine::CLine()	:
 CLine::CLine(const CLine& _Other)	:
 	m_vPos1(_Other.m_vPos1),
 	m_vPos2(_Other.m_vPos2),
-	m_iOverlapCount(0)
+	m_iOverlapCount(0),
+	m_eType(ELINE_TYPE::UP)
 {
 }
 
@@ -74,7 +75,6 @@ void CLine::BeginOverlap(CObj* _pOther)
 		return; 
 
    	pPlayer->GetRigidBody()->OnGround();
-	pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -100.f));
 }
 
 void CLine::OnOverlap(CObj* _pOther)

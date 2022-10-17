@@ -252,7 +252,7 @@ public:
 
 	ERLTNS_TWOST MeetPoint(tLine _Other, Vec2& _MeetPoint)
 	{
-		if (fGradient == _Other.fGradient)
+		if (fGradient == _Other.fGradient || v1 == v2)
 			return ERLTNS_TWOST::PARELLEL;
 
 		// x = a 방정식알때

@@ -48,12 +48,57 @@ void CLineCollisionMgr::CollisionLayerToLine(ELAYER _Layer)
 	for (size_t i = 0; i < vecLine.size(); i++)
 	{	
 		for (size_t j = 0; j < vecObj.size(); j++)
-		{ 
+		{
+			LineCollisionID ID = {};
+			ID.ObjectID = vecObj[j]->GetId();
+			ID.LineID = vecLine[i]->GetId();
+
+			// 이전 프레임 충돌
+			map<UINT_PTR, bool>::iterator iter = m_mapPrevInfo.find(ID.id);
+
+			if (iter == m_mapPrevInfo.end())
+			{
+				m_mapPrevInfo.insert(make_pair(ID.id, false));
+				iter = m_mapPrevInfo.find(ID.id);
+			}
+
 			bool bDead = vecObj[j]->IsDead() || vecLine[i]->IsDead();
 
 			if (CollisionObjToLine(vecObj[j], (CLine*)vecLine[i]))
 			{
-				((CLine*)vecLine[i])->BeginOverlap(vecObj[j]);
+				// 이전에도 겹쳐있었다
+				if (iter->second)
+				{
+					// 둘중 하나라도 dead 일 경우
+					if (bDead)
+					{
+						((CLine*)vecLine[i])->EndOverlap(vecObj[j]);
+					}
+					else
+					{
+						((CLine*)vecLine[i])->OnOverlap(vecObj[j]);
+					}
+				}
+				// 이번에 겹쳐졌다
+				else
+				{
+					// 둘중 하나라도 Dead 상태라면 충돌이 없었던 걸로 한다
+					if (!bDead)
+					{
+						((CLine*)vecLine[i])->BeginOverlap(vecObj[j]);
+						iter->second = true;
+					}
+				}
+			}
+			// 지금 떨어져있다
+			else
+			{
+				// 지금 막 떨어졌다
+				if (iter->second)
+				{
+					((CLine*)vecLine[i])->EndOverlap(vecObj[j]);
+					iter->second = false;
+				}
 			}
 		}
 	}
@@ -101,7 +146,7 @@ bool CLineCollisionMgr::UpLineCheck(CObj* _Obj, CLine* _Line, Vec2 _vMeetPoint)
 		return false;
 
 	// 충돌 검사를 함 지점을 오브젝트의 아래 끝으로 설정한다
-	vPos.y += vScale.y / 2.f;
+	// vPos.y += vScale.y / 2.f;
 
 	float x1 = _Line->GetPos1().x;
 	float x2 = _Line->GetPos2().x;

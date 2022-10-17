@@ -3,13 +3,24 @@
 class CObj;
 class CLine;
 
+union LineCollisionID
+{
+	struct
+	{
+		UINT ObjectID;
+		UINT LineID;
+	};
+
+	UINT_PTR id;
+};
+
 class CLineCollisionMgr
 {
 	SINGLE(CLineCollisionMgr);
 
 private:
 	WORD m_CollisionProfile;
-	map<UINT, bool> m_mapPrevInfo;
+	map<UINT_PTR, bool> m_mapPrevInfo;
 
 public:
 	void Tick();
