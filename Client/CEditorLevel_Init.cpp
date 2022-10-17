@@ -29,7 +29,7 @@ void CEditorLevel::Init()
 	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
 
 	// 타일 생성
-	CreateTile(8, 6);
+	CreateTile(100, 100);
 
 	// 각 타일에다가 사용할 아틀라스 이미지 및 인덱스 설정
 	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);

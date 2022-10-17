@@ -171,8 +171,7 @@ void CLevel::FindTileSreen()
 
 	Vec2 vLeftTop = CCamera::GetInst()->GetLook();
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
-	vResolution /= 2.f;
-	vLeftTop -= vResolution;
+	vLeftTop -= (vResolution / 2.f);
 
 	int iLTCol = (int)vLeftTop.x / TILE_SIZE;
 	int iLTRow = (int)vLeftTop.y / TILE_SIZE;
@@ -182,12 +181,12 @@ void CLevel::FindTileSreen()
 	if (0.f > vLeftTop.y)
 		iLTRow = 0;
 
-	int iMaxCol = (int)vResolution.x / TILE_SIZE + iLTCol + 1;
-	int iMaxRow = (int)vResolution.y / TILE_SIZE + iLTRow + 1;
+	int iMaxCol = ((int)vResolution.x / TILE_SIZE) + iLTCol + 1;
+	int iMaxRow = ((int)vResolution.y / TILE_SIZE) + iLTRow + 2;
 
-	if (m_iTileXCount < iMaxCol)
+	if (m_iTileXCount < (unsigned int)iMaxCol)
 		iMaxCol = m_iTileXCount;
-	if (m_iTileYCount < iMaxRow)
+	if (m_iTileYCount < (unsigned int)iMaxRow)
 		iMaxRow = m_iTileYCount;
 
 	for (int iRow = iLTRow; iRow < iMaxRow; iRow++)
