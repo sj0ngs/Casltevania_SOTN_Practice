@@ -21,7 +21,7 @@
 
 CPlayer::CPlayer() :
 	m_fSpeed(200.f),
-	m_vPrevPos{},
+	m_vDir{1.f, 0.f},
 	m_eState(EPLAYER_ANIM_STATE::END),
 	m_ePrevState(EPLAYER_ANIM_STATE::END),
 	m_iFaceDir(1),
@@ -131,7 +131,7 @@ void CPlayer::Tick()
 			
 			// 왼쪽 이동 방해 상태가 아니라면 이동
 			if(!(LEFT_BLOCK & m_iMoveState))
-				vPos.x -= m_fSpeed * DELTATIME;
+				vPos -= m_vDir * m_fSpeed * DELTATIME;
 		}
 		// 오른쪽 이동
 		else if (IS_PRESSED(EKEY::RIGHT))
@@ -146,7 +146,7 @@ void CPlayer::Tick()
 
 			// 오른쪽 이동 방해 상태가 아니라면 이동
 			if(!(RIGHT_BLOCK & m_iMoveState))
-				vPos.x += m_fSpeed * DELTATIME;
+				vPos += m_vDir * m_fSpeed * DELTATIME;
 		}
 		// 숙이면 콜리전 크기와 오프셋을 변경해주고 이동 상태를 변경해준다
 		else if (IS_TAP(EKEY::DOWN))
@@ -236,7 +236,7 @@ void CPlayer::Tick()
 	// 이전 프레임 플레이어 정보들 저장(나중에 구조제로 관리 할수도 있음)
 	//m_ePrevState = m_eState;
 	m_iPrevFaceDir = m_iFaceDir;
-	m_vPrevPos = GetPos();
+	//m_vPrevPos = GetPos();
 
 	SetPos(vPos);
 }

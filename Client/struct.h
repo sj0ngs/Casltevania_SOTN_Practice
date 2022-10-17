@@ -20,6 +20,7 @@ public:
 	}
 
 	Vec2(LONG _x, LONG _y) :
+
 		x((float)_x),
 		y((float)_y)
 	{
@@ -185,16 +186,8 @@ public:
 		bIsX(false),
 		bIsY(false)
 	{
-		if (v1 != v2)
-		{
-			Vec2 Gradient = v1 - v2;
-			Gradient.Normalize();
-			vGradient = Gradient;
-			fGradient = vGradient.y / vGradient.x;
-			fYIntercept = -(fGradient * v1.x) + v1.y;
-		}
 		// x = a 직선일 때
-		else if (v1.x == v2.x && v1.y != v2.y)
+		if (v1.x == v2.x && v1.y != v2.y)
 		{
 			vGradient = Vec2(0.f, 1.f);
 			bIsX = true;
@@ -207,8 +200,14 @@ public:
 			bIsY = true;
 			fYIntercept = v1.y;
 		}
-		//else
-		//	assert(false);
+		else if (v1 != v2)
+		{
+			Vec2 Gradient = v1 - v2;
+			Gradient.Normalize();
+			vGradient = Gradient;
+			fGradient = vGradient.y / vGradient.x;
+			fYIntercept = -(fGradient * v1.x) + v1.y;
+		}
 	}
 
 public:
@@ -252,7 +251,7 @@ public:
 
 	ERLTNS_TWOST MeetPoint(tLine _Other, Vec2& _MeetPoint)
 	{
-		if (fGradient == _Other.fGradient || v1 == v2)
+		if (fGradient == _Other.fGradient)
 			return ERLTNS_TWOST::PARELLEL;
 
 		// x = a 방정식알때
@@ -260,19 +259,36 @@ public:
 		{
 			_MeetPoint.x = fYIntercept;
 			_MeetPoint.y = _Other.fGradient * fYIntercept + _Other.fYIntercept;
+			return ERLTNS_TWOST::MEET;
 		}
 		// y = b 방정식일때
 		else if (bIsY)
 		{
 			_MeetPoint.x = (fYIntercept - _Other.fYIntercept) / _Other.fGradient;
 			_MeetPoint.y = fYIntercept;
+			return ERLTNS_TWOST::MEET;
+		}
+		// 오브젝트가 멈춰있을때
+		else if (v1 == v2)
+		{
+			_MeetPoint.y = _Other.fGradient * v1.x + _Other.fYIntercept;
+
+			float fDist = _MeetPoint.y - v1.y;
+			if (fabsf(fDist) <= 0.01f)
+			{
+				return ERLTNS_TWOST::MEET;
+			}
 		}
 		else
 		{
 			_MeetPoint.x = (-fYIntercept + _Other.fYIntercept) / (fGradient - _Other.fGradient);
 			_MeetPoint.y = (fGradient * _Other.fYIntercept - _Other.fGradient * fYIntercept) / (fGradient - _Other.fGradient);
+			return ERLTNS_TWOST::MEET;
 		}
+	}
 
-		return ERLTNS_TWOST::MEET;
+	float GetPoint(float _x)
+	{
+		return _x * fGradient + fYIntercept;
 	}
 };

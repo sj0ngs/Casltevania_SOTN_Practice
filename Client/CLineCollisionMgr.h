@@ -10,7 +10,6 @@ union LineCollisionID
 		UINT ObjectID;
 		UINT LineID;
 	};
-
 	UINT_PTR id;
 };
 

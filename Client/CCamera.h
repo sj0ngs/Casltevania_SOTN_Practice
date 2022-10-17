@@ -33,6 +33,7 @@ private:
 
 public:
 	void SetLook(Vec2 _vLook) { m_vLook = _vLook; }
+	Vec2 GetLook()	const { returm m_vLook; }
 
 public:
 	void Tick();

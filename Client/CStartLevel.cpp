@@ -33,9 +33,9 @@ void CStartLevel::Init()
 	pObj->SetPos(Vec2(500.f, 100.f));
 	AddObj(pObj, ELAYER::PLAYER);
 
-	pObj = pObj->Clone();
-	pObj->SetPos(Vec2(700.f, 100.f));
-	AddObj(pObj, ELAYER::PLAYER);
+	//pObj = pObj->Clone();
+	//pObj->SetPos(Vec2(700.f, 100.f));
+	//AddObj(pObj, ELAYER::PLAYER);
 
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(Vec2(300.f, 100.f));
@@ -98,8 +98,9 @@ void CStartLevel::Tick()
 		//Instantiate(pForce, vMousePos, ELAYER::FORCE);
 
 		CLine* pLine = new CLine;
-		pLine->SetScale(Vec2(200.f, 200.f));
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+		pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
+		pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
 		Instantiate(pLine, vMousePos, ELAYER::LINE);
 	}
 

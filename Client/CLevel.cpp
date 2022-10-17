@@ -2,6 +2,9 @@
 #include "CLevel.h"
 #include "CObj.h"
 
+#include "CEngine.h"
+#include "CCamera.h"
+
 #include "CLine.h"
 #include "CTile.h"
 
@@ -18,11 +21,22 @@ CLevel::~CLevel()
 
 void CLevel::Tick()
 {
+	FindTileSreen();
 	for (UINT i = 0; i < (UINT)ELAYER::END; i++)
 	{
-		for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+		if (i == (UINT)ELAYER::TILE)
 		{
-			m_arrLayer[i][j]->Tick();
+			for (int j = 0; j < m_vecTile.size(); j++)
+			{
+				m_vecTile[j]->Tick();
+			}
+		}
+		else
+		{
+			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+			{
+				m_arrLayer[i][j]->Tick();
+			}
 		}
 	}
 }
@@ -31,9 +45,19 @@ void CLevel::Final_Tick()
 {
 	for (UINT i = 0; i < (UINT)ELAYER::END; i++)
 	{
-		for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+		if (i == (UINT)ELAYER::TILE)
 		{
-			m_arrLayer[i][j]->Final_Tick();
+			for (int j = 0; j < m_vecTile.size(); j++)
+			{
+				m_vecTile[j]->Tick();
+			}
+		}
+		else
+		{
+			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+			{
+				m_arrLayer[i][j]->Final_Tick();
+			}
 		}
 	}
 }
@@ -42,16 +66,26 @@ void CLevel::Render(HDC _DC)
 {
 	for (UINT i = 0; i < (UINT)ELAYER::END; i++)
 	{
-		vector<CObj*>::iterator iter = m_arrLayer[i].begin();
-
-		for (; iter != m_arrLayer[i].end();)
+		if (i == (UINT)ELAYER::TILE)
 		{
-			if ((*iter)->IsDead())
-				iter = m_arrLayer[i].erase(iter);
-			else
+			for (int j = 0; j < m_vecTile.size(); j++)
 			{
-				(*iter)->Render(_DC);
-				++iter;
+				m_vecTile[j]->Render(_DC);
+			}
+		}
+		else
+		{
+			vector<CObj*>::iterator iter = m_arrLayer[i].begin();
+
+			for (; iter != m_arrLayer[i].end();)
+			{
+				if ((*iter)->IsDead())
+					iter = m_arrLayer[i].erase(iter);
+				else
+				{
+					(*iter)->Render(_DC);
+					++iter;
+				}
 			}
 		}
 	}
@@ -129,4 +163,39 @@ void CLevel::SetFocusedUI(CObj* _pUI)
 	}
 
 	assert(nullptr);
+}
+
+void CLevel::FindTileSreen()
+{
+	m_vecTile.clear();
+
+	Vec2 vLeftTop = CCamera::GetInst()->GetLook();
+	Vec2 vResolution = CEngine::GetInst()->GetResolution();
+	vResolution /= 2.f;
+	vLeftTop -= vResolution;
+
+	int iLTCol = (int)vLeftTop.x / TILE_SIZE;
+	int iLTRow = (int)vLeftTop.y / TILE_SIZE;
+
+	if (0.f > vLeftTop.x)
+		iLTCol = 0;
+	if (0.f > vLeftTop.y)
+		iLTRow = 0;
+
+	int iMaxCol = (int)vResolution.x / TILE_SIZE + iLTCol + 1;
+	int iMaxRow = (int)vResolution.y / TILE_SIZE + iLTRow + 1;
+
+	if (m_iTileXCount < iMaxCol)
+		iMaxCol = m_iTileXCount;
+	if (m_iTileYCount < iMaxRow)
+		iMaxRow = m_iTileYCount;
+
+	for (int iRow = iLTRow; iRow < iMaxRow; iRow++)
+	{
+		for (int iCol = iLTCol; iCol < iMaxCol; iCol++)
+		{
+			int iTileIdx = iRow * m_iTileXCount + iCol;
+			m_vecTile.push_back(m_arrLayer[(UINT)ELAYER::TILE][iTileIdx]);
+		}
+	}
 }

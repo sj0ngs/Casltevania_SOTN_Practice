@@ -36,7 +36,7 @@ void CEditorLevel::Init()
 	for (size_t i = 0; i < vecTile.size(); i++)
 	{
 		((CTile*)vecTile[i])->SetAtlas(pTex);
-		((CTile*)vecTile[i])->SetImgIdx((int)i);
+		((CTile*)vecTile[i])->SetImgIdx((int)0);
 	}
 }
 

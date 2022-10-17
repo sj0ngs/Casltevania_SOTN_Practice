@@ -34,7 +34,7 @@ class CPlayer :
 {
 private:
     float m_fSpeed;
-    Vec2 m_vPrevPos;    // 이전 위치
+    Vec2 m_vDir;
 
     EPLAYER_ANIM_STATE m_eState;     // 애니메이션 상태
     EPLAYER_ANIM_STATE m_ePrevState;     // 이전 애니메이션 상태
@@ -51,7 +51,8 @@ private:
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
-    Vec2 GetPrevPos()   const    { return m_vPrevPos; }
+    void SetDir(Vec2 _vDir) { m_vDir = _vDir; }
+    Vec2 GetDir() const { return m_vDir; }
     EPLAYER_ANIM_STATE GetPlayerState()  const { return m_eState; }
     int GetMoveState() const { return m_iMoveState; }
     void SetMoveState(int _iMoveState) { m_iMoveState = _iMoveState; }

@@ -8,8 +8,9 @@ class CLevel :
     public CEntity
 {
 private:
-    std::vector<CObj*> m_arrLayer[(UINT)ELAYER::END];
-    std::vector<CLine*> m_vecLine;
+    vector<CObj*> m_arrLayer[(UINT)ELAYER::END];
+    vector<CLine*> m_vecLine;
+    vector<CObj*> m_vecTile;
 
     UINT                m_iTileXCount;
     UINT                m_iTileYCount;
@@ -43,5 +44,8 @@ public:
     void CreateTile(UINT _X, UINT _Y);
 
     void SetFocusedUI(CObj* _pUI);
+
+private:
+    void FindTileSreen();
 };
 
