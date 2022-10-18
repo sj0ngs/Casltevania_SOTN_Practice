@@ -5,7 +5,12 @@
 #include "CResMgr.h"
 
 #include "CCollider.h"
+#include "CAI.h"
+
 #include "CTexture.h"
+#include "CState.h"
+#include "CIdleState.h"
+#include "CTraceState.h"
 
 CMonster::CMonster()	:
 	m_HP(3),
@@ -14,9 +19,13 @@ CMonster::CMonster()	:
 	m_pTexture(nullptr)
 {
 	CreateCollider();
+	CreateAI();
 
 	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
 	GetCollider()->SetScale(Vec2(100.f, 100.f));
+
+	GetAI()->AddState(L"Idle", new CIdleState);
+	GetAI()->AddState(L"Trace", new CTraceState);
 
 	//m_pTexture = CResMgr::GetInst()->FindTexture(L"Plane");
 	m_pTexture = CResMgr::GetInst()->FindTexture(L"Alucard");

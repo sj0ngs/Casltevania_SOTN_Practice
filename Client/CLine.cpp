@@ -77,6 +77,14 @@ void CLine::BeginOverlap(CObj* _pOther)
 
 		_pOther->SetPos(vPos);
 		_pOther->GetRigidBody()->OnGround();
+
+		CPlayer* Player = dynamic_cast<CPlayer*>(_pOther);
+
+		if (nullptr != Player)
+		{
+			Line.vGradient *= -1.f;
+			Player->SetDir(Line.vGradient);
+		}
 	}
 
 	//CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);

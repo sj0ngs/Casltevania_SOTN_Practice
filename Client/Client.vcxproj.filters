@@ -115,6 +115,24 @@
     <Filter Include="Game\02. Mananger\04. Collision\LineCollision">
       <UniqueIdentifier>{233d0ea3-3fcb-46af-995e-d4e8af74d320}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\05. Component\AI">
+      <UniqueIdentifier>{9ebaa39b-d4fb-4009-a682-e87a3bf1e691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. MonsterState">
+      <UniqueIdentifier>{430f6104-64ee-4bd8-aea4-8d5d7ca2f261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. MonsterState\IdleState">
+      <UniqueIdentifier>{eef37b5d-c0f8-4309-8473-040aa40908ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. MonsterState\AttackState">
+      <UniqueIdentifier>{7fcde563-9ba5-4aa3-9eaa-d0f98b2092b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. MonsterState\TraceState">
+      <UniqueIdentifier>{118d7a7e-061f-4517-886d-09ebd77aa5ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. MonsterState\DeadState">
+      <UniqueIdentifier>{62c5b8e4-82ad-4e0b-8445-9a0464c9fdfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -246,6 +264,18 @@
     <ClInclude Include="CLineCollisionMgr.h">
       <Filter>Game\02. Mananger\04. Collision\LineCollision</Filter>
     </ClInclude>
+    <ClInclude Include="CAI.h">
+      <Filter>Game\05. Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>Game\07. MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>Game\07. MonsterState\IdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="CTraceState.h">
+      <Filter>Game\07. MonsterState\TraceState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -370,6 +400,18 @@
     </ClCompile>
     <ClCompile Include="CUIMgr.cpp">
       <Filter>Game\02. Mananger\08. UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI.cpp">
+      <Filter>Game\05. Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>Game\07. MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>Game\07. MonsterState\IdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="CTraceState.cpp">
+      <Filter>Game\07. MonsterState\TraceState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@
 #include "CCollider.h"
 #include "CAnimator.h"
 #include "CRigidBody.h"
+#include "CAI.h"
 
 // 오브젝트 dead 처리 함수
 void CObj::SetDead()
@@ -34,6 +35,7 @@ CObj::CObj(const CObj& _Other)	:
 	m_pCollider(nullptr),
 	m_pAnimator(nullptr),
 	m_pRigidBody(nullptr),
+	m_pAI(nullptr),
 	m_bDead(false)
 {
 	if (nullptr != _Other.m_pCollider)
@@ -53,6 +55,12 @@ CObj::CObj(const CObj& _Other)	:
 		m_pRigidBody = _Other.m_pRigidBody->Clone();
 		m_pRigidBody->SetOwner(this);
 	}
+
+	if (nullptr != _Other.m_pAI)
+	{
+		m_pAI = _Other.m_pAI->Clone();
+		m_pAI->SetOwner(this);
+	}
 }
 
 CObj::~CObj()
@@ -70,6 +78,9 @@ void CObj::Tick()
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Tick();
 
+	if (nullptr != m_pAI)
+		m_pAI->Tick();
+
 	if (nullptr != m_pRigidBody)
 		m_pRigidBody->Tick();
 }
@@ -81,6 +92,9 @@ void CObj::Final_Tick()
 
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Final_Tick();
+
+	if (nullptr != m_pAI)
+		m_pAI->Final_Tick();
 
 	if (nullptr != m_pCollider)
 		m_pCollider->Final_Tick();
@@ -110,6 +124,11 @@ void CObj::CreateAnimator()
 void CObj::CreateRigidBody()
 {
 	m_pRigidBody = new CRigidBody(this);
+}
+
+void CObj::CreateAI()
+{
+	m_pAI = new CAI(this);
 }
 
 
