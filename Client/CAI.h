@@ -19,11 +19,14 @@ public:
     ~CAI();
 
 public:
-    virtual void Tick() override;
+    virtual void Tick() override {};
     virtual void Final_Tick()   override;
+    virtual void Render(HDC _DC)   override {};
 
 public:
-    void AddState(wstring& _strKey, CState* _pState) { m_mapState.insert(make_pair(_strKey, _pState)); }
+    void AddState(const wstring& _strKey, CState* _pState);
     CState* FindState(const wstring& _strKey);
+
+    void ChangeState(const wstring& _strKey);
 };
 

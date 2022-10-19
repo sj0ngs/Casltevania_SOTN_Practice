@@ -292,3 +292,16 @@ public:
 		return _x * fGradient + fYIntercept;
 	}
 };
+
+struct tMonsterInfo
+{
+	UINT m_iHP;
+	UINT m_iMaxHP;
+
+	float m_Atk;
+	float m_Def;
+
+	float m_fSpeed;
+	float m_fDetectRange;
+	float m_fAttackRange;
+};

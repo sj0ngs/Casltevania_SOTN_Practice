@@ -11,8 +11,11 @@ private:
     float m_fSpeed;
     CTexture* m_pTexture;
 
+    tMonsterInfo m_tInfo;
+
 public:
     void SetTarget(CObj* _pTarget) { m_pTarget = _pTarget; }
+    tMonsterInfo& GetMonsterInfo() { return m_tInfo; }
 
 public:
     CLONE(CMonster);

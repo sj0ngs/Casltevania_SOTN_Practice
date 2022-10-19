@@ -16,7 +16,8 @@ CMonster::CMonster()	:
 	m_HP(3),
 	m_pTarget(nullptr),
 	m_fSpeed(100.f),
-	m_pTexture(nullptr)
+	m_pTexture(nullptr),
+	m_tInfo{}
 {
 	CreateCollider();
 	CreateAI();
@@ -26,9 +27,13 @@ CMonster::CMonster()	:
 
 	GetAI()->AddState(L"Idle", new CIdleState);
 	GetAI()->AddState(L"Trace", new CTraceState);
+	GetAI()->ChangeState(L"Idle");
 
 	//m_pTexture = CResMgr::GetInst()->FindTexture(L"Plane");
 	m_pTexture = CResMgr::GetInst()->FindTexture(L"Alucard");
+
+	m_tInfo.m_fSpeed = 100.f;
+	m_tInfo.m_fDetectRange = 200.f;
 }
 
 CMonster::~CMonster()

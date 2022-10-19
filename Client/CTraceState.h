@@ -8,7 +8,7 @@ public:
     ~CTraceState();
 
 public:
-    CLONE(CState);
+    CLONE(CTraceState);
 
 public:
     virtual void Final_Tick() override;

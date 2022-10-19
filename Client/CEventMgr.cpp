@@ -6,6 +6,9 @@
 #include "CLevel.h"
 #include "CObj.h"
 
+#include "CAI.h"
+#include "CState.h"
+
 CEventMgr::CEventMgr()
 {
 }
@@ -59,6 +62,15 @@ void CEventMgr::Tick()
 			ELEVEL_TYPE eNextLevel = (ELEVEL_TYPE)m_vecEvent[i].wParam;
 
 			CLevelMgr::GetInst()->ChangeLevel(eNextLevel);
+		}
+			break;
+		case EEVENT_TYPE::CHANGE_AI_STATE:
+		{
+			// wParam  : AI Address			
+			//lParam : State Type
+			CAI* pAI = (CAI*)m_vecEvent[i].wParam;
+			const wchar_t* pName = (const wchar_t*)m_vecEvent[i].lParam;
+			pAI->ChangeState(pName);
 		}
 			break;
 		}

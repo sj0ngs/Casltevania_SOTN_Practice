@@ -296,9 +296,6 @@
     <ClCompile Include="CEntity.cpp">
       <Filter>Game\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="CObj.cpp">
-      <Filter>Game\04. Object</Filter>
-    </ClCompile>
     <ClCompile Include="CLevel.cpp">
       <Filter>Game\03. Level</Filter>
     </ClCompile>
@@ -325,9 +322,6 @@
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Game\05. Component\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Game\04. Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
       <Filter>Game\02. Mananger\04. Collision</Filter>
@@ -412,6 +406,12 @@
     </ClCompile>
     <ClCompile Include="CTraceState.cpp">
       <Filter>Game\07. MonsterState\TraceState</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Game\04. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>Game\04. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

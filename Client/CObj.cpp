@@ -68,6 +68,7 @@ CObj::~CObj()
 	DYNAMIC_DELETE(m_pCollider);
 	DYNAMIC_DELETE(m_pAnimator);
 	DYNAMIC_DELETE(m_pRigidBody);
+	DYNAMIC_DELETE(m_pAI);
 }
 
 void CObj::Tick()

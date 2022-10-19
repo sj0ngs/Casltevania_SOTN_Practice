@@ -70,7 +70,8 @@ enum class EEVENT_TYPE
 {
 	CREATE_OBJECT,	// wParam  : Object Address		lParam : Layer Type
 	DELETE_OBJECT,	// wParam  : Object Address
-	LEVEL_CHANGE	// wParam  : LEVEL_TYPE(Next Level Type)
+	LEVEL_CHANGE,	// wParam  : LEVEL_TYPE(Next Level Type)
+	CHANGE_AI_STATE	// wParam  : AI Address			lParam : State Type
 };
 
 enum class ECAMERA_EFFECT
