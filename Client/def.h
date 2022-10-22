@@ -51,6 +51,7 @@ enum class EPEN_TYPE
 enum class ELAYER
 {
 	BACKGROUND,
+	FOREGROUND,
 	TILE,
 	DEFAULT,
 	PLAYER,

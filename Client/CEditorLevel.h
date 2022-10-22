@@ -6,7 +6,7 @@ enum class EEDITOR_MODE
     TILE,
     ANIMATINON,
     OBJECT,
-
+    MAP,
 
     NONE
 };
@@ -42,5 +42,7 @@ private:
 public:
     void SaveTile();
     void LoadTile();
+    void LoadBackGround();
+    void SaveLevel();
 };
 

@@ -14,6 +14,7 @@
 #include "CForce.h"
 #include "CPlatform.h"
 #include "CLine.h"
+#include "CBackGround.h"
 
 CStartLevel::CStartLevel()
 {
@@ -27,6 +28,14 @@ void CStartLevel::Init()
 {
 	// texture 로딩
 	//CResMgr::GetInst()->LoadTexture(L"Plane", L"texture\\Fighter.bmp");
+
+	// 백그라운드 이미지 설정
+	CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugMap", L"texture\\Debug_Map.bmp");
+	CBackGround* pBackGround = new CBackGround;
+	pBackGround->SetBackGroundImg(pBackGroundTex);
+	pBackGround->SetIsForeGround(true);
+
+	AddObj(pBackGround, ELAYER::BACKGROUND);
 
 	CObj* pObj = new CPlayer;
 	pObj->SetPos(Vec2(500.f, 100.f));

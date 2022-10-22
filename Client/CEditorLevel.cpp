@@ -10,6 +10,8 @@
 #include "CLevelMgr.h"
 #include "CPathMgr.h"
 
+#include "CBackGround.h"
+
 #include "CTexture.h"
 #include "CTile.h"
 #include "CUI.h"
@@ -83,6 +85,9 @@ void CEditorLevel::Update()
 
 		break;
 	case EEDITOR_MODE::OBJECT:
+
+		break;
+	case EEDITOR_MODE::MAP:
 
 		break;
 	case EEDITOR_MODE::NONE:
@@ -250,6 +255,56 @@ void CEditorLevel::LoadTile()
 	}
 }
 
+void CEditorLevel::LoadBackGround()
+{
+	// open a file name
+	OPENFILENAME ofn = {};
+
+	wstring strTextureFolderPath = CPathMgr::GetInst()->GetContentPath();
+	strTextureFolderPath += L"texture\\";
+
+	// 탐색기로 설정한 위치의 경로 값이 들어간다
+	wchar_t szFilePath[256] = {};
+
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	// 파일 필터를 세팅할 수 있다
+	ofn.lpstrFilter = L"texture\0*.bmp\0ALL\0*.*";
+	// 최초에 보여줄 파일 세팅의 인덱스
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
+	ofn.lpstrInitialDir = strTextureFolderPath.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetOpenFileName(&ofn))
+		return;
+
+	// 파일 탐색기는 전체 경로를 가져오기 때문에 컨텐츠 경로까지를 잘라준다
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
+	size_t start = strFilePath.length() - 1;
+	wstring Buff = szFilePath;
+	size_t end = Buff.length();
+	wstring FilePath = Buff.substr(start, end);
+
+	CTexture* pBackGroundImg = CResMgr::GetInst()->LoadTexture(L"BackGroundImg", FilePath);
+
+	CBackGround* pBackGround = new CBackGround;
+	pBackGround->SetBackGroundImg(pBackGroundImg);
+
+	DeleteObject(ELAYER::BACKGROUND);
+	AddObj(pBackGround, ELAYER::BACKGROUND);
+}
+
+void CEditorLevel::SaveLevel()
+{
+
+}
 
 // ======================
 // Tile Count Dialog Proc

@@ -10,6 +10,8 @@
 #include "CLevelMgr.h"
 #include "CPathMgr.h"
 
+#include "CBackGround.h"
+
 #include "CTexture.h"
 #include "CTile.h"
 #include "CUI.h"
@@ -22,6 +24,14 @@ void CEditorLevel::Init()
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
 
+	// 백그라운드 이미지 설정
+	//CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugRoom", L"texture\\Debug Room .bmp");
+	//CBackGround* pBackGround = new CBackGround;
+	//pBackGround->SetBackGroundImg(pBackGroundTex);
+	//pBackGround->SetIsForeGround(true);
+
+	//AddObj(pBackGround, ELAYER::BACKGROUND);
+
 	//UI 배치
 	CreateUI(vResolution);
 
@@ -29,7 +39,7 @@ void CEditorLevel::Init()
 	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
 
 	// 타일 생성
-	CreateTile(100, 100);
+	CreateTile(10, 10);
 
 	// 각 타일에다가 사용할 아틀라스 이미지 및 인덱스 설정
 	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
@@ -63,14 +73,20 @@ void CEditorLevel::CreateUI(Vec2 _vResolution)
 
 	// Load Button
 	CButton* pLoadTileButton = pSaveTileButton->Clone();
-	pLoadTileButton->SetPos(Vec2(120.f, 160.f));
+	pLoadTileButton->SetPos(Vec2(120.f, 120.f));
 	pLoadTileButton->SetDelegate(this, (DELEGATE)&CEditorLevel::LoadTile);
+
+	// Back Ground Load Button
+	CButton* pLoadBackGround = pSaveTileButton->Clone();
+	pLoadBackGround->SetPos(Vec2(120.f, 160.f));
+	pLoadBackGround->SetDelegate(this, (DELEGATE)&CEditorLevel::LoadBackGround);
 
 	// 패널에 버튼을 자식으로 넣어준다
 	pPanel->AddChildUI(pSaveTileButton);
 	pPanel->AddChildUI(pLoadTileButton);
+	pPanel->AddChildUI(pLoadBackGround);
 	AddObj(pPanel, ELAYER::UI);
 
-	CUI* pOtherPanel = pPanel->Clone();
-	AddObj(pOtherPanel, ELAYER::UI);
+	//CUI* pOtherPanel = pPanel->Clone();
+	//AddObj(pOtherPanel, ELAYER::UI);
 }
