@@ -9,35 +9,12 @@
 #define DOWN_BLOCK 0x10
 #define DUCK 0x20
 
-enum class EPLAYER_ANIM_STATE : UINT8
-{
-    IDLE1,
-    WALK_START_LEFT,
-    WALK_START_RIGHT,
-    WALK_LEFT,
-    WALK_RIGHT,
-    TURN_AROUND_LEFT,
-    TURN_AROUND_RIGHT,
-    JUMP,
-    DOULBE_JUMP,
-    SUPER_JUMP,
-    FALL,
-    DUCK_DOWN,
-    DUCK_UP,
-    ATTACK,
-    END
-};
-
 class CTexture;
 class CPlayer :
     public CObj
 {
 private:
     float m_fSpeed;
-    Vec2 m_vDir;
-
-    EPLAYER_ANIM_STATE m_eState;     // 애니메이션 상태
-    EPLAYER_ANIM_STATE m_ePrevState;     // 이전 애니메이션 상태
 
     int m_iFaceDir;     // 바라보는 방향(-1 : 왼쪽, 1 : 오른쪽)
     int m_iPrevFaceDir;     // 이전 프레임 바라보던 방향
@@ -51,9 +28,7 @@ private:
 
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
-    void SetDir(Vec2 _vDir) { m_vDir = _vDir; }
-    Vec2 GetDir() const { return m_vDir; }
-    EPLAYER_ANIM_STATE GetPlayerState()  const { return m_eState; }
+    
     int GetMoveState() const { return m_iMoveState; }
     void SetMoveState(int _iMoveState) { m_iMoveState = _iMoveState; }
 
@@ -74,8 +49,5 @@ public:
     virtual void BeginOverlap(CCollider* _pOther) override;
     virtual void OnOverlap(CCollider* _pOther) override;
     virtual void EndOverlap(CCollider* _pOther) override;
-
-public:
-    void ChangeAnim();
 };
 

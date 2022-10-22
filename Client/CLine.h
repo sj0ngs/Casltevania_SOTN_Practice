@@ -4,9 +4,7 @@
 enum class ELINE_TYPE : UINT8
 {
 	UP,
-	DOWN,
-	LEFT,
-	RIGHT
+	DOWN
 };
 
 class CLine :
@@ -16,6 +14,7 @@ private:
 	Vec2 m_vPos1;	// ¿ÞÂÊ ÁÂÇ¥
 	Vec2 m_vPos2;	// ¿À¸¥ÂÊ ÁÂÇ¥
 	ELINE_TYPE m_eType;
+	tLine m_tLine;
 
 	int m_iOverlapCount;
 
@@ -25,6 +24,7 @@ public:
 	void SetPos2(Vec2 _vPos2) { m_vPos2 = _vPos2; };
 	Vec2 GetPos2() const { return m_vPos2; }
 	ELINE_TYPE GetType() const { return m_eType; }
+	tLine& GetLine() { return m_tLine; }
 
 public:
 	CLONE(CLine);

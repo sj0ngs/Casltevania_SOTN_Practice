@@ -72,8 +72,7 @@ void CRigidBody::Final_Tick()
 	// 중력 적용 + 공중 상태 --> 중력
 	if (m_bGravityUse && !m_bGround)
 	{
-		Vec2 vGravityAccel = Vec2(0.f, m_fGravityAccel);
-		m_vVelocity += vGravityAccel * DELTATIME;
+		m_vVelocity.y += m_fGravityAccel * DELTATIME;
 	}
 
 	// 속도 제한 설정(좌, 우)

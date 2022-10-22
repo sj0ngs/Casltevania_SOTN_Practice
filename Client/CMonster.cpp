@@ -30,7 +30,7 @@ CMonster::CMonster()	:
 	GetAI()->ChangeState(L"Idle");
 
 	//m_pTexture = CResMgr::GetInst()->FindTexture(L"Plane");
-	m_pTexture = CResMgr::GetInst()->FindTexture(L"Alucard");
+	m_pTexture = CResMgr::GetInst()->LoadTexture(L"Alucard", L"texture\\alucard-8.bmp");
 
 	m_tInfo.m_fSpeed = 100.f;
 	m_tInfo.m_fDetectRange = 200.f;

@@ -24,7 +24,7 @@ public:
 
 private:
     void Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop,
-        Vec2 _vSize, int _iMaxFrmCount, float _fDuration);
+        Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, Vec2 _vOffset);
 
 public:
     void Tick();

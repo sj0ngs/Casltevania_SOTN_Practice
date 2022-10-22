@@ -249,44 +249,6 @@ public:
 		return vResult;
 	}
 
-	ERLTNS_TWOST MeetPoint(tLine _Other, Vec2& _MeetPoint)
-	{
-		if (fGradient == _Other.fGradient)
-			return ERLTNS_TWOST::PARELLEL;
-
-		// x = a 방정식알때
-		if (bIsX)
-		{
-			_MeetPoint.x = fYIntercept;
-			_MeetPoint.y = _Other.fGradient * fYIntercept + _Other.fYIntercept;
-			return ERLTNS_TWOST::MEET;
-		}
-		// y = b 방정식일때
-		else if (bIsY)
-		{
-			_MeetPoint.x = (fYIntercept - _Other.fYIntercept) / _Other.fGradient;
-			_MeetPoint.y = fYIntercept;
-			return ERLTNS_TWOST::MEET;
-		}
-		// 오브젝트가 멈춰있을때
-		else if (v1 == v2)
-		{
-			_MeetPoint.y = _Other.fGradient * v1.x + _Other.fYIntercept;
-
-			float fDist = _MeetPoint.y - v1.y;
-			if (fabsf(fDist) <= 0.01f)
-			{
-				return ERLTNS_TWOST::MEET;
-			}
-		}
-		else
-		{
-			_MeetPoint.x = (-fYIntercept + _Other.fYIntercept) / (fGradient - _Other.fGradient);
-			_MeetPoint.y = (fGradient * _Other.fYIntercept - _Other.fGradient * fYIntercept) / (fGradient - _Other.fGradient);
-			return ERLTNS_TWOST::MEET;
-		}
-	}
-
 	float GetPoint(float _x)
 	{
 		return _x * fGradient + fYIntercept;

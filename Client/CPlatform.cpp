@@ -3,6 +3,7 @@
 
 #include "CCollider.h"
 
+#include "CObj.h"
 #include "CPlayer.h"
 #include "CRigidBody.h"
 
@@ -18,7 +19,7 @@ CPlatform::CPlatform()	:
 {
 	CreateCollider();
 
-	GetCollider()->SetScale(Vec2(1000.f, 100.f));
+	GetCollider()->SetScale(Vec2(300.f, 300.f));
 }
 
 CPlatform::~CPlatform()
@@ -95,20 +96,6 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 			return;
 		}
 	}
-
-	//if (0.f < fDir)
-	//{
-	//	pPlayer->GetRigidBody()->SetGround(true);
-
-	//	float fDist = GetPos().y - vPlayerPos.y;
-	//	float fLength = (GetCollider()->GetScale().y + pPlayer->GetCollider()->GetScale().y) / 2.f;
-
-	//	if (fLength > fDist)
-	//	{
-	//		vPlayerPos.y -= (fLength - fDist);
-	//		pPlayer->SetPos(vPlayerPos);
-	//	}
-	//}
 }
 
 void CPlatform::OnOverlap(CCollider* _pOther)

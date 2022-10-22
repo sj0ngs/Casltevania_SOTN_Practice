@@ -27,7 +27,6 @@ void CStartLevel::Init()
 {
 	// texture ·Îµù
 	//CResMgr::GetInst()->LoadTexture(L"Plane", L"texture\\Fighter.bmp");
-	CResMgr::GetInst()->LoadTexture(L"Alucard", L"texture\\Alucard_4.bmp");
 
 	CObj* pObj = new CPlayer;
 	pObj->SetPos(Vec2(500.f, 100.f));
@@ -99,8 +98,10 @@ void CStartLevel::Tick()
 
 		CLine* pLine = new CLine;
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
-		pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
+		//pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
+		//pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
+		pLine->SetPos1(vMousePos - Vec2(100.f, 0.f));
+		pLine->SetPos2(vMousePos + Vec2(100.f, 0.f));
 		Instantiate(pLine, vMousePos, ELAYER::LINE);
 	}
 

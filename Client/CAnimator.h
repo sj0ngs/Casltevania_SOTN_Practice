@@ -28,7 +28,8 @@ public:
 
 public:
     void CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, 
-                         Vec2 _vSize, int _iMaxFrmCount, float _fDuration);
+                         Vec2 _vSize, int _iMaxFrmCount, float _fDuration, 
+                         Vec2 _vPadding = Vec2(0.f, 0.f), Vec2 _vOffset = Vec2(0.f, 0.f));
     CAnimation* FindAnimation(const wstring& _strName);
     CAnimation* LoadAnimation(const wstring& _strRelativePath);
     bool IsAnimationFinish(const wstring& _strName);

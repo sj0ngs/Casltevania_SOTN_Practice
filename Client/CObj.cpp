@@ -18,9 +18,10 @@ void CObj::SetDead()
 	CEventMgr::GetInst()->AddEvent(evn);
 }
 
-CObj::CObj()	:
+CObj::CObj() :
 	m_vPos{},
 	m_vScale{},
+	m_vDir(1.f, 0.f),
 	m_pCollider(nullptr),
 	m_pAnimator(nullptr),
 	m_pRigidBody(nullptr),
@@ -32,6 +33,7 @@ CObj::CObj(const CObj& _Other)	:
 	CEntity(_Other),
 	m_vPos(_Other.m_vPos),
 	m_vScale(_Other.m_vScale),
+	m_vDir(1.f, 0.f),
 	m_pCollider(nullptr),
 	m_pAnimator(nullptr),
 	m_pRigidBody(nullptr),
@@ -103,11 +105,11 @@ void CObj::Final_Tick()
 
 void CObj::Render(HDC _DC)
 {
-	if (nullptr != m_pCollider)
-		m_pCollider->Render(_DC);
-
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Render(_DC);
+
+	if (nullptr != m_pCollider)
+		m_pCollider->Render(_DC);
 
 	m_PrevPos = m_vPos;
 }

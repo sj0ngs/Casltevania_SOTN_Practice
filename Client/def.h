@@ -80,11 +80,3 @@ enum class ECAMERA_EFFECT
 	FADE_OUT,
 	FADE_IN
 };
-
-// 두 직선 사이의 관계
-enum class ERLTNS_TWOST
-{
-	EQUAL,
-	PARELLEL,
-	MEET
-};

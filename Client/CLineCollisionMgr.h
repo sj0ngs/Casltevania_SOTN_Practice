@@ -31,9 +31,7 @@ public:
 private:
 	void CollisionLayerToLine(ELAYER _Layer);
 	bool CollisionObjToLine(CObj* _Obj, CLine* _Line);
-	bool UpLineCheck(CObj* _Obj, CLine* _Line, Vec2 _vMeetPoint);
-	bool DownLineCheck(CObj* _Obj, CLine* _Line, Vec2 _vMeetPoint);
-	bool LeftLineCheck(CObj* _Obj, CLine* _Line, Vec2 _vMeetPoint);
-	bool RightLineCheck(CObj* _Obj, CLine* _Line, Vec2 _vMeetPoint);
+	bool UpLineCheck(CObj* _Obj, tLine& _Line);
+	bool DownLineCheck(CObj* _Obj, tLine& _Line);
 };
 

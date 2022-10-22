@@ -24,7 +24,8 @@ CAnimation::~CAnimation()
 {
 }
 
-void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, Vec2 _vSize, int _iMaxFrmCount, float _fDuration)
+void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, 
+					Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, Vec2 _vOffset)
 {
 	SetName(_strName);	// 이름
 	m_pAtlas = _pAtlas;	// 아틀라스 이미지
@@ -32,9 +33,10 @@ void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop
 	for (int i = 0; i < _iMaxFrmCount; i++)
 	{
 		tAnimFrm frm = {};
-		frm.vLeftTop = Vec2(_vLeftTop.x + (float)i * _vSize.x, _vLeftTop.y);
+		frm.vLeftTop = Vec2(_vLeftTop.x + (float)i * (_vSize.x + _vPadding.x), _vLeftTop.y + _vPadding.y);
 		frm.vSize = _vSize;
 		frm.fDuration = _fDuration;
+		frm.vOffset = _vOffset;
 
 		m_vecFrm.push_back(frm);
 	}
@@ -67,13 +69,14 @@ void CAnimation::Render(HDC _hDC)
 
 	tAnimFrm frm = m_vecFrm[m_iCurFrm];
 
+	float X = fabsf(frm.vSize.x);
 	TransparentBlt(_hDC, 
-		(int)(vPos.x - frm.vSize.x / 2.f + frm.vOffset.x), 
+		(int)(vPos.x - X / 2.f + frm.vOffset.x),
 		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),
-		(int)(frm.vSize.x), (int)(frm.vSize.y),
+		(int)(X), (int)(frm.vSize.y),
 		m_pAtlas->GetDC(),
 		(int)(frm.vLeftTop.x), (int)(frm.vLeftTop.y),
-		(int)(frm.vSize.x), (int)(frm.vSize.y),
+		(int)(X), (int)(frm.vSize.y),
 		RGB(255, 0, 255));
 }
 

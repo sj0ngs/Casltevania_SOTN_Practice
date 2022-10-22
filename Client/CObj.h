@@ -14,6 +14,7 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
     Vec2        m_vPos;  // 위치 정보
     Vec2        m_vScale; // 가로 세로 길이 정보
 
+    Vec2        m_vDir;
     Vec2        m_PrevPos;
 
     // Component
@@ -30,6 +31,9 @@ public:
 
     void SetScale(Vec2 _pt) { m_vScale = _pt; }
     Vec2 GetScale() { return m_vScale; }
+
+    void SetDir(Vec2 _vDir) { m_vDir = _vDir; }
+    Vec2 GetDir() const { return m_vDir; }
 
     Vec2 GetPrevPos() { return m_PrevPos; }
 

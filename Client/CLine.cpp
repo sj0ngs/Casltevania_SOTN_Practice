@@ -6,15 +6,18 @@
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
+#include "CObj.h"
 #include "CPlayer.h"
 
+#include "CCollider.h"
 #include "CRigidBody.h"
 
 CLine::CLine()	:
 	m_vPos1{},
 	m_vPos2{},
 	m_iOverlapCount(0),
-	m_eType(ELINE_TYPE::UP)
+	m_eType(ELINE_TYPE::UP),
+	m_tLine{}
 {
 }
 
@@ -22,7 +25,8 @@ CLine::CLine(const CLine& _Other)	:
 	m_vPos1(_Other.m_vPos1),
 	m_vPos2(_Other.m_vPos2),
 	m_iOverlapCount(0),
-	m_eType(ELINE_TYPE::UP)
+	m_eType(_Other.m_eType),
+	m_tLine{}
 {
 }
 
@@ -32,6 +36,8 @@ CLine::~CLine()
 
 void CLine::Tick()
 {
+	tLine tLine{ GetPos1(), GetPos2() };
+	m_tLine = tLine;
 }
 
 void CLine::Render(HDC _DC)
@@ -64,67 +70,32 @@ void CLine::BeginOverlap(CObj* _pOther)
 {
 	m_iOverlapCount++;
 
-	tLine Line = { GetPos1(), GetPos2() };
+	_pOther->GetRigidBody()->OnGround();
 
 	Vec2 vPos = _pOther->GetPos();
-	vPos.y += _pOther->GetScale().y / 2.f;
+	Vec2 vScale = _pOther->GetCollider()->GetScale() / 2.f;
 
-	float y = Line.GetPoint(vPos.x);
+	vPos.y = m_tLine.GetPoint(vPos.x);
+	vPos.y -= vScale.y;
 
-	if (y >= vPos.y)
-	{
-		vPos.y = y;
+	_pOther->SetPos(vPos);
 
-		_pOther->SetPos(vPos);
-		_pOther->GetRigidBody()->OnGround();
-
-		CPlayer* Player = dynamic_cast<CPlayer*>(_pOther);
-
-		if (nullptr != Player)
-		{
-			Line.vGradient *= -1.f;
-			Player->SetDir(Line.vGradient);
-		}
-	}
-
-	//CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);
-
-	//if (nullptr == pPlayer)
-	//	return; 
-
- //  	pPlayer->GetRigidBody()->OnGround();
-
-	//tLine ObjLine = tLine(pPlayer->GetPos(), pPlayer->GetPrevPos());
-	//tLine Line = tLine(GetPos1(), GetPos2());
-
-	//Vec2 vMeetPoint = {};
-	//ObjLine.MeetPoint(Line, vMeetPoint);
-
-	//pPlayer->SetPos(vMeetPoint);
-
-	//Vec2 vGradient = Line.vGradient;
-
-	//if (0 > vGradient.x)
-	//{
-	//	vGradient *= -1.f;
-	//}
-
-	//pPlayer->SetDir(vGradient);
+	Vec2 Gradient = m_tLine.vGradient;
+	if (0.f > Gradient.x)
+		Gradient *= -1.f;
+	
+	_pOther->SetDir(Gradient);
 }
 
 void CLine::OnOverlap(CObj* _pOther)
 {
+
 }
 
 void CLine::EndOverlap(CObj* _pOther)
 {
 	m_iOverlapCount--; 
 
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);
-
-	if (nullptr == pPlayer)
-		return;
-
-	pPlayer->GetRigidBody()->OffGround();
-	pPlayer->SetDir(Vec2(1.f, 0.f));
+	_pOther->GetRigidBody()->OffGround();
+	_pOther->SetDir(Vec2(1.f, 0.f));
 }

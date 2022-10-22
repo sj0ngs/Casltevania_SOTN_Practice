@@ -64,7 +64,7 @@ void CAnimator::Render(HDC _hDC)
 }
 
 void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, 
-								Vec2 _vSize, int _iMaxFrmCount, float _fDuration)
+								Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, Vec2 _vOffset)
 {
 	// 애니메이션은 중복되서 만들어지면 안되므로 중복 확인
 	CAnimation* pAnim = FindAnimation(_strName);
@@ -74,7 +74,7 @@ void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2
 	// 자신(애니메이터)를 넘겨준다
 	pAnim = new CAnimation(this);
 	// 인자로 받아온 값으로 새로운 애니메이션 생성
-	pAnim->Init(_strName, _pAtlas, _vLeftTop, _vSize, _iMaxFrmCount, _fDuration);
+	pAnim->Init(_strName, _pAtlas, _vLeftTop, _vSize, _iMaxFrmCount, _fDuration, _vPadding, _vOffset);
 	// 완성된 애니메이션을 map 컨테이너에 담아준다
 	m_mapAnim.insert(make_pair(_strName, pAnim));
 }

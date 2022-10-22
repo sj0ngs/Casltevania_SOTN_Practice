@@ -133,6 +133,9 @@
     <Filter Include="Game\07. MonsterState\DeadState">
       <UniqueIdentifier>{62c5b8e4-82ad-4e0b-8445-9a0464c9fdfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Wall">
+      <UniqueIdentifier>{d3227199-2a4f-483c-b09e-42870e14b0b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -413,6 +416,7 @@
     <ClCompile Include="CObj.cpp">
       <Filter>Game\04. Object</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
