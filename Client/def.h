@@ -27,7 +27,7 @@
 #define IS_NONE(key) CKeyMgr::GetInst()->GetKeyState(key) == EKEY_STATE::NONE
 
 #define PI 3.14f
-#define TILE_SIZE 64	
+#define TILE_SIZE 32	
 
 enum class ELEVEL_TYPE
 {

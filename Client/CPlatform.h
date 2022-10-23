@@ -10,6 +10,12 @@ enum class EPLATFORM_STATUS
 	DOWN
 };
 
+enum class EPLATFORM_TYPE
+{
+	SOLID,
+	NON_SOLID
+};
+
 class CPlayer;
 
 class CPlatform	:
@@ -28,12 +34,17 @@ private:
 
 	map<UINT, EPLATFORM_STATUS> m_mapPlatformStatus;
 
-	// 플랫폼 스테이터스 벡터 때문에 복사 생성자 따로 만들어 줘야함
+	EPLATFORM_TYPE m_eType;
+
+public:
+	void SetType(EPLATFORM_TYPE _eType) { m_eType = _eType; }
+
 public:
 	CLONE(CPlatform);
 
 public:
 	CPlatform();
+	CPlatform(const CPlatform& _Origin);
 	~CPlatform();
 
 public:
@@ -43,9 +54,9 @@ public:
 
 private:
 	void SetPoint();
-	bool UpCheck(CPlayer* _pPlayer);
-	bool DownCheck(CPlayer* _pPlayer);
-	void LeftCheck(CPlayer* _pPlayer);
-	void RightCheck(CPlayer* _pPlayer);
+	bool UpCheck(CObj* _pObj);
+	bool DownCheck(CObj* _pObj);
+	void LeftCheck(CObj* _pObj);
+	void RightCheck(CObj* _pObj);
 };
 

@@ -14,7 +14,7 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
     Vec2        m_vPos;  // 위치 정보
     Vec2        m_vScale; // 가로 세로 길이 정보
 
-    Vec2        m_vDir;
+    Vec2        m_vDir;     // 지상에서의 이동방향(사선 이동에 필요함)
     Vec2        m_PrevPos;
 
     // Component

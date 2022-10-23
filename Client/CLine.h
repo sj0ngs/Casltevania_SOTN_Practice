@@ -21,9 +21,13 @@ private:
 public:
 	void SetPos1(Vec2 _vPos1) { m_vPos1 = _vPos1; };
 	Vec2 GetPos1() const { return m_vPos1; }
+
 	void SetPos2(Vec2 _vPos2) { m_vPos2 = _vPos2; };
 	Vec2 GetPos2() const { return m_vPos2; }
+
 	ELINE_TYPE GetType() const { return m_eType; }
+	void SetType(ELINE_TYPE _eType) { m_eType =  _eType; }
+
 	tLine& GetLine() { return m_tLine; }
 
 public:

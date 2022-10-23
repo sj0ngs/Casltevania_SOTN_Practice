@@ -139,6 +139,9 @@
     <Filter Include="Game\04. Object\BackGround">
       <UniqueIdentifier>{065f502d-2c7f-42b7-8ae5-8858fd6bae54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\03. Level\Editor\MapEditor">
+      <UniqueIdentifier>{3ac23aee-a94e-4e49-8a49-7070a391b703}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -424,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="CBackGround.cpp">
       <Filter>Game\04. Object\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorLevel_Map.cpp">
+      <Filter>Game\03. Level\Editor\MapEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

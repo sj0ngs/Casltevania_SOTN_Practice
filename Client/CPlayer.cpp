@@ -26,8 +26,8 @@ const float ATLAS_X_SIZE = 119.f * 4.f;
 const float ATLAS_Y_SIZE = 99.f * 4.f;
 const float ATLAS_X_PADDING = 4.f * 4.f;
 const float ATLAS_Y_PADDING = 4.f * 4.f;
-#define RIGHT_OFFSET Vec2(70.f, -100.f)
-#define LEFT_OFFSET Vec2(-70.f, -100.f)
+#define RIGHT_OFFSET Vec2(70.f, -180.f)
+#define LEFT_OFFSET Vec2(-70.f, -180.f)
 
 CPlayer::CPlayer() :
 	m_fSpeed(200.f),
@@ -35,15 +35,14 @@ CPlayer::CPlayer() :
 	m_iPrevFaceDir(1),
 	m_fRunStartAcc(0.f),
 	m_fJumpTimeAcc(0.f),
-	m_bDoubleJump(true),
-	m_iMoveState(0)
+	m_bDoubleJump(true)
 {
 	CreateCollider();
 	CreateAnimator();
 	CreateRigidBody();
 
-	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
-	GetCollider()->SetScale(Vec2(70.f, 180.f));
+	GetCollider()->SetScale(Vec2(64.f, 180.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, -90.f));
 
 	//CTexture* pAlucardAtlas = CResMgr::GetInst()->LoadTexture(L"AlucardAtlas", L"texture\\Alucard_Atlast.bmp");
 	//GetAnimator()->CreateAnimation(L"Idle_Right", pAlucardAtlas, Vec2(240.f, 0.f), Vec2(240.f, 220.f), 6, 0.15f);
@@ -153,12 +152,6 @@ void CPlayer::Tick()
 		}
 		else if (IS_TAP(EKEY::SPACE))
 		{
-			if (m_iMoveState & DUCK)
-			{
-				GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
-				GetCollider()->SetScale(Vec2(80.f, 180.f));
-				m_iMoveState ^= DUCK;
-			}
 			GetRigidBody()->SetGravity(false);
 			GetRigidBody()->OffGround();
 			GetAnimator()->Play(L"Jump", false);
@@ -175,8 +168,7 @@ void CPlayer::Tick()
 			}
 			
 			// 왼쪽 이동 방해 상태가 아니라면 이동
-			if(!(LEFT_BLOCK & m_iMoveState))
-				vPos -= GetDir() * m_fSpeed * DELTATIME;
+			vPos -= GetDir() * m_fSpeed * DELTATIME;
 		}
 		// 오른쪽 이동
 		else if (IS_PRESSED(EKEY::RIGHT))
@@ -189,13 +181,11 @@ void CPlayer::Tick()
 			}
 
 			// 오른쪽 이동 방해 상태가 아니라면 이동
-			if(!(RIGHT_BLOCK & m_iMoveState))
-				vPos += GetDir() * m_fSpeed * DELTATIME;
+			vPos += GetDir() * m_fSpeed * DELTATIME;
 		}
 		// 숙이면 콜리전 크기와 오프셋을 변경해주고 이동 상태를 변경해준다
 		else if (IS_TAP(EKEY::DOWN))
 		{
-			m_iMoveState |= DUCK;
 			GetCollider()->SetScale(Vec2(80.f, 60.f));
 			GetCollider()->SetOffsetPos(Vec2(0.f, 60.f));
 		}
@@ -206,7 +196,6 @@ void CPlayer::Tick()
 		{
 			GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
 			GetCollider()->SetScale(Vec2(80.f, 180.f));
-			m_iMoveState ^= DUCK;
 		}
 		else if (IS_TAP(EKEY::LSHIFT))
 		{
@@ -229,7 +218,7 @@ void CPlayer::Tick()
 		m_fJumpTimeAcc += DELTATIME;
 
 		// 공중에서 점프키 계속 누르고 있으면 상승
-		if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_fJumpTimeAcc && !(m_iMoveState & UP_BLOCK))
+		if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_fJumpTimeAcc)
 		{
 			vPos.y -= 600.f * DELTATIME;
 		}
@@ -255,14 +244,12 @@ void CPlayer::Tick()
 		if (IS_PRESSED(EKEY::LEFT))
 		{
 			// 공중에서 방향전환시 애니메이션 변경해야함
-			if (!(LEFT_BLOCK & m_iMoveState))
-				vPos.x -= m_fSpeed * DELTATIME;
+			vPos.x -= m_fSpeed * DELTATIME;
 		}
 		// 공중에서 오른쪽으로 이동
 		else if (IS_PRESSED(EKEY::RIGHT))
 		{
-			if (!(RIGHT_BLOCK & m_iMoveState))
-				vPos.x += m_fSpeed * DELTATIME;
+			vPos.x += m_fSpeed * DELTATIME;
 		}
 	}
 

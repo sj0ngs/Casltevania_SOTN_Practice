@@ -15,11 +15,25 @@ CPlatform::CPlatform()	:
 	m_vLeftTop{},
 	m_vRightTop{},
 	m_vLeftDown{},
-	m_vRightDown{}
+	m_vRightDown{},
+	m_eType(EPLATFORM_TYPE::SOLID)
 {
 	CreateCollider();
+	GetCollider()->SetScale(Vec2(TILE_SIZE * 5.f, TILE_SIZE));
+}
 
-	GetCollider()->SetScale(Vec2(300.f, 300.f));
+CPlatform::CPlatform(const CPlatform& _Origin)	:
+	CObj(_Origin),
+	m_UpLine{},
+	m_DownLine{},
+	m_LeftLine{},
+	m_RightLine{},
+	m_vLeftTop{},
+	m_vRightTop{},
+	m_vLeftDown{},
+	m_vRightDown{},
+	m_eType(_Origin.m_eType)
+{
 }
 
 CPlatform::~CPlatform()
@@ -28,88 +42,150 @@ CPlatform::~CPlatform()
 
 void CPlatform::BeginOverlap(CCollider* _pOther)
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther->GetOwner());
-
-	if (nullptr == pPlayer)
-		return;
+	CObj* pObj = _pOther->GetOwner();
 
 	SetPoint();
 
-	Vec2 vPlayerPos = pPlayer->GetPos();
-	Vec2 vPlayerPrevPos = pPlayer->GetPrevPos();
+	Vec2 vObjPos = pObj->GetPos();
+	Vec2 vObjPrevPos = pObj->GetPrevPos();
 	
-	Vec2 vDir = vPlayerPos - vPlayerPrevPos;
+	Vec2 vDir = vObjPos - vObjPrevPos;
 
-	// 플레이어가 추락 중일 때
-	if (0.f < vDir.y)
+	if (EPLATFORM_TYPE::SOLID == m_eType)
 	{
-		// 윗변에 교점이 생겼다면 종료
-		if (UpCheck(pPlayer))
-			return;
+		// 플레이어가 추락 중일 때
+		if (0.f < vDir.y)
+		{
+			// 윗변에 교점이 생겼다면 종료
+			if (UpCheck(pObj))
+				return;
 
-		// 왼쪽에서 접근했을 때
-		if (0.f < vDir.x)
-		{
-			LeftCheck(pPlayer);
-			return;
+			// 왼쪽에서 접근했을 때
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
 		}
-		// 오른쪽에서 접근했을 때
-		if (0.f > vDir.x)
+		// 상승중일 때 
+		else if (0.f > vDir.y)
 		{
-			RightCheck(pPlayer);
-			return;
+			// 아래변에 교점이 생겼다면 종료
+			if (DownCheck(pObj))
+				return;
+
+			// 왼쪽에서 접근했을 때
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
+		}
+		// 벽에 부딪혔을때
+		else if (0.f == vDir.y)
+		{
+			// 왼쪽에서 접근했을 때
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
 		}
 	}
-	// 상승중일 때 
-	else if(0.f > vDir.y)
+	else
 	{
-		// 아래변에 교점이 생겼다면 종료
-		if (DownCheck(pPlayer))
-			return;
-
-		// 왼쪽에서 접근했을 때
-		if (0.f < vDir.x)
+		// 플레이어가 추락 중일 때
+		if (0.f < vDir.y)
 		{
-			LeftCheck(pPlayer);
-			return;
-		}
-		// 오른쪽에서 접근했을 때
-		if (0.f > vDir.x)
-		{
-			RightCheck(pPlayer);
-			return;
-		}
-	}
-	// 벽에 부딪혔을때
-	else if(0.f == vDir.y)
-	{
-		// 왼쪽에서 접근했을 때
-		if (0.f < vDir.x)
-		{
-			LeftCheck(pPlayer);
-			return;
-		}
-		// 오른쪽에서 접근했을 때
-		if (0.f > vDir.x)
-		{
-			RightCheck(pPlayer);
-			return;
+			// 윗변에 교점이 생겼다면 종료
+			if (UpCheck(pObj))
+				return;
 		}
 	}
 }
 
+// 겹쳐진 만큼 계속 밀어준다
 void CPlatform::OnOverlap(CCollider* _pOther)
 {
+	CObj* pObj = _pOther->GetOwner();
+
+	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pObj->GetId());
+
+	if (iter == m_mapPlatformStatus.end())
+		return;
+
+	Vec2 vObjPos = pObj->GetPos();
+
+	Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
+	Vec2 vLength = GetCollider()->GetScale() / 2.f;
+
+	switch (iter->second)
+	{
+	case EPLATFORM_STATUS::UP:
+	{
+		if (vLength.y > vDist.y)
+		{
+			vObjPos.y -= (vLength.y - vDist.y);
+			pObj->SetPos(vObjPos);
+		}
+	}
+		break;
+	case EPLATFORM_STATUS::LEFT:
+	{
+		vLength += pObj->GetCollider()->GetScale() / 2.f;
+		if (vLength.x > vDist.x)
+		{
+			vObjPos.x -= (vLength.x - vDist.x);
+			pObj->SetPos(vObjPos);
+		}
+	}
+		break;
+	case EPLATFORM_STATUS::RIGHT:
+	{
+		vLength += pObj->GetCollider()->GetScale() / 2.f;
+		if (vLength.x > vDist.x)
+		{
+			vObjPos.x += (vLength.x - vDist.x);
+			pObj->SetPos(vObjPos);
+		}
+	}
+		break;
+	case EPLATFORM_STATUS::DOWN:
+	{
+		vLength += pObj->GetCollider()->GetScale();
+		if (vLength.y > vDist.y)
+		{
+			vObjPos.y += (vLength.y - vDist.y);
+			pObj->SetPos(vObjPos);
+		}
+	}
+		break;	
+	}
 }
 
 void CPlatform::EndOverlap(CCollider* _pOther)
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther->GetOwner());
+	CObj* pObj = _pOther->GetOwner();
 
-	if (nullptr == pPlayer)
-		return;
-
-	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pPlayer->GetId());
+	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pObj->GetId());
 
 	if (iter == m_mapPlatformStatus.end())
 		return;
@@ -118,32 +194,10 @@ void CPlatform::EndOverlap(CCollider* _pOther)
 	{
 	case EPLATFORM_STATUS::UP:
 	{
-		pPlayer->GetRigidBody()->OffGround();
-	}
-		break;
-	case EPLATFORM_STATUS::LEFT:
-	{
-		int iMoveState = pPlayer->GetMoveState();
-		iMoveState ^= RIGHT_BLOCK;
-		pPlayer->SetMoveState(iMoveState);
-	}
-		break;
-	case EPLATFORM_STATUS::RIGHT:
-	{
-		int iMoveState = pPlayer->GetMoveState();
-		iMoveState ^= LEFT_BLOCK;
-		pPlayer->SetMoveState(iMoveState);
-	}
-		break;
-	case EPLATFORM_STATUS::DOWN:
-	{
-		int iMoveState = pPlayer->GetMoveState();
-		iMoveState ^= UP_BLOCK;
-		pPlayer->SetMoveState(iMoveState);
+		pObj->GetRigidBody()->OffGround();
 	}
 		break;
 	}
-
 	m_mapPlatformStatus.erase(iter);
 }
 
@@ -158,118 +212,68 @@ void CPlatform::SetPoint()
 	m_vRightDown = Vec2(vPos.x + vScale.x, vPos.y + vScale.y);
 }
 
-bool CPlatform::UpCheck(CPlayer* _pPlayer)
+bool CPlatform::UpCheck(CObj* _pObj)
 {
 	m_UpLine = tLine(m_vLeftTop, m_vRightTop);
 
-	Vec2 vPlayerPos = _pPlayer->GetPos();
-	Vec2 vPlayerPrevPos = _pPlayer->GetPrevPos();
-	Vec2 vPlayerScale = _pPlayer->GetCollider()->GetScale();
-	vPlayerPos.y += vPlayerScale.y / 2.f;
-	vPlayerPrevPos.y += vPlayerScale.y / 2.f;
+	Vec2 vObjPos = _pObj->GetPos();
+	Vec2 vObjPrevPos = _pObj->GetPrevPos();
+	Vec2 vObjScale = _pObj->GetCollider()->GetScale();
+	tLine tObjLine = tLine(vObjPos, vObjPrevPos);
 
-	tLine tPlayerLine = tLine(vPlayerPos, vPlayerPrevPos);
+	Vec2 vUPMeetPoint = m_UpLine.MeetPoint(tObjLine);
 
-	Vec2 vUPMeetPoint = m_UpLine.MeetPoint(tPlayerLine);
-
-	if ((m_vLeftTop.x - vPlayerScale.x / 2.f) <= vUPMeetPoint.x
-		&& (m_vRightTop.x + vPlayerScale.x / 2.f) >= vUPMeetPoint.x)
+	if ((m_vLeftTop.x - vObjScale.x / 2.f) < vUPMeetPoint.x
+		&& (m_vRightTop.x + vObjScale.x / 2.f) > vUPMeetPoint.x)
 	{
-		_pPlayer->GetRigidBody()->OnGround();
-		_pPlayer->ResetJump();
-		m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::UP));
+		_pObj->GetRigidBody()->OnGround();
 
-		float fDist = fabsf(GetPos().y - vPlayerPos.y);
-		float fLength = GetCollider()->GetScale().y / 2.f;
+		// 오브젝트가 플레이어일때 따로 체크
+		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
+		if(nullptr != pPlayer)
+			pPlayer->ResetJump();
 
-		if (fLength > fDist)
-		{
-			vPlayerPos.y -= vPlayerScale.y / 2.f;
-			vPlayerPos.y -= (fLength - fDist);
-			_pPlayer->SetPos(vPlayerPos);
-		}
+		m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::UP));
 		return true;
 	}
-
 	return false;
 }
 
-bool CPlatform::DownCheck(CPlayer* _pPlayer)
+bool CPlatform::DownCheck(CObj* _pObj)
 {
 	m_DownLine = tLine(m_vLeftDown, m_vRightDown);
 
-	Vec2 vPlayerScale = _pPlayer->GetCollider()->GetScale();
-	Vec2 vPlayerPos = _pPlayer->GetPos();
-	Vec2 vPlayerPrevPos = _pPlayer->GetPrevPos();
-	vPlayerPos.y -= vPlayerScale.y / 2.f;
-	vPlayerPrevPos.y -= vPlayerScale.y / 2.f;
+	Vec2 vObjScale = _pObj->GetCollider()->GetScale();
+	Vec2 vObjPos = _pObj->GetPos();
+	Vec2 vObjPrevPos = _pObj->GetPrevPos();
+	vObjPos.y -= vObjScale.y;
+	vObjPrevPos.y -= vObjScale.y;
 
 	// 플레이어의 이동 벡터를 연장한 직선을 만든다
-	tLine tPlayerLine = tLine(vPlayerPos, vPlayerPrevPos);
+	tLine tObjLine = tLine(vObjPos, vObjPrevPos);
 
-	Vec2  vDownMeetPoint = m_DownLine.MeetPoint(tPlayerLine);
+	Vec2  vDownMeetPoint = m_DownLine.MeetPoint(tObjLine);
 
-	if ((m_vLeftDown.x - vPlayerScale.x / 2) <= vDownMeetPoint.x
-		&& (m_vRightDown.x + vPlayerScale.x / 2) >= vDownMeetPoint.x)
+	if ((m_vLeftDown.x - vObjScale.x / 2) < vDownMeetPoint.x
+		&& (m_vRightDown.x + vObjScale.x / 2) > vDownMeetPoint.x)
 	{
-		float fDist = fabsf(GetPos().y - vPlayerPos.y);
-		float fLength = GetCollider()->GetScale().y / 2.f;
+		// 오브젝트가 플레이어일때 따로 체크
+		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
+		if (nullptr != pPlayer)
+			pPlayer->EndJump();
 
-		int iMoveState = _pPlayer->GetMoveState();
-		iMoveState |= UP_BLOCK;
-		_pPlayer->SetMoveState(iMoveState);
-
-		m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::DOWN));
-
-		if (fLength > fDist)
-		{
-			vPlayerPos.y += vPlayerScale.y / 2.f;
-			vPlayerPos.y += (fLength - fDist);
-			_pPlayer->SetPos(vPlayerPos);
-		}
+		m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::DOWN));
 		return true;
 	}
 	return false;
 }
 
-void CPlatform::LeftCheck(CPlayer* _pPlayer)
+void CPlatform::LeftCheck(CObj* _pObj)
 {
-	Vec2 vPlayerScale = _pPlayer->GetCollider()->GetScale();
-	Vec2 vPlayerPos = _pPlayer->GetPos();
-
-	float fDist = fabsf(GetPos().x - vPlayerPos.x);
-	float fLength = (GetCollider()->GetScale().x + vPlayerScale.x) / 2.f;
-
-	int iMoveState = _pPlayer->GetMoveState();
-	iMoveState |= RIGHT_BLOCK;
-	_pPlayer->SetMoveState(iMoveState);
-	
-	m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::LEFT));
-
-	if (fLength > fDist)
-	{
-		vPlayerPos.x -= (fLength - fDist);
-		_pPlayer->SetPos(vPlayerPos);
-	}
+	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::LEFT));
 }
 
-void CPlatform::RightCheck(CPlayer* _pPlayer)
+void CPlatform::RightCheck(CObj* _pObj)
 {
-	Vec2 vPlayerScale = _pPlayer->GetCollider()->GetScale();
-	Vec2 vPlayerPos = _pPlayer->GetPos();
-
-	float fDist = fabsf(GetPos().x - vPlayerPos.x);
-	float fLength = (GetCollider()->GetScale().x + vPlayerScale.x) / 2.f;
-
-	int iMoveState = _pPlayer->GetMoveState();
-	iMoveState |= LEFT_BLOCK;
-	_pPlayer->SetMoveState(iMoveState);
-
-	m_mapPlatformStatus.insert(make_pair(_pPlayer->GetId(), EPLATFORM_STATUS::RIGHT));
-
-	if (fLength > fDist)
-	{
-		vPlayerPos.x += (fLength - fDist);
-		_pPlayer->SetPos(vPlayerPos);
-	}
+	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::RIGHT));
 }

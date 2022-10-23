@@ -35,19 +35,8 @@ void CEditorLevel::Init()
 	//UI 배치
 	CreateUI(vResolution);
 
-	// 타일이 사용할 아틀라스 이미지 설정
-	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"TileAtlas", L"texture\\TILE.bmp");
-
-	// 타일 생성
-	CreateTile(10, 10);
-
-	// 각 타일에다가 사용할 아틀라스 이미지 및 인덱스 설정
-	const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
-	for (size_t i = 0; i < vecTile.size(); i++)
-	{
-		((CTile*)vecTile[i])->SetAtlas(pTex);
-		((CTile*)vecTile[i])->SetImgIdx((int)0);
-	}
+	//// 타일 생성
+	//CreateTile(10, 10);
 }
 
 void CEditorLevel::CreateUI(Vec2 _vResolution)

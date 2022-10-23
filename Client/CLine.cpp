@@ -70,21 +70,29 @@ void CLine::BeginOverlap(CObj* _pOther)
 {
 	m_iOverlapCount++;
 
-	_pOther->GetRigidBody()->OnGround();
+	if (ELINE_TYPE::UP == m_eType)
+	{
+		_pOther->GetRigidBody()->OnGround();
 
-	Vec2 vPos = _pOther->GetPos();
-	Vec2 vScale = _pOther->GetCollider()->GetScale() / 2.f;
+		Vec2 vPos = _pOther->GetPos();
 
-	vPos.y = m_tLine.GetPoint(vPos.x);
-	vPos.y -= vScale.y;
+		vPos.y = m_tLine.GetPoint(vPos.x);
 
-	_pOther->SetPos(vPos);
+		_pOther->SetPos(vPos);
 
-	Vec2 Gradient = m_tLine.vGradient;
-	if (0.f > Gradient.x)
-		Gradient *= -1.f;
-	
-	_pOther->SetDir(Gradient);
+		Vec2 Gradient = m_tLine.vGradient;
+		if (0.f > Gradient.x)
+			Gradient *= -1.f;
+
+		_pOther->SetDir(Gradient);
+	}
+	else
+	{
+		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);
+
+		if (nullptr != pPlayer)
+			pPlayer->EndJump();
+	}
 }
 
 void CLine::OnOverlap(CObj* _pOther)
@@ -96,6 +104,9 @@ void CLine::EndOverlap(CObj* _pOther)
 {
 	m_iOverlapCount--; 
 
-	_pOther->GetRigidBody()->OffGround();
-	_pOther->SetDir(Vec2(1.f, 0.f));
+	if (ELINE_TYPE::UP == m_eType)
+	{
+		_pOther->GetRigidBody()->OffGround();
+		_pOther->SetDir(Vec2(1.f, 0.f));
+	}
 }

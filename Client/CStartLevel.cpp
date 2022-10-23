@@ -107,10 +107,10 @@ void CStartLevel::Tick()
 
 		CLine* pLine = new CLine;
 		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		//pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
-		//pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
-		pLine->SetPos1(vMousePos - Vec2(100.f, 0.f));
-		pLine->SetPos2(vMousePos + Vec2(100.f, 0.f));
+		pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
+		pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
+		//pLine->SetPos1(vMousePos - Vec2(100.f, 0.f));
+		//pLine->SetPos2(vMousePos + Vec2(100.f, 0.f));
 		Instantiate(pLine, vMousePos, ELAYER::LINE);
 	}
 

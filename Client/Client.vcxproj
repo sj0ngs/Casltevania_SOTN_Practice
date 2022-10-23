@@ -196,6 +196,7 @@
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CEditorLevel_Map.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CEditorLevel.cpp" />

@@ -21,6 +21,7 @@ const wchar_t* g_pTitle = L"MyGame";
 
 HINSTANCE hInst;   // 현재 인스턴스입니다.
 HWND g_hWnd = nullptr;
+HWND g_hMapDlg = nullptr;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -139,6 +140,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
+INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
 // 메인 윈도우의 메세지 처리 함수
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -159,6 +162,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case CHANGE_TILECOUNT:
             {
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_TILECOUNT), hWnd, TileCount);
+            }
+                break;
+            case EDIT_MAP:
+            {
+                if (!IsWindow(g_hMapDlg))
+                {
+                    g_hMapDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_EDITMAP), hWnd, MapEdit);
+                    ShowWindow(g_hMapDlg, SW_SHOW);
+                }
             }
                 break;
             default:
@@ -189,7 +201,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         PostQuitMessage(0); // 윈도우 종료 버튼
         break;
     default:
-        // 몇몇의 케
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;

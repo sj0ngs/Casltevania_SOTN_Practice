@@ -125,9 +125,6 @@ bool CLineCollisionMgr::CollisionObjToLine(CObj* _Obj, CLine* _Line)
 bool CLineCollisionMgr::UpLineCheck(CObj* _Obj, tLine& _Line)
 {
 	Vec2 vPos = _Obj->GetPos();
-	Vec2 vScale = _Obj->GetCollider()->GetScale() / 2.f;
-
-	vPos.y += vScale.y;
 
 	float x1 = _Line.v1.x;
 	float x2 = _Line.v2.x;
@@ -160,6 +157,35 @@ bool CLineCollisionMgr::UpLineCheck(CObj* _Obj, tLine& _Line)
 
 bool CLineCollisionMgr::DownLineCheck(CObj* _Obj, tLine& _Line)
 {
+	Vec2 vPos = _Obj->GetPos();
+	Vec2 vScale = _Obj->GetCollider()->GetScale();
+	vPos.y -= vScale.y;
 
+	float x1 = _Line.v1.x;
+	float x2 = _Line.v2.x;
+	float y1 = _Line.v1.y;
+	float y2 = _Line.v2.y;
+
+	if (x1 > x2)
+	{
+		float temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
+	if (y1 > y2)
+	{
+		float temp = y1;
+		y1 = y2;
+		y2 = temp;
+	}
+
+	if (x1 < vPos.x && x2 > vPos.x &&
+		y1 <= vPos.y && y2 >= vPos.y)
+	{
+		float Y = _Line.GetPoint(vPos.x) + 1.f;
+
+		if (Y >= vPos.y)
+			return true;
+	}
 	return false;
 }
