@@ -36,6 +36,15 @@ public:
     virtual void Exit() = 0;    // 레벨에서 떠날 때 호출
 
 public:
+    // 파일로 만들어둔 레벨 불러올때 필요한 함수들
+    void LoadLevel(const wstring& _strRelativePath);
+
+    void LoadBackGround(FILE* _pFile);
+    void LoadForeGround(FILE* _pFile);
+    void LoadPlatform(FILE* _pFile);
+    void LoadLine(FILE* _pFile);
+
+public:
     void AddObj(CObj* _pObj, ELAYER _Layer) { m_arrLayer[(UINT)_Layer].push_back(_pObj); }
     const vector<CObj*>& GetLayer(ELAYER _Layer) { return m_arrLayer[(UINT)_Layer]; }
     void DeleteAllObject();

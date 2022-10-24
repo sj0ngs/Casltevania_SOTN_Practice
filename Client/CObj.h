@@ -71,5 +71,9 @@ public:
     virtual void BeginOverlap(CCollider* _pOther);
     virtual void OnOverlap(CCollider* _pOther);
     virtual void EndOverlap(CCollider* _pOther);
+
+public:
+    virtual void Save(FILE* _pFile) {};
+    virtual void Load(FILE* _pFile) {};
 };
 

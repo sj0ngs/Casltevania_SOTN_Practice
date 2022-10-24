@@ -12,8 +12,8 @@ enum class EPLATFORM_STATUS
 
 enum class EPLATFORM_TYPE
 {
-	SOLID,
-	NON_SOLID
+	FLOOR,
+	PLATFORM
 };
 
 class CPlayer;
@@ -58,5 +58,8 @@ private:
 	bool DownCheck(CObj* _pObj);
 	void LeftCheck(CObj* _pObj);
 	void RightCheck(CObj* _pObj);
-};
 
+public:
+	virtual void Save(FILE* _pFile) override;
+	virtual void Load(FILE* _pFile) override;
+};

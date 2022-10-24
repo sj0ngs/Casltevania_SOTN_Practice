@@ -133,14 +133,14 @@
     <Filter Include="Game\07. MonsterState\DeadState">
       <UniqueIdentifier>{62c5b8e4-82ad-4e0b-8445-9a0464c9fdfe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\Wall">
-      <UniqueIdentifier>{d3227199-2a4f-483c-b09e-42870e14b0b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object\BackGround">
       <UniqueIdentifier>{065f502d-2c7f-42b7-8ae5-8858fd6bae54}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\03. Level\Editor\MapEditor">
       <UniqueIdentifier>{3ac23aee-a94e-4e49-8a49-7070a391b703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\MapObj">
+      <UniqueIdentifier>{a4de3d9f-dd1f-4e4f-aa0a-21bd81997f1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +288,9 @@
     <ClInclude Include="CBackGround.h">
       <Filter>Game\04. Object\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="CMapObj.h">
+      <Filter>Game\04. Object\MapObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="CEditorLevel_Map.cpp">
       <Filter>Game\03. Level\Editor\MapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapObj.cpp">
+      <Filter>Game\04. Object\MapObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

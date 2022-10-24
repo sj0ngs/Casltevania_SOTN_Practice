@@ -46,5 +46,9 @@ public:
 	void BeginOverlap(CObj* _pOther);
 	void OnOverlap(CObj* _pOther);
 	void EndOverlap(CObj* _pOther);
+
+public:
+	virtual void Save(FILE* _pFile) override;
+	virtual void Load(FILE* _pFile) override;
 };
 

@@ -30,12 +30,14 @@ void CStartLevel::Init()
 	//CResMgr::GetInst()->LoadTexture(L"Plane", L"texture\\Fighter.bmp");
 
 	// 백그라운드 이미지 설정
-	CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugMap", L"texture\\Debug_Map.bmp");
-	CBackGround* pBackGround = new CBackGround;
-	pBackGround->SetBackGroundImg(pBackGroundTex);
-	pBackGround->SetIsForeGround(true);
+	//CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugMap", L"texture\\Debug_Map.bmp");
+	//CBackGround* pBackGround = new CBackGround;
+	//pBackGround->SetBackGroundImg(pBackGroundTex);
+	//pBackGround->SetIsForeGround(true);
 
-	AddObj(pBackGround, ELAYER::BACKGROUND);
+	//AddObj(pBackGround, ELAYER::BACKGROUND);
+
+	LoadLevel(L"level\\Debug_Level.level");
 
 	CObj* pObj = new CPlayer;
 	pObj->SetPos(Vec2(500.f, 100.f));
@@ -84,8 +86,8 @@ void CStartLevel::Tick()
 	
 	if (IS_TAP(EKEY::ENTER))
 	{
-		CCamera::GetInst()->FadeOut(1.f);
-		CCamera::GetInst()->FadeIn(1.f);
+		//CCamera::GetInst()->FadeOut(1.f);
+		//CCamera::GetInst()->FadeIn(1.f);
 
 		ChangeLevel(ELEVEL_TYPE::EDITOR);
 	}
@@ -95,32 +97,32 @@ void CStartLevel::Tick()
 		ChangeLevel(ELEVEL_TYPE::STAGE_01);
 	}
 
-	if (IS_TAP(EKEY::LBTN))
-	{
-		//CForce* pForce = new CForce;
-		//pForce->SetLifeTime(1.5f);
-		//pForce->SetForceScale(1000.f);
-		//pForce->SetForceRadius(250.f);
+	//if (IS_TAP(EKEY::LBTN))
+	//{
+	//	//CForce* pForce = new CForce;
+	//	//pForce->SetLifeTime(1.5f);
+	//	//pForce->SetForceScale(1000.f);
+	//	//pForce->SetForceRadius(250.f);
 
-		//Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		//Instantiate(pForce, vMousePos, ELAYER::FORCE);
+	//	//Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+	//	//Instantiate(pForce, vMousePos, ELAYER::FORCE);
 
-		CLine* pLine = new CLine;
-		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
-		pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
-		//pLine->SetPos1(vMousePos - Vec2(100.f, 0.f));
-		//pLine->SetPos2(vMousePos + Vec2(100.f, 0.f));
-		Instantiate(pLine, vMousePos, ELAYER::LINE);
-	}
+	//	CLine* pLine = new CLine;
+	//	Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+	//	pLine->SetPos1(vMousePos - Vec2(100.f, -50.f));
+	//	pLine->SetPos2(vMousePos + Vec2(100.f, -50.f));
+	//	//pLine->SetPos1(vMousePos - Vec2(100.f, 0.f));
+	//	//pLine->SetPos2(vMousePos + Vec2(100.f, 0.f));
+	//	Instantiate(pLine, vMousePos, ELAYER::LINE);
+	//}
 
-	if (IS_TAP(EKEY::RBTN))
-	{
-		CPlatform* pPlatform = new CPlatform;
+	//if (IS_TAP(EKEY::RBTN))
+	//{
+	//	CPlatform* pPlatform = new CPlatform;
 
-		Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
-		Instantiate(pPlatform, vMousePos, ELAYER::PLATFORM);
-	}
+	//	Vec2 vMousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+	//	Instantiate(pPlatform, vMousePos, ELAYER::PLATFORM);
+	//}
 }
 
 void CStartLevel::Enter()

@@ -16,7 +16,7 @@ CPlatform::CPlatform()	:
 	m_vRightTop{},
 	m_vLeftDown{},
 	m_vRightDown{},
-	m_eType(EPLATFORM_TYPE::SOLID)
+	m_eType(EPLATFORM_TYPE::FLOOR)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(TILE_SIZE * 5.f, TILE_SIZE));
@@ -51,10 +51,10 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 	
 	Vec2 vDir = vObjPos - vObjPrevPos;
 
-	if (EPLATFORM_TYPE::SOLID == m_eType)
+	if (EPLATFORM_TYPE::FLOOR == m_eType)
 	{
 		// 플레이어가 추락 중일 때
-		if (0.f < vDir.y)
+		if (0.f <= vDir.y)
 		{
 			// 윗변에 교점이 생겼다면 종료
 			if (UpCheck(pObj))
@@ -93,22 +93,22 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				return;
 			}
 		}
-		// 벽에 부딪혔을때
-		else if (0.f == vDir.y)
-		{
-			// 왼쪽에서 접근했을 때
-			if (0.f < vDir.x)
-			{
-				LeftCheck(pObj);
-				return;
-			}
-			// 오른쪽에서 접근했을 때
-			if (0.f > vDir.x)
-			{
-				RightCheck(pObj);
-				return;
-			}
-		}
+		//// 벽에 부딪혔을때
+		//else if (0.f == vDir.y)
+		//{
+		//	// 왼쪽에서 접근했을 때
+		//	if (0.f < vDir.x)
+		//	{
+		//		LeftCheck(pObj);
+		//		return;
+		//	}
+		//	// 오른쪽에서 접근했을 때
+		//	if (0.f > vDir.x)
+		//	{
+		//		RightCheck(pObj);
+		//		return;
+		//	}
+		//}
 	}
 	else
 	{
@@ -194,10 +194,14 @@ void CPlatform::EndOverlap(CCollider* _pOther)
 	{
 	case EPLATFORM_STATUS::UP:
 	{
-		pObj->GetRigidBody()->OffGround();
+		Vec2 vDir = _pOther->GetOwner()->GetDir();
+
+		if(Vec2(1.f, 0.f) == vDir)
+			pObj->GetRigidBody()->OffGround();
 	}
 		break;
 	}
+
 	m_mapPlatformStatus.erase(iter);
 }
 
@@ -223,8 +227,8 @@ bool CPlatform::UpCheck(CObj* _pObj)
 
 	Vec2 vUPMeetPoint = m_UpLine.MeetPoint(tObjLine);
 
-	if ((m_vLeftTop.x - vObjScale.x / 2.f) < vUPMeetPoint.x
-		&& (m_vRightTop.x + vObjScale.x / 2.f) > vUPMeetPoint.x)
+	if ((m_vLeftTop.x - vObjScale.x / 2.f) <= vUPMeetPoint.x
+		&& (m_vRightTop.x + vObjScale.x / 2.f) >= vUPMeetPoint.x)
 	{
 		_pObj->GetRigidBody()->OnGround();
 
@@ -276,4 +280,28 @@ void CPlatform::LeftCheck(CObj* _pObj)
 void CPlatform::RightCheck(CObj* _pObj)
 {
 	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::RIGHT));
+}
+
+void CPlatform::Save(FILE* _pFile)
+{
+	Vec2 vPos = GetPos();
+	fwrite(&vPos, sizeof(Vec2), 1, _pFile);
+
+	Vec2 vScale = GetCollider()->GetScale();
+	fwrite(&vScale, sizeof(Vec2), 1, _pFile);
+
+	fwrite(&m_eType, sizeof(EPLATFORM_TYPE), 1, _pFile);
+}
+
+void CPlatform::Load(FILE* _pFile)
+{
+	Vec2 vPos;
+	fread(&vPos, sizeof(Vec2), 1, _pFile);
+	SetPos(vPos);
+
+	Vec2 vScale;
+	fread(&vScale, sizeof(Vec2), 1, _pFile);
+	GetCollider()->SetScale(vScale);
+
+	fread(&m_eType, sizeof(EPLATFORM_TYPE), 1, _pFile);
 }

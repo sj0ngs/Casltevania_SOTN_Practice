@@ -4,9 +4,11 @@
 
 #include "CEngine.h"
 #include "CCamera.h"
+#include "CPathMgr.h"
 
 #include "CLine.h"
 #include "CTile.h"
+#include "CBackGround.h"
 
 CLevel::CLevel()	:
 	m_iTileXCount(0),
@@ -90,6 +92,28 @@ void CLevel::Render(HDC _DC)
 		}
 	}
 }
+
+void CLevel::LoadLevel(const wstring& _strRelativePath)
+{
+	FILE* pFile = nullptr;
+
+	wstring strContentPath = CPathMgr::GetInst()->GetContentPath();
+	strContentPath += _strRelativePath;
+
+	_wfopen_s(&pFile, strContentPath.c_str(), L"rb");
+
+	if (nullptr != pFile)
+	{
+		LoadBackGround(pFile);
+		LoadForeGround(pFile);
+		LoadPlatform(pFile);
+		LoadLine(pFile);
+
+		fclose(pFile);
+	}
+}
+
+
 
 void CLevel::DeleteAllObject()
 {

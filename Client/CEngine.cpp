@@ -66,8 +66,8 @@ void CEngine::Tick()
 	CLevelMgr::GetInst()->Tick();
 
 	// 변경점 기반 충돌체크
-	CCollisionMgr::GetInst()->Tick();
 	CLineCollisionMgr::GetInst()->Tick();
+	CCollisionMgr::GetInst()->Tick();
 
 	// UI 처리
 	CUIMgr::GetInst()->Tick();

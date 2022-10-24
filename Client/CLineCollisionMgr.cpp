@@ -144,7 +144,7 @@ bool CLineCollisionMgr::UpLineCheck(CObj* _Obj, tLine& _Line)
 		y2 = temp;
 	}
 
-	if (x1 < vPos.x && x2 > vPos.x &&
+	if (x1 <= vPos.x && x2 >= vPos.x &&
 		y1 <= vPos.y && y2 >= vPos.y)
 	{
 		float Y = _Line.GetPoint(vPos.x) - 1.f;

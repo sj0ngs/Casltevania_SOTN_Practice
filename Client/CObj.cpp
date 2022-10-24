@@ -25,6 +25,7 @@ CObj::CObj() :
 	m_pCollider(nullptr),
 	m_pAnimator(nullptr),
 	m_pRigidBody(nullptr),
+	m_pAI(nullptr),
 	m_bDead(false)
 {
 }

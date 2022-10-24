@@ -61,7 +61,10 @@ void LoadWString(wstring& _str, FILE* _pFile)
 	fread(&iLen, sizeof(size_t), 1, _pFile);
 
 	wchar_t szBuff[256] ={};
-	fread(szBuff, sizeof(wchar_t), iLen, _pFile);
+	if (256 >= iLen)
+	{
+		fread(szBuff, sizeof(wchar_t), iLen, _pFile);
+	}
 
 	_str = szBuff;
 }

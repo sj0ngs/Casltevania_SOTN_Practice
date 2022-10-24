@@ -158,6 +158,7 @@
     <ClInclude Include="CLevelMgr.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CLineCollisionMgr.h" />
+    <ClInclude Include="CMapObj.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObj.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CLevelMgr.cpp" />
     <ClCompile Include="CLineCollisionMgr.cpp" />
+    <ClCompile Include="CMapObj.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObj.cpp" />

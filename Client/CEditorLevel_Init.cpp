@@ -68,7 +68,7 @@ void CEditorLevel::CreateUI(Vec2 _vResolution)
 	// Back Ground Load Button
 	CButton* pLoadBackGround = pSaveTileButton->Clone();
 	pLoadBackGround->SetPos(Vec2(120.f, 160.f));
-	pLoadBackGround->SetDelegate(this, (DELEGATE)&CEditorLevel::LoadBackGroundImg);
+	pLoadBackGround->SetDelegate(this, (DELEGATE)&CEditorLevel::SetBackGroundImg);
 
 	// 패널에 버튼을 자식으로 넣어준다
 	pPanel->AddChildUI(pSaveTileButton);

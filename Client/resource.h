@@ -17,10 +17,16 @@
 #define IDD_EDITMAP                     132
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
-#define IDC_SELECT_MODE                 1002
+#define IDC_FLOOR_OPTION                1002
+#define IDC_EDITOR_MODE                 1003
+#define IDC_OBJECT_OPTION               1004
 #define IDC_LIST2                       1005
+#define IDC_OBJECT_OPTION2              1005
+#define IDC_SPAWN_POINT                 1005
 #define IDC_LOAD_BACKGROUND             1007
 #define IDC_LOAD_FOREGROUND             1008
+#define IDC_SAVE_LEVEL                  1010
+#define IDC_LOAD_LEVEL                  1011
 #define ID_32771                        32771
 #define ID_Menu                         32772
 #define IDM_CHANGE                      32773

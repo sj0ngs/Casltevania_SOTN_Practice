@@ -36,7 +36,7 @@ CLine::~CLine()
 
 void CLine::Tick()
 {
-	tLine tLine{ GetPos1(), GetPos2() };
+	tLine tLine{ m_vPos1, m_vPos2 };
 	m_tLine = tLine;
 }
 
@@ -52,9 +52,6 @@ void CLine::Render(HDC _DC)
 
 	HPEN hPrevPen = (HPEN)SelectObject(_DC, hPen);
 
-	// DC 의 기존 팬과 브러쉬를 새로 가져온것들로 대체한다
-	HBRUSH hPrevBrush = (HBRUSH)SelectObject(_DC, (HBRUSH)GetStockObject(HOLLOW_BRUSH));
-
 	Vec2 vPos1 = CCamera::GetInst()->GetRenderPos(m_vPos1);
 	Vec2 vPos2 = CCamera::GetInst()->GetRenderPos(m_vPos2);
 
@@ -63,7 +60,6 @@ void CLine::Render(HDC _DC)
 
 	// 기존 팬과 브러쉬로 돌려놓는다
 	SelectObject(_DC, hPrevPen);
-	SelectObject(_DC, hPrevBrush);
 }
 
 void CLine::BeginOverlap(CObj* _pOther)
@@ -109,4 +105,18 @@ void CLine::EndOverlap(CObj* _pOther)
 		_pOther->GetRigidBody()->OffGround();
 		_pOther->SetDir(Vec2(1.f, 0.f));
 	}
+}
+
+void CLine::Save(FILE* _pFile)
+{
+	fwrite(&m_vPos1, sizeof(Vec2), 1, _pFile);
+	fwrite(&m_vPos2, sizeof(Vec2), 1, _pFile);
+	fwrite(&m_eType, sizeof(ELINE_TYPE), 1, _pFile);
+}
+
+void CLine::Load(FILE* _pFile)
+{
+	fread(&m_vPos1, sizeof(Vec2), 1, _pFile);
+	fread(&m_vPos2, sizeof(Vec2), 1, _pFile);
+	fread(&m_eType, sizeof(ELINE_TYPE), 1, _pFile);
 }

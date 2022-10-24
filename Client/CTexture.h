@@ -11,8 +11,8 @@ private:
     BITMAP m_tBitMapInfo;
 
 public:
-    UINT GetWidth() { return m_tBitMapInfo.bmWidth; }
-    UINT GetHeight() { return m_tBitMapInfo.bmHeight; }
+    UINT GetWidth() const { return m_tBitMapInfo.bmWidth; }
+    UINT GetHeight() const { return m_tBitMapInfo.bmHeight; }
 
     HDC GetDC() { return m_hDC; }
 

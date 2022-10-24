@@ -26,7 +26,7 @@ public:
     virtual void Render(HDC _DC)    override;
 
 public:
-    void Save(FILE* _pFile);
-    void Load(FILE* _pFile);
+    virtual void Save(FILE* _pFile) override;
+    virtual void Load(FILE* _pFile) override;
 };
 

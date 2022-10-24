@@ -22,14 +22,14 @@
 
 void CEditorLevel::Map_Update()
 {
-	switch (m_eMapMode)
+	switch (m_eFloorOption)
 	{
-	case EMAP_MODE::SOLID_PLATFORM:
-	case EMAP_MODE::NON_SOLID_PLATFORM:
+	case EFLOOR_OPTION::FLOOR:
+	case EFLOOR_OPTION::PLATFORM:
 		EditPlatform();
 		break;
-	case EMAP_MODE::UP_LINE:
-	case EMAP_MODE::DOWN_LINE:
+	case EFLOOR_OPTION::UP_LINE:
+	case EFLOOR_OPTION::DOWN_LINE:
 		EditLine();
 		break;
 	}
@@ -99,8 +99,8 @@ void CEditorLevel::EditPlatform()
 					pPlatform->GetCollider()->SetScale(vScale);
 					pPlatform->SetPos(m_vMousePos1);
 
-					if (EMAP_MODE::NON_SOLID_PLATFORM == m_eMapMode)
-						pPlatform->SetType(EPLATFORM_TYPE::NON_SOLID);
+					if (EFLOOR_OPTION::PLATFORM == m_eFloorOption)
+						pPlatform->SetType(EPLATFORM_TYPE::PLATFORM);
 
 					AddObj(pPlatform, ELAYER::PLATFORM);
 				}
@@ -191,7 +191,7 @@ void CEditorLevel::EditLine()
 					pLine->SetPos1(m_vMousePos1);
 					pLine->SetPos2(vPos);
 
-					if (EMAP_MODE::DOWN_LINE == m_eMapMode)
+					if (EFLOOR_OPTION::DOWN_LINE == m_eFloorOption)
 						pLine->SetType(ELINE_TYPE::DOWN);
 
 					AddObj(pLine, ELAYER::LINE);
@@ -232,7 +232,7 @@ void CEditorLevel::EditLine()
 	}
 }
 
-void CEditorLevel::LoadBackGroundImg()
+void CEditorLevel::SetBackGroundImg()
 {
 	// open a file name
 	OPENFILENAME ofn = {};
@@ -302,7 +302,7 @@ void CEditorLevel::LoadBackGroundImg()
 	AddObj(pBackGround, ELAYER::BACKGROUND);
 }
 
-void CEditorLevel::LoadForeGroundImg()
+void CEditorLevel::SetForeGroundImg()
 {
 	// open a file name
 	OPENFILENAME ofn = {};
@@ -378,22 +378,142 @@ void CEditorLevel::LoadForeGroundImg()
 	AddObj(pForeGround, ELAYER::FOREGROUND);
 }
 
+void CEditorLevel::SaveBackGround(FILE* _pFile)
+{
+	const vector<CObj*>& vecBackGround = GetLayer(ELAYER::BACKGROUND);
+
+	size_t iSize = vecBackGround.size();
+	fwrite(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		vecBackGround[i]->Save(_pFile);
+	}
+}
+
+void CEditorLevel::SaveForeGround(FILE* _pFile)
+{
+	const vector<CObj*>& vecForeGround = GetLayer(ELAYER::FOREGROUND);
+
+	size_t iSize = vecForeGround.size();
+	fwrite(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		vecForeGround[i]->Save(_pFile);
+	}
+}
+
+void CEditorLevel::SavePlatform(FILE* _pFile)
+{
+	const vector<CObj*>& vecPlatform = GetLayer(ELAYER::PLATFORM);
+
+	size_t iSize = vecPlatform.size();
+	fwrite(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		vecPlatform[i]->Save(_pFile);
+	}
+}
+
+void CEditorLevel::SaveLine(FILE* _pFile)
+{
+	const vector<CObj*>& vecLine = GetLayer(ELAYER::LINE);
+
+	size_t iSize = vecLine.size();
+	fwrite(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		vecLine[i]->Save(_pFile);
+	}
+}
+
+
+// ================
+// Level Load Funcs
+// ================
+
+// Load 함수들은 모든 레벨에서 사용해야 되기 때문에 최상위 Level 에 선언되어있다
+// 하지만 편집의 편의성을 위하여 구현부는 에디터 레벨에다 작성한다
+void CLevel::LoadBackGround(FILE* _pFile)
+{
+	size_t iSize;
+	fread(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		CBackGround* pBackGround = new CBackGround;
+		pBackGround->Load(_pFile);
+		AddObj(pBackGround, ELAYER::BACKGROUND);
+	}
+}
+
+void CLevel::LoadForeGround(FILE* _pFile)
+{
+	size_t iSize;
+	fread(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		CBackGround* pForeGround = new CBackGround;
+		pForeGround->Load(_pFile);
+		AddObj(pForeGround, ELAYER::FOREGROUND);
+	}
+}
+
+void CLevel::LoadPlatform(FILE* _pFile)
+{
+	size_t iSize;
+	fread(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		CPlatform* pPlatform = new CPlatform;
+		pPlatform->Load(_pFile);
+		AddObj(pPlatform, ELAYER::PLATFORM);
+	}
+}
+
+void CLevel::LoadLine(FILE* _pFile)
+{
+	size_t iSize;
+	fread(&iSize, sizeof(size_t), 1, _pFile);
+
+	for (size_t i = 0; i < iSize; i++)
+	{
+		CLine* pLine = new CLine;
+		pLine->Load(_pFile);
+		AddObj(pLine, ELAYER::LINE);
+	}
+}
+
+
 
 // ======================
 // Map Edit Dialog Proc
 // ======================
 
-struct tSelectMode
+wchar_t g_arrEditorMode[(UINT)EEDITOR_MODE::NONE][10] =
 {
-	wchar_t ModeName[10];
-	EMAP_MODE eMode;
+	L"Map",
+	L"Object"
 };
 
-tSelectMode g_MapSelectMode[4] = {
-	{L"Wall", EMAP_MODE::SOLID_PLATFORM},
-	{L"Platform", EMAP_MODE::NON_SOLID_PLATFORM},
-	{L"Up Line", EMAP_MODE::UP_LINE},
-	{L"Down Line", EMAP_MODE::DOWN_LINE},
+wchar_t g_arrFloorOption[(UINT)EFLOOR_OPTION::NONE][10] =
+{
+	L"Floor",
+	L"Platform",
+	L"Up Line",
+	L"Down Line"
+};
+
+wchar_t g_arrObjOption[(UINT)EOBJ_OPTION::NONE][20] =
+{
+	L"Spawn Point",
+	L"Object",
+	L"Trigger"
 };
 
 INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -403,28 +523,78 @@ INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_INITDIALOG:
 	{
-		HWND hWndSelectMode = GetDlgItem(hDlg, IDC_SELECT_MODE);
-		for (int i = 0; i < 4; i++)
+		HWND hWndEditorMode = GetDlgItem(hDlg, IDC_EDITOR_MODE);
+
+		for (int i = 0; i < (UINT)EEDITOR_MODE::NONE; i++)
 		{
-			SendMessage(hWndSelectMode, CB_INSERTSTRING, -1, (LPARAM)g_MapSelectMode[i].ModeName);
+			SendMessage(hWndEditorMode, CB_INSERTSTRING, -1, (LPARAM)g_arrEditorMode[i]);
 		}
-		SendMessage(hWndSelectMode, CB_SETCURSEL, 0, NULL);
+		SendMessage(hWndEditorMode, CB_SETCURSEL, 0, NULL);
+
+		HWND hWndFloorOption = GetDlgItem(hDlg, IDC_FLOOR_OPTION);
+		
+		for (int i = 0; i < (UINT)EFLOOR_OPTION::NONE; i++)
+		{
+			SendMessage(hWndFloorOption, CB_INSERTSTRING, -1, (LPARAM)g_arrFloorOption[i]);
+		}
+		SendMessage(hWndFloorOption, CB_SETCURSEL, 0, NULL);
+
+		HWND hWndMapObjectOption = GetDlgItem(hDlg, IDC_OBJECT_OPTION);
+
+		for (int i = 0; i < (UINT)EOBJ_OPTION::NONE; i++)
+		{
+			SendMessage(hWndMapObjectOption, CB_INSERTSTRING, -1, (LPARAM)g_arrObjOption[i]);
+		}
+		SendMessage(hWndMapObjectOption, CB_SETCURSEL, 0, NULL);
+
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case IDC_SELECT_MODE:
+		case IDC_EDITOR_MODE:
 			switch (HIWORD(wParam))
 			{
 			case CBN_SELCHANGE:
 			{
-				EMAP_MODE eMode = (EMAP_MODE)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+				EEDITOR_MODE eMode = (EEDITOR_MODE)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
 				CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
 
 				if (nullptr != pEditorLevel)
 				{
-					pEditorLevel->ChangeMapMode(eMode);
+					pEditorLevel->ChangeEditorMode(eMode);
+				}
+			}
+			break;
+			}
+			break;
+		case IDC_FLOOR_OPTION:
+			switch (HIWORD(wParam))
+			{
+			case CBN_SELCHANGE:
+			{
+				EFLOOR_OPTION eOption = (EFLOOR_OPTION)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+				CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+
+				if (nullptr != pEditorLevel)
+				{
+					pEditorLevel->ChangeFloorOption(eOption);
+				}
+			}
+				break;
+			}
+			break;
+		case IDC_OBJECT_OPTION:
+			switch (HIWORD(wParam))
+			{
+			case CBN_SELCHANGE:
+			{
+				EOBJ_OPTION eOption = (EOBJ_OPTION)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+				CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+
+				if (nullptr != pEditorLevel)
+				{
+					pEditorLevel->ChangeObjectOption(eOption);
 				}
 			}
 				break;
@@ -434,16 +604,30 @@ INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
 			assert(pEditorLevel);
-			pEditorLevel->LoadBackGroundImg();
+			pEditorLevel->SetBackGroundImg();
 		}
 			break;
 		case IDC_LOAD_FOREGROUND:
 		{
 			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
 			assert(pEditorLevel);
-			pEditorLevel->LoadForeGroundImg();
+			pEditorLevel->SetForeGroundImg();
 		}
-		break;
+			break;
+		case IDC_SAVE_LEVEL:
+		{
+			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+			assert(pEditorLevel);
+			pEditorLevel->SaveLevel();
+		}
+			break;
+		case IDC_LOAD_LEVEL:
+		{
+			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+			assert(pEditorLevel);
+			pEditorLevel->LoadLevel();
+		}
+			break;
 		case IDOK:
 		case IDCANCEL:
 			DestroyWindow(hDlg);
