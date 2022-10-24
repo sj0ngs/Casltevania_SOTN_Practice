@@ -19,6 +19,8 @@
 #define IDC_EDIT2                       1001
 #define IDC_SELECT_MODE                 1002
 #define IDC_LIST2                       1005
+#define IDC_LOAD_BACKGROUND             1007
+#define IDC_LOAD_FOREGROUND             1008
 #define ID_32771                        32771
 #define ID_Menu                         32772
 #define IDM_CHANGE                      32773
@@ -36,7 +38,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1006
+#define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

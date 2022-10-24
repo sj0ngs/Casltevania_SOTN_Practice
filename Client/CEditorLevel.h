@@ -62,7 +62,8 @@ private:
 public:
     void SaveTile();
     void LoadTile();
-    void LoadBackGround();
+    void LoadBackGroundImg();
+    void LoadForeGroundImg();
 
     void SaveLevel();
     void LoadLevel();

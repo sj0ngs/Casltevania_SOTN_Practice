@@ -232,7 +232,7 @@ void CEditorLevel::EditLine()
 	}
 }
 
-void CEditorLevel::LoadBackGround()
+void CEditorLevel::LoadBackGroundImg()
 {
 	// open a file name
 	OPENFILENAME ofn = {};
@@ -264,29 +264,119 @@ void CEditorLevel::LoadBackGround()
 
 	// 파일 탐색기는 전체 경로를 가져오기 때문에 컨텐츠 경로까지를 잘라준다
 	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	size_t start = strFilePath.length() - 1;
+	size_t start = strFilePath.length();
 	wstring Buff = szFilePath;
 	size_t end = Buff.length();
 	wstring FilePath = Buff.substr(start, end);
 
-	CTexture* pBackGroundImg = CResMgr::GetInst()->LoadTexture(L"BackGroundImg", FilePath);
+	// 파일의 이름을 키 값으로 그대로 넣어준다
+	wstring strKey = FilePath;
 
-	// 로드한 이미지의 사이즈에 맞게 그리드 타일을 배치
-	float iRow = round(pBackGroundImg->GetWidth() / (float)TILE_SIZE);
-	float iCol = round(pBackGroundImg->GetHeight() / (float)TILE_SIZE);
-	CreateTile((UINT)iRow, (UINT)iCol);
+	// 확장자명 잘라주기
+	for (size_t i = strKey.length(); i > 0; i--)
+	{
+		if (L'.' == strKey[i])
+		{
+			strKey[i] = 0;
+			break;
+		}
+	}
+
+	// 폴더 경로 짤라주기
+	start = 0;
+	end = strKey.length();
+
+	for (size_t i = 0; i < end; i++)
+	{
+		if (L'\\' == strKey[i])
+			start = i + 1;
+	}
+	strKey = strKey.substr(start, end);
+
+	CTexture* pBackGroundImg = CResMgr::GetInst()->LoadTexture(strKey, FilePath);
 
 	CBackGround* pBackGround = new CBackGround;
 	pBackGround->SetBackGroundImg(pBackGroundImg);
-	pBackGround->SetIsForeGround(true);
 
 	DeleteObject(ELAYER::BACKGROUND);
 	AddObj(pBackGround, ELAYER::BACKGROUND);
 }
 
+void CEditorLevel::LoadForeGroundImg()
+{
+	// open a file name
+	OPENFILENAME ofn = {};
 
+	wstring strTextureFolderPath = CPathMgr::GetInst()->GetContentPath();
+	strTextureFolderPath += L"texture\\";
 
+	// 탐색기로 설정한 위치의 경로 값이 들어간다
+	wchar_t szFilePath[256] = {};
 
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = szFilePath;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 256;
+	// 파일 필터를 세팅할 수 있다
+	ofn.lpstrFilter = L"texture\0*.bmp\0ALL\0*.*";
+	// 최초에 보여줄 파일 세팅의 인덱스
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
+	ofn.lpstrInitialDir = strTextureFolderPath.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (false == GetOpenFileName(&ofn))
+		return;
+
+	// 파일 탐색기는 전체 경로를 가져오기 때문에 컨텐츠 경로까지를 잘라준다
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
+	size_t start = strFilePath.length();
+	wstring FilePath = szFilePath;
+	size_t end = FilePath.length();
+	FilePath = FilePath.substr(start, end);
+
+	// 파일의 이름을 키 값으로 그대로 넣어준다
+	wstring strKey = FilePath;
+	
+	// 확장자명 잘라주기
+	for (size_t i = strKey.length(); i > 0; i--)
+	{
+		if (L'.' == strKey[i])
+		{
+			strKey[i] = 0;
+			break;
+		}
+	}
+
+	// 폴더 경로 짤라주기
+	start = 0;
+	end = strKey.length();
+
+	for (size_t i = 0; i < end; i++)
+	{
+		if (L'\\' == strKey[i])
+			start = i + 1;
+	}
+	strKey = strKey.substr(start, end);
+
+	CTexture* pForeGroundImg = CResMgr::GetInst()->LoadTexture(strKey, FilePath);
+
+	// 로드한 이미지의 사이즈에 맞게 그리드 타일을 배치
+	float iRow = round(pForeGroundImg->GetWidth() / (float)TILE_SIZE);
+	float iCol = round(pForeGroundImg->GetHeight() / (float)TILE_SIZE);
+	CreateTile((UINT)iRow, (UINT)iCol);
+
+	CBackGround* pForeGround = new CBackGround;
+	pForeGround->SetBackGroundImg(pForeGroundImg);
+	pForeGround->SetIsForeGround(true);
+
+	DeleteObject(ELAYER::FOREGROUND);
+	AddObj(pForeGround, ELAYER::FOREGROUND);
+}
 
 
 // ======================
@@ -318,10 +408,9 @@ INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			SendMessage(hWndSelectMode, CB_INSERTSTRING, -1, (LPARAM)g_MapSelectMode[i].ModeName);
 		}
-		SendMessageW(hWndSelectMode, CB_SETCURSEL, 0, NULL);
+		SendMessage(hWndSelectMode, CB_SETCURSEL, 0, NULL);
 		return (INT_PTR)TRUE;
 	}
-
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -338,9 +427,24 @@ INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 					pEditorLevel->ChangeMapMode(eMode);
 				}
 			}
-			break;
+				break;
 			}
 			break;
+		case IDC_LOAD_BACKGROUND:
+		{
+			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+			assert(pEditorLevel);
+			pEditorLevel->LoadBackGroundImg();
+		}
+			break;
+		case IDC_LOAD_FOREGROUND:
+		{
+			CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
+			assert(pEditorLevel);
+			pEditorLevel->LoadForeGroundImg();
+		}
+		break;
+		case IDOK:
 		case IDCANCEL:
 			DestroyWindow(hDlg);
 			hDlg = nullptr;

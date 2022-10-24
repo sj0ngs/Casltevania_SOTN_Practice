@@ -82,22 +82,25 @@ void CEditorLevel::Exit()
 
 void CEditorLevel::Update()
 {
-	switch (m_eMode)
+	if (CEngine::GetInst()->GetMainWnd() ==  GetForegroundWindow())
 	{
-	case EEDITOR_MODE::TILE:
-		Tile_Update();
-		break;
-	case EEDITOR_MODE::ANIMATINON:
+		switch (m_eMode)
+		{
+		case EEDITOR_MODE::TILE:
+			Tile_Update();
+			break;
+		case EEDITOR_MODE::ANIMATINON:
 
-		break;
-	case EEDITOR_MODE::OBJECT:
+			break;
+		case EEDITOR_MODE::OBJECT:
 
-		break;
-	case EEDITOR_MODE::MAP:
-		Map_Update();
-		break;
-	case EEDITOR_MODE::NONE:
-		return;
+			break;
+		case EEDITOR_MODE::MAP:
+			Map_Update();
+			break;
+		case EEDITOR_MODE::NONE:
+			return;
+		}
 	}
 }
 
