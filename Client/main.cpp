@@ -140,7 +140,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
-INT_PTR CALLBACK MapEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 // 메인 윈도우의 메세지 처리 함수
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -168,7 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             {
                 if (!IsWindow(g_hMapDlg))
                 {
-                    g_hMapDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_EDITMAP), hWnd, MapEdit);
+                    g_hMapDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_EDITMAP), hWnd, LevelEdit);
                     ShowWindow(g_hMapDlg, SW_SHOW);
                 }
             }

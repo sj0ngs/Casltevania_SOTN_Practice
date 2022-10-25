@@ -88,14 +88,8 @@
     <Filter Include="Game\04. Object\Force">
       <UniqueIdentifier>{2ecf67c9-35a4-4fa7-afcc-2b287fb7dbe9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\Platform">
-      <UniqueIdentifier>{691e6afe-dcff-4f78-b397-d0af08fe7d85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\03. Level\Editor">
       <UniqueIdentifier>{867978c5-e8b6-43d1-9d4c-f91a748a54b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\04. Object\TIle">
-      <UniqueIdentifier>{66ac63ed-c75e-44a1-9ccf-4a218652be0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\04. Object\UI">
       <UniqueIdentifier>{4238b155-0ea3-4634-a8ce-afb87bf6fee5}</UniqueIdentifier>
@@ -108,9 +102,6 @@
     </Filter>
     <Filter Include="Game\04. Object\UI\Panel">
       <UniqueIdentifier>{60982b1d-7727-43e3-bbb7-6ac16b290eb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\04. Object\Line">
-      <UniqueIdentifier>{0ee9b08a-05a6-4c60-bc59-2e3431ecd335}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\02. Mananger\04. Collision\LineCollision">
       <UniqueIdentifier>{233d0ea3-3fcb-46af-995e-d4e8af74d320}</UniqueIdentifier>
@@ -133,14 +124,38 @@
     <Filter Include="Game\07. MonsterState\DeadState">
       <UniqueIdentifier>{62c5b8e4-82ad-4e0b-8445-9a0464c9fdfe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\BackGround">
-      <UniqueIdentifier>{065f502d-2c7f-42b7-8ae5-8858fd6bae54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\03. Level\Editor\MapEditor">
-      <UniqueIdentifier>{3ac23aee-a94e-4e49-8a49-7070a391b703}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object\MapObj">
       <UniqueIdentifier>{a4de3d9f-dd1f-4e4f-aa0a-21bd81997f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\Editor\LevelEditor">
+      <UniqueIdentifier>{3ac23aee-a94e-4e49-8a49-7070a391b703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\SpawnPoint">
+      <UniqueIdentifier>{eceb5244-051e-4c23-a87c-6f219892d7aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Map">
+      <UniqueIdentifier>{8f1f63e3-fc24-4cad-a691-264f611709d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Map\BackGround">
+      <UniqueIdentifier>{065f502d-2c7f-42b7-8ae5-8858fd6bae54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Map\Line">
+      <UniqueIdentifier>{0ee9b08a-05a6-4c60-bc59-2e3431ecd335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Map\Platform">
+      <UniqueIdentifier>{691e6afe-dcff-4f78-b397-d0af08fe7d85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Map\TIle">
+      <UniqueIdentifier>{66ac63ed-c75e-44a1-9ccf-4a218652be0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Trigger">
+      <UniqueIdentifier>{c485da1f-c65e-4682-984f-2370b33838bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Trigger\LevelChangeTrigger">
+      <UniqueIdentifier>{1354c4b7-433b-4b38-b7b1-31dff988e9b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\SpawnPoint\Player Start">
+      <UniqueIdentifier>{1bfe3394-3f25-4682-915e-ae139c9bdf3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -247,13 +262,10 @@
       <Filter>Game\04. Object\Force</Filter>
     </ClInclude>
     <ClInclude Include="CPlatform.h">
-      <Filter>Game\04. Object\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="CEditorLevel.h">
-      <Filter>Game\03. Level\Editor</Filter>
+      <Filter>Game\04. Object\Map\Platform</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>Game\04. Object\TIle</Filter>
+      <Filter>Game\04. Object\Map\TIle</Filter>
     </ClInclude>
     <ClInclude Include="CUI.h">
       <Filter>Game\04. Object\UI</Filter>
@@ -268,7 +280,7 @@
       <Filter>Game\04. Object\UI\Panel</Filter>
     </ClInclude>
     <ClInclude Include="CLine.h">
-      <Filter>Game\04. Object\Line</Filter>
+      <Filter>Game\04. Object\Map\Line</Filter>
     </ClInclude>
     <ClInclude Include="CLineCollisionMgr.h">
       <Filter>Game\02. Mananger\04. Collision\LineCollision</Filter>
@@ -286,10 +298,19 @@
       <Filter>Game\07. MonsterState\TraceState</Filter>
     </ClInclude>
     <ClInclude Include="CBackGround.h">
-      <Filter>Game\04. Object\BackGround</Filter>
+      <Filter>Game\04. Object\Map\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="CMapObj.h">
       <Filter>Game\04. Object\MapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditorLevel.h">
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="CTrigger.h">
+      <Filter>Game\04. Object\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawnPoint.h">
+      <Filter>Game\04. Object\SpawnPoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -381,13 +402,10 @@
       <Filter>Game\04. Object\Force</Filter>
     </ClCompile>
     <ClCompile Include="CPlatform.cpp">
-      <Filter>Game\04. Object\Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditorLevel.cpp">
-      <Filter>Game\03. Level\Editor</Filter>
+      <Filter>Game\04. Object\Map\Platform</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
-      <Filter>Game\04. Object\TIle</Filter>
+      <Filter>Game\04. Object\Map\TIle</Filter>
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>Game\04. Object\UI</Filter>
@@ -395,14 +413,11 @@
     <ClCompile Include="CButton.cpp">
       <Filter>Game\04. Object\UI\Button</Filter>
     </ClCompile>
-    <ClCompile Include="CEditorLevel_Init.cpp">
-      <Filter>Game\03. Level\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="CPanel.cpp">
       <Filter>Game\04. Object\UI\Panel</Filter>
     </ClCompile>
     <ClCompile Include="CLine.cpp">
-      <Filter>Game\04. Object\Line</Filter>
+      <Filter>Game\04. Object\Map\Line</Filter>
     </ClCompile>
     <ClCompile Include="CLineCollisionMgr.cpp">
       <Filter>Game\02. Mananger\04. Collision\LineCollision</Filter>
@@ -429,13 +444,28 @@
       <Filter>Game\04. Object</Filter>
     </ClCompile>
     <ClCompile Include="CBackGround.cpp">
-      <Filter>Game\04. Object\BackGround</Filter>
+      <Filter>Game\04. Object\Map\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="CEditorLevel_Map.cpp">
-      <Filter>Game\03. Level\Editor\MapEditor</Filter>
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="CMapObj.cpp">
       <Filter>Game\04. Object\MapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorLevel.cpp">
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorLevel_Init.cpp">
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorLevel_Object.cpp">
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrigger.cpp">
+      <Filter>Game\04. Object\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnPoint.cpp">
+      <Filter>Game\04. Object\SpawnPoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

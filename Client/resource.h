@@ -21,12 +21,13 @@
 #define IDC_EDITOR_MODE                 1003
 #define IDC_OBJECT_OPTION               1004
 #define IDC_LIST2                       1005
-#define IDC_OBJECT_OPTION2              1005
 #define IDC_SPAWN_POINT                 1005
+#define IDC_SPAWN_POINT2                1006
 #define IDC_LOAD_BACKGROUND             1007
 #define IDC_LOAD_FOREGROUND             1008
 #define IDC_SAVE_LEVEL                  1010
 #define IDC_LOAD_LEVEL                  1011
+#define IDC_FACE_DIR                    1014
 #define ID_32771                        32771
 #define ID_Menu                         32772
 #define IDM_CHANGE                      32773
@@ -44,7 +45,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

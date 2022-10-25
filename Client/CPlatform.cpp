@@ -122,63 +122,8 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 	}
 }
 
-// 겹쳐진 만큼 계속 밀어준다
 void CPlatform::OnOverlap(CCollider* _pOther)
 {
-	//CObj* pObj = _pOther->GetOwner();
-
-	//map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pObj->GetId());
-
-	//if (iter == m_mapPlatformStatus.end())
-	//	return;
-
-	//Vec2 vObjPos = pObj->GetPos();
-
-	//Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
-	//Vec2 vLength = GetCollider()->GetScale() / 2.f;
-
-	//switch (iter->second)
-	//{
-	//case EPLATFORM_STATUS::UP:
-	//{
-	//	if (vLength.y > vDist.y)
-	//	{
-	//		vObjPos.y -= (vLength.y - vDist.y);
-	//		pObj->SetPos(vObjPos);
-	//	}
-	//}
-	//	break;
-	//case EPLATFORM_STATUS::LEFT:
-	//{
-	//	vLength += pObj->GetCollider()->GetScale() / 2.f;
-	//	if (vLength.x > vDist.x)
-	//	{
-	//		vObjPos.x -= (vLength.x - vDist.x);
-	//		pObj->SetPos(vObjPos);
-	//	}
-	//}
-	//	break;
-	//case EPLATFORM_STATUS::RIGHT:
-	//{
-	//	vLength += pObj->GetCollider()->GetScale() / 2.f;
-	//	if (vLength.x > vDist.x)
-	//	{
-	//		vObjPos.x += (vLength.x - vDist.x);
-	//		pObj->SetPos(vObjPos);
-	//	}
-	//}
-	//	break;
-	//case EPLATFORM_STATUS::DOWN:
-	//{
-	//	vLength += pObj->GetCollider()->GetScale();
-	//	if (vLength.y > vDist.y)
-	//	{
-	//		vObjPos.y += (vLength.y - vDist.y);
-	//		pObj->SetPos(vObjPos);
-	//	}
-	//}
-	//	break;	
-	//}
 }
 
 void CPlatform::EndOverlap(CCollider* _pOther)
@@ -298,7 +243,7 @@ void CPlatform::LeftCheck(CObj* _pObj)
 	Vec2 vLength = GetCollider()->GetScale() / 2.f;
 
 	vLength += _pObj->GetCollider()->GetScale() / 2.f;
-	if (vLength.x >= vDist.x)
+	if (vLength.x > vDist.x)
 	{
 		vObjPos.x -= (vLength.x - vDist.x + 1.f);
 		_pObj->SetPos(vObjPos);
@@ -315,7 +260,7 @@ void CPlatform::RightCheck(CObj* _pObj)
 	Vec2 vLength = GetCollider()->GetScale() / 2.f;
 
 	vLength += _pObj->GetCollider()->GetScale() / 2.f;
-	if (vLength.x >= vDist.x)
+	if (vLength.x > vDist.x)
 	{
 		vObjPos.x += (vLength.x - vDist.x + 1.f);
 		_pObj->SetPos(vObjPos);

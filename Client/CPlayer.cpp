@@ -31,8 +31,7 @@ const float ATLAS_Y_PADDING = 4.f * 4.f;
 
 CPlayer::CPlayer() :
 	m_fSpeed(200.f),
-	m_iFaceDir(1),
-	m_iPrevFaceDir(1),
+	m_bPrevFaceDir(true),
 	m_fRunStartAcc(0.f),
 	m_fJumpTimeAcc(0.f),
 	m_bDoubleJump(true)
@@ -79,20 +78,20 @@ CPlayer::CPlayer() :
 					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 16, 0.06f, Vec2(0.f, 0.f), LEFT_OFFSET);
 
 	GetAnimator()->CreateAnimation(L"Jump", pAlucardAtlas_right,
-		Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
-		Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
+					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
+					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
 
 	GetAnimator()->CreateAnimation(L"Jump_Left", pAlucardAtlas_left,
-		Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
-		Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
-
+					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
+					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+		
 	GetAnimator()->CreateAnimation(L"Fall", pAlucardAtlas_right,
-		Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
-		Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
+					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
+					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
 
 	GetAnimator()->CreateAnimation(L"Fall_Left", pAlucardAtlas_left,
-		Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
-		Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
+					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
 
 	// 이미지 로딩
 	//CTexture* pLinkTex = CResMgr::GetInst()->LoadTexture(L"LINK", L"texture\\link.bmp");
@@ -132,8 +131,8 @@ void CPlayer::Tick()
 	{
 		if (IS_TAP(EKEY::LEFT))
 		{
-			m_iFaceDir = -1;
-			if (m_iPrevFaceDir == m_iFaceDir)
+			SetFaceDir(false);
+			if (m_bPrevFaceDir == GetFaceDir())
 			{
 				GetAnimator()->Play(L"Walk_Start_Left", false);
 			}
@@ -142,8 +141,8 @@ void CPlayer::Tick()
 		}
 		else if (IS_TAP(EKEY::RIGHT))
 		{
-			m_iFaceDir = 1;
-			if (m_iPrevFaceDir == m_iFaceDir)
+			SetFaceDir(true);
+			if (m_bPrevFaceDir == GetFaceDir())
 			{
 				GetAnimator()->Play(L"Walk_Start_Right", false);
 			}
@@ -163,7 +162,7 @@ void CPlayer::Tick()
 			m_fRunStartAcc += DELTATIME;
 			if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Left"))
 			{
-				m_iFaceDir = -1;
+				SetFaceDir(false);
 				GetAnimator()->Play(L"Walk_Left", true);
 			}
 			
@@ -176,7 +175,7 @@ void CPlayer::Tick()
 			m_fRunStartAcc += DELTATIME;
 			if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Right"))
 			{
-				m_iFaceDir = 1;
+				SetFaceDir(true);
 				GetAnimator()->Play(L"Walk_Right", true);
 			}
 
@@ -206,9 +205,9 @@ void CPlayer::Tick()
 		{
 			m_fRunStartAcc = 0.f;
 			ResetJump();
-			if (1 == m_iFaceDir)
+			if (GetFaceDir())
 				GetAnimator()->Play(L"Idle_Right", true);
-			else if (-1 == m_iFaceDir)
+			else
 				GetAnimator()->Play(L"Idle_Left", true);
 		}
 	}
@@ -257,7 +256,7 @@ void CPlayer::Tick()
 	CObj::Tick();
 
 	// 이전 프레임 플레이어 정보들 저장(나중에 구조제로 관리 할수도 있음)
-	m_iPrevFaceDir = m_iFaceDir;
+	m_bPrevFaceDir = GetFaceDir();
 
 	SetPos(vPos);
 }

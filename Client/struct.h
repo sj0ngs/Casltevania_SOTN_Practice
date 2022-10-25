@@ -48,6 +48,12 @@ public:
 		y += _vOther.y;
 	}
 
+	void operator += (float _f)
+	{
+		x += _f;
+		y += _f;
+	}
+
 	Vec2 operator - (Vec2 _vOther)
 	{
 		return Vec2(x - _vOther.x, y - _vOther.y);
@@ -57,6 +63,12 @@ public:
 	{
 		x -= _vOther.x;
 		y -= _vOther.y;
+	}
+
+	void operator -= (float _f)
+	{
+		x -= _f;
+		y -= _f;
 	}
 
 	Vec2 operator / (Vec2 _vOther)
@@ -266,4 +278,10 @@ struct tMonsterInfo
 	float m_fSpeed;
 	float m_fDetectRange;
 	float m_fAttackRange;
+};
+
+struct tSpawnPointInfo
+{
+	ESPAWNABLE_OBJECT m_eOption;	// 스폰시킬 오브젝트
+	int m_iDir;	// 바라보는 방향(1 : 오른쪽 / -1 : 왼쪽)
 };

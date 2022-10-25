@@ -8,8 +8,7 @@ class CPlayer :
 private:
     float m_fSpeed;
 
-    int m_iFaceDir;     // 바라보는 방향(-1 : 왼쪽, 1 : 오른쪽)
-    int m_iPrevFaceDir;     // 이전 프레임 바라보던 방향
+    bool m_bPrevFaceDir;     // 이전 프레임 바라보던 방향
 
     float m_fRunStartAcc;   // 누적 달리기 시작 시간
     float m_fJumpTimeAcc;   // 누적 체공시간

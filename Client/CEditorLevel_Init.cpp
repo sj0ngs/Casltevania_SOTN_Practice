@@ -24,6 +24,9 @@ void CEditorLevel::Init()
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
 
+	CResMgr::GetInst()->LoadTexture(L"AlucardAtlas", L"texture\\alucard_right_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"AlucardAtlas_Left", L"texture\\alucard_left_1.bmp");
+
 	// 백그라운드 이미지 설정
 	//CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugRoom", L"texture\\Debug Room .bmp");
 	//CBackGround* pBackGround = new CBackGround;
@@ -33,7 +36,7 @@ void CEditorLevel::Init()
 	//AddObj(pBackGround, ELAYER::BACKGROUND);
 
 	//UI 배치
-	CreateUI(vResolution);
+	// CreateUI(vResolution);
 
 	//// 타일 생성
 	//CreateTile(10, 10);

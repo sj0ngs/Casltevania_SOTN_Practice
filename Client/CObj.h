@@ -17,6 +17,8 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
     Vec2        m_vDir;     // 지상에서의 이동방향(사선 이동에 필요함)
     Vec2        m_PrevPos;
 
+    bool         m_bFaceDir;     // 바라보는 방향 오른쪽 ture / 왼쪽 false
+
     // Component
     CCollider*  m_pCollider;
     CAnimator*  m_pAnimator;
@@ -36,6 +38,9 @@ public:
     Vec2 GetDir() const { return m_vDir; }
 
     Vec2 GetPrevPos() { return m_PrevPos; }
+
+    void SetFaceDir(bool _bFaceDir) { m_bFaceDir = _bFaceDir; }
+    bool GetFaceDir() const { return m_bFaceDir; }
 
     void CreateCollider();
     CCollider* GetCollider() { return m_pCollider; }

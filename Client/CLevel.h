@@ -39,10 +39,14 @@ public:
     // 파일로 만들어둔 레벨 불러올때 필요한 함수들
     void LoadLevel(const wstring& _strRelativePath);
 
+    // Map Load Func
     void LoadBackGround(FILE* _pFile);
     void LoadForeGround(FILE* _pFile);
     void LoadPlatform(FILE* _pFile);
     void LoadLine(FILE* _pFile);
+
+    // Object Load Fucn
+    void LoadSpawnPoint(FILE* _pFile);
 
 public:
     void AddObj(CObj* _pObj, ELAYER _Layer) { m_arrLayer[(UINT)_Layer].push_back(_pObj); }

@@ -109,6 +109,8 @@ void CLevel::LoadLevel(const wstring& _strRelativePath)
 		LoadPlatform(pFile);
 		LoadLine(pFile);
 
+		LoadSpawnPoint(pFile);
+
 		fclose(pFile);
 	}
 }
