@@ -106,13 +106,13 @@ void CObj::Final_Tick()
 
 void CObj::Render(HDC _DC)
 {
+	m_PrevPos = m_vPos;
+
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Render(_DC);
 
 	if (nullptr != m_pCollider)
 		m_pCollider->Render(_DC);
-
-	m_PrevPos = m_vPos;
 }
 
 void CObj::CreateCollider()
