@@ -12,10 +12,15 @@ private:
     vector<CLine*> m_vecLine;
     vector<CObj*> m_vecTile;
 
+    UINT m_iStartPointIdx;
+
     UINT                m_iTileXCount;
     UINT                m_iTileYCount;
 
 public:
+    void SetStartPointIdx(UINT _iIdx) { m_iStartPointIdx = _iIdx; }
+    UINT GetStartPointIdx() const { return m_iStartPointIdx; }
+
     UINT GetTileXCount()    const { return m_iTileXCount; }
     UINT GetTileYCount()    const { return m_iTileYCount; }
 
@@ -46,7 +51,9 @@ public:
     void LoadLine(FILE* _pFile);
 
     // Object Load Fucn
+    void LoadStartPoint(FILE* _pFile);
     void LoadSpawnPoint(FILE* _pFile);
+    void LoadTrigger(FILE* _pFile);
 
 public:
     void AddObj(CObj* _pObj, ELAYER _Layer) { m_arrLayer[(UINT)_Layer].push_back(_pObj); }

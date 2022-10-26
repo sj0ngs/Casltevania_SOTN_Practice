@@ -38,5 +38,6 @@ public:
     void Load(const wstring& _strRelativePath);
 
     friend class CAnimator;
+    friend class CAnimationEditor;
 };
 

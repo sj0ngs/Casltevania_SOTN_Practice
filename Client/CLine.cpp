@@ -60,6 +60,22 @@ void CLine::Render(HDC _DC)
 
 	// 기존 팬과 브러쉬로 돌려놓는다
 	SelectObject(_DC, hPrevPen);
+
+	Vec2 vPos = vPos1 + vPos2;
+	vPos /= 2.f;
+
+	wstring strName;
+	switch (m_eType)
+	{
+	case ELINE_TYPE::UP:
+		strName = L"Up Line";
+		break;
+	case ELINE_TYPE::DOWN:
+		strName = L"Down Line";
+		break;
+	}
+
+	TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());
 }
 
 void CLine::BeginOverlap(CObj* _pOther)

@@ -48,6 +48,9 @@ public:
 	~CPlatform();
 
 public:
+	virtual void Render(HDC _DC) override;
+
+public:
 	virtual void BeginOverlap(CCollider* _pOther)	override;
 	virtual void OnOverlap(CCollider* _pOther)	override;
 	virtual void EndOverlap(CCollider* _pOther)	override;

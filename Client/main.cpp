@@ -142,6 +142,10 @@ INT_PTR CALLBACK TileCount(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 
 INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
+INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
+INT_PTR CALLBACK AnimEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
 // 메인 윈도우의 메세지 처리 함수
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -169,6 +173,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 if (!IsWindow(g_hMapDlg))
                 {
                     g_hMapDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_EDITMAP), hWnd, LevelEdit);
+                    ShowWindow(g_hMapDlg, SW_SHOW);
+                }
+            }
+                break;
+            case CREATE_ANIM:
+            {
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_CREATEANIM), hWnd, AnimCreate);
+            }
+                break;
+            case EDIT_ANIM:
+            {
+                if (!IsWindow(g_hMapDlg))
+                {
+                    g_hMapDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_EDITANIM), hWnd, AnimEdit);
                     ShowWindow(g_hMapDlg, SW_SHOW);
                 }
             }

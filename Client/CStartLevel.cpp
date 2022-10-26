@@ -26,42 +26,16 @@ CStartLevel::~CStartLevel()
 
 void CStartLevel::Init()
 {
-	// texture 로딩
-	//CResMgr::GetInst()->LoadTexture(L"Plane", L"texture\\Fighter.bmp");
-	
-	// 백그라운드 이미지 설정
-	//CTexture* pBackGroundTex = CResMgr::GetInst()->LoadTexture(L"DebugMap", L"texture\\Debug_Map.bmp");
-	//CBackGround* pBackGround = new CBackGround;
-	//pBackGround->SetBackGroundImg(pBackGroundTex);
-	//pBackGround->SetIsForeGround(true);
-
-	//AddObj(pBackGround, ELAYER::BACKGROUND);
-
 	LoadLevel(L"level\\Debug_Level.level");
 
-	//CObj* pObj = new CPlayer;
-	//pObj->SetPos(Vec2(500.f, 100.f));
-	//AddObj(pObj, ELAYER::PLAYER);
-
-	//pObj = pObj->Clone();
-	//pObj->SetPos(Vec2(700.f, 100.f));
-	//AddObj(pObj, ELAYER::PLAYER);
-
-	//CMonster* pMonster = new CMonster;
-	//pMonster->SetPos(Vec2(300.f, 100.f));
-	//pMonster->SetScale(Vec2(80.f, 80.f));
-	////pMonster->SetTarget(pObj);
-	//AddObj(pMonster, ELAYER::MONSTER);
-
-	//pMonster = pMonster->Clone();
-	//pMonster->SetPos(Vec2(1000.f, 100.f));
-	//AddObj(pMonster, ELAYER::MONSTER);
+	SetStartPointIdx(2);
 
 	// Level의 충돌 설정
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER_PROJECTILE);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::PLATFORM);
+	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::TRIGGER);
 	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::PLAYER);
 	
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();

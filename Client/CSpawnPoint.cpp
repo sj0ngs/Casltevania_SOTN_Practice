@@ -28,23 +28,11 @@ void CSpawnPoint::Tick()
 {
 	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
 
-	if (dynamic_cast<CEditorLevel*>(pCurLevel))
-		return;
-
-	if (IsDead())
+	if (dynamic_cast<CEditorLevel*>(pCurLevel) || IsDead())
 		return;
 
 	switch (m_eOption)
 	{
-	case ESPAWNABLE_OBJECT::PLAYER:
-	{
-		CPlayer* pPlayer = new CPlayer;
-		pPlayer->SetPos(GetPos());
-		pPlayer->SetFaceDir(GetFaceDir());
-		pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);
-		//Instantiate(pPlayer, GetPos(), ELAYER::PLAYER);
-	}
-		break;
 	case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
 	{
 		CMonster* pMonster = new CMonster;
@@ -72,52 +60,10 @@ void CSpawnPoint::Render(HDC _DC)
 {
 	// 오른쪽일때
 	if (GetFaceDir())
-	{
-		switch (m_eOption)
-		{
-		case ESPAWNABLE_OBJECT::PLAYER:
-			m_pTexture = CResMgr::GetInst()->LoadTexture(L"Right_Arrow", L"texture\\spawn_point\\Right_Arrow.bmp");
-			break;
-		case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
-			m_pTexture = CResMgr::GetInst()->LoadTexture(L"Right_Arrow", L"texture\\spawn_point\\Right_Arrow.bmp");
-			break;
-		case ESPAWNABLE_OBJECT::AXE_ARMOR:
-			break;
-		case ESPAWNABLE_OBJECT::SKELETON:
-			break;
-		case ESPAWNABLE_OBJECT::SPITTLE_BONE:
-			break;
-		case ESPAWNABLE_OBJECT::GAIBON:
-			break;
-		case ESPAWNABLE_OBJECT::SLOGRA:
-			break;
-		}
-	}
+		m_pTexture = CResMgr::GetInst()->LoadTexture(L"Right_Arrow", L"texture\\spawn_point\\Right_Arrow.bmp");
 	// 왼쪽일때
 	else
-	{
-		switch (m_eOption)
-		{
-		case ESPAWNABLE_OBJECT::PLAYER:
-			m_pTexture = CResMgr::GetInst()->LoadTexture(L"Left_Arrow", L"texture\\spawn_point\\Left_Arrow.bmp");
-			break;
-		case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
-			m_pTexture = CResMgr::GetInst()->LoadTexture(L"Left_Arrow", L"texture\\spawn_point\\Left_Arrow.bmp");
-			break;
-		case ESPAWNABLE_OBJECT::AXE_ARMOR:
-			break;
-		case ESPAWNABLE_OBJECT::SKELETON:
-			break;
-		case ESPAWNABLE_OBJECT::SPITTLE_BONE:
-			break;
-		case ESPAWNABLE_OBJECT::GAIBON:
-			break;
-		case ESPAWNABLE_OBJECT::SLOGRA:
-			break;
-		case ESPAWNABLE_OBJECT::NONE:
-			break;
-		}
-	}
+		m_pTexture = CResMgr::GetInst()->LoadTexture(L"Left_Arrow", L"texture\\spawn_point\\Left_Arrow.bmp");
 		
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 
@@ -130,6 +76,33 @@ void CSpawnPoint::Render(HDC _DC)
 	SRCCOPY);
 
 	CObj::Render(_DC);
+
+	wstring strName;
+	switch (m_eOption)
+	{
+	case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
+		strName = L"Bone Scimitar";
+		break;
+	case ESPAWNABLE_OBJECT::AXE_ARMOR:
+		strName = L"Axe Armor";
+		break;
+	case ESPAWNABLE_OBJECT::SKELETON:
+		strName = L"Skeleton";
+		break;
+	case ESPAWNABLE_OBJECT::SPITTLE_BONE:
+		strName = L"Spittle Boner";
+		break;
+	case ESPAWNABLE_OBJECT::GAIBON:
+		strName = L"Gaibon";
+		break;
+	case ESPAWNABLE_OBJECT::SLOGRA:
+		strName = L"Slogra";
+		break;
+	}
+
+	vPos.y -= ((float)TILE_SIZE * 1.5f);
+
+	TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());
 }
 
 void CSpawnPoint::Save(FILE* _pFile)

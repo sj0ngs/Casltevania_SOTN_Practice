@@ -24,9 +24,10 @@ CEditorLevel::CEditorLevel()	:
 	m_eMode(EEDITOR_MODE::FLOOR),
 	m_eFloorOption(EFLOOR_OPTION::FLOOR),
 	m_eObjectOption(EOBJ_OPTION::SPAWN_POINT),
-	m_eSpawnObjectOption(ESPAWNABLE_OBJECT::PLAYER),
+	m_eSpawnObjectOption(ESPAWNABLE_OBJECT::BONE_SCIMITAR),
 	m_bFaceDir(true),
 	m_eTriggerType(ETRIGGER_TYPE::LEVEL_CHANGE),
+	m_eChangeLevelType(ELEVEL_TYPE::START),
 	m_vMousePos1{-1.f, -1.f}
 {
 }
@@ -42,6 +43,10 @@ void CEditorLevel::Tick()
 	CLevel::Tick();
 
 	if (IS_TAP(EKEY::ENTER))
+	{
+		ChangeLevel(ELEVEL_TYPE::ANIMATION);
+	}
+	if (IS_TAP(EKEY::key1))
 	{
 		ChangeLevel(ELEVEL_TYPE::START);
 	}
@@ -89,111 +94,6 @@ void CEditorLevel::Update()
 	}
 }
 
-void CEditorLevel::SaveTile()
-{
-	// open a file name
-	OPENFILENAME ofn = {};
-
-	wstring strTileFolderPath = CPathMgr::GetInst()->GetContentPath();
-	strTileFolderPath += L"tile\\";
-
-	// 탐색기로 설정한 위치의 경로 값이 들어간다
-	wchar_t szFilePath[256] = {};
-
-	ZeroMemory(&ofn, sizeof(ofn));
-	ofn.lStructSize = sizeof(ofn);
-	ofn.hwndOwner = NULL;
-	ofn.lpstrFile = szFilePath;
-	ofn.lpstrFile[0] = '\0';
-	ofn.nMaxFile = 256;
-	// 파일 필터를 세팅할 수 있다
-	ofn.lpstrFilter = L"Tile\0*.tile\0ALL\0*.*";
-	// 최초에 보여줄 파일 세팅의 인덱스
-	ofn.nFilterIndex = 1;
-	ofn.lpstrFileTitle = NULL;
-	ofn.nMaxFileTitle = 0;
-	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
-	ofn.lpstrInitialDir = strTileFolderPath.c_str();
-	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-	if (false == GetSaveFileName(&ofn))
-		return;
-
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, szFilePath, L"wb");
-
-	if (nullptr != pFile)
-	{
-		// 타일 가로 새로 개수 저장
-		UINT iTileXCount = GetTileXCount();
-		UINT iTileYCount = GetTileYCount();
-
-		fwrite(&iTileXCount, sizeof(UINT), 1, pFile);
-		fwrite(&iTileYCount, sizeof(UINT), 1, pFile);
-
-		const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
-		for (size_t i = 0; i < vecTile.size(); i++)
-		{
-			((CTile*)vecTile[i])->Save(pFile);
-		}
-
-		fclose(pFile);
-	}
-}
-
-void CEditorLevel::LoadTile()
-{
-	// open a file name
-	OPENFILENAME ofn = {};
-
-	wstring strTileFolderPath = CPathMgr::GetInst()->GetContentPath();
-	strTileFolderPath += L"tile\\";
-
-	// 탐색기로 설정한 위치의 경로 값이 들어간다
-	wchar_t szFilePath[256] = {};
-
-	ZeroMemory(&ofn, sizeof(ofn));
-	ofn.lStructSize = sizeof(ofn);
-	ofn.hwndOwner = NULL;
-	ofn.lpstrFile = szFilePath;
-	ofn.lpstrFile[0] = '\0';
-	ofn.nMaxFile = 256;
-	// 파일 필터를 세팅할 수 있다
-	ofn.lpstrFilter = L"Tile\0*.tile\0ALL\0*.*";
-	// 최초에 보여줄 파일 세팅의 인덱스
-	ofn.nFilterIndex = 1;
-	ofn.lpstrFileTitle = NULL;
-	ofn.nMaxFileTitle = 0;
-	// 탐색기 창이 최초에 보여줄 경로, null로 하면 가장 최근에 접근한 경로를 보여준다
-	ofn.lpstrInitialDir = strTileFolderPath.c_str();
-	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-	if (false == GetOpenFileName(&ofn))
-		return;
-
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, szFilePath, L"rb");
-	
-	if (nullptr != pFile)
-	{
-		// 타일 가로 새로 불러오고 타일 생성
-		UINT iTileXCount = 0, iTileYCount = 0;
-
-		fread(&iTileXCount, sizeof(UINT), 1, pFile);
-		fread(&iTileYCount, sizeof(UINT), 1, pFile);
-
-		CreateTile(iTileXCount, iTileYCount);
-
-		const vector<CObj*>& vecTile = GetLayer(ELAYER::TILE);
-		for (size_t i = 0; i < vecTile.size(); i++)
-		{
-			((CTile*)vecTile[i])->Load(pFile);
-		}
-
-		fclose(pFile);
-	}
-}
-
 void CEditorLevel::SaveLevel()
 {
 	// open a file name
@@ -235,7 +135,9 @@ void CEditorLevel::SaveLevel()
 		SavePlatform(pFile);
 		SaveLine(pFile);
 
+		SaveStartPoint(pFile);
 		SaveSpawnPoint(pFile);
+		SaveTrigger(pFile);
 
 		fclose(pFile);
 	}
@@ -295,7 +197,9 @@ void CEditorLevel::LoadLevel()
 		LoadPlatform(pFile);
 		LoadLine(pFile);
 
+		LoadStartPoint(pFile);
 		LoadSpawnPoint(pFile);
+		LoadTrigger(pFile);
 
 		fclose(pFile);
 	}
@@ -373,6 +277,7 @@ wchar_t g_arrFloorOption[(UINT)EFLOOR_OPTION::NONE][10] =
 
 wchar_t g_arrObjOption[(UINT)EOBJ_OPTION::NONE][20] =
 {
+	L"Start Point",
 	L"Spawn Point",
 	L"Object",
 	L"Trigger"
@@ -380,7 +285,6 @@ wchar_t g_arrObjOption[(UINT)EOBJ_OPTION::NONE][20] =
 
 wchar_t g_arrSpawnPointOption[(UINT)ESPAWNABLE_OBJECT::NONE][20] =
 {
-	L"Player",
 	L"Bone Scimitar",
 	L"Axe Armor",
 	L"Skeleton",
@@ -398,6 +302,15 @@ wchar_t g_arrFaceDir[2][10] =
 wchar_t g_arrTriggerType[(UINT)ETRIGGER_TYPE::NONE][20] =
 {
 	L"Level Change"
+};
+
+wchar_t g_arrChangeLevelType[(UINT)ELEVEL_TYPE::END][20] =
+{
+	L"START",
+	L"STAGE_01",
+	L"STAGE_02",
+	L"STAGE_03",
+	L"EDITOR",
 };
 
 INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -467,6 +380,24 @@ INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 			iIdx = 1;
 		SendMessage(hWnd, CB_SETCURSEL, iIdx, NULL);
 
+		// 트리거 옵션 콤보박스 초기화
+		hWnd = GetDlgItem(hDlg, IDC_TRIGGER_OPTION);
+		for (int i = 0; i < (UINT)ETRIGGER_TYPE::NONE; i++)
+		{
+			SendMessage(hWnd, CB_INSERTSTRING, -1, (LPARAM)g_arrTriggerType[i]);
+		}
+		iIdx = (int)pEditorLevel->GetTriggerType();
+		SendMessage(hWnd, CB_SETCURSEL, iIdx, NULL);
+
+		// 레벨 체인지 트리거 콤보박스 초기화
+		hWnd = GetDlgItem(hDlg, IDC_LEVEL_CHANGE_TRIGGER);
+		for (int i = 0; i < (UINT)ELEVEL_TYPE::END; i++)
+		{
+			SendMessage(hWnd, CB_INSERTSTRING, -1, (LPARAM)g_arrChangeLevelType[i]);
+		}
+		iIdx = (int)pEditorLevel->GetChangeLevelType();
+		SendMessage(hWnd, CB_SETCURSEL, iIdx, NULL);
+
 		return (INT_PTR)TRUE;
 	}
 	case WM_COMMAND:
@@ -525,6 +456,39 @@ INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 				pEditorLevel->ChangeDir(bFaceDir);
 			}
 				break;
+			}
+			break;
+		case IDC_START_POINT_IDX:
+			switch (HIWORD(wParam))
+			{
+			case EN_CHANGE:
+			{
+				UINT iIdx = GetDlgItemInt(hDlg, IDC_START_POINT_IDX, nullptr, true);
+				pEditorLevel->SetStartPointIdx(iIdx);
+			}
+			break;
+			}
+			break;
+		case IDC_TRIGGER_OPTION:
+			switch (HIWORD(wParam))
+			{
+			case CBN_SELCHANGE:
+			{
+				ETRIGGER_TYPE eOption = (ETRIGGER_TYPE)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+				pEditorLevel->ChangeTriggerType(eOption);
+			}
+			break;
+			}
+			break;
+		case IDC_LEVEL_CHANGE_TRIGGER:
+			switch (HIWORD(wParam))
+			{
+			case CBN_SELCHANGE:
+			{
+				ELEVEL_TYPE eOption = (ELEVEL_TYPE)SendMessage((HWND)lParam, (UINT)CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+				pEditorLevel->ChangeLevelType(eOption);
+			}
+			break;
 			}
 			break;
 		case IDC_LOAD_BACKGROUND:

@@ -11,6 +11,7 @@
 #include "CBackGround.h"
 
 CLevel::CLevel()	:
+	m_iStartPointIdx(0),
 	m_iTileXCount(0),
 	m_iTileYCount(0)
 {
@@ -109,7 +110,9 @@ void CLevel::LoadLevel(const wstring& _strRelativePath)
 		LoadPlatform(pFile);
 		LoadLine(pFile);
 
+		LoadStartPoint(pFile);
 		LoadSpawnPoint(pFile);
+		LoadTrigger(pFile);
 
 		fclose(pFile);
 	}

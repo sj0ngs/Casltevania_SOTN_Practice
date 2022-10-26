@@ -157,6 +157,9 @@
     <Filter Include="Game\04. Object\SpawnPoint\Player Start">
       <UniqueIdentifier>{1bfe3394-3f25-4682-915e-ae139c9bdf3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\03. Level\Editor\AnimationEditor">
+      <UniqueIdentifier>{4f466195-352f-4f88-bc80-2de786fa5bb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -312,6 +315,15 @@
     <ClInclude Include="CSpawnPoint.h">
       <Filter>Game\04. Object\SpawnPoint</Filter>
     </ClInclude>
+    <ClInclude Include="CStartPoint.h">
+      <Filter>Game\04. Object\SpawnPoint\Player Start</Filter>
+    </ClInclude>
+    <ClInclude Include="CLevelChangeTrigger.h">
+      <Filter>Game\04. Object\Trigger\LevelChangeTrigger</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimationEditor.h">
+      <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -466,6 +478,15 @@
     </ClCompile>
     <ClCompile Include="CSpawnPoint.cpp">
       <Filter>Game\04. Object\SpawnPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="CStartPoint.cpp">
+      <Filter>Game\04. Object\SpawnPoint\Player Start</Filter>
+    </ClCompile>
+    <ClCompile Include="CLevelChangeTrigger.cpp">
+      <Filter>Game\04. Object\Trigger\LevelChangeTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimationEditor.cpp">
+      <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

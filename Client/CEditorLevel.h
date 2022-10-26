@@ -20,6 +20,7 @@ enum class EFLOOR_OPTION
 
 enum class EOBJ_OPTION
 {
+    PLAYER_START_POINT,
     SPAWN_POINT,
     OBJECT,
     TRIGGER,
@@ -44,13 +45,11 @@ private:
 
     // 오브젝트 편집
     ESPAWNABLE_OBJECT m_eSpawnObjectOption;    // 현재 스폰 포인트 옵션
-    bool m_bFaceDir; // 바라보는 방향
-    
-    // 플레이어 스폰 위치 설정
-    
+    bool m_bFaceDir; // 바라보는 방향    
 
     // Trigger 편집
     ETRIGGER_TYPE   m_eTriggerType;
+    ELEVEL_TYPE     m_eChangeLevelType;
 
     // Map Editor 첫 번째 마우스 좌표
     Vec2 m_vMousePos1;
@@ -73,6 +72,9 @@ public:
 
     void ChangeTriggerType(ETRIGGER_TYPE _eType) { m_eTriggerType = _eType; }
     ETRIGGER_TYPE GetTriggerType() const { return m_eTriggerType; }
+
+    void ChangeLevelType(ELEVEL_TYPE _eType) { m_eChangeLevelType = _eType; }
+    ELEVEL_TYPE GetChangeLevelType() const { return m_eChangeLevelType; }
 
 public:
     CEditorLevel();
@@ -109,9 +111,6 @@ private:
     void EditTrigger();
 
 public:
-    void SaveTile();
-    void LoadTile();
-
     // Map Save
     void SaveBackGround(FILE* _pFile);
     void SaveForeGround(FILE* _pFile);
@@ -119,7 +118,9 @@ public:
     void SaveLine(FILE* _pFile);
 
     // Object Save
+    void SaveStartPoint(FILE* _pFile);
     void SaveSpawnPoint(FILE* _pFile);
+    void SaveTrigger(FILE* _pFile);
 
     void SaveLevel();
     void LoadLevel();

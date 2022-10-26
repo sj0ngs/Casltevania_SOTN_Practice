@@ -2,7 +2,7 @@
 #include "CTrigger.h"
 
 CTrigger::CTrigger()	:
-	m_eLevelType(ELEVEL_TYPE::END)
+	m_eType(ETRIGGER_TYPE::NONE)
 {
 	CreateCollider();
 }
@@ -14,18 +14,6 @@ CTrigger::~CTrigger()
 void CTrigger::Render(HDC _DC)
 {
 	CObj::Render(_DC);
-}
-
-void CTrigger::BeginOverlap(CCollider* _pOther)
-{
-}
-
-void CTrigger::OnOverlap(CCollider* _pOther)
-{
-}
-
-void CTrigger::EndOverlap(CCollider* _pOther)
-{
 }
 
 void CTrigger::Save(FILE* _pFile)
