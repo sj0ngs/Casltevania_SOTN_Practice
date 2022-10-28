@@ -62,6 +62,8 @@ private:
 	void LeftCheck(CObj* _pObj);
 	void RightCheck(CObj* _pObj);
 
+	void PushObj(CObj* _pObj);
+
 public:
 	virtual void Save(FILE* _pFile) override;
 	virtual void Load(FILE* _pFile) override;

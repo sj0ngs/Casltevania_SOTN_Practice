@@ -38,11 +38,48 @@ CEditorLevel::~CEditorLevel()
 		DestroyMenu(m_hMenu);
 }
 
+void CEditorLevel::Init()
+{
+	// 카메라 시점
+	Vec2 vResolution = CEngine::GetInst()->GetResolution();
+	CCamera::GetInst()->SetLook(vResolution / 2.f);
+
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
+}
+
+void CEditorLevel::CreateUI(Vec2 _vResolution)
+{
+	// UI Texture 로드
+	//CTexture* pButtonTex = CResMgr::GetInst()->LoadTexture(L"Button", L"texture\\button.bmp");
+	//CTexture* pButtonPressedTex = CResMgr::GetInst()->LoadTexture(L"Button_Pressed", L"texture\\button_pressed.bmp");
+	//CTexture* pPanelTex = CResMgr::GetInst()->LoadTexture(L"Panel", L"texture\\OakUI.bmp");
+
+	// UI 배치
+
+	// 부모 패널 UI
+	//CPanel* pPanel = new CPanel;
+	//pPanel->SetIdleTex(pPanelTex);
+	//pPanel->SetPos(Vec2(_vResolution.x - (pPanelTex->GetWidth() + 20.f), 10.f));
+
+	// Back Ground Load Button
+	//CButton* pLoadBackGround = pSaveTileButton->Clone();
+	//pLoadBackGround->SetPos(Vec2(120.f, 160.f));
+	//pLoadBackGround->SetDelegate(this, (DELEGATE)&CEditorLevel::SetBackGroundImg);
+
+	// 패널에 버튼을 자식으로 넣어준다
+	//pPanel->AddChildUI(pLoadBackGround);
+	//AddObj(pPanel, ELAYER::UI);
+
+	//CUI* pOtherPanel = pPanel->Clone();
+	//AddObj(pOtherPanel, ELAYER::UI);
+}
+
 void CEditorLevel::Tick()
 {
 	CLevel::Tick();
 
-	if (IS_TAP(EKEY::ENTER))
+	if (IS_TAP(EKEY::TAB))
 	{
 		ChangeLevel(ELEVEL_TYPE::ANIMATION);
 	}
@@ -328,20 +365,18 @@ INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam
 {
 	CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
 
-	if (nullptr == pEditorLevel)
-	{
-		DestroyWindow(hDlg);
-		hDlg = nullptr;
-		return (INT_PTR)FALSE;
-	}
-
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG:
 	{
-		//CEditorLevel* pEditorLevel = dynamic_cast<CEditorLevel*>(CLevelMgr::GetInst()->GetCurLevel());
-		//assert(pEditorLevel);
+		if (nullptr == pEditorLevel)
+		{
+			DestroyWindow(hDlg);
+			hDlg = nullptr;
+			return (INT_PTR)FALSE;
+		}
+
 		int iIdx = 0;
 
 		// 에디터 모드 콤보박스 초기화

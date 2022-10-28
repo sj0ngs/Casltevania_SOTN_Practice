@@ -64,9 +64,6 @@
     <Filter Include="Game\00. Header">
       <UniqueIdentifier>{17904be2-3209-4c5e-a942-c03c92577eda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\02. Mananger\07. ResManager">
-      <UniqueIdentifier>{e7495e60-c91b-4348-9eca-9539af63c181}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\02. Mananger\06. PathMananger">
       <UniqueIdentifier>{6cb7c926-1a57-4b32-976c-17d87fbb6860}</UniqueIdentifier>
     </Filter>
@@ -109,21 +106,6 @@
     <Filter Include="Game\05. Component\AI">
       <UniqueIdentifier>{9ebaa39b-d4fb-4009-a682-e87a3bf1e691}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\07. MonsterState">
-      <UniqueIdentifier>{430f6104-64ee-4bd8-aea4-8d5d7ca2f261}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. MonsterState\IdleState">
-      <UniqueIdentifier>{eef37b5d-c0f8-4309-8473-040aa40908ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. MonsterState\AttackState">
-      <UniqueIdentifier>{7fcde563-9ba5-4aa3-9eaa-d0f98b2092b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. MonsterState\TraceState">
-      <UniqueIdentifier>{118d7a7e-061f-4517-886d-09ebd77aa5ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. MonsterState\DeadState">
-      <UniqueIdentifier>{62c5b8e4-82ad-4e0b-8445-9a0464c9fdfe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object\MapObj">
       <UniqueIdentifier>{a4de3d9f-dd1f-4e4f-aa0a-21bd81997f1b}</UniqueIdentifier>
     </Filter>
@@ -162,6 +144,33 @@
     </Filter>
     <Filter Include="Game\04. Object\Debug">
       <UniqueIdentifier>{f7cf1e66-80e3-414b-9830-a1a7b1d372f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State">
+      <UniqueIdentifier>{430f6104-64ee-4bd8-aea4-8d5d7ca2f261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState">
+      <UniqueIdentifier>{a3fbcf5e-55e2-464c-b59e-b4237f8afddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState">
+      <UniqueIdentifier>{03690ff1-540f-4819-bf08-c875ee96e9c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\IdleState">
+      <UniqueIdentifier>{eef37b5d-c0f8-4309-8473-040aa40908ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\TraceState">
+      <UniqueIdentifier>{118d7a7e-061f-4517-886d-09ebd77aa5ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Idle">
+      <UniqueIdentifier>{2e498de7-dafc-4c91-94ef-4b415f8a85b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\MoveLeft">
+      <UniqueIdentifier>{ca2ae071-de14-4134-ab34-e746ae2e8a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\MoveRight">
+      <UniqueIdentifier>{0ea069a5-ee5d-4006-9f82-bcb2e1781157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\02. Mananger\07. ResManager">
+      <UniqueIdentifier>{e7495e60-c91b-4348-9eca-9539af63c181}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -295,13 +304,13 @@
       <Filter>Game\05. Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="CState.h">
-      <Filter>Game\07. MonsterState</Filter>
+      <Filter>Game\07. State</Filter>
     </ClInclude>
     <ClInclude Include="CIdleState.h">
-      <Filter>Game\07. MonsterState\IdleState</Filter>
+      <Filter>Game\07. State\MonsterState\IdleState</Filter>
     </ClInclude>
     <ClInclude Include="CTraceState.h">
-      <Filter>Game\07. MonsterState\TraceState</Filter>
+      <Filter>Game\07. State\MonsterState\TraceState</Filter>
     </ClInclude>
     <ClInclude Include="CBackGround.h">
       <Filter>Game\04. Object\Map\BackGround</Filter>
@@ -329,6 +338,18 @@
     </ClInclude>
     <ClInclude Include="CAnimDebug.h">
       <Filter>Game\04. Object\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState.h">
+      <Filter>Game\07. State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerIdleState.h">
+      <Filter>Game\07. State\PlayerState\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerLeftMoveState.h">
+      <Filter>Game\07. State\PlayerState\MoveLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerRightMoveState.h">
+      <Filter>Game\07. State\PlayerState\MoveRight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,13 +468,13 @@
       <Filter>Game\05. Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="CState.cpp">
-      <Filter>Game\07. MonsterState</Filter>
+      <Filter>Game\07. State</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
-      <Filter>Game\07. MonsterState\IdleState</Filter>
+      <Filter>Game\07. State\MonsterState\IdleState</Filter>
     </ClCompile>
     <ClCompile Include="CTraceState.cpp">
-      <Filter>Game\07. MonsterState\TraceState</Filter>
+      <Filter>Game\07. State\MonsterState\TraceState</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>Game\04. Object\Monster</Filter>
@@ -464,16 +485,10 @@
     <ClCompile Include="CBackGround.cpp">
       <Filter>Game\04. Object\Map\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="CEditorLevel_Map.cpp">
-      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
-    </ClCompile>
     <ClCompile Include="CMapObj.cpp">
       <Filter>Game\04. Object\MapObj</Filter>
     </ClCompile>
     <ClCompile Include="CEditorLevel.cpp">
-      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditorLevel_Init.cpp">
       <Filter>Game\03. Level\Editor\LevelEditor</Filter>
     </ClCompile>
     <ClCompile Include="CEditorLevel_Object.cpp">
@@ -496,6 +511,21 @@
     </ClCompile>
     <ClCompile Include="CAnimDebug.cpp">
       <Filter>Game\04. Object\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState.cpp">
+      <Filter>Game\07. State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerIdleState.cpp">
+      <Filter>Game\07. State\PlayerState\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerLeftMoveState.cpp">
+      <Filter>Game\07. State\PlayerState\MoveLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerRightMoveState.cpp">
+      <Filter>Game\07. State\PlayerState\MoveRight</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorLevel_Map.cpp">
+      <Filter>Game\03. Level\Editor\LevelEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

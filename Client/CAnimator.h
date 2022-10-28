@@ -41,6 +41,7 @@ public:
 private:
     CAnimation* GetFirstAnim();
     void SetCurAnim(CAnimation* _pAnim) { m_pCurAnim = _pAnim; }
+    void SwitchRepeat() { m_bRepeat = m_bRepeat ? false : true; }
 
     friend class CAnimationEditor;
     friend class CEventMgr;

@@ -235,7 +235,7 @@ void CAnimation::PrevFrame()
 {
 	--m_iCurFrm;
 	if (0 > m_iCurFrm)
-		m_iCurFrm = m_vecFrm.size() - 1;
+		m_iCurFrm = (int)m_vecFrm.size() - 1;
 }
 
 void CAnimation::NextFrame()

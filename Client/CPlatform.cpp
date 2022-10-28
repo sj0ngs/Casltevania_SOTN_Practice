@@ -89,6 +89,8 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				RightCheck(pObj);
 				return;
 			}
+
+			//PushObj(pObj);
 		}
 		// »ó½ÂÁßÀÏ ¶§ 
 		else if (0.f > vDir.y)
@@ -109,6 +111,8 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				RightCheck(pObj);
 				return;
 			}
+
+			// PushObj(pObj);
 		}
 		// º®¿¡ ºÎµúÇûÀ»¶§
 		else if (0.f == vDir.y)
@@ -125,6 +129,8 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				RightCheck(pObj);
 				return;
 			}
+
+			//PushObj(pObj);
 		}
 	}
 	else
@@ -281,6 +287,36 @@ void CPlatform::RightCheck(CObj* _pObj)
 	{
 		vObjPos.x += (vLength.x - vDist.x + 1.f);
 		_pObj->SetPos(vObjPos);
+	}
+
+	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::RIGHT));
+}
+
+void CPlatform::PushObj(CObj* _pObj)
+{
+	Vec2 vObjPos = _pObj->GetPos();
+
+	Vec2 vDist = Vec2(GetPos().x - vObjPos.x, GetPos().y - vObjPos.y);
+	Vec2 vabDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
+	Vec2 vLength = GetCollider()->GetScale() / 2.f;
+
+	vLength += _pObj->GetCollider()->GetScale() / 2.f;
+	
+	if (0 < vDist.x)
+	{
+		if (vLength.x > vDist.x)
+		{
+			vObjPos.x -= (vLength.x - vabDist.x + 1.f);
+			_pObj->SetPos(vObjPos);
+		}
+	}
+	else if (0 > vDist.x)
+	{
+		if (vLength.x > vabDist.x)
+		{
+			vObjPos.x += (vLength.x - vabDist.x + 1.f);
+			_pObj->SetPos(vObjPos);
+		}
 	}
 
 	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::RIGHT));

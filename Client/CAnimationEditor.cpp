@@ -63,7 +63,7 @@ void CAnimationEditor::Tick()
 
 	if (CEngine::GetInst()->GetMainWnd() == GetForegroundWindow())
 	{	
-		if (IS_TAP(EKEY::ENTER))
+		if (IS_TAP(EKEY::TAB))
 		{
 			ChangeLevel(ELEVEL_TYPE::EDITOR);
 		}
@@ -84,6 +84,13 @@ void CAnimationEditor::Render(HDC _DC)
 
 	wstring strName = L"Animation Editor";
 	TextOut(_DC, (int)vPos.x, 0, strName.c_str(), (int)strName.length());
+
+	//if (nullptr != m_pAnim)
+	//{
+	//	strName = m_pAnim->GetName();
+
+	//	TextOut(_DC, (int)vPos.x + 100, 100, strName.c_str(), (int)strName.length());
+	//}
 }
 
 void CAnimationEditor::Enter()
@@ -110,6 +117,7 @@ void CAnimationEditor::Exit()
 	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
 	
 	m_pDebugObj->GetAnimator()->SetCurAnim(nullptr);
+	CLevel::DeleteAllObject();
 }
 
 void CAnimationEditor::Update()
@@ -134,6 +142,14 @@ void CAnimationEditor::Frame_Update()
 	else if (IS_TAP(EKEY::SPACE))
 	{
 		m_pAnim->SwitchStop();
+	}
+	else if (IS_TAP(EKEY::LSHIFT))
+	{
+		m_pDebugObj->GetAnimator()->SwitchRepeat();
+	}
+	else if (IS_TAP(EKEY::R))
+	{
+		m_pAnim->Reset();
 	}
 
 	m_iCurFrm = m_pAnim->GetCurFrame();
@@ -208,6 +224,8 @@ void CAnimationEditor::SetAtlasTex()
 void CAnimationEditor::CreateAnim(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, Vec2 _vBorder,
 	int iRow, int iCol, Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, Vec2 _vOffset, bool _bReverse)
 {
+	m_pAnim = nullptr;
+
 	Vec2 vLEftTop = {};
 
 	if (!_bReverse)
@@ -262,10 +280,14 @@ void CAnimationEditor::CreateAnim(const wstring& _strName, CTexture* _pAtlas, Ve
 	wstring FilePath = Buff.substr(start, end);
 
 	m_pAnim->Save(FilePath);
+
+	m_pAnim = nullptr;
 }
 
 void CAnimationEditor::LoadAnim()
 {
+	m_pAnim = nullptr;
+
 	// open a file name
 	OPENFILENAME ofn = {};
 
@@ -375,18 +397,18 @@ INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 {
 	CAnimationEditor* pAnimEditor = dynamic_cast<CAnimationEditor*>(CLevelMgr::GetInst()->GetCurLevel());
 
-	if (nullptr == pAnimEditor)
-	{
-		DestroyWindow(hDlg);
-		hDlg = nullptr;
-		return (INT_PTR)FALSE;
-	}
-
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG:
 	{
+		if (nullptr == pAnimEditor)
+		{
+			DestroyWindow(hDlg);
+			hDlg = nullptr;
+			return (INT_PTR)FALSE;
+		}
+
 		pAnimEditor->ChangeMode(EANIMATION_MODE::ANIMATION);
 		pAnimEditor->ResetAnim();
 	}
@@ -420,9 +442,9 @@ INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			int iRow = GetDlgItemInt(hDlg, IDC_ROW, nullptr, true);
 			int iCol = GetDlgItemInt(hDlg, IDC_COLUMN, nullptr, true);
 
-			Vec2 vSize = {};
-			vSize.x = (float)GetDlgItemInt(hDlg, IDC_SIZE_X, nullptr, false);
-			vSize.y = (float)GetDlgItemInt(hDlg, IDC_SIZE_Y, nullptr, false);
+			Vec2 vSize = {476.f, 396.f};
+			//vSize.x = (float)GetDlgItemInt(hDlg, IDC_SIZE_X, nullptr, false);
+			//vSize.y = (float)GetDlgItemInt(hDlg, IDC_SIZE_Y, nullptr, false);
 
 			int iMaxFrmCount = GetDlgItemInt(hDlg, IDC_MAXFRMCOUNT, nullptr, true);
 
@@ -434,14 +456,14 @@ INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			vPadding.x = (float)GetDlgItemInt(hDlg, IDC_PADDING_X, nullptr, false);
 			vPadding.y = (float)GetDlgItemInt(hDlg, IDC_PADDING_Y, nullptr, false);
 
-			Vec2 vOffset = {};
-			GetDlgItemText(hDlg, IDC_OFFSET_X, szBuff, 256);
-			vOffset.x = wcstof(szBuff, nullptr);
-			memset(szBuff, sizeof(wchar_t), 256);
+			Vec2 vOffset = {70.f, -180.f};
+			//GetDlgItemText(hDlg, IDC_OFFSET_X, szBuff, 256);
+			//vOffset.x = wcstof(szBuff, nullptr);
+			//memset(szBuff, sizeof(wchar_t), 256);
 
-			GetDlgItemText(hDlg, IDC_OFFSET_Y, szBuff, 256);
-			vOffset.y = wcstof(szBuff, nullptr);
-			memset(szBuff, sizeof(wchar_t), 256);
+			//GetDlgItemText(hDlg, IDC_OFFSET_Y, szBuff, 256);
+			//vOffset.y = wcstof(szBuff, nullptr);
+			//memset(szBuff, sizeof(wchar_t), 256);
 
 			bool bReverse = pAnimEditor->GetReverse();
 
@@ -470,18 +492,18 @@ INT_PTR CALLBACK AnimEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	CAnimationEditor* pAnimEditor = dynamic_cast<CAnimationEditor*>(CLevelMgr::GetInst()->GetCurLevel());
 
-	if (nullptr == pAnimEditor)
-	{
-		DestroyWindow(hDlg);
-		hDlg = nullptr;
-		return (INT_PTR)FALSE;
-	}
-
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG:
 	{
+		if (nullptr == pAnimEditor)
+		{
+			DestroyWindow(hDlg);
+			hDlg = nullptr;
+			return (INT_PTR)FALSE;
+		}
+
 		pAnimEditor->ChangeMode(EANIMATION_MODE::FRAME);
 		pAnimEditor->ResetAnim();
 		return (INT_PTR)TRUE;
