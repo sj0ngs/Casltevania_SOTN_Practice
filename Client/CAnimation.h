@@ -14,6 +14,7 @@ private:
     int                 m_iCurFrm;
     float               m_fAccTime;
     bool                m_bFinish;
+    bool                m_bStop;
 
 public:
     CLONE(CAnimation);
@@ -36,6 +37,13 @@ public:
 
     void Save(const wstring& _strRelativePath);
     void Load(const wstring& _strRelativePath);
+
+private:
+    void SwitchStop() { m_bStop = m_bStop ? false : true; }
+    void PrevFrame();
+    void NextFrame();
+    int GetCurFrame() const { return m_iCurFrm; }
+    vector<tAnimFrm>* GetAnimFrame() { return &m_vecFrm; }
 
     friend class CAnimator;
     friend class CAnimationEditor;

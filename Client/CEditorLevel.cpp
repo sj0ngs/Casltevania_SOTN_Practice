@@ -54,6 +54,17 @@ void CEditorLevel::Tick()
 	Update();
 }
 
+void CEditorLevel::Render(HDC _DC)
+{
+	CLevel::Render(_DC);
+
+	Vec2 vPos = CEngine::GetInst()->GetResolution();
+	vPos /= 2.f;
+
+	wstring strName = L"Map Editor";
+	TextOut(_DC, (int)vPos.x, 0, strName.c_str(), (int)strName.length());
+}
+
 void CEditorLevel::Enter()
 {
 	// 메뉴바 생성

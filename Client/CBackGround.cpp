@@ -38,6 +38,16 @@ void CBackGround::Render(HDC _DC)
 		0, 0,
 		SRCCOPY);
 
+	//TransparentBlt(_DC,
+	//	(int)(vPos.x),
+	//	(int)(vPos.y),
+	//	(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
+	//	m_pBackGroundTex->GetDC(),
+	//	(int)(vPos.x),
+	//	(int)(vPos.y),
+	//	(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
+	//	RGB(255, 0, 255));
+
 	CObj::Render(_DC);
 }
 

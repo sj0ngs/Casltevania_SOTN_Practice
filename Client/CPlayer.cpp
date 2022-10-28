@@ -22,10 +22,10 @@
 // 아틀라스 이미지 수치 상수
 const float ATLAS_X_BORDER = 0.f;
 const float ATLAS_Y_BORDER = 0.f;
-const float ATLAS_X_SIZE = 119.f * 4.f;
-const float ATLAS_Y_SIZE = 99.f * 4.f;
-const float ATLAS_X_PADDING = 4.f * 4.f;
-const float ATLAS_Y_PADDING = 4.f * 4.f;
+const float ATLAS_X_SIZE = 476.f;
+const float ATLAS_Y_SIZE = 396.f;
+const float ATLAS_X_PADDING = 16.f;
+const float ATLAS_Y_PADDING = 16.f;
 #define RIGHT_OFFSET Vec2(70.f, -180.f)
 #define LEFT_OFFSET Vec2(-70.f, -180.f)
 
@@ -51,8 +51,8 @@ CPlayer::CPlayer() :
 	//GetAnimator()->CreateAnimation(L"Walk_Right", pAlucardAtlas, Vec2(0.f, 880.f), Vec2(240.f, 220.f), 16, 0.06f);
 	//GetAnimator()->CreateAnimation(L"Walk_Left", pAlucardAtlas, Vec2(0.f, 1100.f), Vec2(240.f, 220.f), 16, 0.06f);
 
-	CTexture* pAlucardAtlas_right = CResMgr::GetInst()->LoadTexture(L"AlucardAtlas", L"texture\\alucard_right_1.bmp");
-	CTexture* pAlucardAtlas_left = CResMgr::GetInst()->LoadTexture(L"AlucardAtlas_Left", L"texture\\alucard_left_1.bmp");
+	CTexture* pAlucardAtlas_right = CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\alucard_right_1.bmp");
+	CTexture* pAlucardAtlas_left = CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\alucard_left_1.bmp");
 
 	float fLeftWidth = (float)pAlucardAtlas_left->GetWidth();
 
@@ -77,21 +77,25 @@ CPlayer::CPlayer() :
 					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 2.f),
 					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 16, 0.06f, Vec2(0.f, 0.f), LEFT_OFFSET);
 
-	GetAnimator()->CreateAnimation(L"Jump", pAlucardAtlas_right,
+	GetAnimator()->CreateAnimation(L"Jump_Right", pAlucardAtlas_right,
 					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
 					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
 
-	GetAnimator()->CreateAnimation(L"Jump_Left", pAlucardAtlas_left,
-					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
-					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	//GetAnimator()->CreateAnimation(L"Jump_Left", pAlucardAtlas_left,
+	//				Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
+	//				Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	
+	GetAnimator()->LoadAnimation(L"animation\\JUMP_LEFT.anim");
 		
-	GetAnimator()->CreateAnimation(L"Fall", pAlucardAtlas_right,
+	GetAnimator()->CreateAnimation(L"Fall_Right", pAlucardAtlas_right,
 					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
 					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
 
-	GetAnimator()->CreateAnimation(L"Fall_Left", pAlucardAtlas_left,
-					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
-					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	//GetAnimator()->CreateAnimation(L"Fall_Left", pAlucardAtlas_left,
+	//				Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
+	//				Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+
+	GetAnimator()->LoadAnimation(L"animation\\FALL_LEFT.anim");
 
 	// 이미지 로딩
 	//CTexture* pLinkTex = CResMgr::GetInst()->LoadTexture(L"LINK", L"texture\\link.bmp");
@@ -153,7 +157,10 @@ void CPlayer::Tick()
 		{
 			GetRigidBody()->SetGravity(false);
 			GetRigidBody()->OffGround();
-			GetAnimator()->Play(L"Jump", false);
+			if (GetFaceDir())
+				GetAnimator()->Play(L"Jump_Right", false);
+			else
+				GetAnimator()->Play(L"Jump_Left", false);
 		}
 		// 왼쪽 이동
 		else if (IS_PRESSED(EKEY::LEFT))
@@ -225,7 +232,10 @@ void CPlayer::Tick()
 		else
 		{
 			GetRigidBody()->SetGravity(true);
-			GetAnimator()->Play(L"Fall", false);
+			if (GetFaceDir())
+				GetAnimator()->Play(L"Fall_Right", false);
+			else
+				GetAnimator()->Play(L"Fall_Left", false);
 		}
 		
 		// 공중에서 점프키 한번 더 누르면 더블 점프

@@ -86,6 +86,7 @@ public:
 public:
     virtual void Init() override;
     virtual void Tick() override;
+    virtual void Render(HDC _DC) override;
     virtual void Enter()    override;
     virtual void Exit() override;
 

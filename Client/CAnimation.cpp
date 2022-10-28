@@ -16,7 +16,8 @@ CAnimation::CAnimation(CAnimator* _pAnimator)	:
 	m_pAtlas(nullptr),
 	m_iCurFrm(0),
 	m_fAccTime(0.f),
-	m_bFinish(false)
+	m_bFinish(false),
+	m_bStop(false)
 {
 }
 
@@ -44,7 +45,7 @@ void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop
 
 void CAnimation::Tick()
 {
-	if (m_bFinish)
+	if (m_bFinish || m_bStop)
 		return;
 
 	m_fAccTime += DELTATIME;
@@ -139,7 +140,7 @@ void CAnimation::Save(const wstring& _strRelativePath)
 
 		// DURATION
 		fwprintf_s(pFile, L"[DURATION]\n");
-		fwprintf_s(pFile, L"%.2f\n", m_vecFrm[i].fDuration);
+		fwprintf_s(pFile, L"%.5f\n", m_vecFrm[i].fDuration);
 
 		fwprintf_s(pFile, L"\n");
 	}
@@ -228,4 +229,18 @@ void CAnimation::Load(const wstring& _strRelativePath)
 	m_pAtlas = CResMgr::GetInst()->LoadTexture(strAtlasKey, strAtlasPath);
 
 	fclose(pFile);
+}
+
+void CAnimation::PrevFrame()
+{
+	--m_iCurFrm;
+	if (0 > m_iCurFrm)
+		m_iCurFrm = m_vecFrm.size() - 1;
+}
+
+void CAnimation::NextFrame()
+{
+	++m_iCurFrm;
+	if (m_vecFrm.size() - 1 < m_iCurFrm)
+		m_iCurFrm = 0;
 }

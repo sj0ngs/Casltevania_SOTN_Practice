@@ -24,8 +24,8 @@ void CEditorLevel::Init()
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
 
-	CResMgr::GetInst()->LoadTexture(L"AlucardAtlas", L"texture\\alucard_right_1.bmp");
-	CResMgr::GetInst()->LoadTexture(L"AlucardAtlas_Left", L"texture\\alucard_left_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\alucard_right_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\alucard_left_1.bmp");
 }
 
 void CEditorLevel::CreateUI(Vec2 _vResolution)

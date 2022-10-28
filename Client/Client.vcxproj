@@ -141,6 +141,7 @@
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimationEditor.h" />
     <ClInclude Include="CAnimator.h" />
+    <ClInclude Include="CAnimDebug.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimationEditor.cpp" />
     <ClCompile Include="CAnimator.cpp" />
+    <ClCompile Include="CAnimDebug.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />

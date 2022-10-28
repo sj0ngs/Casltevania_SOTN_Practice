@@ -160,6 +160,9 @@
     <Filter Include="Game\03. Level\Editor\AnimationEditor">
       <UniqueIdentifier>{4f466195-352f-4f88-bc80-2de786fa5bb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Debug">
+      <UniqueIdentifier>{f7cf1e66-80e3-414b-9830-a1a7b1d372f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="CAnimationEditor.h">
       <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
     </ClInclude>
+    <ClInclude Include="CAnimDebug.h">
+      <Filter>Game\04. Object\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -487,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="CAnimationEditor.cpp">
       <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimDebug.cpp">
+      <Filter>Game\04. Object\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

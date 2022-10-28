@@ -30,13 +30,7 @@ CAnimator::CAnimator(const CAnimator& _Other) :
 
 CAnimator::~CAnimator()
 {
-	map<wstring, CAnimation*>::iterator iter = m_mapAnim.begin(),
-		iterEnd = m_mapAnim.end();
-
-	for (; iter != iterEnd; ++iter)
-	{
-		DYNAMIC_DELETE(iter->second);
-	}
+	ClearAnimation();
 }
 
 void CAnimator::Tick()
@@ -131,4 +125,22 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 
 	m_pCurAnim->Reset();
 	m_bRepeat = _bRepeat;
+}
+
+void CAnimator::ClearAnimation()
+{
+	map<wstring, CAnimation*>::iterator iter = m_mapAnim.begin(),
+		iterEnd = m_mapAnim.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		DYNAMIC_DELETE(iter->second);
+	}
+}
+
+CAnimation* CAnimator::GetFirstAnim()
+{
+	map<wstring, CAnimation*>::iterator iter = m_mapAnim.begin();
+
+	return iter->second;
 }

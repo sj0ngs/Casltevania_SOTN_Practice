@@ -36,5 +36,13 @@ public:
 
 public:
     void Play(const wstring& _strName, bool _bRepeat);
+    void ClearAnimation();
+
+private:
+    CAnimation* GetFirstAnim();
+    void SetCurAnim(CAnimation* _pAnim) { m_pCurAnim = _pAnim; }
+
+    friend class CAnimationEditor;
+    friend class CEventMgr;
 };
 

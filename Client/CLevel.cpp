@@ -57,7 +57,7 @@ void CLevel::Final_Tick()
 		}
 		else
 		{
-			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+ 			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
 			{
 				m_arrLayer[i][j]->Final_Tick();
 			}

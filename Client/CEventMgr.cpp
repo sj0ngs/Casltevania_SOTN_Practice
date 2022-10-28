@@ -9,6 +9,8 @@
 #include "CAI.h"
 #include "CState.h"
 
+#include "CAnimator.h"
+
 CEventMgr::CEventMgr()
 {
 }
@@ -34,7 +36,7 @@ void CEventMgr::Tick()
 			// wParam : Object Address
 			// lParam : Layer Type
 		case EEVENT_TYPE::CREATE_OBJECT:
-			{
+		{
 			CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
 
 			CObj* pNewObj = (CObj*)m_vecEvent[i].wParam;
@@ -42,7 +44,7 @@ void CEventMgr::Tick()
 
 			pCurLevel->AddObj(pNewObj, Layer);
 		}
-			break;
+		break;
 		case EEVENT_TYPE::DELETE_OBJECT:
 		{
 			// 삭제 예정 오브젝트를 Dead 상태로 두고 Garbage에 넣어준다
@@ -55,7 +57,7 @@ void CEventMgr::Tick()
 				pObj->m_bDead = true;
 			}
 		}
-			break;
+		break;
 		case EEVENT_TYPE::LEVEL_CHANGE:
 		{
 			// wParam : Next Level Type
@@ -63,7 +65,7 @@ void CEventMgr::Tick()
 
 			CLevelMgr::GetInst()->ChangeLevel(eNextLevel);
 		}
-			break;
+		break;
 		case EEVENT_TYPE::CHANGE_AI_STATE:
 		{
 			// wParam  : AI Address			
@@ -72,10 +74,9 @@ void CEventMgr::Tick()
 			const wchar_t* pName = (const wchar_t*)m_vecEvent[i].lParam;
 			pAI->ChangeState(pName);
 		}
-			break;
+		break;
 		}
 	}
-
 	m_vecEvent.clear();
 }
  

@@ -36,7 +36,6 @@
 #define IDC_LEFTTOP_X                   1018
 #define IDC_BORDER_X                    1019
 #define IDC_ROW                         1020
-#define IDC_CHECK1                      1021
 #define IDC_LEFTTOP_Y                   1022
 #define IDC_SIZE_X                      1023
 #define IDC_SIZE_Y                      1024
@@ -49,6 +48,13 @@
 #define IDC_BORDER_Y                    1031
 #define IDC_COLUMN                      1032
 #define IDC_REVERSE                     1033
+#define IDC_LOAD_ANIM                   1034
+#define IDC_CHANGE_DURATION             1035
+#define IDC_CHANGE_OFFSET_X             1036
+#define IDC_CHANGE_OFFSET_Y             1037
+#define IDC_EDIT_FRM                    1038
+#define IDC_BUTTON2                     1039
+#define IDC_CHECK1                      1040
 #define ID_32771                        32771
 #define ID_Menu                         32772
 #define IDM_CHANGE                      32773
@@ -59,7 +65,6 @@
 #define EDIT_MAP                        32778
 #define IDD_EDITANIM                    32781
 #define EDIT_ANIM                       32783
-#define ID_ANIMAITIONEDITOR_EDITANIMATION 32784
 #define CREATE_ANIM                     32785
 #define IDC_STATIC                      -1
 
@@ -70,7 +75,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        135
 #define _APS_NEXT_COMMAND_VALUE         32786
-#define _APS_NEXT_CONTROL_VALUE         1034
+#define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
