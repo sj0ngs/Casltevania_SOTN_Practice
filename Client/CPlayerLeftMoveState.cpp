@@ -3,8 +3,7 @@
 
 #include "CPlayer.h"
 
-CPlayerMoveLeftState::CPlayerMoveLeftState()	:
-	m_fAccWalkTime(0.f)
+CPlayerMoveLeftState::CPlayerMoveLeftState()
 {
 }
 
@@ -14,8 +13,12 @@ CPlayerMoveLeftState::~CPlayerMoveLeftState()
 
 void CPlayerMoveLeftState::Final_Tick()
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());
-	assert(pPlayer);
+	GET_PLAYER();
+
+	if (IS_TAP(EKEY::SPACE))
+	{
+		ChangeState(L"Jump");
+	}
 
 	if (IS_TAP(EKEY::RIGHT))
 	{
@@ -24,44 +27,41 @@ void CPlayerMoveLeftState::Final_Tick()
 	}
 	else if (IS_PRESSED(EKEY::LEFT))
 	{
-		if (0.9f <= m_fAccWalkTime)
+		if (GetAnim()->IsFinish())
 		{
 			pPlayer->GetAnimator()->Play(L"Walk_Left", true);
 		}
-		Vec2 vPos = pPlayer->GetPos();
-		Vec2 vDir = pPlayer->GetDir();
-		float fSpeed = pPlayer->GetSpeed();
-
-		vPos -= vDir * fSpeed * DELTATIME;
-
-		pPlayer->SetPos(vPos);
-
-		m_fAccWalkTime += DELTATIME;
 	}
-	else
+	else if(IS_RELEASED(EKEY::LEFT))
 	{
-		ChangeState(L"Idle");
+		if (GetAnim()->IsFinish())
+			ChangeState(L"MoveEnd");
+		else 
+			ChangeState(L"Idle");
 	}
+
+	CPlayerState::Final_Tick();
 }
 
 void CPlayerMoveLeftState::Enter()
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());
-	assert(pPlayer);
+	GET_PLAYER();
+
+	pPlayer->SetFaceDir(false);
 
 	if (pPlayer->IsFaceDirChange())
 	{
-		//pPlayer->GetAnimator()->Play(L"Turn_Left", false);
+		SetAnim(pPlayer->GetAnimator()->FindAnimation(L"Turn_Left"));
+		pPlayer->GetAnimator()->Play(L"Turn_Left", false);
 	}
 	else
 	{
+		SetAnim(pPlayer->GetAnimator()->FindAnimation(L"Walk_Start_Left"));
 		pPlayer->GetAnimator()->Play(L"Walk_Start_Left", false);
 	}
-
-	pPlayer->SetFaceDir(false);
 }
 
 void CPlayerMoveLeftState::Exit()
 {
-	m_fAccWalkTime = 0.f;
+	CPlayerState::Exit();
 }

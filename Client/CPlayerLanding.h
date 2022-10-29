@@ -1,15 +1,14 @@
 #pragma once
 #include "CPlayerState.h"
-
-class CPlayerMoveLeftState :
+class CPlayerLanding :
     public CPlayerState
 {
 public:
-    CLONE(CPlayerMoveLeftState);
+    CLONE(CPlayerLanding);
 
 public:
-    CPlayerMoveLeftState();
-    ~CPlayerMoveLeftState();
+    CPlayerLanding();
+    ~CPlayerLanding();
 
 public:
     virtual void Final_Tick() override;

@@ -3,9 +3,6 @@
 class CPlayerRightMoveState :
     public CPlayerState
 {
-private:
-    float m_fAccWalkTime;
-
 public:
     CLONE(CPlayerRightMoveState);
 

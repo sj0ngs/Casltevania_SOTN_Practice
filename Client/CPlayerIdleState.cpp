@@ -16,6 +16,8 @@ void CPlayerIdleState::Final_Tick()
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());
 	assert(pPlayer);
 
+	CPlayerState::Final_Tick();
+
 	if (IS_TAP(EKEY::LEFT))
 	{
 		ChangeState(L"Move_Left");
@@ -26,7 +28,7 @@ void CPlayerIdleState::Final_Tick()
 	}
 	else if (IS_TAP(EKEY::SPACE))
 	{
-		//ChangeState(L"Jump");
+		ChangeState(L"Jump");
 	}
 	else if (IS_TAP(EKEY::DOWN))
 	{
@@ -44,9 +46,9 @@ void CPlayerIdleState::Enter()
 	assert(pPlayer);
 
 	if (pPlayer->GetFaceDir())
-		pPlayer->GetAnimator()->Play(L"Idle_Right", true);
+		pPlayer->GetAnimator()->Play(L"Idle_First_Right", true);
 	else
-		pPlayer->GetAnimator()->Play(L"Idle_Left", true);
+		pPlayer->GetAnimator()->Play(L"Idle_First_Left", true);
 }
 
 void CPlayerIdleState::Exit()

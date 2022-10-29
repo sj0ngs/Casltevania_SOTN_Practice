@@ -23,16 +23,10 @@
 #include "CPlayerIdleState.h"
 #include "CPlayerLeftMoveState.h"
 #include "CPlayerRightMoveState.h"
-
-// 아틀라스 이미지 수치 상수
-const float ATLAS_X_BORDER = 0.f;
-const float ATLAS_Y_BORDER = 0.f;
-const float ATLAS_X_SIZE = 476.f;
-const float ATLAS_Y_SIZE = 396.f;
-const float ATLAS_X_PADDING = 16.f;
-const float ATLAS_Y_PADDING = 16.f;
-#define RIGHT_OFFSET Vec2(70.f, -180.f)
-#define LEFT_OFFSET Vec2(-70.f, -180.f)
+#include "CPlayerMoveEndState.h"
+#include "CPlayerJumpState.h"
+#include "CPlayerFallState.h"
+#include "CPlayerLanding.h"
 
 CPlayer::CPlayer() :
 	m_fSpeed(200.f),
@@ -55,77 +49,82 @@ CPlayer::CPlayer() :
 	// ================
 	// Animator Setting
 	// ================
-	//CTexture* pAlucardAtlas = CResMgr::GetInst()->LoadTexture(L"AlucardAtlas", L"texture\\Alucard_Atlast.bmp");
-	//GetAnimator()->CreateAnimation(L"Idle_Right", pAlucardAtlas, Vec2(240.f, 0.f), Vec2(240.f, 220.f), 6, 0.15f);
-	//GetAnimator()->CreateAnimation(L"Idle_Left", pAlucardAtlas, Vec2(240.f, 220.f), Vec2(240.f, 220.f), 6, 0.15f);
-	//GetAnimator()->CreateAnimation(L"Walk_Start_Right", pAlucardAtlas, Vec2(0.f, 440.f), Vec2(240.f, 220.f), 15, 0.06f);
-	//GetAnimator()->CreateAnimation(L"Walk_Start_Left", pAlucardAtlas, Vec2(0.f, 660.f), Vec2(240.f, 220.f), 15, 0.06f);
-	//GetAnimator()->CreateAnimation(L"Walk_Right", pAlucardAtlas, Vec2(0.f, 880.f), Vec2(240.f, 220.f), 16, 0.06f);
-	//GetAnimator()->CreateAnimation(L"Walk_Left", pAlucardAtlas, Vec2(0.f, 1100.f), Vec2(240.f, 220.f), 16, 0.06f);
 
-	CTexture* pAlucardAtlas_right = CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\alucard_right_1.bmp");
-	CTexture* pAlucardAtlas_left = CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\alucard_left_1.bmp");
+	// IDLE
+	LoadAnim(L"IDLE_FIRST");
+	LoadAnim(L"IDLE_SECOND");
+	LoadAnim(L"IDLE_THIRD");
+	LoadAnim(L"IDLE_FOURTH");		
 
-	float fLeftWidth = (float)pAlucardAtlas_left->GetWidth();
+	// WALK
+	LoadAnim(L"WALK_START");
+	LoadAnim(L"WALK");
+	LoadAnim(L"WALK_END");
+	LoadAnim(L"WALK_END_SMALL");
+	LoadAnim(L"WALK_END_HILL");
+	LoadAnim(L"TURN");
 
-	GetAnimator()->CreateAnimation(L"Idle_Right", pAlucardAtlas_right, 
-					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 0.f), 
-					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 6, 0.15f, Vec2(0.f, 0.f), RIGHT_OFFSET);
-	GetAnimator()->CreateAnimation(L"Idle_Left", pAlucardAtlas_left,
-					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 0.f),
-					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 6, 0.15f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	// SKILL
+	LoadAnim(L"PRESS_UP");
+	LoadAnim(L"PRESS_UP_HILL");
+	LoadAnim(L"HELLFIRE");
 
-	GetAnimator()->CreateAnimation(L"Walk_Start_Right", pAlucardAtlas_right, 
-					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 1.f),
-					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 15, 0.06f, Vec2(0.f, 0.f), RIGHT_OFFSET);
-	GetAnimator()->CreateAnimation(L"Walk_Start_Left", pAlucardAtlas_left,
-					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 1.f),
-					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 15, 0.06f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	//KICK
+	LoadAnim(L"DRAGON_KICK");
+	LoadAnim(L"FLYING_KICK");
 
-	GetAnimator()->CreateAnimation(L"Walk_Right", pAlucardAtlas_right, 
-					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 2.f),
-					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 16, 0.06f, Vec2(0.f, 0.f), RIGHT_OFFSET);
-	GetAnimator()->CreateAnimation(L"Walk_Left", pAlucardAtlas_left,
-					Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 2.f),
-					Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 16, 0.06f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	// DUCK
+	LoadAnim(L"DUCK");
+	LoadAnim(L"GET_UP");
 
-	GetAnimator()->CreateAnimation(L"Jump_Right", pAlucardAtlas_right,
-					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
-					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
+	// JUMP
+	LoadAnim(L"JUMP");
+	LoadAnim(L"JUMP_FOWARD");
+	LoadAnim(L"DOUBLE_JUMP");
+	LoadAnim(L"SUPER_JUMP");
 
-	//GetAnimator()->CreateAnimation(L"Jump_Left", pAlucardAtlas_left,
-	//				Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 8.f),
-	//				Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 7, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	// FALL
+	LoadAnim(L"FALL");
+	LoadAnim(L"SUPER_JUMP_FALL");
+	LoadAnim(L"LANDING");
+	LoadAnim(L"LANDING_HILL");
+
+	// ATTACK - PUNCH
+	LoadAnim(L"STAND_PUNCH");
+	LoadAnim(L"DUCK_PUNCH");
+	LoadAnim(L"JUMP_PUNCH");
+	LoadAnim(L"JUMP_DOWN_PUNCH");
 	
-	GetAnimator()->LoadAnimation(L"animation\\Player\\JUMP_LEFT.anim");
-		
-	GetAnimator()->CreateAnimation(L"Fall_Right", pAlucardAtlas_right,
-					Vec2(ATLAS_X_BORDER, ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
-					Vec2(ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), RIGHT_OFFSET);
+	// ATTACK - SWORD
+	LoadAnim(L"STAND_ATTACK");
+	LoadAnim(L"STAND_ATTACK_DEFAULT");
+	LoadAnim(L"STAND_ATTACK_SWORD");
+	LoadAnim(L"STAND_SWORD");
+	LoadAnim(L"STAND_PARTICLE");
 
-	//GetAnimator()->CreateAnimation(L"Fall_Left", pAlucardAtlas_left,
-	//				Vec2(fLeftWidth - (ATLAS_X_BORDER + ATLAS_X_SIZE * 1.f), ATLAS_Y_BORDER + ATLAS_Y_SIZE * 9.f),
-	//				Vec2(-ATLAS_X_SIZE, ATLAS_Y_SIZE), 8, 0.0715f, Vec2(0.f, 0.f), LEFT_OFFSET);
+	LoadAnim(L"JUMP_ATTACK");
 
-	GetAnimator()->LoadAnimation(L"animation\\Player\\FALL_LEFT.anim");
+	LoadAnim(L"DUCK_ATTACK");
+	LoadAnim(L"DUCK_DOWN_ATTACK");
+	LoadAnim(L"DUCK_DOWN_ATTACK_DEFUALT");
+	LoadAnim(L"DUCK_DOWN_SWORD");
+	LoadAnim(L"DUCK_DOWN_EFFECT");
+	LoadAnim(L"DUCK_DOWN_PARTICLE");
 
-	// 이미지 로딩
-	//CTexture* pLinkTex = CResMgr::GetInst()->LoadTexture(L"LINK", L"texture\\link.bmp");
-	//GetAnimator()->CreateAnimation(L"WALK_DOWN", pLinkTex, Vec2(0.f, 520.f), Vec2(120.f, 130.f), 10, 0.1f);
-	//GetAnimator()->CreateAnimation(L"WALK_LEFT", pLinkTex, Vec2(0.f, 650.f), Vec2(120.f, 130.f), 10, 0.1f);
-	//GetAnimator()->CreateAnimation(L"WALK_UP", pLinkTex, Vec2(0.f, 780.f), Vec2(120.f, 130.f), 10, 0.1f);
-	//GetAnimator()->CreateAnimation(L"WALK_RIGHT", pLinkTex, Vec2(0.f, 910.f), Vec2(120.f, 130.f), 10, 0.1f);
+	// COVER
+	LoadAnim(L"STAND_COVER");
+	LoadAnim(L"DUCK_COVER");
+	LoadAnim(L"DUCK_COVER");
 
-	//GetAnimator()->FindAnimation(L"WALK_DOWN")->Save(L"animation\\WALK_DOWN.anim");
-	//GetAnimator()->FindAnimation(L"WALK_LEFT")->Save(L"animation\\WALK_LEFT.anim");
-	//GetAnimator()->FindAnimation(L"WALK_UP")->Save(L"animation\\WALK_UP.anim");
-	//GetAnimator()->FindAnimation(L"WALK_RIGHT")->Save(L"animation\\WALK_RIGHT.anim");
-
-	//GetAnimator()->LoadAnimation(L"animation\\WALK_DOWN.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\WALK_LEFT.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\WALK_UP.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\WALK_RIGHT.anim");
-
+	// HIT
+	LoadAnim(L"GET_UP_LYING");
+	LoadAnim(L"HIT_1");
+	LoadAnim(L"HIT_2");
+	LoadAnim(L"HIT_3");
+	LoadAnim(L"HIT_4");
+	LoadAnim(L"HIT_5");
+	LoadAnim(L"HIT_6");
+	
 	// =================
 	// RigidBody Setting
 	// =================
@@ -140,6 +139,10 @@ CPlayer::CPlayer() :
 	GetAI()->AddState(L"Idle", new CPlayerIdleState);
 	GetAI()->AddState(L"Move_Left", new CPlayerMoveLeftState);
 	GetAI()->AddState(L"Move_Right", new CPlayerRightMoveState);
+	GetAI()->AddState(L"MoveEnd", new CPlayerMoveEndState);
+	GetAI()->AddState(L"Jump", new CPlayerJumpState);
+	GetAI()->AddState(L"Fall", new CPlayerFallState);
+	GetAI()->AddState(L"Landing", new CPlayerLanding);
 	GetAI()->ChangeState(L"Idle");
 }
 
@@ -305,6 +308,20 @@ void CPlayer::OnOverlap(CCollider* _pOther)
 
 void CPlayer::EndOverlap(CCollider* _pOther)
 {
+}
+
+void CPlayer::LoadAnim(const wstring& _strFile)
+{
+	wstring strPath = L"animation\\Player\\";
+	strPath += _strFile;
+		
+	wstring strDir = L"_LEFT.anim";
+	wstring strLeft = strPath + strDir;
+	GetAnimator()->LoadAnimation(strLeft);
+
+	strDir = L"_RIGHT.anim";
+	wstring strRight = strPath + strDir;
+	GetAnimator()->LoadAnimation(strRight);
 }
 
 

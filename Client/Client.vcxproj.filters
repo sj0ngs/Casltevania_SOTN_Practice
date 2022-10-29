@@ -163,14 +163,32 @@
     <Filter Include="Game\07. State\PlayerState\Idle">
       <UniqueIdentifier>{2e498de7-dafc-4c91-94ef-4b415f8a85b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\07. State\PlayerState\MoveLeft">
-      <UniqueIdentifier>{ca2ae071-de14-4134-ab34-e746ae2e8a23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. State\PlayerState\MoveRight">
-      <UniqueIdentifier>{0ea069a5-ee5d-4006-9f82-bcb2e1781157}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\02. Mananger\07. ResManager">
       <UniqueIdentifier>{e7495e60-c91b-4348-9eca-9539af63c181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Move">
+      <UniqueIdentifier>{376636a8-977d-46c7-bfad-61eeda6ff2c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Move\MoveLeft">
+      <UniqueIdentifier>{ca2ae071-de14-4134-ab34-e746ae2e8a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Move\MoveRight">
+      <UniqueIdentifier>{0ea069a5-ee5d-4006-9f82-bcb2e1781157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Move\MoveEnd">
+      <UniqueIdentifier>{8d2b8704-4300-4b7d-8150-1fb3e5a3e177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\OnAir">
+      <UniqueIdentifier>{b4fdd31c-c61e-48c3-9110-989f58d91269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\OnAir\Jump">
+      <UniqueIdentifier>{f8bc5d07-acbc-483d-a5fd-225bd672c027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\OnAir\Fall">
+      <UniqueIdentifier>{4cd4e8cd-cfb3-43b7-bffa-cf9f9f3d2927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\OnAir\Landing">
+      <UniqueIdentifier>{447f26c6-a422-4e02-914c-3c69046a948b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -346,10 +364,22 @@
       <Filter>Game\07. State\PlayerState\Idle</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerLeftMoveState.h">
-      <Filter>Game\07. State\PlayerState\MoveLeft</Filter>
+      <Filter>Game\07. State\PlayerState\Move\MoveLeft</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerRightMoveState.h">
-      <Filter>Game\07. State\PlayerState\MoveRight</Filter>
+      <Filter>Game\07. State\PlayerState\Move\MoveRight</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerMoveEndState.h">
+      <Filter>Game\07. State\PlayerState\Move\MoveEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerJumpState.h">
+      <Filter>Game\07. State\PlayerState\OnAir\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerFallState.h">
+      <Filter>Game\07. State\PlayerState\OnAir\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerLanding.h">
+      <Filter>Game\07. State\PlayerState\OnAir\Landing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -519,13 +549,25 @@
       <Filter>Game\07. State\PlayerState\Idle</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerLeftMoveState.cpp">
-      <Filter>Game\07. State\PlayerState\MoveLeft</Filter>
+      <Filter>Game\07. State\PlayerState\Move\MoveLeft</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerRightMoveState.cpp">
-      <Filter>Game\07. State\PlayerState\MoveRight</Filter>
+      <Filter>Game\07. State\PlayerState\Move\MoveRight</Filter>
     </ClCompile>
     <ClCompile Include="CEditorLevel_Map.cpp">
       <Filter>Game\03. Level\Editor\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerMoveEndState.cpp">
+      <Filter>Game\07. State\PlayerState\Move\MoveEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpState.cpp">
+      <Filter>Game\07. State\PlayerState\OnAir\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerFallState.cpp">
+      <Filter>Game\07. State\PlayerState\OnAir\Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerLanding.cpp">
+      <Filter>Game\07. State\PlayerState\OnAir\Landing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

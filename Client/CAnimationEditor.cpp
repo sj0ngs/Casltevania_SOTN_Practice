@@ -55,6 +55,10 @@ void CAnimationEditor::Init()
 	m_pDebugObj->SetPos(vPos);
 
 	AddObj(m_pDebugObj, ELAYER::PLAYER);
+
+	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_left_1");
+	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_left_2");
+	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_right_1");
 }
 
 void CAnimationEditor::Tick()
@@ -442,9 +446,9 @@ INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			int iRow = GetDlgItemInt(hDlg, IDC_ROW, nullptr, true);
 			int iCol = GetDlgItemInt(hDlg, IDC_COLUMN, nullptr, true);
 
-			Vec2 vSize = {476.f, 396.f};
-			//vSize.x = (float)GetDlgItemInt(hDlg, IDC_SIZE_X, nullptr, false);
-			//vSize.y = (float)GetDlgItemInt(hDlg, IDC_SIZE_Y, nullptr, false);
+			Vec2 vSize = {};
+			vSize.x = (float)GetDlgItemInt(hDlg, IDC_SIZE_X, nullptr, false);
+			vSize.y = (float)GetDlgItemInt(hDlg, IDC_SIZE_Y, nullptr, false);
 
 			int iMaxFrmCount = GetDlgItemInt(hDlg, IDC_MAXFRMCOUNT, nullptr, true);
 
@@ -456,14 +460,14 @@ INT_PTR CALLBACK AnimCreate(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			vPadding.x = (float)GetDlgItemInt(hDlg, IDC_PADDING_X, nullptr, false);
 			vPadding.y = (float)GetDlgItemInt(hDlg, IDC_PADDING_Y, nullptr, false);
 
-			Vec2 vOffset = {70.f, -180.f};
-			//GetDlgItemText(hDlg, IDC_OFFSET_X, szBuff, 256);
-			//vOffset.x = wcstof(szBuff, nullptr);
-			//memset(szBuff, sizeof(wchar_t), 256);
+			Vec2 vOffset = {}; 
+			GetDlgItemText(hDlg, IDC_OFFSET_X, szBuff, 256);
+			vOffset.x = wcstof(szBuff, nullptr);
+			memset(szBuff, sizeof(wchar_t), 256);
 
-			//GetDlgItemText(hDlg, IDC_OFFSET_Y, szBuff, 256);
-			//vOffset.y = wcstof(szBuff, nullptr);
-			//memset(szBuff, sizeof(wchar_t), 256);
+			GetDlgItemText(hDlg, IDC_OFFSET_Y, szBuff, 256);
+			vOffset.y = wcstof(szBuff, nullptr);
+			memset(szBuff, sizeof(wchar_t), 256);
 
 			bool bReverse = pAnimEditor->GetReverse();
 
