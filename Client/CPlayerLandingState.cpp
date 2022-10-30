@@ -1,29 +1,27 @@
 #include "pch.h"
-#include "CPlayerLanding.h"
+#include "CPlayerLandingState.h"
 
 #include "CPlayer.h"
 
-CPlayerLanding::CPlayerLanding()
+CPlayerLandingState::CPlayerLandingState()
 {
 }
 
-CPlayerLanding::~CPlayerLanding()
+CPlayerLandingState::~CPlayerLandingState()
 {
 }
 
-void CPlayerLanding::Final_Tick()
+void CPlayerLandingState::Final_Tick()
 {
 	if (GetAnim()->IsFinish())
-	{
 		ChangeState(L"Idle");
-	}
 	else if (IS_PRESSED(EKEY::RIGHT))
 		ChangeState(L"Move_Right");
 	else if (IS_PRESSED(EKEY::LEFT))
 		ChangeState(L"Move_Left");
 }
 
-void CPlayerLanding::Enter()
+void CPlayerLandingState::Enter()
 {
 	GET_PLAYER();
 
@@ -37,7 +35,7 @@ void CPlayerLanding::Enter()
 	}
 }
 
-void CPlayerLanding::Exit()
+void CPlayerLandingState::Exit()
 {
 	CPlayerState::Exit();
 }

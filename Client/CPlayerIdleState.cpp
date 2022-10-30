@@ -13,37 +13,43 @@ CPlayerIdleState::~CPlayerIdleState()
 
 void CPlayerIdleState::Final_Tick()
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());
-	assert(pPlayer);
+	GET_PLAYER();
 
-	CPlayerState::Final_Tick();
+	if (IS_PRESSED(EKEY::SPACE))
+	{
+		ChangeState(L"Jump");
+		return;
+	}
+	else if (IS_TAP(EKEY::A))
+	{
+		ChangeState(L"Attack");
+		return;
+	}
+	else if (IS_PRESSED(EKEY::DOWN))
+	{
+		ChangeState(L"Duck");
+		return;
+	}
+	else if (IS_PRESSED(EKEY::LSHIFT))
+	{
+		ChangeState(L"BackDash");
+		return;
+	}
 
-	if (IS_TAP(EKEY::LEFT))
+	if (IS_PRESSED(EKEY::LEFT))
 	{
 		ChangeState(L"Move_Left");
 	}
-	else if (IS_TAP(EKEY::RIGHT))
+	else if (IS_PRESSED(EKEY::RIGHT))
 	{
 		ChangeState(L"Move_Right");
 	}
-	else if (IS_TAP(EKEY::SPACE))
-	{
-		ChangeState(L"Jump");
-	}
-	else if (IS_TAP(EKEY::DOWN))
-	{
-		//ChangeState(L"Duck");
-	}
-	else if (!pPlayer->GetRigidBody()->IsGround())
-	{
-		//ChangeState(L"Fall");
-	}
+
 }
 
 void CPlayerIdleState::Enter()
 {
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());
-	assert(pPlayer);
+	GET_PLAYER();
 
 	if (pPlayer->GetFaceDir())
 		pPlayer->GetAnimator()->Play(L"Idle_First_Right", true);

@@ -161,7 +161,6 @@
     <ClInclude Include="CLevelMgr.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CLineCollisionMgr.h" />
-    <ClInclude Include="CMapObj.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CObj.h" />
@@ -169,9 +168,12 @@
     <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CPlatform.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="CPlayerAttackState.h" />
+    <ClInclude Include="CPlayerBackDashState.h" />
+    <ClInclude Include="CPlayerDuckState.h" />
     <ClInclude Include="CPlayerFallState.h" />
     <ClInclude Include="CPlayerJumpState.h" />
-    <ClInclude Include="CPlayerLanding.h" />
+    <ClInclude Include="CPlayerLandingState.h" />
     <ClInclude Include="CPlayerLeftMoveState.h" />
     <ClInclude Include="CPlayerMoveEndState.h" />
     <ClInclude Include="CPlayerRightMoveState.h" />
@@ -227,7 +229,6 @@
     <ClCompile Include="CLevel.cpp" />
     <ClCompile Include="CLevelMgr.cpp" />
     <ClCompile Include="CLineCollisionMgr.cpp" />
-    <ClCompile Include="CMapObj.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CObj.cpp" />
@@ -235,9 +236,12 @@
     <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CPlatform.cpp" />
     <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="CPlayerAttackState.cpp" />
+    <ClCompile Include="CPlayerBackDashState.cpp" />
+    <ClCompile Include="CPlayerDuckState.cpp" />
     <ClCompile Include="CPlayerFallState.cpp" />
     <ClCompile Include="CPlayerJumpState.cpp" />
-    <ClCompile Include="CPlayerLanding.cpp" />
+    <ClCompile Include="CPlayerLandingState.cpp" />
     <ClCompile Include="CPlayerLeftMoveState.cpp" />
     <ClCompile Include="CPlayerMoveEndState.cpp" />
     <ClCompile Include="CPlayerRightMoveState.cpp" />

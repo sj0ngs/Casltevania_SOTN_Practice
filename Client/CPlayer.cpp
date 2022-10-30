@@ -26,14 +26,16 @@
 #include "CPlayerMoveEndState.h"
 #include "CPlayerJumpState.h"
 #include "CPlayerFallState.h"
-#include "CPlayerLanding.h"
+#include "CPlayerLandingState.h"
+#include "CPlayerBackDashState.h"
+#include "CPlayerDuckState.h"
+#include "CPlayerAttackState.h"
 
 CPlayer::CPlayer() :
-	m_fSpeed(200.f),
+	m_fSpeed(300.f),
 	m_bPrevFaceDir(true),
-	m_fRunStartAcc(0.f),
-	m_fJumpTimeAcc(0.f),
-	m_bDoubleJump(true)
+	m_bDoubleJump(true),
+	m_bGoDown(false)
 {
 	CreateCollider();
 	CreateAnimator();
@@ -142,7 +144,10 @@ CPlayer::CPlayer() :
 	GetAI()->AddState(L"MoveEnd", new CPlayerMoveEndState);
 	GetAI()->AddState(L"Jump", new CPlayerJumpState);
 	GetAI()->AddState(L"Fall", new CPlayerFallState);
-	GetAI()->AddState(L"Landing", new CPlayerLanding);
+	GetAI()->AddState(L"Landing", new CPlayerLandingState);
+	GetAI()->AddState(L"BackDash", new CPlayerBackDashState);
+	GetAI()->AddState(L"Duck", new CPlayerDuckState);
+	GetAI()->AddState(L"Attack", new CPlayerAttackState);
 	GetAI()->ChangeState(L"Idle");
 }
 

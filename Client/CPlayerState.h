@@ -3,10 +3,10 @@
 #include "CKeyMgr.h"
 #include "CTimeMgr.h"
 
+#include "CCollider.h"
 #include "CRigidBody.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
-
 
 #define GET_PLAYER() CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwnerObj());\
                             assert(pPlayer);
@@ -31,5 +31,9 @@ public:
 public:
     CPlayerState();
     ~CPlayerState();
+
+protected:
+    void Move();
+    void Attack();
 };
 

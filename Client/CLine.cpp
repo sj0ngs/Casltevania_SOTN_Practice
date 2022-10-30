@@ -11,6 +11,9 @@
 
 #include "CCollider.h"
 #include "CRigidBody.h"
+#include "CAI.h"
+
+#include "CState.h"
 
 CLine::CLine()	:
 	m_vPos1{},
@@ -103,7 +106,7 @@ void CLine::BeginOverlap(CObj* _pOther)
 		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);
 
 		if (nullptr != pPlayer)
-			pPlayer->EndJump();
+			pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
 	}
 }
 

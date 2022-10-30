@@ -25,8 +25,17 @@ void CPlayerJumpState::Final_Tick()
 		vPos.y -= 600.f * DELTATIME;
 	}
 	else
-	{
 		ChangeState(L"Fall");
+
+	if (IS_TAP(EKEY::LEFT))
+	{
+		pPlayer->SetFaceDir(false);
+		pPlayer->GetAnimator()->Shift(L"Jump_Foward_Left", false);
+	}
+	else if (IS_TAP(EKEY::RIGHT))
+	{
+		pPlayer->SetFaceDir(true);
+		pPlayer->GetAnimator()->Shift(L"Jump_Foward_Right", false);
 	}
 
 	pPlayer->SetPos(vPos);
@@ -40,25 +49,36 @@ void CPlayerJumpState::Enter()
 
 	if (pPlayer->GetFaceDir())
 	{
-		if (IS_NONE(EKEY::LEFT)&&(IS_NONE(EKEY::RIGHT)))
+		if (pPlayer->CanDoubleJump())
 		{
-			SET_ANIM(L"Jump_Right");
+			if (IS_NONE(EKEY::LEFT) && (IS_NONE(EKEY::RIGHT)))
+				pPlayer->GetAnimator()->Play(L"Jump_Right", false);
+			else
+				pPlayer->GetAnimator()->Play(L"Jump_Foward_Right", false);
 		}
-		else 
+		else
 		{
-			SET_ANIM(L"Jump_Foward_Right");
+			Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
+			pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
+			pPlayer->GetAnimator()->Play(L"Double_Jump_Right", false);
 		}
 	}
 	else
 	{
-		if (IS_NONE(EKEY::LEFT) && (IS_NONE(EKEY::RIGHT)))
+		if (pPlayer->CanDoubleJump())
 		{
-			SET_ANIM(L"Jump_Left");
+			if (IS_NONE(EKEY::LEFT) && (IS_NONE(EKEY::RIGHT)))
+				pPlayer->GetAnimator()->Play(L"Jump_Left", false);
+			else
+				pPlayer->GetAnimator()->Play(L"Jump_Foward_Left", false);
 		}
 		else
 		{
-			SET_ANIM(L"Jump_Foward_Left");
+			Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
+			pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
+			pPlayer->GetAnimator()->Play(L"Double_Jump_Left", false);
 		}
+
 	}
 
 	pPlayer->GetRigidBody()->SetGravity(false);

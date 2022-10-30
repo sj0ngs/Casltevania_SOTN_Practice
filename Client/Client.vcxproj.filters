@@ -106,9 +106,6 @@
     <Filter Include="Game\05. Component\AI">
       <UniqueIdentifier>{9ebaa39b-d4fb-4009-a682-e87a3bf1e691}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\MapObj">
-      <UniqueIdentifier>{a4de3d9f-dd1f-4e4f-aa0a-21bd81997f1b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\03. Level\Editor\LevelEditor">
       <UniqueIdentifier>{3ac23aee-a94e-4e49-8a49-7070a391b703}</UniqueIdentifier>
     </Filter>
@@ -189,6 +186,15 @@
     </Filter>
     <Filter Include="Game\07. State\PlayerState\OnAir\Landing">
       <UniqueIdentifier>{447f26c6-a422-4e02-914c-3c69046a948b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Move\BackDash">
+      <UniqueIdentifier>{53a0a045-6d94-4d91-81e2-927023d3423f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Duck">
+      <UniqueIdentifier>{6126134c-e428-42a6-a9b2-0632ca6926bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Attack">
+      <UniqueIdentifier>{2eec288c-b966-4aca-a876-e528e7ece4d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -333,9 +339,6 @@
     <ClInclude Include="CBackGround.h">
       <Filter>Game\04. Object\Map\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="CMapObj.h">
-      <Filter>Game\04. Object\MapObj</Filter>
-    </ClInclude>
     <ClInclude Include="CEditorLevel.h">
       <Filter>Game\03. Level\Editor\LevelEditor</Filter>
     </ClInclude>
@@ -378,8 +381,17 @@
     <ClInclude Include="CPlayerFallState.h">
       <Filter>Game\07. State\PlayerState\OnAir\Fall</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerLanding.h">
+    <ClInclude Include="CPlayerLandingState.h">
       <Filter>Game\07. State\PlayerState\OnAir\Landing</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerBackDashState.h">
+      <Filter>Game\07. State\PlayerState\Move\BackDash</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerDuckState.h">
+      <Filter>Game\07. State\PlayerState\Duck</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerAttackState.h">
+      <Filter>Game\07. State\PlayerState\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -515,9 +527,6 @@
     <ClCompile Include="CBackGround.cpp">
       <Filter>Game\04. Object\Map\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="CMapObj.cpp">
-      <Filter>Game\04. Object\MapObj</Filter>
-    </ClCompile>
     <ClCompile Include="CEditorLevel.cpp">
       <Filter>Game\03. Level\Editor\LevelEditor</Filter>
     </ClCompile>
@@ -566,8 +575,17 @@
     <ClCompile Include="CPlayerFallState.cpp">
       <Filter>Game\07. State\PlayerState\OnAir\Fall</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerLanding.cpp">
+    <ClCompile Include="CPlayerLandingState.cpp">
       <Filter>Game\07. State\PlayerState\OnAir\Landing</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerBackDashState.cpp">
+      <Filter>Game\07. State\PlayerState\Move\BackDash</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDuckState.cpp">
+      <Filter>Game\07. State\PlayerState\Duck</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerAttackState.cpp">
+      <Filter>Game\07. State\PlayerState\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

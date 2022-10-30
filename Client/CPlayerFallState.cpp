@@ -21,6 +21,29 @@ void CPlayerFallState::Final_Tick()
 	{
 		ChangeState(L"Landing");
 	}
+	else
+	{
+		if (IS_TAP(EKEY::SPACE))
+		{
+			if (pPlayer->CanDoubleJump())
+			{
+				pPlayer->OffDoubleJump();
+				ChangeState(L"Jump");
+				return;
+			}
+		}
+
+		if (IS_TAP(EKEY::LEFT))
+		{
+			pPlayer->SetFaceDir(false);
+			pPlayer->GetAnimator()->Shift(L"Fall_Left", false);
+		}
+		else if (IS_TAP(EKEY::RIGHT))
+		{
+			pPlayer->SetFaceDir(true);
+			pPlayer->GetAnimator()->Shift(L"Fall_Right", false);
+		}
+	}
 }
 
 void CPlayerFallState::Enter()

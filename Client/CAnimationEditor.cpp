@@ -122,6 +122,17 @@ void CAnimationEditor::Exit()
 	
 	m_pDebugObj->GetAnimator()->SetCurAnim(nullptr);
 	CLevel::DeleteAllObject();
+
+	m_pDebugObj = nullptr;
+	m_eMode = EANIMATION_MODE::ANIMATION;
+	m_pAtlas = nullptr;
+	m_bReverse = false;
+	m_pAnim = nullptr;
+	m_pvecFrm = nullptr;
+	m_iCurFrm = 0;
+	m_fDuration = 0.f;
+	m_iOffsetX = 0;
+	m_iOffsetY = 0;
 }
 
 void CAnimationEditor::Update()
@@ -291,6 +302,7 @@ void CAnimationEditor::CreateAnim(const wstring& _strName, CTexture* _pAtlas, Ve
 void CAnimationEditor::LoadAnim()
 {
 	m_pAnim = nullptr;
+	m_pvecFrm = nullptr;
 
 	// open a file name
 	OPENFILENAME ofn = {};

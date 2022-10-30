@@ -14,6 +14,16 @@ CPlayerState::~CPlayerState()
 
 void CPlayerState::Final_Tick()
 {
+	Move();
+}
+
+void CPlayerState::Exit()
+{
+	SetAnim(nullptr);
+}
+
+void CPlayerState::Move()
+{
 	GET_PLAYER();
 
 	Vec2 vPos = pPlayer->GetPos();
@@ -32,7 +42,6 @@ void CPlayerState::Final_Tick()
 	pPlayer->SetPos(vPos);
 }
 
-void CPlayerState::Exit()
+void CPlayerState::Attack()
 {
-	SetAnim(nullptr);
 }

@@ -244,3 +244,10 @@ void CAnimation::NextFrame()
 	if (m_vecFrm.size() - 1 < m_iCurFrm)
 		m_iCurFrm = 0;
 }
+
+void CAnimation::SetCurFrame(int _CurFame)
+{
+	m_iCurFrm = _CurFame;
+	if (m_vecFrm.size() - 1 < m_iCurFrm)
+		m_iCurFrm = (int)m_vecFrm.size() - 1;
+}

@@ -16,9 +16,13 @@ void CPlayerRightMoveState::Final_Tick()
 	GET_PLAYER();
 
 	if (IS_TAP(EKEY::SPACE))
-	{
 		ChangeState(L"Jump");
-	}
+	else if (!pPlayer->GetRigidBody()->IsGround())
+		ChangeState(L"Fall");
+	else if (IS_TAP(EKEY::DOWN))
+		ChangeState(L"Duck");
+	else if (IS_TAP(EKEY::LSHIFT))
+		ChangeState(L"BackDash");
 
 	if (IS_TAP(EKEY::LEFT))
 	{

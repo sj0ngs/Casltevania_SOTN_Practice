@@ -21,6 +21,10 @@ void CPlayerMoveEndState::Final_Tick()
 		ChangeState(L"Move_Left");
 	else if (IS_TAP(EKEY::RIGHT))
 		ChangeState(L"Move_Right");
+	else if (IS_TAP(EKEY::LSHIFT))
+		ChangeState(L"BackDash");
+	else if (IS_TAP(EKEY::DOWN))
+		ChangeState(L"Duck");
 }
 
 void CPlayerMoveEndState::Enter()

@@ -127,6 +127,49 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 	m_bRepeat = _bRepeat;
 }
 
+void CAnimator::Shift(const wstring& _strName, bool _bRepeat)
+{
+	// 받아온 정보의 애니메이션이 존재하는지 확인
+	CAnimation* pAnim = FindAnimation(_strName);
+	if (nullptr == pAnim)
+	{
+		MessageBox(nullptr, L"해당 Animation 없음", L"Animation 재생 오류", MB_OK);
+		return;
+	}
+
+	if (m_pCurAnim == pAnim)
+		return;
+	
+	int iCurFrame = m_pCurAnim->GetCurFrame();
+	// 현재 애니메이션을 찾은 애니메이션으로 지정한다
+	m_pCurAnim = pAnim;
+
+	m_pCurAnim->Reset();
+	m_bRepeat = _bRepeat;
+	m_pCurAnim->SetCurFrame(++iCurFrame);
+}
+
+void CAnimator::Shift(const wstring& _strName, bool _bRepeat, int iFrame)
+{
+	// 받아온 정보의 애니메이션이 존재하는지 확인
+	CAnimation* pAnim = FindAnimation(_strName);
+	if (nullptr == pAnim)
+	{
+		MessageBox(nullptr, L"해당 Animation 없음", L"Animation 재생 오류", MB_OK);
+		return;
+	}
+
+	if (m_pCurAnim == pAnim)
+		return;
+
+	// 현재 애니메이션을 찾은 애니메이션으로 지정한다
+	m_pCurAnim = pAnim;
+
+	m_pCurAnim->Reset();
+	m_bRepeat = _bRepeat;
+	m_pCurAnim->SetCurFrame(iFrame);
+}
+
 void CAnimator::ClearAnimation()
 {
 	map<wstring, CAnimation*>::iterator iter = m_mapAnim.begin(),

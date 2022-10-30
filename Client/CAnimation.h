@@ -43,6 +43,7 @@ private:
     void PrevFrame();
     void NextFrame();
     int GetCurFrame() const { return m_iCurFrm; }
+    void SetCurFrame(int _CurFame);
     vector<tAnimFrm>* GetAnimFrame() { return &m_vecFrm; }
 
     friend class CAnimator;

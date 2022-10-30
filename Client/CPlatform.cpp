@@ -6,6 +6,8 @@
 #include "CObj.h"
 #include "CPlayer.h"
 #include "CRigidBody.h"
+#include "CAI.h"
+#include "CState.h"
 
 CPlatform::CPlatform()	:
 	m_UpLine{},
@@ -78,19 +80,17 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				return;
 
 			// 왼쪽에서 접근했을 때
-			if (0.f < vDir.x)
-			{
-				LeftCheck(pObj);
-				return;
-			}
-			// 오른쪽에서 접근했을 때
-			if (0.f > vDir.x)
-			{
-				RightCheck(pObj);
-				return;
-			}
-
-			//PushObj(pObj);
+			//if (0.f < vDir.x)
+			//{
+			//	LeftCheck(pObj);
+			//	return;
+			//}
+			//// 오른쪽에서 접근했을 때
+			//if (0.f > vDir.x)
+			//{
+			//	RightCheck(pObj);
+			//	return;
+			//}
 		}
 		// 상승중일 때 
 		else if (0.f > vDir.y)
@@ -100,38 +100,36 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				return;
 
 			// 왼쪽에서 접근했을 때
-			if (0.f < vDir.x)
-			{
-				LeftCheck(pObj);
-				return;
-			}
-			// 오른쪽에서 접근했을 때
-			if (0.f > vDir.x)
-			{
-				RightCheck(pObj);
-				return;
-			}
-
-			// PushObj(pObj);
+			//if (0.f < vDir.x)
+			//{
+			//	LeftCheck(pObj);
+			//	return;
+			//}
+			//// 오른쪽에서 접근했을 때
+			//if (0.f > vDir.x)
+			//{
+			//	RightCheck(pObj);
+			//	return;
+			//}
 		}
 		// 벽에 부딪혔을때
 		else if (0.f == vDir.y)
 		{
 			// 왼쪽에서 접근했을 때
-			if (0.f < vDir.x)
-			{
-				LeftCheck(pObj);
-				return;
-			}
-			// 오른쪽에서 접근했을 때
-			if (0.f > vDir.x)
-			{
-				RightCheck(pObj);
-				return;
-			}
-
-			//PushObj(pObj);
+			//if (0.f < vDir.x)
+			//{
+			//	LeftCheck(pObj);
+			//	return;
+			//}
+			//// 오른쪽에서 접근했을 때
+			//if (0.f > vDir.x)
+			//{
+			//	RightCheck(pObj);
+			//	return;
+			//}
 		}
+
+		PushObj(pObj);
 	}
 	else
 	{
@@ -140,7 +138,15 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 		{
 			// 윗변에 교점이 생겼다면 종료
 			if (UpCheck(pObj))
+			{
+				CPlayer* pPlayer = dynamic_cast<CPlayer*>(pObj);
+
+				if (pPlayer)
+				{
+					pPlayer->SetGoDown(true);
+				}
 				return;
+			}
 		}
 	}
 }
@@ -201,7 +207,7 @@ bool CPlatform::UpCheck(CObj* _pObj)
 
 		// 오브젝트가 플레이어일때 따로 체크
 		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
-		if(nullptr != pPlayer)
+		if (nullptr != pPlayer)
 			pPlayer->ResetJump();
 
 		Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
@@ -240,7 +246,7 @@ bool CPlatform::DownCheck(CObj* _pObj)
 		// 오브젝트가 플레이어일때 따로 체크
 		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
 		if (nullptr != pPlayer)
-			pPlayer->EndJump();
+			pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
 
 		Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
 		Vec2 vLength = GetCollider()->GetScale() / 2.f;
@@ -302,7 +308,7 @@ void CPlatform::PushObj(CObj* _pObj)
 
 	vLength += _pObj->GetCollider()->GetScale() / 2.f;
 	
-	if (0 < vDist.x)
+	if (0 <= vDist.x)
 	{
 		if (vLength.x > vDist.x)
 		{
@@ -310,7 +316,7 @@ void CPlatform::PushObj(CObj* _pObj)
 			_pObj->SetPos(vObjPos);
 		}
 	}
-	else if (0 > vDist.x)
+	else if (0 >= vDist.x)
 	{
 		if (vLength.x > vabDist.x)
 		{

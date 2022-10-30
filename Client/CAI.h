@@ -12,6 +12,9 @@ private:
     CState*                 m_pCurState;
 
 public:
+    CState* GetCurState() const { return m_pCurState; }
+
+public:
     CLONE(CAI);
 
 public:
