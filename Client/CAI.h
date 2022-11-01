@@ -19,6 +19,7 @@ public:
 
 public:
     CAI(CObj* _pOwner);
+    CAI(const CAI& _Other);
     ~CAI();
 
 public:

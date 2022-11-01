@@ -150,21 +150,6 @@ public:
 	}
 };
 
-struct tEvent
-{
-	EEVENT_TYPE eType;
-	DWORD_PTR wParam;
-	DWORD_PTR lParam;
-};
-
-struct tAnimFrm
-{
-	Vec2 vLeftTop;	// 이미지 내에서 프레임의 좌상단 위치
-	Vec2 vSize;		// 프레임 사이즈
-	Vec2 vOffset;	// 추가 이동
-	float fDuration; // 해당 프레임 노출 시간
-};
-
 // 직선 구조체
 struct tLine
 {
@@ -267,13 +252,45 @@ public:
 	}
 };
 
+struct tEvent
+{
+	EEVENT_TYPE eType;
+	DWORD_PTR wParam;
+	DWORD_PTR lParam;
+};
+
+struct tAnimFrm
+{
+	Vec2 vLeftTop;	// 이미지 내에서 프레임의 좌상단 위치
+	Vec2 vSize;		// 프레임 사이즈
+	Vec2 vOffset;	// 추가 이동
+	float fDuration; // 해당 프레임 노출 시간
+};
+
+struct tPlayerInfo
+{
+	UINT m_iHP;
+	UINT m_iHPMax;
+
+	UINT m_iMP;
+	UINT m_iMPMax;
+
+	UINT m_iHeart;
+
+	UINT m_iStr;	// 공격력 스탯
+	UINT m_iCon;	// 방어력 스탯
+	UINT m_iInt;	// 마법 공격력 스탯
+
+	float m_fSpeed;
+};
+
 struct tMonsterInfo
 {
 	UINT m_iHP;
 	UINT m_iMaxHP;
 
-	float m_Atk;
-	float m_Def;
+	UINT m_iAtk;
+	UINT m_iDef;
 
 	float m_fSpeed;
 	float m_fDetectRange;
@@ -284,4 +301,13 @@ struct tSpawnPointInfo
 {
 	ESPAWNABLE_OBJECT m_eOption;	// 스폰시킬 오브젝트
 	int m_iDir;	// 바라보는 방향(1 : 오른쪽 / -1 : 왼쪽)
+};
+
+struct tWeaponInfo
+{
+	UINT m_iStr;
+	UINT m_iCon;
+	UINT m_iInt;
+
+	float m_fAtkSpeed;
 };

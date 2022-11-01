@@ -22,7 +22,12 @@ void CPlayerIdleState::Final_Tick()
 	}
 	else if (IS_TAP(EKEY::A))
 	{
-		ChangeState(L"Attack");
+		Attack(L"StandAttack");
+		return;
+	}
+	else if (IS_TAP(EKEY::S))
+	{
+		ChangeState(L"StandCover");
 		return;
 	}
 	else if (IS_PRESSED(EKEY::DOWN))
@@ -44,7 +49,6 @@ void CPlayerIdleState::Final_Tick()
 	{
 		ChangeState(L"Move_Right");
 	}
-
 }
 
 void CPlayerIdleState::Enter()

@@ -80,17 +80,18 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				return;
 
 			// 왼쪽에서 접근했을 때
-			//if (0.f < vDir.x)
-			//{
-			//	LeftCheck(pObj);
-			//	return;
-			//}
-			//// 오른쪽에서 접근했을 때
-			//if (0.f > vDir.x)
-			//{
-			//	RightCheck(pObj);
-			//	return;
-			//}
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
+			PushObj(pObj);
 		}
 		// 상승중일 때 
 		else if (0.f > vDir.y)
@@ -100,36 +101,36 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 				return;
 
 			// 왼쪽에서 접근했을 때
-			//if (0.f < vDir.x)
-			//{
-			//	LeftCheck(pObj);
-			//	return;
-			//}
-			//// 오른쪽에서 접근했을 때
-			//if (0.f > vDir.x)
-			//{
-			//	RightCheck(pObj);
-			//	return;
-			//}
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
+			PushObj(pObj);
 		}
 		// 벽에 부딪혔을때
 		else if (0.f == vDir.y)
 		{
 			// 왼쪽에서 접근했을 때
-			//if (0.f < vDir.x)
-			//{
-			//	LeftCheck(pObj);
-			//	return;
-			//}
-			//// 오른쪽에서 접근했을 때
-			//if (0.f > vDir.x)
-			//{
-			//	RightCheck(pObj);
-			//	return;
-			//}
+			if (0.f < vDir.x)
+			{
+				LeftCheck(pObj);
+				return;
+			}
+			// 오른쪽에서 접근했을 때
+			if (0.f > vDir.x)
+			{
+				RightCheck(pObj);
+				return;
+			}
+			PushObj(pObj);
 		}
-
-		PushObj(pObj);
 	}
 	else
 	{
@@ -153,6 +154,17 @@ void CPlatform::BeginOverlap(CCollider* _pOther)
 
 void CPlatform::OnOverlap(CCollider* _pOther)
 {
+	CObj* pObj = _pOther->GetOwner();
+
+	map<UINT, EPLATFORM_STATUS>::iterator iter = m_mapPlatformStatus.find(pObj->GetId());
+
+	if (iter == m_mapPlatformStatus.end())
+		return;
+
+	if (EPLATFORM_STATUS::UP != iter->second && EPLATFORM_STATUS::DOWN != iter->second)
+	{
+		PushObj(pObj);
+	}
 }
 
 void CPlatform::EndOverlap(CCollider* _pOther)
@@ -204,11 +216,6 @@ bool CPlatform::UpCheck(CObj* _pObj)
 		&& (m_vRightTop.x + vObjScale.x / 2.f) >= vUPMeetPoint.x)
 	{
 		_pObj->GetRigidBody()->OnGround();
-
-		// 오브젝트가 플레이어일때 따로 체크
-		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
-		if (nullptr != pPlayer)
-			pPlayer->ResetJump();
 
 		Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
 		Vec2 vLength = GetCollider()->GetScale() / 2.f;
@@ -300,8 +307,8 @@ void CPlatform::RightCheck(CObj* _pObj)
 
 void CPlatform::PushObj(CObj* _pObj)
 {
-	Vec2 vObjPos = _pObj->GetPos();
-
+	Vec2 vObjPos = _pObj->GetCollider()->GetFinalPos();
+	vObjPos.y += _pObj->GetCollider()->GetScale().y / 2.f;
 	Vec2 vDist = Vec2(GetPos().x - vObjPos.x, GetPos().y - vObjPos.y);
 	Vec2 vabDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
 	Vec2 vLength = GetCollider()->GetScale() / 2.f;
@@ -310,9 +317,9 @@ void CPlatform::PushObj(CObj* _pObj)
 	
 	if (0 <= vDist.x)
 	{
-		if (vLength.x > vDist.x)
+		if (vLength.x > vabDist.x)
 		{
-			vObjPos.x -= (vLength.x - vabDist.x + 1.f);
+			vObjPos.x -= (vLength.x - vabDist.x);
 			_pObj->SetPos(vObjPos);
 		}
 	}
@@ -320,12 +327,10 @@ void CPlatform::PushObj(CObj* _pObj)
 	{
 		if (vLength.x > vabDist.x)
 		{
-			vObjPos.x += (vLength.x - vabDist.x + 1.f);
+			vObjPos.x += (vLength.x - vabDist.x);
 			_pObj->SetPos(vObjPos);
 		}
 	}
-
-	m_mapPlatformStatus.insert(make_pair(_pObj->GetId(), EPLATFORM_STATUS::RIGHT));
 }
 
 void CPlatform::Save(FILE* _pFile)

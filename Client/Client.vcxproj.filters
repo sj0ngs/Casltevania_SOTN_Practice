@@ -139,9 +139,6 @@
     <Filter Include="Game\03. Level\Editor\AnimationEditor">
       <UniqueIdentifier>{4f466195-352f-4f88-bc80-2de786fa5bb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\Debug">
-      <UniqueIdentifier>{f7cf1e66-80e3-414b-9830-a1a7b1d372f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\07. State">
       <UniqueIdentifier>{430f6104-64ee-4bd8-aea4-8d5d7ca2f261}</UniqueIdentifier>
     </Filter>
@@ -195,6 +192,54 @@
     </Filter>
     <Filter Include="Game\07. State\PlayerState\Attack">
       <UniqueIdentifier>{2eec288c-b966-4aca-a876-e528e7ece4d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\DebugObj">
+      <UniqueIdentifier>{f7cf1e66-80e3-414b-9830-a1a7b1d372f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Attack\StandAttack">
+      <UniqueIdentifier>{c9d43270-e673-459a-a784-9d180698a9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Attack\DuckAttack">
+      <UniqueIdentifier>{34ba2b78-3214-4189-9c3f-49b7dfafe9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Attack\JumpAttack">
+      <UniqueIdentifier>{c568bbf4-9a1f-404b-a186-bafea62b2025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Item">
+      <UniqueIdentifier>{129d5c68-2ad2-4fa5-8aba-95cc27149816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Item\Weapon">
+      <UniqueIdentifier>{1c8cad22-6f60-4989-9c06-271fcd54d86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\02. Mananger\09. ObjManager">
+      <UniqueIdentifier>{e3b19f26-8642-46de-bbc5-10bb708c6e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\02. Mananger\10. Camera">
+      <UniqueIdentifier>{8cd8145e-defd-43ec-b17f-585895942fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Effect">
+      <UniqueIdentifier>{4644bdf0-6fbe-43ce-badb-c3bd0fc38b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Cover">
+      <UniqueIdentifier>{822505b9-e391-4e1f-aa59-a93f0b004e1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Cover\StandCover">
+      <UniqueIdentifier>{2fc64596-1774-4085-bc7d-df54970dadb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Cover\DuckCover">
+      <UniqueIdentifier>{785d1f74-4311-4221-891e-747beb737160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\PlayerObj">
+      <UniqueIdentifier>{87e887ba-9dbf-4447-b330-ec1337159018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\PlayerObj\Attack">
+      <UniqueIdentifier>{328bdf5c-83b6-4f5a-88ba-a8a0bbf3ebf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\PlayerObj\CCover">
+      <UniqueIdentifier>{b86b411f-c673-46e7-a186-c1be4ae4d653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Duck\GetUp">
+      <UniqueIdentifier>{b165d135-a209-464c-b25e-968890a13ee8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +333,6 @@
     <ClInclude Include="CSound.h">
       <Filter>Game\06. Resource\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="CCamera.h">
-      <Filter>Game\02. Mananger</Filter>
-    </ClInclude>
     <ClInclude Include="CAnimation.h">
       <Filter>Game\05. Component\Animator\Animation</Filter>
     </ClInclude>
@@ -358,7 +400,7 @@
       <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
     </ClInclude>
     <ClInclude Include="CAnimDebug.h">
-      <Filter>Game\04. Object\Debug</Filter>
+      <Filter>Game\04. Object\DebugObj</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerState.h">
       <Filter>Game\07. State\PlayerState</Filter>
@@ -392,6 +434,48 @@
     </ClInclude>
     <ClInclude Include="CPlayerAttackState.h">
       <Filter>Game\07. State\PlayerState\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerStandAttackState.h">
+      <Filter>Game\07. State\PlayerState\Attack\StandAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerJumpAttackState.h">
+      <Filter>Game\07. State\PlayerState\Attack\JumpAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerDuckAttackState.h">
+      <Filter>Game\07. State\PlayerState\Attack\DuckAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CWeapon.h">
+      <Filter>Game\04. Object\Item\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>Game\04. Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>Game\02. Mananger\09. ObjManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Game\02. Mananger\10. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>Game\04. Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerCoverState.h">
+      <Filter>Game\07. State\PlayerState\Cover</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerStandCoverState.h">
+      <Filter>Game\07. State\PlayerState\Cover\StandCover</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttack.h">
+      <Filter>Game\04. Object\PlayerObj\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CCover.h">
+      <Filter>Game\04. Object\PlayerObj\CCover</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerDuckCoverState.h">
+      <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerGetUp.h">
+      <Filter>Game\07. State\PlayerState\Duck\GetUp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -466,9 +550,6 @@
     </ClCompile>
     <ClCompile Include="CSound.cpp">
       <Filter>Game\06. Resource\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="CCamera.cpp">
-      <Filter>Game\02. Mananger</Filter>
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>Game\05. Component\Animator\Animation</Filter>
@@ -549,7 +630,7 @@
       <Filter>Game\03. Level\Editor\AnimationEditor</Filter>
     </ClCompile>
     <ClCompile Include="CAnimDebug.cpp">
-      <Filter>Game\04. Object\Debug</Filter>
+      <Filter>Game\04. Object\DebugObj</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerState.cpp">
       <Filter>Game\07. State\PlayerState</Filter>
@@ -586,6 +667,48 @@
     </ClCompile>
     <ClCompile Include="CPlayerAttackState.cpp">
       <Filter>Game\07. State\PlayerState\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerStandAttackState.cpp">
+      <Filter>Game\07. State\PlayerState\Attack\StandAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpAttackState.cpp">
+      <Filter>Game\07. State\PlayerState\Attack\JumpAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDuckAttackState.cpp">
+      <Filter>Game\07. State\PlayerState\Attack\DuckAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CWeapon.cpp">
+      <Filter>Game\04. Object\Item\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>Game\04. Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>Game\02. Mananger\09. ObjManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Game\02. Mananger\10. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>Game\04. Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerCoverState.cpp">
+      <Filter>Game\07. State\PlayerState\Cover</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerStandCoverState.cpp">
+      <Filter>Game\07. State\PlayerState\Cover\StandCover</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttack.cpp">
+      <Filter>Game\04. Object\PlayerObj\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CCover.cpp">
+      <Filter>Game\04. Object\PlayerObj\CCover</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDuckCoverState.cpp">
+      <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerGetUp.cpp">
+      <Filter>Game\07. State\PlayerState\Duck\GetUp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

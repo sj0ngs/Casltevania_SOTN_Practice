@@ -4,6 +4,7 @@
 #include "CResMgr.h"
 #include "CCamera.h"
 #include "CLevelMgr.h"
+#include "CObjMgr.h"
 
 #include "clevel.h"
 #include "CEditorLevel.h"
@@ -37,7 +38,9 @@ void CStartPoint::Tick()
 
 		if (iLevelStart == m_iIdx)
 		{
-			CPlayer* pPlayer = new CPlayer;
+			CPlayer* pPlayer = dynamic_cast<CPlayer*>(CObjMgr::GetInst()->FindObj(L"Player"));
+			assert(pPlayer);
+			pPlayer = pPlayer->Clone();
 			pPlayer->SetPos(GetPos());
 			pPlayer->SetFaceDir(GetFaceDir());
 			pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);

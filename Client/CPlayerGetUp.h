@@ -1,17 +1,14 @@
 #pragma once
 #include "CPlayerState.h"
-class CPlayerJumpState :
+class CPlayerGetUp :
     public CPlayerState
 {
-private:
-    float m_accJumpTime;
+public:
+    CLONE(CPlayerGetUp);
 
 public:
-    CLONE(CPlayerJumpState);
-
-public:
-    CPlayerJumpState();
-    ~CPlayerJumpState();
+    CPlayerGetUp();
+    ~CPlayerGetUp();
 
 public:
     virtual void Final_Tick() override;

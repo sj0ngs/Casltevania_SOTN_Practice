@@ -37,12 +37,12 @@ public:
 
     void Save(const wstring& _strRelativePath);
     void Load(const wstring& _strRelativePath);
+    int GetCurFrame() const { return m_iCurFrm; } 
 
 private:
     void SwitchStop() { m_bStop = m_bStop ? false : true; }
     void PrevFrame();
     void NextFrame();
-    int GetCurFrame() const { return m_iCurFrm; }
     void SetCurFrame(int _CurFame);
     vector<tAnimFrm>* GetAnimFrame() { return &m_vecFrm; }
 

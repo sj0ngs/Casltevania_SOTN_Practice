@@ -20,7 +20,7 @@ class CCollisionMgr
 	SINGLE(CCollisionMgr);
 
 private:
-	WORD m_Matrix[(UINT)ELAYER::END];
+	UINT m_Matrix[(UINT)ELAYER::END];
 	map<UINT_PTR, bool>	m_mapPrevInfo;	// 이전 프레임의 충돌여부
 
 public:

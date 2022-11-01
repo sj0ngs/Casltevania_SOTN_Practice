@@ -107,5 +107,5 @@ void CMonster::Render(HDC _DC)
 
 void CMonster::BeginOverlap(CCollider* _pOther)
 {
-	SetDead();
+	//SetDead();
 }

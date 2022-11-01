@@ -12,9 +12,14 @@ CPlayerLandingState::~CPlayerLandingState()
 }
 
 void CPlayerLandingState::Final_Tick()
-{
+{	
+
 	if (GetAnim()->IsFinish())
 		ChangeState(L"Idle");
+	else if (IS_TAP(EKEY::A))
+		Attack(L"StandAttack");
+	else if (IS_TAP(EKEY::SPACE))
+		ChangeState(L"Jump");
 	else if (IS_PRESSED(EKEY::RIGHT))
 		ChangeState(L"Move_Right");
 	else if (IS_PRESSED(EKEY::LEFT))

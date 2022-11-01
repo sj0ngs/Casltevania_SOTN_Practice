@@ -2,6 +2,7 @@
 #include "CPlayerState.h"
 
 #include "CPlayer.h"
+#include "CWeapon.h"
 
 CPlayerState::CPlayerState()	:
 	m_pAnim(nullptr)
@@ -14,7 +15,6 @@ CPlayerState::~CPlayerState()
 
 void CPlayerState::Final_Tick()
 {
-	Move();
 }
 
 void CPlayerState::Exit()
@@ -28,7 +28,7 @@ void CPlayerState::Move()
 
 	Vec2 vPos = pPlayer->GetPos();
 	Vec2 vDir = pPlayer->GetDir();
-	float fSpeed = pPlayer->GetSpeed();
+	float fSpeed = pPlayer->GetPlayerInfo().m_fSpeed;
 
 	if (IS_PRESSED(EKEY::RIGHT))
 	{
@@ -42,6 +42,15 @@ void CPlayerState::Move()
 	pPlayer->SetPos(vPos);
 }
 
-void CPlayerState::Attack()
+void CPlayerState::Attack(const wchar_t* strState)
 {
+	GET_PLAYER();
+
+	if (pPlayer->Attack())
+	{
+		if(pPlayer->GetWeapon())
+			pPlayer->GetWeapon()->Attack(pPlayer->GetFaceDir());
+
+		ChangeState(strState);
+	}
 }

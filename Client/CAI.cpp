@@ -9,6 +9,23 @@ CAI::CAI(CObj* _pOwner)	:
 {
 }
 
+CAI::CAI(const CAI& _Other)	:
+	CComponent(nullptr),
+	m_pCurState(nullptr)
+{
+	map<wstring, CState*>::const_iterator iter = _Other.m_mapState.begin();
+
+	for (; iter != _Other.m_mapState.end(); ++iter)
+	{
+	    CState* pState = iter->second->Clone();
+		pState->m_pOwnerAI = this;
+		m_mapState.insert(make_pair(iter->first, pState));
+
+		if (iter->second == _Other.m_pCurState)
+			m_pCurState = pState;
+	}
+}
+
 CAI::~CAI()
 {
 	map<wstring, CState*>::iterator iter = m_mapState.begin();

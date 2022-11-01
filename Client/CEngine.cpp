@@ -11,6 +11,7 @@
 #include "CCamera.h"
 #include "CResMgr.h"
 #include "CUIMgr.h"
+#include "CObjMgr.h"
 
 #include "CTexture.h"
 
@@ -51,6 +52,7 @@ void CEngine::Init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
 	CPathMgr::GetInst()->Init();
 	CTimeMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
+	CObjMgr::GetInst()->Init();
 	CLevelMgr::GetInst()->Init();
 }
 

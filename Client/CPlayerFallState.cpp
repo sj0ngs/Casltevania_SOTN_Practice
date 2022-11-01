@@ -19,10 +19,18 @@ void CPlayerFallState::Final_Tick()
 
 	if (pPlayer->GetRigidBody()->IsGround())
 	{
+		pPlayer->ResetJump();
 		ChangeState(L"Landing");
+		return;
 	}
 	else
 	{
+		if (IS_TAP(EKEY::A))
+		{
+			Attack(L"JumpAttack");
+			return;
+		}
+
 		if (IS_TAP(EKEY::SPACE))
 		{
 			if (pPlayer->CanDoubleJump())
@@ -44,6 +52,8 @@ void CPlayerFallState::Final_Tick()
 			pPlayer->GetAnimator()->Shift(L"Fall_Right", false);
 		}
 	}
+
+	Move();
 }
 
 void CPlayerFallState::Enter()

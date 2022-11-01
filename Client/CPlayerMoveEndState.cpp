@@ -13,18 +13,20 @@ CPlayerMoveEndState::~CPlayerMoveEndState()
 
 void CPlayerMoveEndState::Final_Tick()
 {
-	assert(GetAnim());
-
-	if (GetAnim()->IsFinish())
-		ChangeState(L"Idle");
+	if (IS_TAP(EKEY::A))
+		Attack(L"StandAttack");
+	else if (IS_TAP(EKEY::LSHIFT))
+		ChangeState(L"BackDash");
+	else if (IS_TAP(EKEY::SPACE))
+		ChangeState(L"Jump");
 	else if (IS_TAP(EKEY::LEFT))
 		ChangeState(L"Move_Left");
 	else if (IS_TAP(EKEY::RIGHT))
 		ChangeState(L"Move_Right");
-	else if (IS_TAP(EKEY::LSHIFT))
-		ChangeState(L"BackDash");
 	else if (IS_TAP(EKEY::DOWN))
 		ChangeState(L"Duck");
+	else if (GetAnim()->IsFinish())
+		ChangeState(L"Idle");
 }
 
 void CPlayerMoveEndState::Enter()

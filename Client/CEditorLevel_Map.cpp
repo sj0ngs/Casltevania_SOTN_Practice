@@ -405,7 +405,6 @@ void CEditorLevel::SaveForeGround(FILE* _pFile)
 void CEditorLevel::SavePlatform(FILE* _pFile)
 {
 	const vector<CObj*>& vecPlatform = GetLayer(ELAYER::PLATFORM);
-
 	size_t iSize = vecPlatform.size();
 	fwrite(&iSize, sizeof(size_t), 1, _pFile);
 

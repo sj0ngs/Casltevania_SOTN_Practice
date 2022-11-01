@@ -12,6 +12,7 @@
 #include "CLevel.h"
 #include "CMissile.h"
 #include "CTexture.h"
+#include "CWeapon.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -29,14 +30,39 @@
 #include "CPlayerLandingState.h"
 #include "CPlayerBackDashState.h"
 #include "CPlayerDuckState.h"
-#include "CPlayerAttackState.h"
+#include "CPlayerGetUp.h"
+#include "CPlayerStandAttackState.h"
+#include "CPlayerJumpAttackState.h"
+#include "CPlayerDuckAttackState.h"
+#include "CPlayerStandCoverState.h"
+#include "CPlayerDuckCoverState.h"
 
 CPlayer::CPlayer() :
-	m_fSpeed(300.f),
+	m_tInfo{},
 	m_bPrevFaceDir(true),
 	m_bDoubleJump(true),
-	m_bGoDown(false)
+	m_bGoDown(false),
+	m_bIsDuck(false),
+	m_eState(EPLAYER_STATE::STAND),
+	m_fAttackAcc(ATTACK_COOL),
+	m_pWeapon(nullptr)
 {
+	// 플레이어 초기 정보 세팅
+	m_tInfo.m_iHPMax = 100;
+	m_tInfo.m_iHP = m_tInfo.m_iHPMax;
+
+	m_tInfo.m_iMPMax = 50;
+	m_tInfo.m_iMP = m_tInfo.m_iMPMax;
+
+	m_tInfo.m_iHeart = 50;
+
+	m_tInfo.m_iStr = 10;
+	m_tInfo.m_iCon = 5;
+	m_tInfo.m_iInt = 10;
+
+	m_tInfo.m_fSpeed = 300.f;
+
+	// 컴포넌트 세팅
 	CreateCollider();
 	CreateAnimator();
 	CreateRigidBody();
@@ -147,8 +173,32 @@ CPlayer::CPlayer() :
 	GetAI()->AddState(L"Landing", new CPlayerLandingState);
 	GetAI()->AddState(L"BackDash", new CPlayerBackDashState);
 	GetAI()->AddState(L"Duck", new CPlayerDuckState);
-	GetAI()->AddState(L"Attack", new CPlayerAttackState);
+	GetAI()->AddState(L"GetUp", new CPlayerGetUp);
+	GetAI()->AddState(L"StandAttack", new CPlayerStandAttackState);
+	GetAI()->AddState(L"JumpAttack", new CPlayerJumpAttackState);
+	GetAI()->AddState(L"DuckAttack", new CPlayerDuckAttackState);
+	GetAI()->AddState(L"StandCover", new CPlayerStandCoverState);
+	GetAI()->AddState(L"DuckCover", new CPlayerDuckCoverState);
 	GetAI()->ChangeState(L"Idle");
+}
+
+CPlayer::CPlayer(const CPlayer& _pOrigin)	:
+	CObj(_pOrigin),
+	m_tInfo(_pOrigin.m_tInfo),
+	m_bPrevFaceDir(_pOrigin.m_bPrevFaceDir),
+	m_bDoubleJump(_pOrigin.m_bDoubleJump),
+	m_bGoDown(_pOrigin.m_bGoDown),
+	m_bIsDuck(_pOrigin.m_bIsDuck),
+	m_eState(_pOrigin.m_eState),
+	m_fAttackAcc(_pOrigin.m_fAttackAcc),
+	m_pWeapon(nullptr)
+{
+	if (nullptr != _pOrigin.m_pWeapon)
+	{
+		m_pWeapon = _pOrigin.m_pWeapon->Clone();
+		m_pWeapon->SetOwner(this);
+		Instantiate(m_pWeapon, GetPos(), ELAYER::ITEM);
+	}
 }
 
 CPlayer::~CPlayer()
@@ -157,6 +207,24 @@ CPlayer::~CPlayer()
 
 void CPlayer::Tick()
 {
+	if (m_bIsDuck)
+		m_eState = EPLAYER_STATE::DUCK;
+	else if (!GetRigidBody()->IsGround())
+		m_eState = EPLAYER_STATE::AIR;
+	else
+		m_eState = EPLAYER_STATE::STAND;
+
+	if (ATTACK_COOL > m_fAttackAcc)
+	{
+		m_fAttackAcc += DELTATIME;
+
+		if (ATTACK_COOL <= m_fAttackAcc)
+			m_fAttackAcc = ATTACK_COOL;
+	}
+
+	if (nullptr != m_pWeapon)
+		m_pWeapon->SetPos(GetPos());
+
 	//// 전체적으로 꼬여있으므로 예의 주시 해야함
 	//// 지상에 있을 때
 	//if (GetRigidBody()->IsGround())
@@ -301,6 +369,15 @@ void CPlayer::Render(HDC _DC)
 	CObj::Render(_DC);
 
 	m_bPrevFaceDir = GetFaceDir();
+
+	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+	wstring strDebug = L"xPos : ";
+	strDebug += std::to_wstring(GetPos().x);
+	TextOut(_DC, (int)vPos.x, (int)vPos.y - 220, strDebug.c_str(), (int)strDebug.length());
+
+	strDebug = L"yPos : ";
+	strDebug += std::to_wstring(GetPos().y);
+	TextOut(_DC, (int)vPos.x, (int)vPos.y - 200, strDebug.c_str(), (int)strDebug.length());
 }
 
 void CPlayer::BeginOverlap(CCollider* _pOther)
@@ -314,6 +391,32 @@ void CPlayer::OnOverlap(CCollider* _pOther)
 void CPlayer::EndOverlap(CCollider* _pOther)
 {
 }
+
+void CPlayer::Duck()
+{
+	m_bIsDuck = true;
+	GetCollider()->SetScale(Vec2(64.f, 100.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
+}
+
+void CPlayer::GetUp()
+{
+	m_bIsDuck = false;
+	GetCollider()->SetScale(Vec2(64.f, 180.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, -90.f));
+}
+
+bool CPlayer::Attack()
+{
+	if (ATTACK_COOL <= m_fAttackAcc)
+	{
+		m_fAttackAcc = 0.f;
+		return true;
+	}
+	else
+		return false;
+}
+
 
 void CPlayer::LoadAnim(const wstring& _strFile)
 {

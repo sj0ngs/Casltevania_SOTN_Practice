@@ -4,6 +4,7 @@
 #include "CResMgr.h"
 #include "CCamera.h"
 #include "CLevelMgr.h"
+#include "CObjMgr.h"
 
 #include "clevel.h"
 #include "CEditorLevel.h"

@@ -20,9 +20,15 @@ void CPlayerJumpState::Final_Tick()
 
 	m_accJumpTime += DELTATIME;
 
+	if (IS_TAP(EKEY::A))
+	{
+		Attack(L"JumpAttack");
+		return;
+	}
+
 	if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_accJumpTime)
 	{
-		vPos.y -= 600.f * DELTATIME;
+		vPos.y -= 700.f * DELTATIME;
 	}
 	else
 		ChangeState(L"Fall");
@@ -40,7 +46,7 @@ void CPlayerJumpState::Final_Tick()
 
 	pPlayer->SetPos(vPos);
 
-	CPlayerState::Final_Tick();
+	Move();
 }
 
 void CPlayerJumpState::Enter()

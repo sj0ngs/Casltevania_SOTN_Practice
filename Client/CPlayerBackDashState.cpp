@@ -19,6 +19,8 @@ void CPlayerBackDashState::Final_Tick()
 
 	if (!GetAnim()->IsFinish())
 	{
+		if (IS_TAP(EKEY::A))
+			Attack(L"StandAttack");
 		if (0.5f <= m_faccDashTime)
 		{
 			if (IS_PRESSED(EKEY::LEFT))

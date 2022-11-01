@@ -14,6 +14,10 @@ public:
     CAI* GetOwnerAI() const { return m_pOwnerAI; }
     CObj* GetOwnerObj() const { return m_pOwnerAI->GetOwner(); }
 
+
+public:
+    CLONE_DEACTIVATE(CState);
+
 public:
     CState();
     ~CState();

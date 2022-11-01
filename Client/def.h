@@ -54,20 +54,22 @@ enum class ELAYER
 	BACKGROUND,
 	FOREGROUND,
 	TILE,
-	PLAYER,
 	MONSTER,
+	EFFECT,
+	ITEM,
+	PLAYER,
 	PLAYER_PROJECTILE,
 	MONSTER_PROJECTILE,
-	ITEM,
-	FORCE,
 	PLATFORM,
 	LINE,
 	PLAYER_START,
 	SPAWN_POINT,
 	TRIGGER,
+	OBJECT,
+
 
 	UI = 15,
-	END = 16
+	END = 32
 };
 
 enum class EEVENT_TYPE
@@ -75,7 +77,7 @@ enum class EEVENT_TYPE
 	CREATE_OBJECT,		// wParam  : Object Address		lParam : Layer Type
 	DELETE_OBJECT,		// wParam  : Object Address
 	LEVEL_CHANGE,		// wParam  : LEVEL_TYPE(Next Level Type)
-	CHANGE_AI_STATE	// wParam  : AI Address			lParam : State Type
+	CHANGE_AI_STATE		// wParam  : AI Address			lParam : State Type
 };
 
 enum class ECAMERA_EFFECT
@@ -101,5 +103,14 @@ enum class ETRIGGER_TYPE
 {
 	LEVEL_CHANGE,
 
+	NONE
+};
+
+enum class EPLAYER_STATE
+{
+	STAND,
+	DUCK,
+	AIR,
+	
 	NONE
 };

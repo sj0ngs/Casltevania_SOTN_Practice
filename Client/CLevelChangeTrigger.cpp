@@ -18,7 +18,6 @@ void CLevelChangeTrigger::Render(HDC _DC)
 {
 	CTrigger::Render(_DC);
 
-
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 
 	wstring strName = L"LevelChange";
@@ -53,7 +52,6 @@ void CLevelChangeTrigger::Render(HDC _DC)
 
 void CLevelChangeTrigger::BeginOverlap(CCollider* _pOther)
 {
-	int a = 0;
 }
 
 void CLevelChangeTrigger::OnOverlap(CCollider* _pOther)

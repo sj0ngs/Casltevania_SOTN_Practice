@@ -33,6 +33,7 @@ public:
     CAnimation* FindAnimation(const wstring& _strName);
     CAnimation* LoadAnimation(const wstring& _strRelativePath);
     bool IsAnimationFinish(const wstring& _strName);
+    CAnimation* GetCurAnimation() { return m_pCurAnim; }
 
 public:
     void Play(const wstring& _strName, bool _bRepeat);

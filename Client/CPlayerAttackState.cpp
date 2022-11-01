@@ -2,8 +2,10 @@
 #include "CPlayerAttackState.h"
 
 #include "CPlayer.h"
+#include "CWeapon.h"
 
-CPlayerAttackState::CPlayerAttackState()
+CPlayerAttackState::CPlayerAttackState()	:
+	m_pAttack(nullptr)
 {
 }
 
@@ -11,34 +13,19 @@ CPlayerAttackState::~CPlayerAttackState()
 {
 }
 
-void CPlayerAttackState::Final_Tick()
-{
-	GET_PLAYER();
-
-	if (nullptr != GetAnim())
-	{
-		if (GetAnim()->IsFinish())
-		{
-			ChangeState(L"Idle");
-		}
-	}
-}
-
 void CPlayerAttackState::Enter()
 {
-	GET_PLAYER();
 
-	if (pPlayer->GetFaceDir())
-	{
-		SET_ANIM(L"Stand_Attack_Default_Right");
-	}
-	else
-	{
-		SET_ANIM(L"Stand_Attack_Default_Left");
-	}
 }
 
 void CPlayerAttackState::Exit()
 {
+	GET_PLAYER();
+
 	CPlayerState::Exit();
+	m_pAttack->SetDead();
+	m_pAttack = nullptr;
+
+	if (nullptr != pPlayer->GetWeapon())
+		pPlayer->GetWeapon()->AttackEnd();
 }

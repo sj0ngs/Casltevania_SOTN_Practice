@@ -15,7 +15,11 @@ void CPlayerMoveLeftState::Final_Tick()
 {
 	GET_PLAYER();
 
-	if (IS_TAP(EKEY::SPACE))
+	if (IS_TAP(EKEY::A))
+		Attack(L"StandAttack");
+	else if (IS_TAP(EKEY::S))
+		ChangeState(L"StandCover");
+	else if (IS_TAP(EKEY::SPACE))
 		ChangeState(L"Jump");
 	else if (!pPlayer->GetRigidBody()->IsGround())
 		ChangeState(L"Fall");
@@ -27,14 +31,6 @@ void CPlayerMoveLeftState::Final_Tick()
 	if (IS_TAP(EKEY::RIGHT))
 	{
 		ChangeState(L"Move_Right");
-		return;
-	}
-	else if (IS_PRESSED(EKEY::LEFT))
-	{
-		if (GetAnim()->IsFinish())
-		{
-			pPlayer->GetAnimator()->Play(L"Walk_Left", true);
-		}
 	}
 	else if(IS_RELEASED(EKEY::LEFT))
 	{
@@ -43,8 +39,21 @@ void CPlayerMoveLeftState::Final_Tick()
 		else 
 			ChangeState(L"Idle");
 	}
+	
+	if (IS_PRESSED(EKEY::LEFT))
+	{
+		if (GetAnim()->IsFinish())
+		{
+			pPlayer->GetAnimator()->Play(L"Walk_Left", true);
+		}
 
-	CPlayerState::Final_Tick();
+		Vec2 vPos = pPlayer->GetPos();
+		Vec2 vDir = pPlayer->GetDir();
+		float fSpeed = pPlayer->GetPlayerInfo().m_fSpeed;
+
+		vPos -= vDir * fSpeed * DELTATIME;
+		pPlayer->SetPos(vPos);
+	}
 }
 
 void CPlayerMoveLeftState::Enter()

@@ -136,9 +136,6 @@ void CAnimator::Shift(const wstring& _strName, bool _bRepeat)
 		MessageBox(nullptr, L"해당 Animation 없음", L"Animation 재생 오류", MB_OK);
 		return;
 	}
-
-	if (m_pCurAnim == pAnim)
-		return;
 	
 	int iCurFrame = m_pCurAnim->GetCurFrame();
 	// 현재 애니메이션을 찾은 애니메이션으로 지정한다

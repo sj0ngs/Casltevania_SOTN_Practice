@@ -80,7 +80,7 @@ void CEditorLevel::EditSpawnPoint()
 		}
 	}
 
-	// 우클릭으로 플랫폼을 없앤다
+	
 	if (IS_TAP(EKEY::RBTN))
 	{
 		// 마우스 위치를 받아서 실제좌표로 변환
