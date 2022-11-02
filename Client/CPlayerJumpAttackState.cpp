@@ -28,9 +28,14 @@ void CPlayerJumpAttackState::Final_Tick()
 	else if (GetAnim()->IsFinish())
 	{
 		ChangeState(L"Fall");
+		return;
 	}
 
 	Move();
+
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerJumpAttackState::Enter()
@@ -39,6 +44,7 @@ void CPlayerJumpAttackState::Enter()
 
 	CAttack* pAttack = new CAttack(GetOwnerObj());
 	SetAttack(pAttack);
+	pAttack->SetDamage(pPlayer->GetDamage());
 	Vec2 vOffsetPos = {};
 	Vec2 vScale = {};
 
@@ -77,7 +83,6 @@ void CPlayerJumpAttackState::Enter()
 			vOffsetPos = Vec2(-(vObjScale.x / 2.f + vScale.x / 2.f), -150.f);
 		}
 	}
-
 
 	pAttack->GetCollider()->SetScale(vScale);
 	pAttack->GetCollider()->SetOffsetPos(vOffsetPos);

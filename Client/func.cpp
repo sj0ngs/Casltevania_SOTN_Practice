@@ -15,7 +15,6 @@ bool IsValid(CObj*& _pTarget)
 		_pTarget = nullptr;
 		return false;
 	}
-
 	return true;
 }
 

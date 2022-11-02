@@ -8,11 +8,15 @@
 #include "CPathMgr.h"
 #include "CResMgr.h"
 #include "CCamera.h"
+#include "CObjMgr.h"
 
 #include "CLevel.h"
 #include "CMissile.h"
 #include "CTexture.h"
 #include "CWeapon.h"
+#include "CMonster.h"
+
+#include "CDagger.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -36,6 +40,8 @@
 #include "CPlayerDuckAttackState.h"
 #include "CPlayerStandCoverState.h"
 #include "CPlayerDuckCoverState.h"
+#include "CPlayerHitState.h"
+#include "CPlayerDeathState.h"
 
 CPlayer::CPlayer() :
 	m_tInfo{},
@@ -45,14 +51,16 @@ CPlayer::CPlayer() :
 	m_bIsDuck(false),
 	m_eState(EPLAYER_STATE::STAND),
 	m_fAttackAcc(ATTACK_COOL),
-	m_pWeapon(nullptr)
+	m_pWeapon(nullptr),
+	m_eSubWeapon(ESUB_WEAPON_TYPE::DAGGER),
+	m_bIsHit(false)
 {
 	// 플레이어 초기 정보 세팅
-	m_tInfo.m_iHPMax = 100;
-	m_tInfo.m_iHP = m_tInfo.m_iHPMax;
+	m_tInfo.m_iMaxHP = 100;
+	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
 
-	m_tInfo.m_iMPMax = 50;
-	m_tInfo.m_iMP = m_tInfo.m_iMPMax;
+	m_tInfo.m_iMaxMP = 50;
+	m_tInfo.m_iMP = m_tInfo.m_iMaxMP;
 
 	m_tInfo.m_iHeart = 50;
 
@@ -179,6 +187,8 @@ CPlayer::CPlayer() :
 	GetAI()->AddState(L"DuckAttack", new CPlayerDuckAttackState);
 	GetAI()->AddState(L"StandCover", new CPlayerStandCoverState);
 	GetAI()->AddState(L"DuckCover", new CPlayerDuckCoverState);
+	GetAI()->AddState(L"Hit", new CPlayerHitState);
+	GetAI()->AddState(L"Death", new CPlayerDeathState);
 	GetAI()->ChangeState(L"Idle");
 }
 
@@ -191,14 +201,11 @@ CPlayer::CPlayer(const CPlayer& _pOrigin)	:
 	m_bIsDuck(_pOrigin.m_bIsDuck),
 	m_eState(_pOrigin.m_eState),
 	m_fAttackAcc(_pOrigin.m_fAttackAcc),
-	m_pWeapon(nullptr)
+	m_pWeapon(_pOrigin.m_pWeapon),
+	m_eSubWeapon(_pOrigin.m_eSubWeapon),
+	m_bIsHit(_pOrigin.m_bIsHit)
 {
-	if (nullptr != _pOrigin.m_pWeapon)
-	{
-		m_pWeapon = _pOrigin.m_pWeapon->Clone();
-		m_pWeapon->SetOwner(this);
-		Instantiate(m_pWeapon, GetPos(), ELAYER::ITEM);
-	}
+	m_pWeapon->SetOwner(this);
 }
 
 CPlayer::~CPlayer()
@@ -222,146 +229,18 @@ void CPlayer::Tick()
 			m_fAttackAcc = ATTACK_COOL;
 	}
 
+	if (IS_TAP(EKEY::TAB))
+	{
+		if (nullptr == m_pWeapon)
+			SetWeapon((CWeapon*)CObjMgr::GetInst()->FindObj(L"Alucard_Sword"));
+		else
+			SetWeapon(nullptr);
+	}
+
 	if (nullptr != m_pWeapon)
-		m_pWeapon->SetPos(GetPos());
+		m_pWeapon->Tick();
 
-	//// 전체적으로 꼬여있으므로 예의 주시 해야함
-	//// 지상에 있을 때
-	//if (GetRigidBody()->IsGround())
-	//{
-	//	if (IS_TAP(EKEY::LEFT))
-	//	{
-	//		SetFaceDir(false);
-	//		if (m_bPrevFaceDir == GetFaceDir())
-	//		{
-	//			GetAnimator()->Play(L"Walk_Start_Left", false);
-	//		}
-	//		else
-	//			GetAnimator()->Play(L"Walk_Start_Left", false);
-	//	}
-	//	else if (IS_TAP(EKEY::RIGHT))
-	//	{
-	//		SetFaceDir(true);
-	//		if (m_bPrevFaceDir == GetFaceDir())
-	//		{
-	//			GetAnimator()->Play(L"Walk_Start_Right", false);
-	//		}
-	//		else
-	//			GetAnimator()->Play(L"Walk_Start_Right", false);
-	//	}
-	//	else if (IS_TAP(EKEY::SPACE))
-	//	{
-	//		GetRigidBody()->SetGravity(false);
-	//		GetRigidBody()->OffGround();
-	//		if (GetFaceDir())
-	//			GetAnimator()->Play(L"Jump_Right", false);
-	//		else
-	//			GetAnimator()->Play(L"Jump_Left", false);
-	//	}
-	//	// 왼쪽 이동
-	//	else if (IS_PRESSED(EKEY::LEFT))
-	//	{
-	//		// walk start 애니메이션이 끝나면 재생되도록 설정
-	//		m_fRunStartAcc += DELTATIME;
-	//		if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Left"))
-	//		{
-	//			SetFaceDir(false);
-	//			GetAnimator()->Play(L"Walk_Left", true);
-	//		}
-	//		
-	//		// 왼쪽 이동 방해 상태가 아니라면 이동
-	//		vPos -= GetDir() * m_fSpeed * DELTATIME;
-	//	}
-	//	// 오른쪽 이동
-	//	else if (IS_PRESSED(EKEY::RIGHT))
-	//	{
-	//		m_fRunStartAcc += DELTATIME;
-	//		if (GetAnimator()->IsAnimationFinish(L"Walk_Start_Right"))
-	//		{
-	//			SetFaceDir(true);
-	//			GetAnimator()->Play(L"Walk_Right", true);
-	//		}
-
-	//		// 오른쪽 이동 방해 상태가 아니라면 이동
-	//		vPos += GetDir() * m_fSpeed * DELTATIME;
-	//	}
-	//	// 숙이면 콜리전 크기와 오프셋을 변경해주고 이동 상태를 변경해준다
-	//	else if (IS_TAP(EKEY::DOWN))
-	//	{
-	//		GetCollider()->SetScale(Vec2(80.f, 60.f));
-	//		GetCollider()->SetOffsetPos(Vec2(0.f, 60.f));
-	//	}
-	//	else if (IS_PRESSED(EKEY::DOWN))
-	//	{
-	//	}
-	//	else if (IS_RELEASED(EKEY::DOWN))
-	//	{
-	//		GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
-	//		GetCollider()->SetScale(Vec2(80.f, 180.f));
-	//	}
-	//	else if (IS_TAP(EKEY::LSHIFT))
-	//	{
-
-	//	}
-	//	// 아무 키도 입력되지 않으면 아이들
-	//	else if (CKeyMgr::GetInst()->IsNoEnter())
-	//	{
-	//		m_fRunStartAcc = 0.f;
-	//		ResetJump();
-	//		if (GetFaceDir())
-	//			GetAnimator()->Play(L"Idle_Right", true);
-	//		else
-	//			GetAnimator()->Play(L"Idle_Left", true);
-	//	}
-	//}
-	//// 공중에 있을 때
-	//else
-	//{
-	//	m_fJumpTimeAcc += DELTATIME;
-
-	//	// 공중에서 점프키 계속 누르고 있으면 상승
-	//	if (IS_PRESSED(EKEY::SPACE) && 0.5f >= m_fJumpTimeAcc)
-	//	{
-	//		vPos.y -= 600.f * DELTATIME;
-	//	}
-	//	// 체공시간이 지났거나, 스페이스 바 입력을 멈추면 중력을 다시 줌
-	//	else
-	//	{
-	//		GetRigidBody()->SetGravity(true);
-	//		if (GetFaceDir())
-	//			GetAnimator()->Play(L"Fall_Right", false);
-	//		else
-	//			GetAnimator()->Play(L"Fall_Left", false);
-	//	}
-	//	
-	//	// 공중에서 점프키 한번 더 누르면 더블 점프
-	//	if (IS_TAP(EKEY::SPACE) && m_bDoubleJump)
-	//	{
-	//		m_bDoubleJump = false;
-	//		m_fJumpTimeAcc = 0.f;
-	//		GetRigidBody()->SetGravity(false);
-
-	//		Vec2 vVelocity = GetRigidBody()->GetVelocity();
-	//		GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
-	//	}
-
-	//	// 공중에서 왼쪽으로 이동
-	//	if (IS_PRESSED(EKEY::LEFT))
-	//	{
-	//		// 공중에서 방향전환시 애니메이션 변경해야함
-	//		vPos.x -= m_fSpeed * DELTATIME;
-	//	}
-	//	// 공중에서 오른쪽으로 이동
-	//	else if (IS_PRESSED(EKEY::RIGHT))
-	//	{
-	//		vPos.x += m_fSpeed * DELTATIME;
-	//	}
-	//}
-
-	// 부모 오브젝트의 Tick도 실행시킨다(Component Tick을 실행시키기 위해)
 	CObj::Tick();
-
-	// SetPos(vPos);
 }
 
 void CPlayer::Render(HDC _DC)
@@ -373,11 +252,23 @@ void CPlayer::Render(HDC _DC)
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	wstring strDebug = L"xPos : ";
 	strDebug += std::to_wstring(GetPos().x);
-	TextOut(_DC, (int)vPos.x, (int)vPos.y - 220, strDebug.c_str(), (int)strDebug.length());
+	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 200, strDebug.c_str(), (int)strDebug.length());
 
 	strDebug = L"yPos : ";
 	strDebug += std::to_wstring(GetPos().y);
-	TextOut(_DC, (int)vPos.x, (int)vPos.y - 200, strDebug.c_str(), (int)strDebug.length());
+	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 180, strDebug.c_str(), (int)strDebug.length());
+
+	strDebug = L"HP : ";
+	strDebug += std::to_wstring(m_tInfo.m_iHP);
+	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 160, strDebug.c_str(), (int)strDebug.length());
+
+	strDebug = L"MP : ";
+	strDebug += std::to_wstring(m_tInfo.m_iMP);
+	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 140, strDebug.c_str(), (int)strDebug.length());
+
+	strDebug = L"Heart : ";
+	strDebug += std::to_wstring(m_tInfo.m_iHeart);
+	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 120, strDebug.c_str(), (int)strDebug.length());
 }
 
 void CPlayer::BeginOverlap(CCollider* _pOther)
@@ -386,11 +277,44 @@ void CPlayer::BeginOverlap(CCollider* _pOther)
 
 void CPlayer::OnOverlap(CCollider* _pOther)
 {
+	CObj* pObj = _pOther->GetOwner();
+
+	if (ELAYER::MONSTER_PROJECTILE == pObj->GetLayer() ||
+		ELAYER::MONSTER == pObj->GetLayer())
+	{
+		Vec2 vObjPos = pObj->GetPos();
+
+		bool bDir = false;
+
+		if (vObjPos.x >= GetPos().x)
+			bDir = true;
+
+		int iDmg = 10;
+		CMonster* pMonster = dynamic_cast<CMonster*>(pObj);
+		if (nullptr != pMonster)
+		{
+			iDmg = pMonster->GetMonsterInfo().m_iAtk;
+		}
+
+		TakeDamage(iDmg, bDir);
+	}
 }
 
 void CPlayer::EndOverlap(CCollider* _pOther)
 {
 }
+
+void CPlayer::SetWeapon(CWeapon* _pWeapon)
+{
+	if (nullptr != m_pWeapon)
+		m_pWeapon->SetOwner(nullptr);
+
+	m_pWeapon = _pWeapon;
+
+	if (nullptr != m_pWeapon)
+		m_pWeapon->SetOwner(this);
+}
+
 
 void CPlayer::Duck()
 {
@@ -415,6 +339,84 @@ bool CPlayer::Attack()
 	}
 	else
 		return false;
+}
+
+void CPlayer::UseSubWeapon()
+{
+	switch (m_eSubWeapon)
+	{
+	case ESUB_WEAPON_TYPE::DAGGER:
+		UseDagger();
+		break;
+	case ESUB_WEAPON_TYPE::AXE:
+		break;
+	case ESUB_WEAPON_TYPE::WATCH:
+		break;
+	case ESUB_WEAPON_TYPE::HOLY_WATER:
+		break;
+	}
+}
+
+void CPlayer::UseDagger()
+{
+	if (5 > GetPlayerInfo().m_iHeart)
+		return;
+
+	Vec2 vPos = GetPos();
+
+	m_tInfo.m_iHeart -= 5;
+	CDagger* pDagger = new CDagger;
+	int iDmg = (int)((float)m_tInfo.m_iStr * 1.2);
+	pDagger->SetDamage(iDmg);
+	pDagger->SetFaceDir(GetFaceDir());
+	if (GetFaceDir())
+	{
+		vPos.x += 50.f;
+		vPos.y -= 150.f;
+	}
+	else
+	{
+		vPos.x -= 50.f;
+		vPos.y -= 150.f;
+	}
+	Instantiate(pDagger, vPos, ELAYER::PLAYER_PROJECTILE);
+}
+
+// 데미지 주는 함수
+void CPlayer::TakeDamage(int _iDmg, bool _bDir)
+{
+	if (true == m_bIsHit)
+		return;
+
+	m_bIsHit = true;
+	SetFaceDir(_bDir);
+
+	int iDamage = _iDmg - m_tInfo.m_iCon;
+
+	if (0 >= iDamage)
+		iDamage = 1;
+
+	m_tInfo.m_iHP -= iDamage;
+
+	if (0 > m_tInfo.m_iHP)
+	{
+		m_tInfo.m_iHP = 0;
+		//SetDead();
+	}
+	else if ((int)m_tInfo.m_iMaxHP < m_tInfo.m_iHP)
+	{
+		m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+	}
+}
+
+int CPlayer::GetDamage()
+{
+	int iDmg = m_tInfo.m_iStr;
+
+	if (nullptr != m_pWeapon)
+		iDmg += m_pWeapon->GetWeaponInfo().m_iStr;
+
+	return iDmg;
 }
 
 

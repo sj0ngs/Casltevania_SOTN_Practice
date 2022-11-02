@@ -17,6 +17,7 @@ void CCover::Render(HDC _DC)
 
 void CCover::BeginOverlap(CCollider* _pOther)
 {
+	CPlayerProjectile::BeginOverlap(_pOther);
 }
 
 void CCover::OnOverlap(CCollider* _pOther)

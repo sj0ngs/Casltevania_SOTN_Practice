@@ -51,11 +51,11 @@ void CWeapon::Tick()
 		vPos.y += 70.f;
 	}
 
-	if (nullptr != m_pSword)
+	if (nullptr != m_pSword && !m_pSword->IsDead())
 	{
 		m_pSword->SetPos(vPos);
 	}
-	if (nullptr != m_pEffect)
+	if (nullptr != m_pEffect && !m_pEffect->IsDead())
 	{
 		m_pEffect->SetPos(vPos);
 	}
@@ -106,22 +106,24 @@ void CWeapon::Attack(bool _bDir)
 		break;
 	}
 
+	Vec2 vPos = m_pOwner->GetPos();
+	
 	CAnimation* pAnim = m_pEffect->GetAnimator()->LoadAnimation(strEffect);
 	m_pEffect->GetAnimator()->Play(pAnim->GetName(), false);
 	pAnim = m_pSword->GetAnimator()->LoadAnimation(strSword);
 	m_pSword->GetAnimator()->Play(pAnim->GetName(), false);
 
-	Instantiate(m_pEffect, GetPos(), ELAYER::EFFECT);
-	Instantiate(m_pSword, GetPos(), ELAYER::EFFECT);
+	Instantiate(m_pEffect, vPos, ELAYER::EFFECT);
+	Instantiate(m_pSword, vPos, ELAYER::EFFECT);
 }
 
 void CWeapon::AttackEnd()
 {
-	if (nullptr != m_pSword && !m_pSword->IsDead())
+	if (IsValid((CObj*&)m_pSword))
 	{
 		m_pSword->SetDead();
 	}
-	if (nullptr != m_pEffect && !m_pEffect->IsDead())
+	if (IsValid((CObj*&)m_pEffect))
 	{
 		m_pEffect->SetDead();
 	}

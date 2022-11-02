@@ -13,6 +13,11 @@ CObjMgr::CObjMgr()
 
 CObjMgr::~CObjMgr()
 {
+	map<wstring, CObj*>::iterator iter, iterEnd = m_mapObj.end();
+	for (iter = m_mapObj.begin(); iter != iterEnd; ++iter)
+	{
+		DYNAMIC_DELETE(iter->second);
+	}
 }
 
 CObj* CObjMgr::FindObj(wstring _strName)
@@ -47,6 +52,9 @@ void CObjMgr::Init()
 
 	CWeapon* pWeapon = new CWeapon;
 	pWeapon->SetName(L"Alucard_Sword");
+	tWeaponInfo tWeaponInfo;
+	tWeaponInfo.m_iStr = 5;
+	pWeapon->SetWeaponInfo(tWeaponInfo);
 	pWeapon->SetWeaponAnim(L"SWORD_RIGHT.anim", L"SWORD_LEFT.anim",
 							L"JUMP_SWORD_RIGHT.anim", L"JUMP_SWORD_LEFT.anim",
 							L"EFFECT_RIGHT.anim", L"EFFECT_LEFT.anim",

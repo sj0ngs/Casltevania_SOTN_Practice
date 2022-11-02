@@ -24,7 +24,6 @@ void CTraceState::Final_Tick()
 
 	// Player 를 알아낸다
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(CLevelMgr::GetInst()->GetCurLevel()->GetLayer(ELAYER::PLAYER)[0]);
-	assert(pPlayer);
 
 	// Player 와 Monster 의 거리값을 계산
 	float fDetectRange = pMon->GetMonsterInfo().m_fDetectRange;

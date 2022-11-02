@@ -20,7 +20,10 @@ void CPlayerBackDashState::Final_Tick()
 	if (!GetAnim()->IsFinish())
 	{
 		if (IS_TAP(EKEY::A))
+		{
 			Attack(L"StandAttack");
+			return;
+		}
 		if (0.5f <= m_faccDashTime)
 		{
 			if (IS_PRESSED(EKEY::LEFT))
@@ -50,7 +53,13 @@ void CPlayerBackDashState::Final_Tick()
 		}
 	}
 	else
+	{
 		ChangeState(L"Idle");
+		return;
+	}
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerBackDashState::Enter()

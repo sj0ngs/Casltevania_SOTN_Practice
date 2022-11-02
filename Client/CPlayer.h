@@ -1,6 +1,16 @@
 #pragma once
 #include "CObj.h"
 
+enum class ESUB_WEAPON_TYPE
+{
+    DAGGER,
+    AXE,
+    WATCH,
+    HOLY_WATER,
+
+    NONE
+};
+
 const float ATTACK_COOL = 0.7f;
 
 class CTexture;
@@ -22,6 +32,9 @@ private:
     float m_fAttackAcc;
 
     CWeapon* m_pWeapon;
+    ESUB_WEAPON_TYPE m_eSubWeapon;
+
+    bool m_bIsHit;
 
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
@@ -40,8 +53,11 @@ public:
 
     EPLAYER_STATE GetPlayerState() const { return m_eState; }
 
-    void SetWeapon(CWeapon* _pWeapon) { m_pWeapon = _pWeapon; }
+    void SetWeapon(CWeapon* _pWeapon);
     CWeapon* GetWeapon() const { return m_pWeapon; }
+
+    bool IsHit() const { return m_bIsHit; }
+    void EndHit() { m_bIsHit = false; }
 
 public:
     CLONE(CPlayer);
@@ -64,6 +80,12 @@ public:
     void GetUp();
 
     bool Attack();
+    void UseSubWeapon();
+
+    void UseDagger();
+
+    void TakeDamage(int _iDmg, bool _bDir);
+    int GetDamage();
 
 private:
     void LoadAnim(const wstring& _strFile);

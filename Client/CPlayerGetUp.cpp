@@ -22,6 +22,10 @@ void CPlayerGetUp::Final_Tick()
 		else if (IS_TAP(EKEY::LEFT))
 			ChangeState(L"Move_Left");
 	}
+
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerGetUp::Enter()

@@ -120,6 +120,12 @@ void CLevel::LoadLevel(const wstring& _strRelativePath)
 
 
 
+void CLevel::AddObj(CObj* _pObj, ELAYER _Layer)
+{
+	m_arrLayer[(UINT)_Layer].push_back(_pObj); 
+	_pObj->SetLayer(_Layer);
+}
+
 void CLevel::DeleteAllObject()
 {
 	// 오브젝트 삭제

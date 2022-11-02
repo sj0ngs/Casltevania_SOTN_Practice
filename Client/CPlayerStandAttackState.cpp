@@ -18,15 +18,27 @@ void CPlayerStandAttackState::Final_Tick()
 	else if (6 < GetAnim()->GetCurFrame())
 	{
 		if (IS_PRESSED(EKEY::RIGHT))
+		{
 			ChangeState(L"Move_Right");
+			return;
+		}
 		else if (IS_PRESSED(EKEY::LEFT))
+		{
 			ChangeState(L"Move_Left");
+			return;
+		}
 	}
 
 	if (GetAnim()->IsFinish())
 	{
 		ChangeState(L"Idle");
+		return;
 	}
+
+
+	CPlayerState::Final_Tick();
+
+	//Hit();
 }
 
 void CPlayerStandAttackState::Enter()
@@ -34,7 +46,7 @@ void CPlayerStandAttackState::Enter()
 	GET_PLAYER();
 
 	CAttack* pAttack = new CAttack(GetOwnerObj());
-	SetAttack(pAttack);
+	pAttack->SetDamage(pPlayer->GetDamage());
 	Vec2 vOffsetPos = {};
 	Vec2 vScale = {};
 
@@ -78,4 +90,6 @@ void CPlayerStandAttackState::Enter()
 	pAttack->GetCollider()->SetScale(vScale);
 	pAttack->GetCollider()->SetOffsetPos(vOffsetPos);
 	Instantiate(pAttack, vObjPos, ELAYER::PLAYER_PROJECTILE);
+
+	SetAttack(pAttack);
 }

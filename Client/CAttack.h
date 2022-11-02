@@ -1,12 +1,9 @@
 #pragma once
-#include "CObj.h"
+#include "CPlayerProjectile.h"
 
 class CAttack :
-    public CObj
+    public CPlayerProjectile
 {
-private:
-    CObj* m_pOwner;
-
 public:
     CLONE(CAttack);
 

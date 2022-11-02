@@ -11,8 +11,9 @@ class CObj :
     public CEntity
 {
 private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
-    Vec2        m_vPos;  // 위치 정보
-    Vec2        m_vScale; // 가로 세로 길이 정보
+    Vec2        m_vPos;     // 위치 정보
+    Vec2        m_vScale;   // 가로 세로 길이 정보
+    ELAYER      m_eLayer;   // 자신이 속해있는 레이어
 
     Vec2        m_vDir;     // 지상에서의 이동방향(사선 이동에 필요함)
     Vec2        m_PrevPos;
@@ -27,12 +28,16 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
 
     bool m_bDead;
 
+
 public: 
     void SetPos(Vec2 _pt) { m_vPos = _pt; }
     Vec2 GetPos() { return m_vPos; }
 
     void SetScale(Vec2 _pt) { m_vScale = _pt; }
     Vec2 GetScale() { return m_vScale; }
+
+    void SetLayer(ELAYER _eLayer) { m_eLayer = _eLayer; }
+    ELAYER GetLayer() const { return m_eLayer; }
 
     void SetDir(Vec2 _vDir) { m_vDir = _vDir; }
     Vec2 GetDir() const { return m_vDir; }

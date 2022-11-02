@@ -269,11 +269,11 @@ struct tAnimFrm
 
 struct tPlayerInfo
 {
-	UINT m_iHP;
-	UINT m_iHPMax;
+	int m_iHP;
+	UINT m_iMaxHP;
 
-	UINT m_iMP;
-	UINT m_iMPMax;
+	int m_iMP;
+	UINT m_iMaxMP;
 
 	UINT m_iHeart;
 
@@ -286,7 +286,7 @@ struct tPlayerInfo
 
 struct tMonsterInfo
 {
-	UINT m_iHP;
+	int m_iHP;
 	UINT m_iMaxHP;
 
 	UINT m_iAtk;

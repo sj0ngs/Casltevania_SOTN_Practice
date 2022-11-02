@@ -21,6 +21,7 @@ void CObj::SetDead()
 CObj::CObj() :
 	m_vPos{},
 	m_vScale{},
+	m_eLayer(ELAYER::END),
 	m_vDir(1.f, 0.f),
 	m_bFaceDir(true),
 	m_pCollider(nullptr),
@@ -35,6 +36,7 @@ CObj::CObj(const CObj& _Other)	:
 	CEntity(_Other),
 	m_vPos(_Other.m_vPos),
 	m_vScale(_Other.m_vScale),
+	m_eLayer(_Other.m_eLayer),
 	m_vDir(1.f, 0.f),
 	m_bFaceDir(_Other.m_bFaceDir),
 	m_pCollider(nullptr),

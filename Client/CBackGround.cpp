@@ -96,5 +96,4 @@ void CBackGround::Load(FILE* _pFile)
 
 	// 포어그라운드인지 여부(카메라에 영향을 받을것인가 여부)
 	fread(&m_bIsForeGround, sizeof(bool), 1, _pFile);
-
 }

@@ -111,6 +111,7 @@ enum class EPLAYER_STATE
 	STAND,
 	DUCK,
 	AIR,
+	HIT,
 	
 	NONE
 };

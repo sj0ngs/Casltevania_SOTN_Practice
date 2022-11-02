@@ -56,7 +56,7 @@ public:
     void LoadTrigger(FILE* _pFile);
 
 public:
-    void AddObj(CObj* _pObj, ELAYER _Layer) { m_arrLayer[(UINT)_Layer].push_back(_pObj); }
+    void AddObj(CObj* _pObj, ELAYER _Layer);
     const vector<CObj*>& GetLayer(ELAYER _Layer) { return m_arrLayer[(UINT)_Layer]; }
     void DeleteAllObject();
     void DeleteObject(ELAYER _Layer);

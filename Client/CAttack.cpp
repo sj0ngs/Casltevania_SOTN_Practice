@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "CAttack.h"
 
-CAttack::CAttack(CObj* _pOwner)	:
-	m_pOwner(_pOwner)
+CAttack::CAttack(CObj* _pOwner)
 {
 	CreateCollider();
 }
@@ -18,6 +17,7 @@ void CAttack::Render(HDC _DC)
 
 void CAttack::BeginOverlap(CCollider* _pOther)
 {
+	CPlayerProjectile::BeginOverlap(_pOther);
 }
 
 void CAttack::OnOverlap(CCollider* _pOther)

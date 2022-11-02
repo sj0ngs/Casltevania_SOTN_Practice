@@ -1,7 +1,6 @@
 #pragma once
 #include "CObj.h"
 
-
 class CMissile :
     public CObj
 {

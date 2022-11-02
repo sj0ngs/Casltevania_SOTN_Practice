@@ -20,6 +20,10 @@ void CPlayerDuckCoverState::Final_Tick()
 		else
 			ChangeState(L"GetUp");
 	}
+
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerDuckCoverState::Enter()

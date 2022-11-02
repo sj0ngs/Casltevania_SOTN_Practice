@@ -19,10 +19,19 @@ void CPlayerDuckAttackState::Final_Tick()
 	if (GetAnim()->IsFinish())
 	{
 		if (IS_PRESSED(EKEY::DOWN))
+		{
 			ChangeState(L"Duck");
+			return;
+		}
 		else
+		{
 			ChangeState(L"GetUp");
+			return;
+		}
 	}
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerDuckAttackState::Enter()
@@ -31,6 +40,7 @@ void CPlayerDuckAttackState::Enter()
 
 	CAttack* pAttack = new CAttack(GetOwnerObj());
 	SetAttack(pAttack);
+	pAttack->SetDamage(pPlayer->GetDamage());
 	Vec2 vOffsetPos = {};
 	Vec2 vScale = {};
 

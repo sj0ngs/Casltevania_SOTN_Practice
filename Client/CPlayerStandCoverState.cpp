@@ -15,6 +15,10 @@ void CPlayerStandCoverState::Final_Tick()
 {
 	if (IS_RELEASED(EKEY::S))
 		ChangeState(L"Idle");
+
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerStandCoverState::Enter()

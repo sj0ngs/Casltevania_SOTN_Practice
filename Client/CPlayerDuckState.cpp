@@ -48,6 +48,10 @@ void CPlayerDuckState::Final_Tick()
 		if (GetAnim()->IsFinish())
 			ChangeState(L"Idle");
 	}
+		
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerDuckState::Enter()

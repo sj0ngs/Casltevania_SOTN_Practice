@@ -13,10 +13,6 @@ CItem::~CItem()
 
 void CItem::Render(HDC _DC)
 {
-	if (nullptr != m_pItemTex)
-	{
-
-	}
 }
 
 void CItem::BeginOverlap(CCollider* _pOther)

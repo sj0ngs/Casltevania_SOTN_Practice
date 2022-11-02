@@ -49,6 +49,7 @@ void CStartLevel::Tick()
 	// 야매로 만든 카메라가 플레이어 따라오는 코드 
 	// 나중에 게임 인스턴스 같은걸로 플레이어 따로 저장해서 블러와야 함
 	const vector<CObj*>& vecPlayer = GetLayer(ELAYER::PLAYER);
+
 	CPlayer* pPlayer = (CPlayer*)vecPlayer[0];
 
 	if (nullptr != pPlayer)

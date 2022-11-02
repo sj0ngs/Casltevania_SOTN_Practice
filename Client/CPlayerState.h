@@ -37,5 +37,7 @@ public:
 protected:
     void Move();
     void Attack(const wchar_t* strState);
+    void Hit();
+    void Dead();
 };
 

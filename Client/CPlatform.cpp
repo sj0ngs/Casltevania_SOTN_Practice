@@ -253,7 +253,16 @@ bool CPlatform::DownCheck(CObj* _pObj)
 		// 오브젝트가 플레이어일때 따로 체크
 		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pObj);
 		if (nullptr != pPlayer)
-			pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
+		{
+			if (pPlayer->IsHit())
+			{
+				Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
+				vVelocity.y = 0.f;
+				pPlayer->GetRigidBody()->SetVelocity(vVelocity);
+			}
+			else
+				pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
+		}
 
 		Vec2 vDist = Vec2(fabsf(GetPos().x - vObjPos.x), fabsf(GetPos().y - vObjPos.y));
 		Vec2 vLength = GetCollider()->GetScale() / 2.f;

@@ -229,17 +229,32 @@
     <Filter Include="Game\07. State\PlayerState\Cover\DuckCover">
       <UniqueIdentifier>{785d1f74-4311-4221-891e-747beb737160}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\PlayerObj">
-      <UniqueIdentifier>{87e887ba-9dbf-4447-b330-ec1337159018}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\04. Object\PlayerObj\Attack">
-      <UniqueIdentifier>{328bdf5c-83b6-4f5a-88ba-a8a0bbf3ebf0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\04. Object\PlayerObj\CCover">
-      <UniqueIdentifier>{b86b411f-c673-46e7-a186-c1be4ae4d653}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\07. State\PlayerState\Duck\GetUp">
       <UniqueIdentifier>{b165d135-a209-464c-b25e-968890a13ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Hit">
+      <UniqueIdentifier>{ea54f6ca-56bd-4c06-b399-8a3b06453229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile">
+      <UniqueIdentifier>{557bfc33-dd9f-4396-aa18-b4b928905376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\MonsterProjectile">
+      <UniqueIdentifier>{fc08db80-94f8-4e37-96e7-b7ae30eb4f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile">
+      <UniqueIdentifier>{d03239f0-a400-4e64-9089-659188ddc96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Attack">
+      <UniqueIdentifier>{328bdf5c-83b6-4f5a-88ba-a8a0bbf3ebf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\CCover">
+      <UniqueIdentifier>{b86b411f-c673-46e7-a186-c1be4ae4d653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\PlayerState\Death">
+      <UniqueIdentifier>{8b457fe4-f969-4ba9-abbf-2bcf120f266d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Dagger">
+      <UniqueIdentifier>{4d058a3d-31a7-4fc6-b44a-6cff55d81671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -466,16 +481,31 @@
       <Filter>Game\07. State\PlayerState\Cover\StandCover</Filter>
     </ClInclude>
     <ClInclude Include="CAttack.h">
-      <Filter>Game\04. Object\PlayerObj\Attack</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Attack</Filter>
     </ClInclude>
     <ClInclude Include="CCover.h">
-      <Filter>Game\04. Object\PlayerObj\CCover</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\CCover</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerDuckCoverState.h">
       <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerGetUp.h">
       <Filter>Game\07. State\PlayerState\Duck\GetUp</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerHitState.h">
+      <Filter>Game\07. State\PlayerState\Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="CProjectile.h">
+      <Filter>Game\04. Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerProjectile.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerDeathState.h">
+      <Filter>Game\07. State\PlayerState\Death</Filter>
+    </ClInclude>
+    <ClInclude Include="CDagger.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Dagger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -699,16 +729,31 @@
       <Filter>Game\07. State\PlayerState\Cover\StandCover</Filter>
     </ClCompile>
     <ClCompile Include="CAttack.cpp">
-      <Filter>Game\04. Object\PlayerObj\Attack</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Attack</Filter>
     </ClCompile>
     <ClCompile Include="CCover.cpp">
-      <Filter>Game\04. Object\PlayerObj\CCover</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\CCover</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerDuckCoverState.cpp">
       <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerGetUp.cpp">
       <Filter>Game\07. State\PlayerState\Duck\GetUp</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHitState.cpp">
+      <Filter>Game\07. State\PlayerState\Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="CProjectile.cpp">
+      <Filter>Game\04. Object\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerProjectile.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDeathState.cpp">
+      <Filter>Game\07. State\PlayerState\Death</Filter>
+    </ClCompile>
+    <ClCompile Include="CDagger.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Dagger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

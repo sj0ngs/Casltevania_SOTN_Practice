@@ -49,6 +49,10 @@ void CPlayerIdleState::Final_Tick()
 	{
 		ChangeState(L"Move_Right");
 	}
+
+	CPlayerState::Final_Tick();;
+
+	//Hit();
 }
 
 void CPlayerIdleState::Enter()

@@ -15,6 +15,18 @@ CPlayerState::~CPlayerState()
 
 void CPlayerState::Final_Tick()
 {
+	GET_PLAYER();
+
+	if (pPlayer->IsHit())
+	{
+		ChangeState(L"Hit");
+		return;
+	}
+	else if (0 >= pPlayer->GetPlayerInfo().m_iHP)
+	{
+		ChangeState(L"Death");
+		return;
+	}
 }
 
 void CPlayerState::Exit()
@@ -46,11 +58,35 @@ void CPlayerState::Attack(const wchar_t* strState)
 {
 	GET_PLAYER();
 
-	if (pPlayer->Attack())
+	if (IS_PRESSED(EKEY::UP))
 	{
-		if(pPlayer->GetWeapon())
-			pPlayer->GetWeapon()->Attack(pPlayer->GetFaceDir());
+		pPlayer->UseSubWeapon();
+	}
+	else
+	{
+		if (pPlayer->Attack())
+		{
+			if (pPlayer->GetWeapon())
+				pPlayer->GetWeapon()->Attack(pPlayer->GetFaceDir());
 
-		ChangeState(strState);
+			ChangeState(strState);
+		}
 	}
 }
+
+void CPlayerState::Hit()
+{
+	GET_PLAYER();
+
+	if (pPlayer->IsHit())
+		ChangeState(L"Hit");
+}
+
+void CPlayerState::Dead()
+{
+	GET_PLAYER();
+
+	if (0 >= pPlayer->GetPlayerInfo().m_iHP)
+		ChangeState(L"Death");
+}
+

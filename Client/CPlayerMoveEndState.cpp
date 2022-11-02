@@ -27,6 +27,8 @@ void CPlayerMoveEndState::Final_Tick()
 		ChangeState(L"Duck");
 	else if (GetAnim()->IsFinish())
 		ChangeState(L"Idle");
+
+	CPlayerState::Final_Tick();
 }
 
 void CPlayerMoveEndState::Enter()

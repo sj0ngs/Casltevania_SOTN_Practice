@@ -6,9 +6,7 @@ class CMonster :
     public CObj
 {
 private:
-    int m_HP;
     CObj* m_pTarget;
-    float m_fSpeed;
     CTexture* m_pTexture;
 
     tMonsterInfo m_tInfo;
@@ -30,5 +28,8 @@ public:
 
 public:
     virtual void BeginOverlap(CCollider* _pOther) override;
+
+public:
+    void TakeDamage(int _iDmg);
 };
 

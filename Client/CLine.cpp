@@ -106,7 +106,16 @@ void CLine::BeginOverlap(CObj* _pOther)
 		CPlayer* pPlayer = dynamic_cast<CPlayer*>(_pOther);
 
 		if (nullptr != pPlayer)
-			pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
+		{
+			if (pPlayer->IsHit())
+			{
+				Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
+				vVelocity.y = 0.f;
+				pPlayer->GetRigidBody()->SetVelocity(vVelocity);
+			}
+			else
+				pPlayer->GetAI()->GetCurState()->ChangeState(L"Fall");
+		}
 	}
 }
 

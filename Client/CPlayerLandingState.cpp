@@ -13,17 +13,35 @@ CPlayerLandingState::~CPlayerLandingState()
 
 void CPlayerLandingState::Final_Tick()
 {	
-
 	if (GetAnim()->IsFinish())
+	{
 		ChangeState(L"Idle");
+		return;
+	}
 	else if (IS_TAP(EKEY::A))
+	{
 		Attack(L"StandAttack");
+		return;
+	}
 	else if (IS_TAP(EKEY::SPACE))
+	{
 		ChangeState(L"Jump");
+		return;
+	}
 	else if (IS_PRESSED(EKEY::RIGHT))
+	{
 		ChangeState(L"Move_Right");
+		return;
+	}
 	else if (IS_PRESSED(EKEY::LEFT))
+	{
 		ChangeState(L"Move_Left");
+		return;
+	}
+	//else
+	//	Hit();
+
+	CPlayerState::Final_Tick();
 }
 
 void CPlayerLandingState::Enter()
@@ -38,6 +56,8 @@ void CPlayerLandingState::Enter()
 	{
 		SET_ANIM(L"Landing_Left");
 	}
+
+	pPlayer->ResetJump();
 }
 
 void CPlayerLandingState::Exit()

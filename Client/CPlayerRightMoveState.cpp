@@ -31,13 +31,15 @@ void CPlayerRightMoveState::Final_Tick()
 	{
 		ChangeState(L"Move_Left");
 	}
-	else if(IS_RELEASED(EKEY::RIGHT))
+	else if (IS_RELEASED(EKEY::RIGHT))
 	{
 		if (GetAnim()->IsFinish())
 			ChangeState(L"MoveEnd");
 		else
 			ChangeState(L"Idle");
 	}
+	//else
+	//	Hit();
 
 	if (IS_PRESSED(EKEY::RIGHT))
 	{
@@ -53,6 +55,8 @@ void CPlayerRightMoveState::Final_Tick()
 		vPos += vDir * fSpeed * DELTATIME;
 		pPlayer->SetPos(vPos);
 	}
+
+	CPlayerState::Final_Tick();
 }
 
 void CPlayerRightMoveState::Enter()

@@ -15,11 +15,8 @@ void CPlayerFallState::Final_Tick()
 {
 	GET_PLAYER();
 
-	CPlayerState::Final_Tick();
-
 	if (pPlayer->GetRigidBody()->IsGround())
 	{
-		pPlayer->ResetJump();
 		ChangeState(L"Landing");
 		return;
 	}
@@ -30,8 +27,7 @@ void CPlayerFallState::Final_Tick()
 			Attack(L"JumpAttack");
 			return;
 		}
-
-		if (IS_TAP(EKEY::SPACE))
+		else if (IS_TAP(EKEY::SPACE))
 		{
 			if (pPlayer->CanDoubleJump())
 			{
@@ -40,8 +36,7 @@ void CPlayerFallState::Final_Tick()
 				return;
 			}
 		}
-
-		if (IS_TAP(EKEY::LEFT))
+		else if (IS_TAP(EKEY::LEFT))
 		{
 			pPlayer->SetFaceDir(false);
 			pPlayer->GetAnimator()->Shift(L"Fall_Left", false);
@@ -54,6 +49,9 @@ void CPlayerFallState::Final_Tick()
 	}
 
 	Move();
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerFallState::Enter()

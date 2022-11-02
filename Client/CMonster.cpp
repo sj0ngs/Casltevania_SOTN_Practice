@@ -7,15 +7,15 @@
 #include "CCollider.h"
 #include "CAI.h"
 
+#include "CPlayer.h"
+
 #include "CTexture.h"
 #include "CState.h"
 #include "CIdleState.h"
 #include "CTraceState.h"
 
 CMonster::CMonster()	:
-	m_HP(3),
 	m_pTarget(nullptr),
-	m_fSpeed(100.f),
 	m_pTexture(nullptr),
 	m_tInfo{}
 {
@@ -29,9 +29,9 @@ CMonster::CMonster()	:
 	GetAI()->AddState(L"Trace", new CTraceState);
 	GetAI()->ChangeState(L"Idle");
 
-	//m_pTexture = CResMgr::GetInst()->FindTexture(L"Plane");
-	m_pTexture = CResMgr::GetInst()->LoadTexture(L"Alucard", L"texture\\alucard-8.bmp");
-
+	m_tInfo.m_iMaxHP = 100;
+	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+	m_tInfo.m_iAtk = 100;
 	m_tInfo.m_fSpeed = 100.f;
 	m_tInfo.m_fDetectRange = 200.f;
 }
@@ -42,26 +42,26 @@ CMonster::~CMonster()
 
 void CMonster::Tick()
 {
-	if (IsValid(m_pTarget))
-	{
-		Vec2 vTargetPos = m_pTarget->GetPos();
-		Vec2 vPos = GetPos();
+	//if (IsValid(m_pTarget))
+	//{
+	//	Vec2 vTargetPos = m_pTarget->GetPos();
+	//	Vec2 vPos = GetPos();
 
-		Vec2 vDir = vTargetPos - vPos;
-		vDir.Normalize();
+	//	Vec2 vDir = vTargetPos - vPos;
+	//	vDir.Normalize();
 
-		vPos.x += vDir.x * m_fSpeed * DELTATIME;
-		vPos.y += vDir.y * m_fSpeed * DELTATIME;
+	//	vPos.x += vDir.x * m_fSpeed * DELTATIME;
+	//	vPos.y += vDir.y * m_fSpeed * DELTATIME;
 
-		SetPos(vPos);
-	}
+	//	SetPos(vPos);
+	//}
 
 	CObj::Tick();
 }
 
 void CMonster::Render(HDC _DC)
 {
-	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+	/*Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 vScale = GetScale();
 
 	static float fRatio = 0.f;
@@ -92,7 +92,7 @@ void CMonster::Render(HDC _DC)
 		m_pTexture->GetDC(),
 		0, 0,
 		(int)m_pTexture->GetWidth(), (int)m_pTexture->GetHeight(),
-		tBlend);
+		tBlend);*/
 
 	//BitBlt(_DC,
 	//	(int)(vPos.x - m_pTexture->GetWidth() / 2.f),
@@ -103,9 +103,36 @@ void CMonster::Render(HDC _DC)
 	//	SRCCOPY);
 
 	CObj::Render(_DC);
+
+	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+
+	wstring strHp = L"HP : ";
+	strHp += std::to_wstring(m_tInfo.m_iHP);
+
+	TextOut(_DC, (int)vPos.x, (int)vPos.y, strHp.c_str(), (int)strHp.length());
 }
 
 void CMonster::BeginOverlap(CCollider* _pOther)
 {
-	//SetDead();
+	
+}
+
+void CMonster::TakeDamage(int _iDmg)
+{
+	int iDamage = _iDmg - m_tInfo.m_iDef;
+
+	if (0 >= iDamage)
+		iDamage = 1;
+
+	m_tInfo.m_iHP -= iDamage;
+
+	if (0 > m_tInfo.m_iHP)
+	{
+		m_tInfo.m_iHP = 0;
+		SetDead();
+	}
+	else if ((int)m_tInfo.m_iMaxHP < m_tInfo.m_iHP)
+	{
+		m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+	}
 }

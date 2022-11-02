@@ -1,18 +1,18 @@
 #pragma once
-#include "CPlayerProjectile.h"
+#include "CProjectile.h"
 
-class CCover :
-    public CPlayerProjectile
+class CPlayerProjectile :
+    public CProjectile
 {
 public:
-    CLONE(CCover);
+    CLONE_DEACTIVATE(CPlayerProjectile);
 
 public:
-    CCover();
-    ~CCover();
+    CPlayerProjectile();
+    ~CPlayerProjectile();
 
 public:
-    virtual void Render(HDC _DC) override;
+    virtual void Render(HDC _DC) override {};
 
     virtual void BeginOverlap(CCollider* _pOther) override;
     virtual void OnOverlap(CCollider* _pOther) override;

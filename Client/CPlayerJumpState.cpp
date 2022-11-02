@@ -31,7 +31,10 @@ void CPlayerJumpState::Final_Tick()
 		vPos.y -= 700.f * DELTATIME;
 	}
 	else
+	{
 		ChangeState(L"Fall");
+		return;
+	}
 
 	if (IS_TAP(EKEY::LEFT))
 	{
@@ -47,6 +50,9 @@ void CPlayerJumpState::Final_Tick()
 	pPlayer->SetPos(vPos);
 
 	Move();
+
+	CPlayerState::Final_Tick();
+	//Hit();
 }
 
 void CPlayerJumpState::Enter()
@@ -84,7 +90,6 @@ void CPlayerJumpState::Enter()
 			pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
 			pPlayer->GetAnimator()->Play(L"Double_Jump_Left", false);
 		}
-
 	}
 
 	pPlayer->GetRigidBody()->SetGravity(false);

@@ -27,8 +27,7 @@ void CPlayerMoveLeftState::Final_Tick()
 		ChangeState(L"Duck");
 	else if (IS_TAP(EKEY::LSHIFT))
 		ChangeState(L"BackDash");
-
-	if (IS_TAP(EKEY::RIGHT))
+	else if (IS_TAP(EKEY::RIGHT))
 	{
 		ChangeState(L"Move_Right");
 	}
@@ -39,6 +38,8 @@ void CPlayerMoveLeftState::Final_Tick()
 		else 
 			ChangeState(L"Idle");
 	}
+	/*else
+		Hit();*/
 	
 	if (IS_PRESSED(EKEY::LEFT))
 	{
@@ -54,6 +55,8 @@ void CPlayerMoveLeftState::Final_Tick()
 		vPos -= vDir * fSpeed * DELTATIME;
 		pPlayer->SetPos(vPos);
 	}
+
+	CPlayerState::Final_Tick();
 }
 
 void CPlayerMoveLeftState::Enter()
