@@ -5,6 +5,8 @@
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
 #include "CResMgr.h"
+#include "CLevelMgr.h"
+#include "CLevel.h"
 
 #include "CTexture.h"
 
@@ -13,6 +15,10 @@ CCamera::CCamera()	:
 	m_vDiff{},
 	m_pBlindText(nullptr),
 	m_fCameraSpeed(200.f),
+	m_iCameraMove(false),
+	m_ptResolution{},
+	m_iLevelWidth(0.f),
+	m_iLevelHeight(0.f),
 	m_fRatio(0.f),
 	m_bShakeOn(false),
 	m_fShakeSpeed(1.f),
@@ -33,17 +39,20 @@ CCamera::~CCamera()
 
 void CCamera::Tick()
 {
-	if (IS_PRESSED(EKEY::W))
-		m_vLook.y -= m_fCameraSpeed * DELTATIME;
+	if (m_iCameraMove)
+	{
+		if (IS_PRESSED(EKEY::W))
+			m_vLook.y -= m_fCameraSpeed * DELTATIME;
 
-	if (IS_PRESSED(EKEY::S))
-		m_vLook.y += m_fCameraSpeed * DELTATIME;
+		if (IS_PRESSED(EKEY::S))
+			m_vLook.y += m_fCameraSpeed * DELTATIME;
 
-	if (IS_PRESSED(EKEY::A))
-		m_vLook.x -= m_fCameraSpeed * DELTATIME;
+		if (IS_PRESSED(EKEY::A))
+			m_vLook.x -= m_fCameraSpeed * DELTATIME;
 
-	if (IS_PRESSED(EKEY::D))
-		m_vLook.x += m_fCameraSpeed * DELTATIME;
+		if (IS_PRESSED(EKEY::D))
+			m_vLook.x += m_fCameraSpeed * DELTATIME;
+	}
 
 	CameraShake();
 
@@ -146,4 +155,35 @@ void CCamera::CameraShake(float _fTerm, float _fRange, float _fSpeed)
 	m_fShakeDir = 1;
 	m_fShakeSpeed = _fSpeed;
 	m_fShakeAccTime = 0.f;
+}
+
+void CCamera::SetMapSize(POINT _ptResoltion, UINT _iLevelWidth, UINT _iLevelHeight)
+{
+	m_ptResolution = _ptResoltion;
+
+	m_iLevelWidth = _iLevelWidth;
+	m_iLevelHeight = _iLevelHeight;
+}
+
+void CCamera::TracePlayer(Vec2 _vPos)
+{
+	if (0 > _vPos.x - (float)m_ptResolution.x / 2.f)
+	{
+		_vPos.x = (float)m_ptResolution.x / 2.f;
+	}
+	else if(m_iLevelWidth < _vPos.x + (float)m_ptResolution.x / 2.f)
+	{
+		_vPos.x = m_iLevelWidth - m_ptResolution.x / 2.f;
+	}
+
+	if (0 > _vPos.y - (float)m_ptResolution.y / 2.f)
+	{
+		_vPos.y = (float)m_ptResolution.y / 2.f;
+	}
+	else if (m_iLevelHeight < _vPos.y + (float)m_ptResolution.y / 2.f)
+	{
+		_vPos.y = m_iLevelHeight - m_ptResolution.y / 2.f;
+	}
+
+	SetLook(_vPos);
 }

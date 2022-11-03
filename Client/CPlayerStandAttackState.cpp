@@ -47,12 +47,12 @@ void CPlayerStandAttackState::Enter()
 
 	CAttack* pAttack = new CAttack(GetOwnerObj());
 	pAttack->SetDamage(pPlayer->GetDamage());
+	pAttack->SetName(L"Attack");
 	Vec2 vOffsetPos = {};
 	Vec2 vScale = {};
 
 	Vec2 vObjPos = pPlayer->GetPos();
 	Vec2 vObjScale = pPlayer->GetCollider()->GetScale();
-
 
 	if (pPlayer->GetWeapon())
 	{

@@ -31,7 +31,7 @@ CMonster::CMonster()	:
 
 	m_tInfo.m_iMaxHP = 100;
 	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
-	m_tInfo.m_iAtk = 100;
+	m_tInfo.m_iAtk = 5;
 	m_tInfo.m_fSpeed = 100.f;
 	m_tInfo.m_fDetectRange = 200.f;
 }

@@ -4,11 +4,16 @@
 #include "CResMgr.h"
 #include "CTexture.h"
 
+#include "CEffect.h"
+#include "CAnimator.h"
+
 CDagger::CDagger()	:
 	m_fSpeed(1000.f),
 	m_pRightTex(nullptr),
 	m_pLeftTex(nullptr)
 {
+	SetPenatrate(false);
+
 	GetCollider()->SetScale(Vec2(70.f, 20.f));
 	m_pRightTex = CResMgr::GetInst()->LoadTexture(L"Dagger_Right", L"texture\\Weapon\\Dagger_Right.bmp");
 	m_pLeftTex = CResMgr::GetInst()->LoadTexture(L"Dagger_Left", L"texture\\Weapon\\Dagger_Left.bmp");
@@ -28,6 +33,8 @@ void CDagger::Tick()
 		vPos.x -= m_fSpeed * DELTATIME;
 
 	SetPos(vPos);
+
+	MapOut();
 }
 
 void CDagger::Render(HDC _DC)
@@ -57,4 +64,14 @@ void CDagger::Render(HDC _DC)
 void CDagger::BeginOverlap(CCollider* _pOther)
 {
 	CPlayerProjectile::BeginOverlap(_pOther);
+}
+
+void CDagger::Dead()
+{
+	CEffect* pEffect = new CEffect;
+	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\HIT_EFFECT.anim");
+	pEffect->GetAnimator()->Play(L"Hit_Effect", false);
+
+	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
+	CProjectile::Dead();
 }

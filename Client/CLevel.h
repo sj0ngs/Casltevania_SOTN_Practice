@@ -8,14 +8,16 @@ class CLevel :
     public CEntity
 {
 private:
-    vector<CObj*> m_arrLayer[(UINT)ELAYER::END];
-    vector<CLine*> m_vecLine;
-    vector<CObj*> m_vecTile;
+    vector<CObj*>       m_arrLayer[(UINT)ELAYER::END];
+    vector<CLine*>      m_vecLine;
+    vector<CObj*>       m_vecTile;
 
-    UINT m_iStartPointIdx;
-
+    UINT                m_iStartPointIdx;
     UINT                m_iTileXCount;
     UINT                m_iTileYCount;
+
+    UINT                m_iWidth;
+    UINT                m_iHeight;
 
 public:
     void SetStartPointIdx(UINT _iIdx) { m_iStartPointIdx = _iIdx; }
@@ -23,6 +25,9 @@ public:
 
     UINT GetTileXCount()    const { return m_iTileXCount; }
     UINT GetTileYCount()    const { return m_iTileYCount; }
+
+    UINT GetLevelWidth()    const { return m_iWidth; }
+    UINT GetLevelHeight()   const { return m_iHeight; }
 
 public:
     CLONE_DEACTIVATE(CLevel);
@@ -37,8 +42,8 @@ public:
     virtual void Final_Tick();
     virtual void Render(HDC _DC);
 
-    virtual void Enter() = 0;   // 레벨에 진입할 때 호출
-    virtual void Exit() = 0;    // 레벨에서 떠날 때 호출
+    virtual void Enter();   // 레벨에 진입할 때 호출
+    virtual void Exit();    // 레벨에서 떠날 때 호출
 
 public:
     // 파일로 만들어둔 레벨 불러올때 필요한 함수들

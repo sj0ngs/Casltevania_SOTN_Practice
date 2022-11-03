@@ -17,6 +17,7 @@
 #include "CMonster.h"
 
 #include "CDagger.h"
+#include "CAxe.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -166,7 +167,7 @@ CPlayer::CPlayer() :
 	// =================
 	GetRigidBody()->SetFriction(300.f);
 	GetRigidBody()->SetGravity(true);
-	GetRigidBody()->SetGravityAccel(1000.f);
+	GetRigidBody()->SetGravityAccel(1500.f);
 	GetRigidBody()->SetVelocityLimit(1000.f);
 
 	// ==========
@@ -349,6 +350,7 @@ void CPlayer::UseSubWeapon()
 		UseDagger();
 		break;
 	case ESUB_WEAPON_TYPE::AXE:
+		UseAxe();
 		break;
 	case ESUB_WEAPON_TYPE::WATCH:
 		break;
@@ -359,12 +361,12 @@ void CPlayer::UseSubWeapon()
 
 void CPlayer::UseDagger()
 {
-	if (5 > GetPlayerInfo().m_iHeart)
+	if (USE_DAGGER > GetPlayerInfo().m_iHeart)
 		return;
 
 	Vec2 vPos = GetPos();
 
-	m_tInfo.m_iHeart -= 5;
+	m_tInfo.m_iHeart -= USE_DAGGER;
 	CDagger* pDagger = new CDagger;
 	int iDmg = (int)((float)m_tInfo.m_iStr * 1.2);
 	pDagger->SetDamage(iDmg);
@@ -380,6 +382,35 @@ void CPlayer::UseDagger()
 		vPos.y -= 150.f;
 	}
 	Instantiate(pDagger, vPos, ELAYER::PLAYER_PROJECTILE);
+}
+
+void CPlayer::UseAxe()
+{
+	if (USE_AXE > GetPlayerInfo().m_iHeart)
+		return;
+
+	Vec2 vPos = GetPos();
+
+	m_tInfo.m_iHeart -= USE_AXE;
+	CAxe* pAxe = new CAxe;
+	int iDmg = (int)((float)m_tInfo.m_iStr * 2);
+	pAxe->SetDamage(iDmg);
+	pAxe->SetFaceDir(GetFaceDir());
+	if (GetFaceDir())
+	{
+		vPos.x += 50.f;
+		vPos.y -= 150.f;
+		pAxe->GetRigidBody()->AddVelocity(Vec2(450.f, -700.f));
+		pAxe->GetAnimator()->Play(L"Axe_Right", true);
+	}
+	else
+	{
+		vPos.x -= 50.f;
+		vPos.y -= 150.f;
+		pAxe->GetRigidBody()->AddVelocity(Vec2(-300.f, -700.f));
+		pAxe->GetAnimator()->Play(L"Axe_Left", true);
+	}
+	Instantiate(pAxe, vPos, ELAYER::PLAYER_PROJECTILE);
 }
 
 // 데미지 주는 함수

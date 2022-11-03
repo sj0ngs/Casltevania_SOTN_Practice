@@ -5,6 +5,7 @@
 #include "CEngine.h"
 #include "CCamera.h"
 #include "CPathMgr.h"
+#include "CObjMgr.h"
 
 #include "CLine.h"
 #include "CTile.h"
@@ -13,7 +14,9 @@
 CLevel::CLevel()	:
 	m_iStartPointIdx(0),
 	m_iTileXCount(0),
-	m_iTileYCount(0)
+	m_iTileYCount(0),
+	m_iWidth(0),
+	m_iHeight(0)
 {
 }
 
@@ -92,6 +95,18 @@ void CLevel::Render(HDC _DC)
 			}
 		}
 	}
+}
+
+void CLevel::Enter()
+{
+	POINT ptResolution = CEngine::GetInst()->GetResolution();
+	CCamera::GetInst()->SetMapSize(ptResolution, m_iWidth, m_iHeight);
+}
+
+void CLevel::Exit()
+{
+	POINT ptResolution = {};
+	CCamera::GetInst()->SetMapSize(ptResolution, 0, 0);
 }
 
 void CLevel::LoadLevel(const wstring& _strRelativePath)

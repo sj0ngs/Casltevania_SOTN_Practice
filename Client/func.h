@@ -10,3 +10,5 @@ void Saturate(float& _f);
 void SaveWString(const wstring& _str, FILE* _pFile);
 void LoadWString(wstring& _str, FILE* _pFile);
 
+void RotateVec(Vec2& _Origin, float _Degree);
+

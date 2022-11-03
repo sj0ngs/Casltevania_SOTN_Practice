@@ -143,6 +143,7 @@
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CAnimDebug.h" />
     <ClInclude Include="CAttack.h" />
+    <ClInclude Include="CAxe.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CAnimDebug.cpp" />
     <ClCompile Include="CAttack.cpp" />
+    <ClCompile Include="CAxe.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />

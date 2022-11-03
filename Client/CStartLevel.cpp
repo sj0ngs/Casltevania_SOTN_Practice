@@ -56,7 +56,7 @@ void CStartLevel::Tick()
 	{
 		Vec2 vPlayerPos = pPlayer->GetPos();
 		vPlayerPos.y -= 100.f;
-		CCamera::GetInst()->SetLook(vPlayerPos);
+		CCamera::GetInst()->TracePlayer(vPlayerPos);
 	}
 	
 	if (IS_TAP(EKEY::ENTER))
@@ -67,10 +67,10 @@ void CStartLevel::Tick()
 		ChangeLevel(ELEVEL_TYPE::EDITOR);
 	}
 
-	if (IS_TAP(EKEY::key1))
-	{
-		ChangeLevel(ELEVEL_TYPE::STAGE_01);
-	}
+	//if (IS_TAP(EKEY::key1))
+	//{
+	//	ChangeLevel(ELEVEL_TYPE::STAGE_01);
+	//}
 
 	//if (IS_TAP(EKEY::LBTN))
 	//{
@@ -103,9 +103,13 @@ void CStartLevel::Tick()
 void CStartLevel::Enter()
 {
 	Init();
+
+	CLevel::Enter();
 }
 
 void CStartLevel::Exit()
 {
 	DeleteAllObject();
+
+	CLevel::Exit();
 }

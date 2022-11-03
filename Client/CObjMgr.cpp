@@ -39,7 +39,6 @@ void CObjMgr::UpDatePlayer(CPlayer* _pPlayer)
 // 사용할 오브젝트 미리 모두 생성
 void CObjMgr::Init()
 {
-
 	// ==============
 	// Monster Origin
 	// ==============

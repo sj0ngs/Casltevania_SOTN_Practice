@@ -15,10 +15,10 @@ CEffect::~CEffect()
 
 void CEffect::Tick()
 {
-	CObj::Tick();
-
 	if (GetAnimator()->GetCurAnimation()->IsFinish())
 	{
 		SetDead();
 	}
+
+	CObj::Tick();
 }

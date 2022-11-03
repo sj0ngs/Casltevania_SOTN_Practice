@@ -21,6 +21,11 @@ private:
 	list<tCamEffect>	m_CamEffectList;
 	float				m_fRatio;
 	float				m_fCameraSpeed;
+	bool				m_iCameraMove;
+	
+	POINT				m_ptResolution;
+	UINT				m_iLevelWidth;
+	UINT				m_iLevelHeight;
 
 	// Camera Shake 
 	bool				m_bShakeOn;
@@ -34,6 +39,10 @@ private:
 public:
 	void SetLook(Vec2 _vLook) { m_vLook = _vLook; }
 	Vec2 GetLook()	const { return m_vLook; }
+
+	void SetCameraMove(bool _bMove) { m_iCameraMove = _bMove; }
+
+	void SetMapSize(POINT _ptResoltion, UINT _iLevelWidth, UINT _iLevelHeight);
 
 public:
 	void Tick();
@@ -51,5 +60,7 @@ public:
 	void FadeOut(float _fTerm);
 	void FadeIn(float _fTerm);
 	void CameraShake(float _fTerm, float _fRange, float _fSpeed = 1000.f);
+
+	void TracePlayer(Vec2 _vPos);
 };
 

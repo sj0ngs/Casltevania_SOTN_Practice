@@ -12,6 +12,11 @@ enum class ESUB_WEAPON_TYPE
 };
 
 const float ATTACK_COOL = 0.7f;
+const float DAGGER_COOL = 0.1f;
+const float AXE_COOL = 1.f;
+
+const int   USE_DAGGER = 1;
+const int   USE_AXE = 5;
 
 class CTexture;
 class CWeapon;
@@ -26,15 +31,14 @@ private:
     bool m_bGoDown;         // 아래로 떨어지는지 가능 여부
 
     bool m_bIsDuck;
+    bool m_bIsHit;
 
     EPLAYER_STATE m_eState;
 
     float m_fAttackAcc;
-
     CWeapon* m_pWeapon;
-    ESUB_WEAPON_TYPE m_eSubWeapon;
 
-    bool m_bIsHit;
+    ESUB_WEAPON_TYPE m_eSubWeapon;
 
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
@@ -55,6 +59,8 @@ public:
 
     void SetWeapon(CWeapon* _pWeapon);
     CWeapon* GetWeapon() const { return m_pWeapon; }
+
+    void ChangeSubWeapon(ESUB_WEAPON_TYPE _eType) { m_eSubWeapon = _eType; }
 
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
@@ -83,6 +89,7 @@ public:
     void UseSubWeapon();
 
     void UseDagger();
+    void UseAxe();
 
     void TakeDamage(int _iDmg, bool _bDir);
     int GetDamage();

@@ -5,7 +5,8 @@
 
 #include "CMonster.h"
 
-CPlayerProjectile::CPlayerProjectile()
+CPlayerProjectile::CPlayerProjectile()	:
+	m_bPenetrate(true)
 {
 }
 
@@ -26,6 +27,11 @@ void CPlayerProjectile::BeginOverlap(CCollider* _pOther)
 		CMonster* pMonster = (CMonster*)pObj;
 
 		pMonster->TakeDamage(GetDamage());
+	}
+
+	if (!m_bPenetrate)
+	{
+		Dead();
 	}
 }
 

@@ -457,6 +457,8 @@ void CLevel::LoadForeGround(FILE* _pFile)
 		CBackGround* pForeGround = new CBackGround;
 		pForeGround->Load(_pFile);
 		AddObj(pForeGround, ELAYER::FOREGROUND);
+		m_iWidth = pForeGround->GetTex()->GetWidth();
+		m_iHeight = pForeGround->GetTex()->GetHeight();
 	}
 }
 

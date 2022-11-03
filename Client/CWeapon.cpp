@@ -41,23 +41,24 @@ CWeapon::~CWeapon()
 
 void CWeapon::Tick()
 {
-	if (nullptr == m_pOwner)
-		return;
-
-	Vec2 vPos = m_pOwner->GetPos();
-
-	if (EPLAYER_STATE::DUCK == m_pOwner->GetPlayerState())
+	if (IsValid((CObj*&)m_pOwner))
 	{
-		vPos.y += 70.f;
-	}
+		Vec2 vPos = m_pOwner->GetPos();
 
-	if (nullptr != m_pSword && !m_pSword->IsDead())
-	{
-		m_pSword->SetPos(vPos);
-	}
-	if (nullptr != m_pEffect && !m_pEffect->IsDead())
-	{
-		m_pEffect->SetPos(vPos);
+		if (EPLAYER_STATE::DUCK == m_pOwner->GetPlayerState())
+		{
+			vPos.y += 70.f;
+		}
+
+		if (IsValid((CObj*&)m_pSword))
+		{
+			m_pSword->SetPos(vPos);
+		}
+
+		if (IsValid((CObj*&)m_pEffect))
+		{
+			m_pEffect->SetPos(vPos);
+		}
 	}
 }
 
@@ -123,6 +124,7 @@ void CWeapon::AttackEnd()
 	{
 		m_pSword->SetDead();
 	}
+
 	if (IsValid((CObj*&)m_pEffect))
 	{
 		m_pEffect->SetDead();

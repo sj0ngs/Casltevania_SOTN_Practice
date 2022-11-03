@@ -32,6 +32,8 @@ public:
     void SetVelocity(Vec2 _vVelocity) { m_vVelocity = _vVelocity; }
     Vec2 GetVelocity() { return m_vVelocity; }
 
+    void SetMass(float _fMass) { m_fMass = _fMass; }
+
     void AddVelocity(Vec2 _vAdd) { m_vVelocity += _vAdd; }
 
     void SetFriction(float _fFriction) { m_fFriction = _fFriction; }

@@ -1,25 +1,19 @@
 #pragma once
 #include "CPlayerProjectile.h"
 
-class CTexture;
-
-class CDagger :
-	public CPlayerProjectile
+class CAxe :
+    public CPlayerProjectile
 {
 private:
-    float m_fSpeed;
     CTexture* m_pRightTex;
     CTexture* m_pLeftTex;
 
 public:
-    void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
+    CLONE(CAxe);
 
 public:
-    CLONE(CDagger);
-
-public:
-    CDagger();
-    ~CDagger();
+    CAxe();
+    ~CAxe();
 
 public:
     virtual void Tick() override;
@@ -27,8 +21,5 @@ public:
 
 public:
     virtual void BeginOverlap(CCollider* _pOther) override;
-
-public:
-    virtual void Dead() override;
 };
 

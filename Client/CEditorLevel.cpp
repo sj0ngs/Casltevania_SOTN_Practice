@@ -48,6 +48,9 @@ void CEditorLevel::Init()
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
 }
 
 void CEditorLevel::CreateUI(Vec2 _vResolution)
@@ -117,6 +120,8 @@ void CEditorLevel::Enter()
 	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
 
 	Init();
+
+	CCamera::GetInst()->SetCameraMove(true);
 }
 
 void CEditorLevel::Exit()
@@ -126,6 +131,8 @@ void CEditorLevel::Exit()
 
 	POINT ptResolution = CEngine::GetInst()->GetResolution();
 	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
+
+	CCamera::GetInst()->SetCameraMove(false);
 }
 
 void CEditorLevel::Update()

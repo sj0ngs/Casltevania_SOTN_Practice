@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "func.h"
 
+#include "CTimeMgr.h" 
 #include "CEventMgr.h"
 
 #include "CObj.h"
@@ -66,4 +67,12 @@ void LoadWString(wstring& _str, FILE* _pFile)
 	}
 
 	_str = szBuff;
+}
+
+void RotateVec(Vec2& _Origin, float _Degree)
+{
+	float theta = _Degree * PI / 180.f * DELTATIME;
+
+	_Origin.x = _Origin.x * cosf(theta) - _Origin.y * sinf(theta);
+	_Origin.y = _Origin.x * sinf(theta) + _Origin.y * cosf(theta);
 }

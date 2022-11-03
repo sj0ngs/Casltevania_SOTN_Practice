@@ -256,6 +256,9 @@
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Dagger">
       <UniqueIdentifier>{4d058a3d-31a7-4fc6-b44a-6cff55d81671}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Axe">
+      <UniqueIdentifier>{354bbeac-677c-4be0-bc76-5db6e70609b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -507,6 +510,9 @@
     <ClInclude Include="CDagger.h">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Dagger</Filter>
     </ClInclude>
+    <ClInclude Include="CAxe.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -754,6 +760,9 @@
     </ClCompile>
     <ClCompile Include="CDagger.cpp">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Dagger</Filter>
+    </ClCompile>
+    <ClCompile Include="CAxe.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

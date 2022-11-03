@@ -41,8 +41,8 @@ void CStartPoint::Tick()
 			CPlayer* pPlayer = dynamic_cast<CPlayer*>(CObjMgr::GetInst()->FindObj(L"Player"));
 			assert(pPlayer);
 			pPlayer = pPlayer->Clone();
-			pPlayer->SetPos(GetPos());
 			pPlayer->SetFaceDir(GetFaceDir());
+			pPlayer->SetPos(GetPos());
 			pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);
 		}
 	}
