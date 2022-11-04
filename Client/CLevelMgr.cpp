@@ -53,3 +53,11 @@ void CLevelMgr::ChangeLevel(ELEVEL_TYPE _eNext)
 	m_pCurLevel->Enter();
 }
 
+CLevel* CLevelMgr::GetLevel(ELEVEL_TYPE _eType)
+{
+	if (0 <= (UINT)_eType && ELEVEL_TYPE::END > _eType)
+		return m_arrLevel[(UINT)_eType];
+	else
+		assert(false);
+}
+

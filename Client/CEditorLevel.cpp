@@ -43,14 +43,6 @@ void CEditorLevel::Init()
 	// 카메라 시점
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
-
-	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
-	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
-	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
-	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
-
-	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
-	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
 }
 
 void CEditorLevel::CreateUI(Vec2 _vResolution)
@@ -84,16 +76,19 @@ void CEditorLevel::Tick()
 {
 	CLevel::Tick();
 
-	if (IS_TAP(EKEY::TAB))
+	if (CEngine::GetInst()->GetMainWnd() == GetForegroundWindow())
 	{
-		ChangeLevel(ELEVEL_TYPE::ANIMATION);
-	}
-	if (IS_TAP(EKEY::key1))
-	{
-		ChangeLevel(ELEVEL_TYPE::START);
-	}
+		if (IS_TAP(EKEY::TAB))
+		{
+			ChangeLevel(ELEVEL_TYPE::ANIMATION);
+		}
+		if (IS_TAP(EKEY::key1))
+		{
+			ChangeLevel(ELEVEL_TYPE::START);
+		}
 
-	Update();
+		Update();
+	}
 }
 
 void CEditorLevel::Render(HDC _DC)
@@ -137,17 +132,14 @@ void CEditorLevel::Exit()
 
 void CEditorLevel::Update()
 {
-	if (CEngine::GetInst()->GetMainWnd() == GetForegroundWindow())
+	switch (m_eMode)
 	{
-		switch (m_eMode)
-		{
-		case EEDITOR_MODE::FLOOR:
-			Map_Update();
-			break;
-		case EEDITOR_MODE::OBJECT:
-			Object_Update();
-			break;
-		}
+	case EEDITOR_MODE::FLOOR:
+		Map_Update();
+		break;
+	case EEDITOR_MODE::OBJECT:
+		Object_Update();
+		break;
 	}
 }
 
@@ -202,6 +194,8 @@ void CEditorLevel::SaveLevel()
 
 void CEditorLevel::LoadLevel()
 {
+	DeleteAllObject();
+
 	// open a file name
 	OPENFILENAME ofn = {};
 

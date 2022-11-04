@@ -25,6 +25,8 @@ public:
 		return m_pCurLevel;
 	}
 
+	CLevel* GetLevel(ELEVEL_TYPE _eType);
+
 	friend class CEventMgr;
 };
 

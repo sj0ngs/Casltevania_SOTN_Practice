@@ -2,6 +2,7 @@
 #include "CObjMgr.h"
 
 #include "CAI.h"
+#include "CResMgr.h"
 
 #include "CObj.h"
 #include "CPlayer.h"
@@ -33,12 +34,31 @@ CObj* CObjMgr::FindObj(wstring _strName)
 // 레벨이 바뀔 때, 현재 레벨의 플레이어 정보를 원본에 업데이트 해준다
 void CObjMgr::UpDatePlayer(CPlayer* _pPlayer)
 {
+	CPlayer* pOrigin = dynamic_cast<CPlayer*>(FindObj(L"Player"));
 
+	pOrigin->Copy(_pPlayer);
 }
 
 // 사용할 오브젝트 미리 모두 생성
 void CObjMgr::Init()
 {
+	// 텍스쳐 모두 로딩
+
+	// 플레이어 텍스쳐
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
+
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Map\\Room_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\BackGround.bmp");
+
+	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
+
 	// ==============
 	// Monster Origin
 	// ==============
@@ -65,6 +85,7 @@ void CObjMgr::Init()
 	// =============
 	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetName(L"Player");
+	pPlayer->SetFaceDir(false);
 	pPlayer->GetAI()->ChangeState(L"Idle");
 	pPlayer->SetWeapon(pWeapon);
 	m_mapObj.insert(make_pair(pPlayer->GetName(), pPlayer));

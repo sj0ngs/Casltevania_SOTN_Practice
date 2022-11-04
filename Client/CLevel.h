@@ -3,6 +3,7 @@
 
 class CObj;
 class CLine;
+class CPlayer;
 
 class CLevel :
     public CEntity
@@ -63,6 +64,8 @@ public:
 public:
     void AddObj(CObj* _pObj, ELAYER _Layer);
     const vector<CObj*>& GetLayer(ELAYER _Layer) { return m_arrLayer[(UINT)_Layer]; }
+    CPlayer* GetPlayer();
+
     void DeleteAllObject();
     void DeleteObject(ELAYER _Layer);
 

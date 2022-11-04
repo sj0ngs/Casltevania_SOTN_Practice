@@ -6,6 +6,7 @@
 #include "CCamera.h"
 #include "CPathMgr.h"
 #include "CObjMgr.h"
+#include "CPlayer.h"
 
 #include "CLine.h"
 #include "CTile.h"
@@ -139,6 +140,15 @@ void CLevel::AddObj(CObj* _pObj, ELAYER _Layer)
 {
 	m_arrLayer[(UINT)_Layer].push_back(_pObj); 
 	_pObj->SetLayer(_Layer);
+}
+
+CPlayer* CLevel::GetPlayer()
+{
+	assert(!m_arrLayer[(UINT)ELAYER::PLAYER].empty());
+
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(m_arrLayer[(UINT)ELAYER::PLAYER][0]);
+
+	return pPlayer;
 }
 
 void CLevel::DeleteAllObject()

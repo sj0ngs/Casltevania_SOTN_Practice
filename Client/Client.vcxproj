@@ -145,6 +145,8 @@
     <ClInclude Include="CAttack.h" />
     <ClInclude Include="CAxe.h" />
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CBible.h" />
+    <ClInclude Include="CBibleTrail.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCollider.h" />
@@ -231,6 +233,8 @@
     <ClCompile Include="CAttack.cpp" />
     <ClCompile Include="CAxe.cpp" />
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CBible.cpp" />
+    <ClCompile Include="CBibleTrail.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCollider.cpp" />

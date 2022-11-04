@@ -31,7 +31,7 @@ void CStartPoint::Tick()
 
 	if (dynamic_cast<CEditorLevel*>(pCurLevel) || IsDead())
 		return;
-	
+
 	if (nullptr != pCurLevel)
 	{
 		UINT iLevelStart = pCurLevel->GetStartPointIdx();
@@ -41,7 +41,7 @@ void CStartPoint::Tick()
 			CPlayer* pPlayer = dynamic_cast<CPlayer*>(CObjMgr::GetInst()->FindObj(L"Player"));
 			assert(pPlayer);
 			pPlayer = pPlayer->Clone();
-			pPlayer->SetFaceDir(GetFaceDir());
+			//pPlayer->SetFaceDir(GetFaceDir());
 			pPlayer->SetPos(GetPos());
 			pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);
 		}

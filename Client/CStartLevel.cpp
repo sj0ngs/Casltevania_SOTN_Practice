@@ -18,6 +18,7 @@
 
 CStartLevel::CStartLevel()
 {
+	SetStartPointIdx(0);
 }
 
 CStartLevel::~CStartLevel()
@@ -27,8 +28,6 @@ CStartLevel::~CStartLevel()
 void CStartLevel::Init()
 {
 	LoadLevel(L"level\\Debug_Level.level");
-
-	SetStartPointIdx(2);
 
 	// Level의 충돌 설정
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER);

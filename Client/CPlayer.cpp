@@ -15,9 +15,11 @@
 #include "CTexture.h"
 #include "CWeapon.h"
 #include "CMonster.h"
+#include "CEffect.h"
 
 #include "CDagger.h"
 #include "CAxe.h"
+#include "CBible.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -53,7 +55,7 @@ CPlayer::CPlayer() :
 	m_eState(EPLAYER_STATE::STAND),
 	m_fAttackAcc(ATTACK_COOL),
 	m_pWeapon(nullptr),
-	m_eSubWeapon(ESUB_WEAPON_TYPE::DAGGER),
+	m_eSubWeapon(ESUB_WEAPON_TYPE::AXE),
 	m_bIsHit(false)
 {
 	// 플레이어 초기 정보 세팅
@@ -80,7 +82,7 @@ CPlayer::CPlayer() :
 	// ================
 	// Collider Setting
 	// ================
-	GetCollider()->SetScale(Vec2(64.f, 180.f));
+	GetCollider()->SetScale(Vec2(50.f, 180.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -90.f));
 
 	// ================
@@ -206,7 +208,7 @@ CPlayer::CPlayer(const CPlayer& _pOrigin)	:
 	m_eSubWeapon(_pOrigin.m_eSubWeapon),
 	m_bIsHit(_pOrigin.m_bIsHit)
 {
-	m_pWeapon->SetOwner(this);
+	SetWeapon(_pOrigin.m_pWeapon);
 }
 
 CPlayer::~CPlayer()
@@ -237,6 +239,11 @@ void CPlayer::Tick()
 		else
 			SetWeapon(nullptr);
 	}
+
+	//if (IS_TAP(EKEY::key1))
+	//{
+	//	Skill();
+	//}
 
 	if (nullptr != m_pWeapon)
 		m_pWeapon->Tick();
@@ -342,6 +349,20 @@ bool CPlayer::Attack()
 		return false;
 }
 
+void CPlayer::Skill()
+{
+	CEffect* pEffect = new CEffect;
+
+	pEffect->GetAnimator()->LoadAnimation(L"animation\\Weapon\\BIBLE_CRASH.anim");
+	pEffect->GetAnimator()->Play(L"Bible_Crash", false);
+
+	Vec2 vPos = GetPos();
+
+	vPos.x -= 500.f;
+	//vPos.y -= 200.f;
+	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+}
+
 void CPlayer::UseSubWeapon()
 {
 	switch (m_eSubWeapon)
@@ -355,6 +376,9 @@ void CPlayer::UseSubWeapon()
 	case ESUB_WEAPON_TYPE::WATCH:
 		break;
 	case ESUB_WEAPON_TYPE::HOLY_WATER:
+		break;
+	case ESUB_WEAPON_TYPE::BIBLE:
+		UseBible();
 		break;
 	}
 }
@@ -398,19 +422,35 @@ void CPlayer::UseAxe()
 	pAxe->SetFaceDir(GetFaceDir());
 	if (GetFaceDir())
 	{
-		vPos.x += 50.f;
+		vPos.x += 0.f;
 		vPos.y -= 150.f;
-		pAxe->GetRigidBody()->AddVelocity(Vec2(450.f, -700.f));
+		pAxe->GetRigidBody()->AddVelocity(Vec2(400.f, -1000.f));
 		pAxe->GetAnimator()->Play(L"Axe_Right", true);
 	}
 	else
 	{
-		vPos.x -= 50.f;
+		vPos.x -= 0.f;
 		vPos.y -= 150.f;
-		pAxe->GetRigidBody()->AddVelocity(Vec2(-300.f, -700.f));
+		pAxe->GetRigidBody()->AddVelocity(Vec2(-400.f, -1000.f));
 		pAxe->GetAnimator()->Play(L"Axe_Left", true);
 	}
 	Instantiate(pAxe, vPos, ELAYER::PLAYER_PROJECTILE);
+}
+
+void CPlayer::UseBible()
+{
+	if (USE_BIBLE > GetPlayerInfo().m_iHeart)
+		return;
+
+	Vec2 vPos = GetPos();
+
+	m_tInfo.m_iHeart -= USE_BIBLE;
+	CBible* pBible = new CBible;
+	int iDmg = (int)((float)m_tInfo.m_iStr * 1.5);
+	pBible->SetDamage(iDmg);
+	
+	pBible->SetCenter(this);
+	Instantiate(pBible, vPos, ELAYER::PLAYER_PROJECTILE);
 }
 
 // 데미지 주는 함수
@@ -463,6 +503,15 @@ void CPlayer::LoadAnim(const wstring& _strFile)
 	strDir = L"_RIGHT.anim";
 	wstring strRight = strPath + strDir;
 	GetAnimator()->LoadAnimation(strRight);
+}
+
+void CPlayer::Copy(CPlayer* _Other)
+{
+	SetFaceDir(_Other->GetFaceDir());
+	m_tInfo = _Other->m_tInfo;
+	m_bPrevFaceDir = _Other->m_bPrevFaceDir;
+	m_pWeapon = _Other->m_pWeapon;
+	m_eSubWeapon = _Other->m_eSubWeapon;
 }
 
 

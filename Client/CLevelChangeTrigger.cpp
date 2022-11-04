@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "CLevelChangeTrigger.h"
 
+#include "CLevelMgr.h"
+#include "CObjMgr.h"
+
+#include "CLevel.h"
+
 #include "CCollider.h"
 
 CLevelChangeTrigger::CLevelChangeTrigger()	:
@@ -52,6 +57,14 @@ void CLevelChangeTrigger::Render(HDC _DC)
 
 void CLevelChangeTrigger::BeginOverlap(CCollider* _pOther)
 {
+	ChangeLevel(m_eLevelChangeType);
+
+	CLevel* pLevel = CLevelMgr::GetInst()->GetLevel(m_eLevelChangeType);
+	pLevel->SetStartPointIdx(m_iStartPointIdx);
+	
+	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
+	CPlayer* pPlayer = pCurLevel->GetPlayer();
+	CObjMgr::GetInst()->UpDatePlayer(pPlayer);
 }
 
 void CLevelChangeTrigger::OnOverlap(CCollider* _pOther)

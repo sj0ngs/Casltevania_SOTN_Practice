@@ -247,9 +247,6 @@
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Attack">
       <UniqueIdentifier>{328bdf5c-83b6-4f5a-88ba-a8a0bbf3ebf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\CCover">
-      <UniqueIdentifier>{b86b411f-c673-46e7-a186-c1be4ae4d653}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\07. State\PlayerState\Death">
       <UniqueIdentifier>{8b457fe4-f969-4ba9-abbf-2bcf120f266d}</UniqueIdentifier>
     </Filter>
@@ -258,6 +255,15 @@
     </Filter>
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Axe">
       <UniqueIdentifier>{354bbeac-677c-4be0-bc76-5db6e70609b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Cover">
+      <UniqueIdentifier>{b86b411f-c673-46e7-a186-c1be4ae4d653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Bible">
+      <UniqueIdentifier>{b3f0d2a4-4956-4f6e-b677-d085d1b583a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail">
+      <UniqueIdentifier>{879da478-eace-4364-9c77-7e53c9d44bc4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -487,7 +493,7 @@
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Attack</Filter>
     </ClInclude>
     <ClInclude Include="CCover.h">
-      <Filter>Game\04. Object\Projectile\PlayerProjectile\CCover</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Cover</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerDuckCoverState.h">
       <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
@@ -512,6 +518,12 @@
     </ClInclude>
     <ClInclude Include="CAxe.h">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe</Filter>
+    </ClInclude>
+    <ClInclude Include="CBible.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible</Filter>
+    </ClInclude>
+    <ClInclude Include="CBibleTrail.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -738,7 +750,7 @@
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Attack</Filter>
     </ClCompile>
     <ClCompile Include="CCover.cpp">
-      <Filter>Game\04. Object\Projectile\PlayerProjectile\CCover</Filter>
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Cover</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerDuckCoverState.cpp">
       <Filter>Game\07. State\PlayerState\Cover\DuckCover</Filter>
@@ -763,6 +775,12 @@
     </ClCompile>
     <ClCompile Include="CAxe.cpp">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe</Filter>
+    </ClCompile>
+    <ClCompile Include="CBible.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible</Filter>
+    </ClCompile>
+    <ClCompile Include="CBibleTrail.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

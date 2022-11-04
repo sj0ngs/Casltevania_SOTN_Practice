@@ -7,6 +7,7 @@ enum class ESUB_WEAPON_TYPE
     AXE,
     WATCH,
     HOLY_WATER,
+    BIBLE,
 
     NONE
 };
@@ -17,6 +18,7 @@ const float AXE_COOL = 1.f;
 
 const int   USE_DAGGER = 1;
 const int   USE_AXE = 5;
+const int   USE_BIBLE = 5;
 
 class CTexture;
 class CWeapon;
@@ -72,6 +74,7 @@ public:
     CPlayer();
     CPlayer(const CPlayer& _pOrigin);
     ~CPlayer();
+    void Copy(CPlayer* _Other);
 
 public:
     virtual void Tick() override;
@@ -86,10 +89,13 @@ public:
     void GetUp();
 
     bool Attack();
-    void UseSubWeapon();
+    
+    void Skill();
 
+    void UseSubWeapon();
     void UseDagger();
     void UseAxe();
+    void UseBible();
 
     void TakeDamage(int _iDmg, bool _bDir);
     int GetDamage();
