@@ -265,6 +265,24 @@
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail">
       <UniqueIdentifier>{879da478-eace-4364-9c77-7e53c9d44bc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Monster\Skeleton">
+      <UniqueIdentifier>{17b77fcd-8f46-441f-a4e7-b61dc3e73e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\BloodSkeleton">
+      <UniqueIdentifier>{b8aa47da-eb46-4bd9-adc5-8d9a9974baa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\DeadState">
+      <UniqueIdentifier>{5c889f25-236c-4d2f-8acd-22fd834bc8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\PatrolState">
+      <UniqueIdentifier>{9097d625-6085-42e6-a15f-96d3ff192c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\AttackState">
+      <UniqueIdentifier>{4905bc8d-3f9b-4471-9fe7-fcbd9157f762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\MonsterProjectile\Bone">
+      <UniqueIdentifier>{e526710c-fffb-4bc7-8dc0-af5cd35143ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -525,6 +543,30 @@
     <ClInclude Include="CBibleTrail.h">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail</Filter>
     </ClInclude>
+    <ClInclude Include="CSkeleton.h">
+      <Filter>Game\04. Object\Monster\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="CBloodSkeleton.h">
+      <Filter>Game\04. Object\Monster\BloodSkeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterState.h">
+      <Filter>Game\07. State\MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeadState.h">
+      <Filter>Game\07. State\MonsterState\DeadState</Filter>
+    </ClInclude>
+    <ClInclude Include="CPatrolState.h">
+      <Filter>Game\07. State\MonsterState\PatrolState</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackState.h">
+      <Filter>Game\07. State\MonsterState\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterProjectile.h">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="CBone.h">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\Bone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -781,6 +823,30 @@
     </ClCompile>
     <ClCompile Include="CBibleTrail.cpp">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\Bible\BibleTrail</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkeleton.cpp">
+      <Filter>Game\04. Object\Monster\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="CBloodSkeleton.cpp">
+      <Filter>Game\04. Object\Monster\BloodSkeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterState.cpp">
+      <Filter>Game\07. State\MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeadState.cpp">
+      <Filter>Game\07. State\MonsterState\DeadState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPatrolState.cpp">
+      <Filter>Game\07. State\MonsterState\PatrolState</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackState.cpp">
+      <Filter>Game\07. State\MonsterState\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterProjectile.cpp">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="CBone.cpp">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\Bone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

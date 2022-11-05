@@ -1,7 +1,8 @@
 #pragma once
-#include "CState.h"
+#include "CMonsterState.h"
+
 class CIdleState :
-    public CState
+    public CMonsterState
 {
 public:
     CLONE(CIdleState);

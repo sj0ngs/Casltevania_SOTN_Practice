@@ -339,6 +339,7 @@ wchar_t g_arrSpawnPointOption[(UINT)ESPAWNABLE_OBJECT::NONE][20] =
 	L"Bone Scimitar",
 	L"Axe Armor",
 	L"Skeleton",
+	L"Blood Skeleton",
 	L"Spittle Bone",
 	L"Gaibon",
 	L"Slogra"

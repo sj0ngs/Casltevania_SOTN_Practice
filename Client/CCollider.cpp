@@ -5,7 +5,7 @@
 
 #include "CObj.h"
 
-CCollider::CCollider(CObj* _pOwner)	:
+CCollider::CCollider(CObj* _pOwner) :
 	CComponent(_pOwner),
 	m_vOffsetPos{},
 	m_vFinalPos{},

@@ -37,6 +37,7 @@ public:
 
 public:
     void Play(const wstring& _strName, bool _bRepeat);
+    void Play();
     void Shift(const wstring& _strName, bool _bRepeat);
     void Shift(const wstring& _strName, bool _bRepeat, int iFrame);
     void ClearAnimation();

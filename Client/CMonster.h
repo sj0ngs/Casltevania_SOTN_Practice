@@ -6,17 +6,21 @@ class CMonster :
     public CObj
 {
 private:
-    CObj* m_pTarget;
-    CTexture* m_pTexture;
-
     tMonsterInfo m_tInfo;
+    bool m_bOnAttack;
+
+protected:
+    float m_faccAttackTime;
 
 public:
-    void SetTarget(CObj* _pTarget) { m_pTarget = _pTarget; }
     tMonsterInfo& GetMonsterInfo() { return m_tInfo; }
+    void SetMonsterInfo(tMonsterInfo& _tInfo) { m_tInfo = _tInfo; }
+
+    bool IsAttack() const { return m_bOnAttack; }
+    void SetOnAttack(bool _bOnAttack) { m_bOnAttack = _bOnAttack; }
 
 public:
-    CLONE(CMonster);
+    CLONE_DEACTIVATE(CMonster);
 
 public:
     CMonster();
@@ -31,5 +35,11 @@ public:
 
 public:
     void TakeDamage(int _iDmg);
+    virtual void Idle() {};
+    virtual void Walk() = 0;
+    virtual void Turn();
+    virtual void Attack() {};
+
+    virtual void Dead() = 0;
 };
 

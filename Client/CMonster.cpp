@@ -10,30 +10,20 @@
 #include "CPlayer.h"
 
 #include "CTexture.h"
-#include "CState.h"
-#include "CIdleState.h"
-#include "CTraceState.h"
+#include "CDeadState.h"
 
 CMonster::CMonster()	:
-	m_pTarget(nullptr),
-	m_pTexture(nullptr),
-	m_tInfo{}
+	m_tInfo{},
+	m_bOnAttack(false)
 {
 	CreateCollider();
+	CreateAnimator();
+	CreateRigidBody();
 	CreateAI();
+	
+	GetRigidBody()->SetGravity(true);
 
-	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
-	GetCollider()->SetScale(Vec2(100.f, 100.f));
-
-	GetAI()->AddState(L"Idle", new CIdleState);
-	GetAI()->AddState(L"Trace", new CTraceState);
-	GetAI()->ChangeState(L"Idle");
-
-	m_tInfo.m_iMaxHP = 100;
-	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
-	m_tInfo.m_iAtk = 5;
-	m_tInfo.m_fSpeed = 100.f;
-	m_tInfo.m_fDetectRange = 200.f;
+	GetAI()->AddState(L"Dead", new CDeadState);
 }
 
 CMonster::~CMonster()
@@ -126,13 +116,20 @@ void CMonster::TakeDamage(int _iDmg)
 
 	m_tInfo.m_iHP -= iDamage;
 
-	if (0 > m_tInfo.m_iHP)
+	if (0 >= m_tInfo.m_iHP)
 	{
 		m_tInfo.m_iHP = 0;
-		SetDead();
 	}
 	else if ((int)m_tInfo.m_iMaxHP < m_tInfo.m_iHP)
 	{
 		m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
 	}
+}
+
+void CMonster::Turn()
+{
+	bool bFaceDir = GetFaceDir();
+
+	bFaceDir = bFaceDir ? false : true;
+	SetFaceDir(bFaceDir);
 }

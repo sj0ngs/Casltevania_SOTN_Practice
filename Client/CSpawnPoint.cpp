@@ -11,6 +11,7 @@
 
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CBloodSkeleton.h"
 
 #include "CTexture.h"
 
@@ -35,16 +36,22 @@ void CSpawnPoint::Tick()
 	switch (m_eOption)
 	{
 	case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
-	{
-		CMonster* pMonster = new CMonster;
-		pMonster->SetPos(GetPos());
-		pMonster->SetFaceDir(GetFaceDir());
-		Instantiate(pMonster, GetPos(), ELAYER::MONSTER);
-	}
 		break;
 	case ESPAWNABLE_OBJECT::AXE_ARMOR:
 		break;
 	case ESPAWNABLE_OBJECT::SKELETON:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Skeleton")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
+		break;
+	case ESPAWNABLE_OBJECT::BLOOD_SKELETON:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Blood_Skeleton")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
 		break;
 	case ESPAWNABLE_OBJECT::SPITTLE_BONE:
 		break;
@@ -89,6 +96,9 @@ void CSpawnPoint::Render(HDC _DC)
 		break;
 	case ESPAWNABLE_OBJECT::SKELETON:
 		strName = L"Skeleton";
+		break;
+	case ESPAWNABLE_OBJECT::BLOOD_SKELETON:
+		strName = L"Blood Skeleton";
 		break;
 	case ESPAWNABLE_OBJECT::SPITTLE_BONE:
 		strName = L"Spittle Boner";

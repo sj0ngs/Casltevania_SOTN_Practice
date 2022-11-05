@@ -8,6 +8,9 @@
 #include "CPlayer.h"
 #include "CWeapon.h"
 
+#include "CSkeleton.h"
+#include "CBloodSkeleton.h"
+
 CObjMgr::CObjMgr()
 {
 }
@@ -45,25 +48,71 @@ void CObjMgr::Init()
 	// 텍스쳐 모두 로딩
 
 	// 플레이어 텍스쳐
-	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
-	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
+	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
 
-	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
 
 
-	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Map\\Room_1.bmp");
-	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\BackGround.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Room_1", L"texture\\Map\\Room_1.bmp");
+	CResMgr::GetInst()->LoadTexture(L"BackGround", L"texture\\Map\\BackGround.bmp");
+
+	// Skeleton
+	CResMgr::GetInst()->LoadTexture(L"Skeleton_Left", L"texture\\Monster\\SKeleton\\Skeleton_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Skeleton_Right", L"texture\\Monster\\SKeleton\\Skeleton_Right.bmp");
+																				
+	CResMgr::GetInst()->LoadTexture(L"Skeleton_Death_Left", L"texture\\Monster\\SKeleton\\Skeleton_Death_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Skeleton_Death_Right", L"texture\\Monster\\SKeleton\\Skeleton_Death_Right.bmp");
+
+	// Blood Skeleton
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Left", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Right", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Collapse_Left", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Collapse_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Collapse_Right", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Collapse_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Left", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Right", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Right.bmp");
+
 
 	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
 
 	// ==============
 	// Monster Origin
 	// ==============
+	tMonsterInfo tMonInfo = {};
 
+	// Blood Skeleton
+	CMonster* pMon = new CBloodSkeleton;
+	pMon->SetName(L"Blood_Skeleton");
+	tMonInfo.m_iMaxHP = 20;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 5;
+	tMonInfo.m_iDef = 0;
+	tMonInfo.m_fPatrolSpeed = 50.f;
+	tMonInfo.m_fTraceSpeed = 0.f;
+	tMonInfo.m_fDetectRange = 0.f;
+	tMonInfo.m_fAttackRange = 200.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
 
+	// Skeleton
+	pMon = new CSkeleton;
+	pMon->SetName(L"Skeleton");
+	tMonInfo.m_iMaxHP = 30;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 10;
+	tMonInfo.m_iDef = 2;
+	tMonInfo.m_fPatrolSpeed = 50.f;
+	tMonInfo.m_fTraceSpeed = 100.f;
+	tMonInfo.m_fDetectRange = 500.f;
+	tMonInfo.m_fAttackRange = 300.f;
+	tMonInfo.m_fAttackTime = 1.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
 
 	// ===========
 	// Item Origin

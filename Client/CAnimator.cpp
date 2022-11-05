@@ -127,6 +127,13 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 	m_bRepeat = _bRepeat;
 }
 
+void CAnimator::Play()
+{
+	assert(1 == m_mapAnim.size());
+
+	Play(m_mapAnim.begin()->first, false);
+}
+
 void CAnimator::Shift(const wstring& _strName, bool _bRepeat)
 {
 	// 받아온 정보의 애니메이션이 존재하는지 확인

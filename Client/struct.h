@@ -292,9 +292,11 @@ struct tMonsterInfo
 	UINT m_iAtk;
 	UINT m_iDef;
 
-	float m_fSpeed;
+	float m_fPatrolSpeed;
+	float m_fTraceSpeed;
 	float m_fDetectRange;
 	float m_fAttackRange;
+	float m_fAttackTime;
 };
 
 struct tSpawnPointInfo

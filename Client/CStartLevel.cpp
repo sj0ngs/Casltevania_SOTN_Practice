@@ -34,8 +34,10 @@ void CStartLevel::Init()
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER_PROJECTILE);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::PLATFORM);
+	CCollisionMgr::GetInst()->LayerCheck(ELAYER::MONSTER, ELAYER::PLATFORM);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::TRIGGER);
 	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::PLAYER);
+	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::MONSTER);
 	
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);

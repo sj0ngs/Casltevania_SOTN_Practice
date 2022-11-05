@@ -281,10 +281,6 @@ void CPlayer::Render(HDC _DC)
 
 void CPlayer::BeginOverlap(CCollider* _pOther)
 {
-}
-
-void CPlayer::OnOverlap(CCollider* _pOther)
-{
 	CObj* pObj = _pOther->GetOwner();
 
 	if (ELAYER::MONSTER_PROJECTILE == pObj->GetLayer() ||
@@ -308,6 +304,11 @@ void CPlayer::OnOverlap(CCollider* _pOther)
 	}
 }
 
+void CPlayer::OnOverlap(CCollider* _pOther)
+{
+
+}
+
 void CPlayer::EndOverlap(CCollider* _pOther)
 {
 }
@@ -322,7 +323,6 @@ void CPlayer::SetWeapon(CWeapon* _pWeapon)
 	if (nullptr != m_pWeapon)
 		m_pWeapon->SetOwner(this);
 }
-
 
 void CPlayer::Duck()
 {
