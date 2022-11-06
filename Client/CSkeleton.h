@@ -4,6 +4,9 @@
 class CSkeleton :
     public CMonster
 {
+private:
+    bool m_bThrowEnd;
+
 public:
     CLONE(CSkeleton);
 
@@ -22,5 +25,8 @@ public:
     virtual void Attack() override;
 
     virtual void Dead() override;
+
+private:
+    void Throw();
 };
 

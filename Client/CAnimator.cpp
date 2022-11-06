@@ -127,11 +127,11 @@ void CAnimator::Play(const wstring& _strName, bool _bRepeat)
 	m_bRepeat = _bRepeat;
 }
 
-void CAnimator::Play()
+void CAnimator::Play(bool _bRepeat)
 {
 	assert(1 == m_mapAnim.size());
 
-	Play(m_mapAnim.begin()->first, false);
+	Play(m_mapAnim.begin()->first, _bRepeat);
 }
 
 void CAnimator::Shift(const wstring& _strName, bool _bRepeat)

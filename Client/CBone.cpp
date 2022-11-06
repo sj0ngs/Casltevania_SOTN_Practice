@@ -10,7 +10,7 @@ CBone::CBone()
 	CreateRigidBody();
 	CreateAnimator();
 
-	GetCollider()->SetScale(Vec2(64.f, 64.f));
+	GetCollider()->SetScale(Vec2(32.f, 32.f));
 	GetRigidBody()->SetGravity(true);
 	GetRigidBody()->SetGravityAccel(2000.f);
 	GetRigidBody()->SetMass(1.f);

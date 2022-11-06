@@ -36,8 +36,9 @@ void CTraceState::Final_Tick()
 	}
 
 	float fAttackRange = pMon->GetMonsterInfo().m_fAttackRange;
+	float fDodgeRange = pMon->GetMonsterInfo().m_fDodgeRange;
 
-	if (fAttackRange > vDir.Length())
+	if (fAttackRange > vDir.Length() && fDodgeRange < vDir.Length())
 	{
 		ChangeState(L"Attack");
 		return;
@@ -57,10 +58,15 @@ void CTraceState::Final_Tick()
 	Vec2 vMonsterPos = pMon->GetPos();
 	Vec2 vPlayerPos = pPlayer->GetPos();
 	vDir = vPlayerPos - vMonsterPos;
+	float fDist = vDir.Length();
 	vDir.Normalize();
 	 
 	float fSpeed = pMon->GetMonsterInfo().m_fTraceSpeed;
-	vMonsterPos.x += vDir.x * fSpeed * DELTATIME;
+
+	if(fDodgeRange > fDist)
+		vMonsterPos.x -= vDir.x * fSpeed * DELTATIME;
+	else
+		vMonsterPos.x += vDir.x * fSpeed * DELTATIME;
 
 	pMon->SetPos(vMonsterPos);
 

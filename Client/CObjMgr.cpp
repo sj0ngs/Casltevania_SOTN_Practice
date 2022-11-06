@@ -108,8 +108,9 @@ void CObjMgr::Init()
 	tMonInfo.m_iDef = 2;
 	tMonInfo.m_fPatrolSpeed = 50.f;
 	tMonInfo.m_fTraceSpeed = 100.f;
-	tMonInfo.m_fDetectRange = 500.f;
-	tMonInfo.m_fAttackRange = 300.f;
+	tMonInfo.m_fDetectRange = 600.f;
+	tMonInfo.m_fAttackRange = 400.f;
+	tMonInfo.m_fDodgeRange = 300.f;
 	tMonInfo.m_fAttackTime = 1.f;
 	pMon->SetMonsterInfo(tMonInfo);
 	m_mapObj.insert(make_pair(pMon->GetName(), pMon));

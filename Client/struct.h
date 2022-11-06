@@ -294,8 +294,9 @@ struct tMonsterInfo
 
 	float m_fPatrolSpeed;
 	float m_fTraceSpeed;
-	float m_fDetectRange;
-	float m_fAttackRange;
+	float m_fDetectRange;	// 탐색 범위
+	float m_fAttackRange;	// 공격 범위
+	float m_fDodgeRange;	// 뒤로 빠지는 범위
 	float m_fAttackTime;
 };
 
