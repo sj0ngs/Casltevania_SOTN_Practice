@@ -5,11 +5,11 @@ enum class ESUB_WEAPON_TYPE
 {
     DAGGER,
     AXE,
-    WATCH,
-    HOLY_WATER,
     BIBLE,
+    NONE,
 
-    NONE
+    WATCH,
+    HOLY_WATER
 };
 
 const float ATTACK_COOL = 0.7f;

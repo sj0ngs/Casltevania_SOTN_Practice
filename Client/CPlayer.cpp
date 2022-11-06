@@ -240,10 +240,20 @@ void CPlayer::Tick()
 			SetWeapon(nullptr);
 	}
 
+	if (IS_TAP(EKEY::F))
+	{
+		int iSubWeapon = (int)m_eSubWeapon;
+
+		if (++iSubWeapon == (UINT)ESUB_WEAPON_TYPE::NONE)
+			iSubWeapon = 0;
+
+		ChangeSubWeapon((ESUB_WEAPON_TYPE)iSubWeapon);
+	}
+
 	//if (IS_TAP(EKEY::key1))
 	//{
 	//	Skill();
-	//}
+	//};
 
 	if (nullptr != m_pWeapon)
 		m_pWeapon->Tick();

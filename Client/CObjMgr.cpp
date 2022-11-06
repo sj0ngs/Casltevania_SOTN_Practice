@@ -77,6 +77,26 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Left", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Right", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Right.bmp");
 
+	// Axe Armor
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Walk_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Walk_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Walk_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Walk_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Throw_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Throw_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Throw_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Throw_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Attack_Left", L"texture\\Mo	nster\\Axe_Armor\\Axe_Armor_Attack_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Attack_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Attack_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Death", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Death.bmp");
 
 	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
 
