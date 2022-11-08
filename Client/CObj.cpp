@@ -12,6 +12,9 @@
 // 오브젝트 dead 처리 함수
 void CObj::SetDead()
 {
+	if (this->IsDead())
+		return;
+
 	tEvent evn = {};
 	evn.eType = EEVENT_TYPE::DELETE_OBJECT;
 	evn.wParam = (DWORD_PTR)this;

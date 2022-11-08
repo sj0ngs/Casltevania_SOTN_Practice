@@ -17,6 +17,7 @@
 #include <string>
 #include <cmath>
 #include <assert.h>
+#include <ctime>
 
 using std::vector;
 using std::list;

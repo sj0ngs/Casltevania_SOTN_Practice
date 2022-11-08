@@ -55,7 +55,10 @@ void CBible::Tick()
 	}
 
 	if (5.f <= m_fAccTime)
+	{
 		SetDead();
+		return;
+	}
 
 	CObj::Tick();
 }

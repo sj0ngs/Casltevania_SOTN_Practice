@@ -16,18 +16,13 @@ CPlayerProjectile::~CPlayerProjectile()
 
 void CPlayerProjectile::BeginOverlap(CCollider* _pOther)
 {
-	CObj* pObj = _pOther->GetOwner();
+	//CObj* pObj = _pOther->GetOwner();
 
-	if (ELAYER::MONSTER_PROJECTILE == pObj->GetLayer())
-	{
-		pObj->SetDead();
-	}
-	else if (ELAYER::MONSTER == pObj->GetLayer())
-	{
-		CMonster* pMonster = (CMonster*)pObj;
-
-		pMonster->TakeDamage(GetDamage());
-	}
+	//if (ELAYER::MONSTER == pObj->GetLayer())
+	//{
+	//	CMonster* pMonster = (CMonster*)pObj;
+	//	pMonster->TakeDamage(GetDamage());
+	//}
 
 	if (!m_bPenetrate)
 	{

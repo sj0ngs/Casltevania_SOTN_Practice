@@ -36,8 +36,18 @@ void CSpawnPoint::Tick()
 	switch (m_eOption)
 	{
 	case ESPAWNABLE_OBJECT::BONE_SCIMITAR:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Bone_Scimitar")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
 		break;
 	case ESPAWNABLE_OBJECT::AXE_ARMOR:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Axe_Armor")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
 		break;
 	case ESPAWNABLE_OBJECT::SKELETON:
 	{
@@ -58,6 +68,11 @@ void CSpawnPoint::Tick()
 	case ESPAWNABLE_OBJECT::GAIBON:
 		break;
 	case ESPAWNABLE_OBJECT::SLOGRA:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Slogra")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
 		break;
 	}
 

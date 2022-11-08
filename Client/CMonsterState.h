@@ -11,6 +11,9 @@
 #define GET_MON() CMonster* pMon = dynamic_cast<CMonster*>(GetOwnerObj());\
                   assert(pMon);
 
+#define GET_PLAYER() CPlayer* pPlayer = dynamic_cast<CPlayer*>(CLevelMgr::GetInst()->GetCurLevel()->GetLayer(ELAYER::PLAYER)[0]);\
+                        assert(pPlayer);
+
 class CMonsterState :
     public CState
 {

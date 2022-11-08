@@ -298,6 +298,7 @@ struct tMonsterInfo
 	float m_fAttackRange;	// 공격 범위
 	float m_fDodgeRange;	// 뒤로 빠지는 범위
 	float m_fAttackTime;
+	float m_fAttackCoolTime; // 공격 쿨 타임
 };
 
 struct tSpawnPointInfo

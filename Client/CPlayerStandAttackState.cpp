@@ -14,7 +14,10 @@ CPlayerStandAttackState::~CPlayerStandAttackState()
 void CPlayerStandAttackState::Final_Tick()
 {
 	if (6 == GetAnim()->GetCurFrame())
+	{
 		GetAttack()->GetCollider()->SetScale(Vec2(0.f, 0.f));
+		GetAttack()->GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	}
 	else if (6 < GetAnim()->GetCurFrame())
 	{
 		if (IS_PRESSED(EKEY::RIGHT))
@@ -56,7 +59,7 @@ void CPlayerStandAttackState::Enter()
 
 	if (pPlayer->GetWeapon())
 	{
-		vScale = Vec2(150.f, 40.f);
+		vScale = Vec2(170.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{
@@ -72,7 +75,7 @@ void CPlayerStandAttackState::Enter()
 	}
 	else
 	{
-		vScale = Vec2(80.f, 40.f);
+		vScale = Vec2(100.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{

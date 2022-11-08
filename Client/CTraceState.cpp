@@ -8,7 +8,10 @@
 
 #include "CMonster.h"
 #include "CPlayer.h"
-CTraceState::CTraceState()
+
+CTraceState::CTraceState()	:
+	m_bCanAttack(true),
+	m_faccAttackCool(0.f)
 {
 }
 
@@ -23,6 +26,7 @@ void CTraceState::Final_Tick()
 
 	// Player 를 알아낸다
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(CLevelMgr::GetInst()->GetCurLevel()->GetLayer(ELAYER::PLAYER)[0]);
+	assert(pPlayer);
 
 	// Player 와 Monster 의 거리값을 계산
 	float fDetectRange = pMon->GetMonsterInfo().m_fDetectRange;
@@ -38,10 +42,23 @@ void CTraceState::Final_Tick()
 	float fAttackRange = pMon->GetMonsterInfo().m_fAttackRange;
 	float fDodgeRange = pMon->GetMonsterInfo().m_fDodgeRange;
 
-	if (fAttackRange > vDir.Length() && fDodgeRange < vDir.Length())
+	if (m_bCanAttack && fAttackRange > vDir.Length() && fDodgeRange < vDir.Length())
 	{
 		ChangeState(L"Attack");
+		m_bCanAttack = false;
 		return;
+	}
+
+	if (!m_bCanAttack)
+	{
+		m_faccAttackCool += DELTATIME;
+
+		float fAttackCoolTime = pMon->GetMonsterInfo().m_fAttackCoolTime;
+		if (fAttackCoolTime <= m_faccAttackCool)
+		{
+			m_faccAttackCool = 0.f;
+			m_bCanAttack = true;
+		}
 	}
 
 	if (0 <= vDir.x)
@@ -63,7 +80,7 @@ void CTraceState::Final_Tick()
 	 
 	float fSpeed = pMon->GetMonsterInfo().m_fTraceSpeed;
 
-	if(fDodgeRange > fDist)
+	if(fDodgeRange >= fDist)
 		vMonsterPos.x -= vDir.x * fSpeed * DELTATIME;
 	else
 		vMonsterPos.x += vDir.x * fSpeed * DELTATIME;

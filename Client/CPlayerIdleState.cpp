@@ -49,6 +49,20 @@ void CPlayerIdleState::Final_Tick()
 	{
 		ChangeState(L"Move_Right");
 	}
+	else if (IS_PRESSED(EKEY::UP))
+	{
+		if (pPlayer->GetFaceDir())
+			pPlayer->GetAnimator()->Play(L"Press_Up_Right", false);
+		else
+			pPlayer->GetAnimator()->Play(L"Press_Up_Left", false);
+	}
+	else if (IS_RELEASED(EKEY::UP))
+	{
+		if (pPlayer->GetFaceDir())
+			pPlayer->GetAnimator()->Play(L"Idle_First_Right", false);
+		else
+			pPlayer->GetAnimator()->Play(L"Idle_First_Left", false);
+	}
 
 	CPlayerState::Final_Tick();;
 

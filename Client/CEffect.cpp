@@ -18,6 +18,7 @@ void CEffect::Tick()
 	if (GetAnimator()->GetCurAnimation()->IsFinish())
 	{
 		SetDead();
+		return;
 	}
 
 	CObj::Tick();

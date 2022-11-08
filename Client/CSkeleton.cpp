@@ -1,7 +1,12 @@
 #include "pch.h"
 #include "CSkeleton.h"
 
+#include "CLevelMgr.h"
+
+#include "CLevel.h";
+
 #include "CEffect.h"
+#include "CPlayer.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -59,8 +64,6 @@ void CSkeleton::Tick()
 
 		if (GetMonsterInfo().m_fAttackTime <= m_faccAttackTime)
 		{
-			Vec2 vPos = GetPos();
-
 			SetOnAttack(false);
 			m_faccAttackTime = 0.f;	
 			m_bThrowEnd = false;
@@ -146,7 +149,11 @@ void CSkeleton::Dead()
 
 void CSkeleton::Throw()
 {
-	Vec2 vPos = GetPos();
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(CLevelMgr::GetInst()->GetCurLevel()->GetLayer(ELAYER::PLAYER)[0]);
+	assert(pPlayer);
+
+	Vec2 vDir = GetPos() - pPlayer->GetPos();
+	Vec2 vPos = GetPos(); 
 
 	CBone* pBone = new CBone;
 	int iDmg = GetMonsterInfo().m_iAtk;
@@ -156,14 +163,14 @@ void CSkeleton::Throw()
 	{
 		vPos.x += 0.f;
 		vPos.y -= 150.f;
-		pBone->GetRigidBody()->AddVelocity(Vec2(400.f, -1000.f));
+		pBone->GetRigidBody()->AddVelocity(Vec2(vDir.Length() * 1.f, -1000.f));
 		pBone->GetAnimator()->Play(L"Skeleton_Bone_Right", true);
 	}
 	else
 	{
 		vPos.x -= 0.f;
 		vPos.y -= 150.f;
-		pBone->GetRigidBody()->AddVelocity(Vec2(-400.f, -1000.f));
+		pBone->GetRigidBody()->AddVelocity(Vec2(vDir.Length() * -1.f, -1000.f));
 		pBone->GetAnimator()->Play(L"Skeleton_Bone_Left", true);
 	}
 

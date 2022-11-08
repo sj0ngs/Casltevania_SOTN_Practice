@@ -12,6 +12,8 @@
 #include "CTexture.h"
 #include "CDeadState.h"
 
+#include "CProjectile.h"
+
 CMonster::CMonster()	:
 	m_tInfo{},
 	m_bOnAttack(false)
@@ -32,20 +34,6 @@ CMonster::~CMonster()
 
 void CMonster::Tick()
 {
-	//if (IsValid(m_pTarget))
-	//{
-	//	Vec2 vTargetPos = m_pTarget->GetPos();
-	//	Vec2 vPos = GetPos();
-
-	//	Vec2 vDir = vTargetPos - vPos;
-	//	vDir.Normalize();
-
-	//	vPos.x += vDir.x * m_fSpeed * DELTATIME;
-	//	vPos.y += vDir.y * m_fSpeed * DELTATIME;
-
-	//	SetPos(vPos);
-	//}
-
 	CObj::Tick();
 }
 
@@ -104,7 +92,14 @@ void CMonster::Render(HDC _DC)
 
 void CMonster::BeginOverlap(CCollider* _pOther)
 {
-	
+	CObj* pObj = _pOther->GetOwner();
+
+	if (ELAYER::PLAYER_PROJECTILE == pObj->GetLayer())
+	{
+		CProjectile* pProjectile = (CProjectile*)pObj;
+
+		TakeDamage(pProjectile->GetDamage());
+	}
 }
 
 void CMonster::TakeDamage(int _iDmg)

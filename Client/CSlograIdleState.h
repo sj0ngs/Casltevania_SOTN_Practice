@@ -1,19 +1,19 @@
 #pragma once
 #include "CMonsterState.h"
 
-class CTraceState :
+class CSlograIdleState :
     public CMonsterState
 {
 private:
-    bool m_bCanAttack;
-    float m_faccAttackCool;
+    float m_fStopTime;
+    float m_faccStopTime;
 
 public:
-    CLONE(CTraceState);
+    CLONE(CSlograIdleState);
 
 public:
-    CTraceState();
-    ~CTraceState();
+    CSlograIdleState();
+    ~CSlograIdleState();
 
 public:
     virtual void Final_Tick() override;

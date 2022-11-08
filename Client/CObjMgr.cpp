@@ -7,9 +7,17 @@
 #include "CObj.h"
 #include "CPlayer.h"
 #include "CWeapon.h"
+#include "CEffect.h"
 
 #include "CSkeleton.h"
 #include "CBloodSkeleton.h"
+#include "CBoneScimitar.h"
+#include "CAxeArmor.h"
+
+#include "CSlogra.h"
+
+
+#include "CAnimator.h"
 
 CObjMgr::CObjMgr()
 {
@@ -56,10 +64,13 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
 
-
 	CResMgr::GetInst()->LoadTexture(L"Room_1", L"texture\\Map\\Room_1.bmp");
 	CResMgr::GetInst()->LoadTexture(L"BackGround", L"texture\\Map\\BackGround.bmp");
 
+	// =======
+	// Monster
+	// =======
+	
 	// Skeleton
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Left", L"texture\\Monster\\SKeleton\\Skeleton_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Right", L"texture\\Monster\\SKeleton\\Skeleton_Right.bmp");
@@ -77,13 +88,14 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Left", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Blood_Skeleton_Rise_Right", L"texture\\Monster\\Blood_Skeleton\\Blood_Skeleton_Rise_Right.bmp");
 
+	// Bone Scimitar
+	CResMgr::GetInst()->LoadTexture(L"Bone_Scimitar_Left", L"texture\\Monster\\Bone_Scimitar\\Bone_Scimitar_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Bone_Scimitar_Right", L"texture\\Monster\\Bone_Scimitar\\Bone_Scimitar_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Bone_Scimitar_Attack_Left", L"texture\\Monster\\Bone_Scimitar\\Bone_Scimitar_Attack_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Bone_Scimitar_Attack_Right", L"texture\\Monster\\Bone_Scimitar\\Bone_Scimitar_Attack_Right.bmp");
+
 	// Axe Armor
-	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
-	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
-
-	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
-	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
-
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Idle_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Idle_Right.bmp");
 
@@ -93,12 +105,32 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Throw_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Throw_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Throw_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Throw_Right.bmp");
 
-	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Attack_Left", L"texture\\Mo	nster\\Axe_Armor\\Axe_Armor_Attack_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Attack_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Attack_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Attack_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Attack_Right.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Axe_Left", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Axe_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Axe_Right", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Axe_Right.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Axe_Armor_Death", L"texture\\Monster\\Axe_Armor\\Axe_Armor_Death.bmp");
 
+	// Slogra
+	CResMgr::GetInst()->LoadTexture(L"Slogra_Left", L"texture\\Monster\\Slogra\\Slogra_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Slogra_Right", L"texture\\Monster\\Slogra\\Slogra_Right.bmp");
+
 	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
+
+	// ======
+	// Effect
+	// ======
+
+	// Hit
+	CResMgr::GetInst()->LoadTexture(L"Hit_Effect", L"texture\\Effect\\Hit_Effect.bmp");
+
+	// Burn 1
+	CResMgr::GetInst()->LoadTexture(L"Burn_Effect_1", L"texture\\Effect\\Burn_Effect_1.bmp");
+
+	// Burn 2
+	CResMgr::GetInst()->LoadTexture(L"Burn_Effect_2", L"texture\\Effect\\Burn_Effect_2.bmp");
 
 	// ==============
 	// Monster Origin
@@ -134,6 +166,62 @@ void CObjMgr::Init()
 	tMonInfo.m_fAttackTime = 1.f;
 	pMon->SetMonsterInfo(tMonInfo);
 	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
+
+	// Bone Scimitar
+	pMon = new CBoneScimitar;
+	pMon->SetName(L"Bone_Scimitar");
+	tMonInfo.m_iMaxHP = 40;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 15;
+	tMonInfo.m_iDef = 5;
+	tMonInfo.m_fPatrolSpeed = 50.f;
+	tMonInfo.m_fTraceSpeed = 120.f;
+	tMonInfo.m_fDetectRange = 600.f;
+	tMonInfo.m_fAttackRange = 200.f;
+	tMonInfo.m_fDodgeRange = 0.f;
+	tMonInfo.m_fAttackTime = 2.f;
+	tMonInfo.m_fAttackCoolTime = 2.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
+
+	// Axe Armor
+	pMon = new CAxeArmor;
+	pMon->SetName(L"Axe_Armor");
+	tMonInfo.m_iMaxHP = 50;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 20;
+	tMonInfo.m_iDef = 10;
+	tMonInfo.m_fPatrolSpeed = 50.f;
+	tMonInfo.m_fTraceSpeed = 50.f;
+	tMonInfo.m_fDetectRange = 600.f;
+	tMonInfo.m_fAttackRange = 500.f;
+	tMonInfo.m_fDodgeRange = 0.f;
+	tMonInfo.m_fAttackTime = 2.f;
+	tMonInfo.m_fAttackCoolTime = 2.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
+
+	// BOSS : Slogra
+	pMon = new CSlogra;
+	pMon->SetName(L"Slogra");
+	tMonInfo.m_iMaxHP = 100;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 25;
+	tMonInfo.m_iDef = 10;
+	tMonInfo.m_fPatrolSpeed = 100.f;
+	tMonInfo.m_fTraceSpeed = 150.f;
+	tMonInfo.m_fDetectRange = 600.f;
+	tMonInfo.m_fAttackRange = 300.f;
+	tMonInfo.m_fDodgeRange = 0.f;
+	tMonInfo.m_fAttackTime = 1.f;
+	tMonInfo.m_fAttackCoolTime = 2.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
+
+	// =============
+	// Effect Origin
+	// =============
+
 
 	// ===========
 	// Item Origin

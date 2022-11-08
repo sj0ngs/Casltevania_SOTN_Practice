@@ -148,12 +148,6 @@
     <Filter Include="Game\07. State\PlayerState">
       <UniqueIdentifier>{03690ff1-540f-4819-bf08-c875ee96e9c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\07. State\MonsterState\IdleState">
-      <UniqueIdentifier>{eef37b5d-c0f8-4309-8473-040aa40908ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. State\MonsterState\TraceState">
-      <UniqueIdentifier>{118d7a7e-061f-4517-886d-09ebd77aa5ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\07. State\PlayerState\Idle">
       <UniqueIdentifier>{2e498de7-dafc-4c91-94ef-4b415f8a85b6}</UniqueIdentifier>
     </Filter>
@@ -271,17 +265,65 @@
     <Filter Include="Game\04. Object\Monster\BloodSkeleton">
       <UniqueIdentifier>{b8aa47da-eb46-4bd9-adc5-8d9a9974baa8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\07. State\MonsterState\DeadState">
-      <UniqueIdentifier>{5c889f25-236c-4d2f-8acd-22fd834bc8d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. State\MonsterState\PatrolState">
-      <UniqueIdentifier>{9097d625-6085-42e6-a15f-96d3ff192c7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\07. State\MonsterState\AttackState">
-      <UniqueIdentifier>{4905bc8d-3f9b-4471-9fe7-fcbd9157f762}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object\Projectile\MonsterProjectile\Bone">
       <UniqueIdentifier>{e526710c-fffb-4bc7-8dc0-af5cd35143ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\BoneScimitar">
+      <UniqueIdentifier>{2d1d439b-45a3-4ab2-82a7-f80ad51cd8af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\MonsterProjectile\MonsterAttack">
+      <UniqueIdentifier>{64695cf3-5cff-4f09-b85c-384d52b41704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\AxeArmor">
+      <UniqueIdentifier>{7cad6144-3541-484d-b978-abebb99df100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\MonsterProjectile\MonsterAxe">
+      <UniqueIdentifier>{f7419a97-6ca2-4b04-8f64-0ba5d5d3b2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\Boss">
+      <UniqueIdentifier>{737cf71a-a022-4a55-a774-d5e8d224f248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\Boss\Slogra">
+      <UniqueIdentifier>{99aff10d-f357-4199-b864-8412f86d6446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal">
+      <UniqueIdentifier>{733e688c-c543-4294-b900-89e565d18475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal\AttackState">
+      <UniqueIdentifier>{4905bc8d-3f9b-4471-9fe7-fcbd9157f762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal\DeadState">
+      <UniqueIdentifier>{5c889f25-236c-4d2f-8acd-22fd834bc8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal\IdleState">
+      <UniqueIdentifier>{eef37b5d-c0f8-4309-8473-040aa40908ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal\PatrolState">
+      <UniqueIdentifier>{9097d625-6085-42e6-a15f-96d3ff192c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\MonsterState\Normal\TraceState">
+      <UniqueIdentifier>{118d7a7e-061f-4517-886d-09ebd77aa5ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss">
+      <UniqueIdentifier>{44ded26e-6dee-4db9-a954-c623814864a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra">
+      <UniqueIdentifier>{2584608b-ec52-4a83-8ed0-5b0d57c8bfcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra\Move">
+      <UniqueIdentifier>{cb535db3-186b-4b3b-8bbd-2acdfa7d35a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra\Idle">
+      <UniqueIdentifier>{f7f3d32c-717c-4d22-a675-d23b9d5cff69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra\Attack">
+      <UniqueIdentifier>{7d7c27fa-44f9-49a7-93d4-53d97464caef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra\Hit">
+      <UniqueIdentifier>{134f2c02-97cc-4f22-be29-232c63b93674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Slogra\Fire">
+      <UniqueIdentifier>{71ee18ec-a6de-42ed-9f2e-3bbc4e91484d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -415,10 +457,10 @@
       <Filter>Game\07. State</Filter>
     </ClInclude>
     <ClInclude Include="CIdleState.h">
-      <Filter>Game\07. State\MonsterState\IdleState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\IdleState</Filter>
     </ClInclude>
     <ClInclude Include="CTraceState.h">
-      <Filter>Game\07. State\MonsterState\TraceState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\TraceState</Filter>
     </ClInclude>
     <ClInclude Include="CBackGround.h">
       <Filter>Game\04. Object\Map\BackGround</Filter>
@@ -553,19 +595,49 @@
       <Filter>Game\07. State\MonsterState</Filter>
     </ClInclude>
     <ClInclude Include="CDeadState.h">
-      <Filter>Game\07. State\MonsterState\DeadState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\DeadState</Filter>
     </ClInclude>
     <ClInclude Include="CPatrolState.h">
-      <Filter>Game\07. State\MonsterState\PatrolState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\PatrolState</Filter>
     </ClInclude>
     <ClInclude Include="CAttackState.h">
-      <Filter>Game\07. State\MonsterState\AttackState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\AttackState</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterProjectile.h">
       <Filter>Game\04. Object\Projectile\MonsterProjectile</Filter>
     </ClInclude>
     <ClInclude Include="CBone.h">
       <Filter>Game\04. Object\Projectile\MonsterProjectile\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoneScimitar.h">
+      <Filter>Game\04. Object\Monster\BoneScimitar</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterAttack.h">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\MonsterAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CAxeArmor.h">
+      <Filter>Game\04. Object\Monster\AxeArmor</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterAxe.h">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\MonsterAxe</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlogra.h">
+      <Filter>Game\04. Object\Monster\Boss\Slogra</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlograMoveState.h">
+      <Filter>Game\07. State\Boss\Slogra\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlograAttackState.h">
+      <Filter>Game\07. State\Boss\Slogra\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlograIdleState.h">
+      <Filter>Game\07. State\Boss\Slogra\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlograHitState.h">
+      <Filter>Game\07. State\Boss\Slogra\Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlograFireState.h">
+      <Filter>Game\07. State\Boss\Slogra\Fire</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -684,10 +756,10 @@
       <Filter>Game\07. State</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
-      <Filter>Game\07. State\MonsterState\IdleState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\IdleState</Filter>
     </ClCompile>
     <ClCompile Include="CTraceState.cpp">
-      <Filter>Game\07. State\MonsterState\TraceState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\TraceState</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>Game\04. Object\Monster</Filter>
@@ -834,19 +906,49 @@
       <Filter>Game\07. State\MonsterState</Filter>
     </ClCompile>
     <ClCompile Include="CDeadState.cpp">
-      <Filter>Game\07. State\MonsterState\DeadState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\DeadState</Filter>
     </ClCompile>
     <ClCompile Include="CPatrolState.cpp">
-      <Filter>Game\07. State\MonsterState\PatrolState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\PatrolState</Filter>
     </ClCompile>
     <ClCompile Include="CAttackState.cpp">
-      <Filter>Game\07. State\MonsterState\AttackState</Filter>
+      <Filter>Game\07. State\MonsterState\Normal\AttackState</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterProjectile.cpp">
       <Filter>Game\04. Object\Projectile\MonsterProjectile</Filter>
     </ClCompile>
     <ClCompile Include="CBone.cpp">
       <Filter>Game\04. Object\Projectile\MonsterProjectile\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoneScimitar.cpp">
+      <Filter>Game\04. Object\Monster\BoneScimitar</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterAttack.cpp">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\MonsterAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="CAxeArmor.cpp">
+      <Filter>Game\04. Object\Monster\AxeArmor</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterAxe.cpp">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\MonsterAxe</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlogra.cpp">
+      <Filter>Game\04. Object\Monster\Boss\Slogra</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlograMoveState.cpp">
+      <Filter>Game\07. State\Boss\Slogra\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlograAttackState.cpp">
+      <Filter>Game\07. State\Boss\Slogra\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlograIdleState.cpp">
+      <Filter>Game\07. State\Boss\Slogra\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlograHitState.cpp">
+      <Filter>Game\07. State\Boss\Slogra\Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlograFireState.cpp">
+      <Filter>Game\07. State\Boss\Slogra\Fire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

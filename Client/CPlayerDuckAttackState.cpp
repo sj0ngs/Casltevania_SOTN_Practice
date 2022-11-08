@@ -14,7 +14,10 @@ CPlayerDuckAttackState::~CPlayerDuckAttackState()
 void CPlayerDuckAttackState::Final_Tick()
 {
 	if (6 == GetAnim()->GetCurFrame())
+	{
 		GetAttack()->GetCollider()->SetScale(Vec2(0.f, 0.f));
+		GetAttack()->GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	}
 
 	if (GetAnim()->IsFinish())
 	{
@@ -49,7 +52,7 @@ void CPlayerDuckAttackState::Enter()
 
 	if (pPlayer->GetWeapon())
 	{
-		vScale = Vec2(150.f, 40.f);
+		vScale = Vec2(170.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{
@@ -65,7 +68,7 @@ void CPlayerDuckAttackState::Enter()
 	}
 	else
 	{
-		vScale = Vec2(70.f, 40.f);
+		vScale = Vec2(90.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{

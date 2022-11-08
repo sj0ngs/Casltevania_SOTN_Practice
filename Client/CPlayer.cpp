@@ -82,7 +82,7 @@ CPlayer::CPlayer() :
 	// ================
 	// Collider Setting
 	// ================
-	GetCollider()->SetScale(Vec2(50.f, 180.f));
+	GetCollider()->SetScale(Vec2(40.f, 180.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -90.f));
 
 	// ================
@@ -152,7 +152,6 @@ CPlayer::CPlayer() :
 
 	// COVER
 	LoadAnim(L"STAND_COVER");
-	LoadAnim(L"DUCK_COVER");
 	LoadAnim(L"DUCK_COVER");
 
 	// HIT
@@ -337,14 +336,14 @@ void CPlayer::SetWeapon(CWeapon* _pWeapon)
 void CPlayer::Duck()
 {
 	m_bIsDuck = true;
-	GetCollider()->SetScale(Vec2(64.f, 100.f));
+	GetCollider()->SetScale(Vec2(40.f, 100.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -50.f));
 }
 
 void CPlayer::GetUp()
 {
 	m_bIsDuck = false;
-	GetCollider()->SetScale(Vec2(64.f, 180.f));
+	GetCollider()->SetScale(Vec2(40.f, 180.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -90.f));
 }
 
@@ -482,7 +481,6 @@ void CPlayer::TakeDamage(int _iDmg, bool _bDir)
 	if (0 > m_tInfo.m_iHP)
 	{
 		m_tInfo.m_iHP = 0;
-		//SetDead();
 	}
 	else if ((int)m_tInfo.m_iMaxHP < m_tInfo.m_iHP)
 	{

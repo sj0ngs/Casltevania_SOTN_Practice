@@ -53,7 +53,7 @@ void CPlayerJumpAttackState::Enter()
 
 	if (pPlayer->GetWeapon())
 	{
-		vScale = Vec2(150.f, 40.f);
+		vScale = Vec2(170.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{
@@ -69,7 +69,7 @@ void CPlayerJumpAttackState::Enter()
 	}
 	else
 	{
-		vScale = Vec2(100.f, 40.f);
+		vScale = Vec2(120.f, 40.f);
 		// 오른쪽 바라봄
 		if (pPlayer->GetFaceDir())
 		{
