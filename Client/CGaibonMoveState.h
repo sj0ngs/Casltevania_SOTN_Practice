@@ -1,19 +1,18 @@
 #pragma once
 #include "CMonsterState.h"
 
-class CSlograFireState :
+class CGaibonMoveState :
     public CMonsterState
 {
 private:
-    bool m_bFireEnd;
-    float m_faccFireTime;
+    Vec2 vDest;
+        
+public:
+    CLONE(CGaibonMoveState);
 
 public:
-    CLONE(CSlograFireState);
-
-public:
-    CSlograFireState();
-    ~CSlograFireState();
+    CGaibonMoveState();
+    ~CGaibonMoveState();
 
 public:
     virtual void Final_Tick() override;

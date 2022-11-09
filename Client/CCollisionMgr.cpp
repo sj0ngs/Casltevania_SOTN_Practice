@@ -144,6 +144,10 @@ bool CCollisionMgr::CollisionBtwCollider(CCollider* _pLeft, CCollider* _pRight)
 	Vec2 vRightPos = _pRight->GetFinalPos();
 	Vec2 vRightScale = _pRight->GetScale();
 
+	// 두 콜리전 박스의 스케일중 하나가 0이라면 겹치지 않음 처리
+	if (vLeftScale == Vec2(0.f, 0.f) || vRightPos == Vec2(0.f, 0.f))
+		return false;
+
 	if (fabsf(vLeftPos.x - vRightPos.x) > fabsf((vLeftScale.x + vRightScale.x) / 2))
 		return false;
 

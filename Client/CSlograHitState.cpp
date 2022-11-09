@@ -23,6 +23,8 @@ void CSlograHitState::Final_Tick()
 
 	if (SLOGRA_HIT_TIME <= m_faccHitTime)
 		ChangeState(L"SlograIdle");
+
+	Dead();
 }
 
 void CSlograHitState::Enter()

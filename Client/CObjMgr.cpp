@@ -15,7 +15,7 @@
 #include "CAxeArmor.h"
 
 #include "CSlogra.h"
-
+#include "CGaibon.h"
 
 #include "CAnimator.h"
 
@@ -117,6 +117,10 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Slogra_Left", L"texture\\Monster\\Slogra\\Slogra_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Slogra_Right", L"texture\\Monster\\Slogra\\Slogra_Right.bmp");
 
+	// Gaibon
+	CResMgr::GetInst()->LoadTexture(L"Gaibon_Left", L"texture\\Monster\\Gaibon\\Gaibon_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Gaibon_Right", L"texture\\Monster\\Gaibon\\Gaibon_Right.bmp");
+
 	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
 
 	// ======
@@ -204,12 +208,29 @@ void CObjMgr::Init()
 	// BOSS : Slogra
 	pMon = new CSlogra;
 	pMon->SetName(L"Slogra");
-	tMonInfo.m_iMaxHP = 100;
+	tMonInfo.m_iMaxHP = 200;
 	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
 	tMonInfo.m_iAtk = 25;
 	tMonInfo.m_iDef = 10;
 	tMonInfo.m_fPatrolSpeed = 100.f;
 	tMonInfo.m_fTraceSpeed = 150.f;
+	tMonInfo.m_fDetectRange = 600.f;
+	tMonInfo.m_fAttackRange = 300.f;
+	tMonInfo.m_fDodgeRange = 0.f;
+	tMonInfo.m_fAttackTime = 1.f;
+	tMonInfo.m_fAttackCoolTime = 2.f;
+	pMon->SetMonsterInfo(tMonInfo);
+	m_mapObj.insert(make_pair(pMon->GetName(), pMon));
+
+	// BOSS : Gaibon
+	pMon = new CGaibon;
+	pMon->SetName(L"Gaibon");
+	tMonInfo.m_iMaxHP = 200;
+	tMonInfo.m_iHP = tMonInfo.m_iMaxHP;
+	tMonInfo.m_iAtk = 25;
+	tMonInfo.m_iDef = 10;
+	tMonInfo.m_fPatrolSpeed = 100.f;
+	tMonInfo.m_fTraceSpeed = 500.f;
 	tMonInfo.m_fDetectRange = 600.f;
 	tMonInfo.m_fAttackRange = 300.f;
 	tMonInfo.m_fDodgeRange = 0.f;

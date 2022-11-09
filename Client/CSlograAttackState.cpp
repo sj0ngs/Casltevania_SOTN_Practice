@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CSlograAttackState.h"
 
-#include "CMonster.h"
+#include "CSlogra.h"
 
 CSlograAttackState::CSlograAttackState()
 {

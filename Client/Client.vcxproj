@@ -160,6 +160,9 @@
     <ClInclude Include="CCover.h" />
     <ClInclude Include="CDeadState.h" />
     <ClInclude Include="CEffect.h" />
+    <ClInclude Include="CGaibon.h" />
+    <ClInclude Include="CGaibonMoveState.h" />
+    <ClInclude Include="CGaibonSkyAttack.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CLevelChangeTrigger.h" />
@@ -224,6 +227,7 @@
     <ClInclude Include="CStartLevel.h" />
     <ClInclude Include="CStartPoint.h" />
     <ClInclude Include="CState.h" />
+    <ClInclude Include="CStraightProjectile.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimeMgr.h" />
@@ -268,6 +272,9 @@
     <ClCompile Include="CEditorLevel_Map.cpp" />
     <ClCompile Include="CEditorLevel_Object.cpp" />
     <ClCompile Include="CEffect.cpp" />
+    <ClCompile Include="CGaibon.cpp" />
+    <ClCompile Include="CGaibonMoveState.cpp" />
+    <ClCompile Include="CGaibonSkyAttack.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CLevelChangeTrigger.cpp" />
@@ -331,6 +338,7 @@
     <ClCompile Include="CStartLevel.cpp" />
     <ClCompile Include="CStartPoint.cpp" />
     <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CStraightProjectile.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />

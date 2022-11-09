@@ -44,6 +44,7 @@ public:
 
     void SetGravityAccel(float _fAccel) { m_fGravityAccel = _fAccel; }
     void SetGravity(bool _bSet) { m_bGravityUse = _bSet; }
+    bool IsGravity() const { return m_bGravityUse; }
 
     void OnGround() { m_bGround = true; m_vVelocity.y = 0; };
     void OffGround() { m_bGround = false; }

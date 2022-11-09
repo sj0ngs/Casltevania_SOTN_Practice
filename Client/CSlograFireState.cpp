@@ -7,6 +7,7 @@
 
 
 CSlograFireState::CSlograFireState()	:
+	m_bFireEnd(false),
 	m_faccFireTime(0.f)
 {
 }
@@ -21,9 +22,14 @@ void CSlograFireState::Final_Tick()
 
 	m_faccFireTime += DELTATIME;
 
-	if (1.f <= m_faccFireTime)
-		ChangeState(L"SlograIdle");
+	if (!m_bFireEnd && 3 == pSlogra->GetAnimator()->GetCurAnimation()->GetCurFrame())
+	{
+		pSlogra->Fire();
+		m_bFireEnd = true;
+	}
 
+	if (1.5f <= m_faccFireTime)
+		ChangeState(L"SlograIdle");
 
 	Dead();
 }
@@ -47,4 +53,5 @@ void CSlograFireState::Enter()
 void CSlograFireState::Exit()
 {
 	m_faccFireTime = 0.f;
+	m_bFireEnd =false;
 }

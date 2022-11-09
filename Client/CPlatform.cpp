@@ -5,6 +5,7 @@
 
 #include "CObj.h"
 #include "CPlayer.h"
+#include "CMonster.h"
 #include "CRigidBody.h"
 #include "CAI.h"
 #include "CState.h"
@@ -62,6 +63,14 @@ void CPlatform::Render(HDC _DC)
 void CPlatform::BeginOverlap(CCollider* _pOther)
 {
 	CObj* pObj = _pOther->GetOwner();
+
+	//if (pObj->GetLayer() == ELAYER::MONSTER)
+	//{
+	//	CMonster* pMon = (CMonster*)pObj;
+
+	//	if (!pMon->GetRigidBody()->IsGravity())
+	//		return;
+	//}
 
 	SetPoint();
 
@@ -316,6 +325,10 @@ void CPlatform::RightCheck(CObj* _pObj)
 
 void CPlatform::PushObj(CObj* _pObj)
 {
+	if (L"Gaibon" == _pObj->GetName())
+		int a = 0;
+
+	Vec2 vPos = _pObj->GetPos();
 	Vec2 vObjPos = _pObj->GetCollider()->GetFinalPos();
 	vObjPos.y += _pObj->GetCollider()->GetScale().y / 2.f;
 	Vec2 vDist = Vec2(GetPos().x - vObjPos.x, GetPos().y - vObjPos.y);
@@ -324,19 +337,21 @@ void CPlatform::PushObj(CObj* _pObj)
 
 	vLength += _pObj->GetCollider()->GetScale() / 2.f;
 	
-	if (0 <= vDist.x)
+	if (0 < vDist.x)
 	{
 		if (vLength.x > vabDist.x)
 		{
 			vObjPos.x -= (vLength.x - vabDist.x);
+			vObjPos.y = vPos.y;
 			_pObj->SetPos(vObjPos);
 		}
 	}
-	else if (0 >= vDist.x)
+	else if (0 > vDist.x)
 	{
 		if (vLength.x > vabDist.x)
 		{
 			vObjPos.x += (vLength.x - vabDist.x);
+			vObjPos.y = vPos.y;
 			_pObj->SetPos(vObjPos);
 		}
 	}

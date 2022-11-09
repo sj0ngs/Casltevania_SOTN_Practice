@@ -13,6 +13,9 @@
 
 #include "CProjectile.h"
 #include "CMonsterAttack.h"
+#include "CStraightProjectile.h"
+
+#include "CEffect.h"
 
 CSlogra::CSlogra()	:
 	m_eState(ESLOGRA_STATE::SPEAR),
@@ -21,7 +24,10 @@ CSlogra::CSlogra()	:
 	m_bCanAttack(true),
 	m_bCanFire(true),	
 	m_bFireEnd(false),
-	m_faccFireCool(0.f)
+	m_faccFireCool(0.f),
+	m_bDeadSequence(false),
+	m_faccDeathTime(0.f),
+	m_faccDeathEffectSpawnTime(0.f)
 {
 	GetCollider()->SetScale(Vec2(70.f, 220.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, -100.f));
@@ -80,70 +86,90 @@ CSlogra::~CSlogra()
 
 void CSlogra::Tick()
 {
-	CObj::Tick();
-
-	if (IsAttack())
+	if (!m_bDeadSequence)
 	{
-		m_faccAttackTime += DELTATIME;
+		CObj::Tick();
 
-		switch (m_eState)
+		if (IsAttack())
 		{
-		case ESLOGRA_STATE::SPEAR:
-		{
-			if (!m_bAttackEnd && 5 == GetAnimator()->GetCurAnimation()->GetCurFrame())
+			m_faccAttackTime += DELTATIME;
+
+			switch (m_eState)
 			{
-				Sting();
-				m_bAttackEnd = true;
+			case ESLOGRA_STATE::SPEAR:
+			{
+				if (!m_bAttackEnd && 5 == GetAnimator()->GetCurAnimation()->GetCurFrame())
+				{
+					Sting();
+					m_bAttackEnd = true;
+				}
+
+				if (GetMonsterInfo().m_fAttackTime <= m_faccAttackTime)
+				{
+					SetOnAttack(false);
+					m_faccAttackTime = 0.f;
+					m_bAttackEnd = false;
+					m_bCanAttack = false;
+				}
 			}
-
-			if (GetMonsterInfo().m_fAttackTime <= m_faccAttackTime)
+			break;
+			case ESLOGRA_STATE::BEAK:
 			{
-				SetOnAttack(false);
-				m_faccAttackTime = 0.f;
-				m_bAttackEnd = false;
-				m_bCanAttack = false;
+				if (!m_bAttackEnd && 5 == GetAnimator()->GetCurAnimation()->GetCurFrame())
+				{
+					Sting();
+					m_bAttackEnd = true;
+				}
+
+				if (GetMonsterInfo().m_fAttackTime <= m_faccAttackTime)
+				{
+					SetOnAttack(false);
+					m_faccAttackTime = 0.f;
+					m_bAttackEnd = false;
+					m_bCanAttack = false;
+				}
+			}
+			break;
 			}
 		}
-			break;
-		case ESLOGRA_STATE::BEAK:
-		{
-			if (!m_bAttackEnd && 5 == GetAnimator()->GetCurAnimation()->GetCurFrame())
-			{
-				Sting();
-				m_bAttackEnd = true;
-			}
 
-			if (GetMonsterInfo().m_fAttackTime <= m_faccAttackTime)
+		if (!m_bCanAttack)
+		{
+			m_faccAttackCool += DELTATIME;
+
+			if (SLOGRA_ATTACK_COOL <= m_faccAttackCool)
 			{
-				SetOnAttack(false);
-				m_faccAttackTime = 0.f;
-				m_bAttackEnd = false;
-				m_bCanAttack = false;
+				m_faccAttackCool = 0.f;
+				m_bCanAttack = true;
 			}
 		}
-			break;
+
+		if (!m_bCanFire)
+		{
+			m_faccFireCool += DELTATIME;
+
+			if (SLOGRA_FIRE_COOL <= m_faccFireCool)
+			{
+				m_faccFireCool = 0.f;
+				m_bCanFire = true;
+			}
 		}
 	}
-
-	if (!m_bCanAttack)
+	else
 	{
-		m_faccAttackCool += DELTATIME;
+		m_faccDeathTime += DELTATIME;
+		m_faccDeathEffectSpawnTime += DELTATIME;
 
-		if (SLOGRA_ATTACK_COOL <= m_faccAttackCool)
+		if (3.f <= m_faccDeathTime)
 		{
-			m_faccAttackCool = 0.f;
-			m_bCanAttack = true;
+			SetDead();
+			return;
 		}
-	}
 
-	if (!m_bCanFire)
-	{
-		m_faccFireCool += DELTATIME;
-		
-		if (SLOGRA_FIRE_COOL <= m_faccFireCool)
+		if (0.1f <= m_faccDeathEffectSpawnTime)
 		{
-			m_faccFireCool = 0.f;
-			m_bCanFire = true;
+			DeathEffect();
+			m_faccDeathEffectSpawnTime = 0.f;
 		}
 	}
 }
@@ -358,11 +384,80 @@ void CSlogra::Sting()
 	Instantiate(pAttack, GetPos(), ELAYER::MONSTER_PROJECTILE);
 }
 
+void CSlogra::DeathEffect()
+{
+	LARGE_INTEGER llCount;
+	QueryPerformanceCounter(&llCount);
+	srand((UINT)llCount.QuadPart);
+
+	int iRand = rand();
+
+	Vec2 vPos = GetPos();
+	Vec2 vScale = Vec2(200.f, 200.f);
+
+	int iX1 = (int)(vPos.x - vScale.x / 2.f);
+	int iX2 = (int)(vPos.x + vScale.x / 2.f);
+
+	int iY1 = (int)(vPos.y - vScale.y / 2.f);
+	int iY2 = (int)(vPos.y + vScale.y / 2.f);
+
+	int iRandX = rand() % 200 + iX1;
+	int iRandY = rand() % 200 + iY1;
+
+	CEffect* pEffect = new CEffect;
+
+	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\SLOGRA_DEATH_EFFECT.anim");
+	pEffect->GetAnimator()->Play(false);
+
+	vPos = Vec2((float)iRandX, (float)iRandY);
+
+	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+}
+
 void CSlogra::Fire()
 {
+	CStraightProjectile* pPrj = new CStraightProjectile;
 
+	Vec2 vPos = GetPos();
+
+	vPos.y -= 150.f;
+
+	pPrj->SetDamage(GetMonsterInfo().m_iAtk);
+	pPrj->SetFaceDir(GetFaceDir());
+	pPrj->SetSpeed(500.f);
+
+	pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
+
+	if (pPrj->GetFaceDir())
+	{
+		pPrj->GetAnimator()->LoadAnimation(L"animation\\Monster\\Slogra\\SLOGRA_FIREBALL_RIGHT.anim");
+		vPos.x += 250.f;
+	}
+	else
+	{
+		pPrj->GetAnimator()->LoadAnimation(L"animation\\Monster\\Slogra\\SLOGRA_FIREBALL_LEFT.anim");
+		vPos.x -= 250.f;
+	}
+
+	pPrj->GetAnimator()->Play(true);
+
+	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
 }
 
 void CSlogra::Dead()
 {
+	m_bDeadSequence = true;
+
+	if (GetFaceDir())
+	{
+		GetAnimator()->Play(L"Slogra_Beak_Hit_Right", true);
+	}
+	else
+	{
+		GetAnimator()->Play(L"Slogra_Beak_Hit_Left", true);
+	}
+
+	GetCollider()->SetScale(Vec2(0.f, 0.f));
+	GetRigidBody()->SetGravity(false);
+	GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 }

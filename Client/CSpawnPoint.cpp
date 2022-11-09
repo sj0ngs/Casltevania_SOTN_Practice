@@ -13,6 +13,8 @@
 #include "CMonster.h"
 #include "CBloodSkeleton.h"
 
+#include "CAI.h"
+
 #include "CTexture.h"
 
 CSpawnPoint::CSpawnPoint()	:
@@ -66,6 +68,11 @@ void CSpawnPoint::Tick()
 	case ESPAWNABLE_OBJECT::SPITTLE_BONE:
 		break;
 	case ESPAWNABLE_OBJECT::GAIBON:
+	{
+		CMonster* pMon = (CMonster*)CObjMgr::GetInst()->FindObj(L"Gaibon")->Clone();
+		pMon->SetFaceDir(GetFaceDir());
+		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
+	}
 		break;
 	case ESPAWNABLE_OBJECT::SLOGRA:
 	{

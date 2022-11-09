@@ -3,7 +3,7 @@
 
 #include "CTimeMgr.h"
 
-#include "CMonster.h"
+#include "CSlogra.h"
 
 CSlograIdleState::CSlograIdleState() :
 	m_fStopTime(0.f),

@@ -24,6 +24,10 @@ private:
     bool m_bFireEnd;
     float m_faccFireCool;
 
+    bool m_bDeadSequence;
+    float m_faccDeathTime;
+    float m_faccDeathEffectSpawnTime;
+
 public:
     ESLOGRA_STATE GetSlograState() { return m_eState; }
     void ChangeSlograState(ESLOGRA_STATE _eState) { m_eState = _eState; }
@@ -53,11 +57,12 @@ public:
     virtual void Turn() override;
     virtual void Attack() override;
     void Hit();
+    void Fire();
 
     virtual void Dead() override;
 
 private:
     void Sting();
-    void Fire();
+    void DeathEffect();
 };
 

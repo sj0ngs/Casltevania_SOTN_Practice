@@ -325,6 +325,21 @@
     <Filter Include="Game\07. State\Boss\Slogra\Fire">
       <UniqueIdentifier>{71ee18ec-a6de-42ed-9f2e-3bbc4e91484d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Projectile\MonsterProjectile\StraightProjectile">
+      <UniqueIdentifier>{0e520125-8cc2-4521-824a-c157c01cf795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Monster\Boss\Gaibon">
+      <UniqueIdentifier>{62b701b4-b745-4231-a315-c71c44a0245e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Gaibon">
+      <UniqueIdentifier>{914eda3f-fed4-450a-ac0f-cb804cb213bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Gaibon\Move">
+      <UniqueIdentifier>{b2c550c0-8b6b-4232-9cdb-8fb2185f9e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\07. State\Boss\Gaibon\SkyAttack">
+      <UniqueIdentifier>{09745ef8-1a4a-4aa9-99a2-1c5610d769f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -594,9 +609,6 @@
     <ClInclude Include="CMonsterState.h">
       <Filter>Game\07. State\MonsterState</Filter>
     </ClInclude>
-    <ClInclude Include="CDeadState.h">
-      <Filter>Game\07. State\MonsterState\Normal\DeadState</Filter>
-    </ClInclude>
     <ClInclude Include="CPatrolState.h">
       <Filter>Game\07. State\MonsterState\Normal\PatrolState</Filter>
     </ClInclude>
@@ -638,6 +650,21 @@
     </ClInclude>
     <ClInclude Include="CSlograFireState.h">
       <Filter>Game\07. State\Boss\Slogra\Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="CStraightProjectile.h">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\StraightProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="CGaibon.h">
+      <Filter>Game\04. Object\Monster\Boss\Gaibon</Filter>
+    </ClInclude>
+    <ClInclude Include="CGaibonMoveState.h">
+      <Filter>Game\07. State\Boss\Gaibon\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="CGaibonSkyAttack.h">
+      <Filter>Game\07. State\Boss\Gaibon\SkyAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeadState.h">
+      <Filter>Game\07. State\MonsterState\Normal\IdleState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -949,6 +976,18 @@
     </ClCompile>
     <ClCompile Include="CSlograFireState.cpp">
       <Filter>Game\07. State\Boss\Slogra\Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="CStraightProjectile.cpp">
+      <Filter>Game\04. Object\Projectile\MonsterProjectile\StraightProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaibon.cpp">
+      <Filter>Game\04. Object\Monster\Boss\Gaibon</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaibonMoveState.cpp">
+      <Filter>Game\07. State\Boss\Gaibon\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaibonSkyAttack.cpp">
+      <Filter>Game\07. State\Boss\Gaibon\SkyAttack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
