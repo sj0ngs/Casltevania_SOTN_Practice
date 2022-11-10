@@ -64,8 +64,12 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
 
+
+	// Level
+	CResMgr::GetInst()->LoadTexture(L"Debug_Map", L"texture\\Map\\Debug_Map.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Room_1", L"texture\\Map\\Room_1.bmp");
 	CResMgr::GetInst()->LoadTexture(L"BackGround", L"texture\\Map\\BackGround.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Boss", L"texture\\Map\\Boss_Room.bmp");
 
 	// =======
 	// Monster

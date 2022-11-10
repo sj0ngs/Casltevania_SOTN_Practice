@@ -29,7 +29,9 @@ void CSlograFireState::Final_Tick()
 	}
 
 	if (1.5f <= m_faccFireTime)
+	{
 		ChangeState(L"SlograIdle");
+	}
 
 	Dead();
 }

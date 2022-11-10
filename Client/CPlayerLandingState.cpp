@@ -38,6 +38,11 @@ void CPlayerLandingState::Final_Tick()
 		ChangeState(L"Move_Left");
 		return;
 	}
+	else if (IS_PRESSED(EKEY::DOWN))
+	{
+		ChangeState(L"Duck");
+		return;
+	}
 	//else
 	//	Hit();
 

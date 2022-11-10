@@ -67,7 +67,7 @@ CPlayer::CPlayer() :
 
 	m_tInfo.m_iHeart = 50;
 
-	m_tInfo.m_iStr = 10;
+	m_tInfo.m_iStr = 20;
 	m_tInfo.m_iCon = 5;
 	m_tInfo.m_iInt = 10;
 

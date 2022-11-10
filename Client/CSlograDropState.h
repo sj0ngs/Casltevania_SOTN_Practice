@@ -1,21 +1,21 @@
 #pragma once
 #include "CMonsterState.h"
 
-class CGaibonSkyAttack :
+class CSlograDropState :
     public CMonsterState
 {
 private:
-    float m_fSkyAttackTime;
-    float m_faccAttackTime;
+    float m_faccGroundTime;
 
-    float m_faccFireTime;
-
-public:
-    CLONE(CGaibonSkyAttack);
+    bool m_bIsGround;
+    bool m_bColliderChanged;
 
 public:
-    CGaibonSkyAttack();
-    ~CGaibonSkyAttack();
+    CLONE(CSlograDropState);
+
+public:
+    CSlograDropState();
+    ~CSlograDropState();
 
 public:
     virtual void Final_Tick() override;

@@ -3,11 +3,12 @@
 
 #include "CTimeMgr.h"
 
-#include "CPlayer.h"
+#include "CMonster.h"
 
 CMonsterAttack::CMonsterAttack()	:
 	m_faccLifeTime(0.f),
-	m_fLifeSpan(0.f)
+	m_fLifeSpan(0.f),
+	m_pOwner(nullptr)
 {
 }
 
@@ -23,6 +24,13 @@ void CMonsterAttack::Tick()
 	{
 		SetDead();
 		return;
+	}
+	else
+	{
+		if (IsValid((CObj*&)m_pOwner))
+		{
+			SetPos(m_pOwner->GetPos());
+		}
 	}
 
 	m_faccLifeTime += DELTATIME;

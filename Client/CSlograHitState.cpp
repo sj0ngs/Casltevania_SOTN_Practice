@@ -19,10 +19,21 @@ CSlograHitState::~CSlograHitState()
 
 void CSlograHitState::Final_Tick()
 {
+	CSlogra* pSlogra = (CSlogra*)GetOwnerObj();
+
 	m_faccHitTime += DELTATIME;
 
+	if (pSlogra->IsSlograCatch())
+	{
+		ChangeState(L"SlograDrop");
+		return;
+	}
+
 	if (SLOGRA_HIT_TIME <= m_faccHitTime)
+	{
 		ChangeState(L"SlograIdle");
+		return;
+	}
 
 	Dead();
 }
@@ -48,5 +59,9 @@ void CSlograHitState::Enter()
 
 void CSlograHitState::Exit()
 {
+	CSlogra* pSlogra = (CSlogra*)GetOwnerObj();
+
 	m_faccHitTime = 0.f;
+
+	pSlogra->SetSlograHit(false);
 }

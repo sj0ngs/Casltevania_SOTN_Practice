@@ -6,6 +6,7 @@
 
 #include "CPlayer.h"
 #include "CGaibon.h"
+#include "CSlogra.h"
 
 CGaibonMoveState::CGaibonMoveState()	:
 	vDest(0.f, 0.f)
@@ -39,7 +40,7 @@ void CGaibonMoveState::Final_Tick()
 	Vec2 vDist = vDest - vMonPos;
 	float fDist = vDist.Length();
 	
-	Vec2 vPrevPos = pGaibon->GetPrevPos();
+	//Vec2 vPrevPos = pGaibon->GetPrevPos();
 
 	if (0.1f >= fDist)
 	{
@@ -56,6 +57,16 @@ void CGaibonMoveState::Final_Tick()
 
 	pGaibon->SetPos(vMonPos);
 
+	if (pGaibon->GetSlogra())
+	{
+		CSlogra* pSlogra = pGaibon->GetSlogra();
+
+		if (pSlogra->IsSlograHit())
+		{
+			ChangeState(L"GaibonTraceSlogra");
+		}
+	}
+
 	Dead();
 }
 
@@ -64,33 +75,36 @@ void CGaibonMoveState::Enter()
 	GET_PLAYER();
 	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
 
+	pGaibon->GetCollider()->SetScale(Vec2(70.f, 150.f));
+	pGaibon->GetCollider()->SetOffsetPos(Vec2(0.f, -145.f));
 	pGaibon->Walk();
 
 	// Move State 로 들어올 때 플레이어 위치의 근처의 랜덤한 장소를 목적지로 설정한다
 	Vec2 vPos = pPlayer->GetPos();
 	Vec2 vPrevPos = pPlayer->GetPrevPos();
 
-	float fPlayerDir = vPos.x - vPrevPos.y;
+	float fGaibonDir = vPos.x - pGaibon->GetPos().x;
+	float fPlayerDir = vPos.x - vPrevPos.x;
 
-	if (pGaibon->GetFaceDir())
+	if (0 < fGaibonDir)
 	{
-		vPos.x += 100.f;
+		vPos.x += 200.f;
 	}
-	else
+	else if(0 > fGaibonDir)
 	{
-		vPos.x -= 100.f;
+		vPos.x -= 200.f;
 	}
 
 	if (0 < fPlayerDir)
 	{
-		vPos.x += 100.f;
+		vPos.x += 200.f;
 	}
 	else if (0 > fPlayerDir)
 	{
-		vPos.x -= 100.f;
+		vPos.x -= 200.f;
 	}
 
-	vPos.y -=  300.f;
+	vPos.y -=  200.f;
 
 	vDest = vPos;
 }

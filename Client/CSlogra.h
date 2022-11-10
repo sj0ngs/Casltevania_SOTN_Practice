@@ -28,6 +28,9 @@ private:
     float m_faccDeathTime;
     float m_faccDeathEffectSpawnTime;
 
+    bool m_bIsHit;
+    bool m_bIsCatch;
+
 public:
     ESLOGRA_STATE GetSlograState() { return m_eState; }
     void ChangeSlograState(ESLOGRA_STATE _eState) { m_eState = _eState; }
@@ -36,6 +39,12 @@ public:
 
     bool SlograCanFire() const { return m_bCanFire; }
     void SlograStartFire() { m_bCanFire = false; }
+
+    void SetSlograHit(bool _bIsHit) { m_bIsHit = _bIsHit; }
+    bool IsSlograHit() const { return m_bIsHit; }
+
+    void SetSlograCatch(bool _bIsCatch) { m_bIsCatch = _bIsCatch; }
+    bool IsSlograCatch() const { return m_bIsCatch; }
 
 public:
     CLONE(CSlogra);
@@ -58,6 +67,9 @@ public:
     virtual void Attack() override;
     void Hit();
     void Fire();
+
+    void Wake();
+    void Drop();
 
     virtual void Dead() override;
 

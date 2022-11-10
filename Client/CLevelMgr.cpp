@@ -4,6 +4,8 @@
 #include "CLevel.h"
 #include "CStartLevel.h"
 #include "CStage01.h"
+#include "CBossLevel.h"
+
 #include "CEditorLevel.h"
 #include "CAnimationEditor.h"
 
@@ -25,6 +27,7 @@ void CLevelMgr::Init()
 {
 	m_arrLevel[(UINT)ELEVEL_TYPE::START] = new CStartLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_01] = new CStage01;
+	m_arrLevel[(UINT)ELEVEL_TYPE::BOSS] = new CBossLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::EDITOR] = new CEditorLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::ANIMATION] = new CAnimationEditor;
 

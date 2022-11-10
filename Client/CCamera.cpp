@@ -14,7 +14,7 @@ CCamera::CCamera()	:
 	m_vLook{},
 	m_vDiff{},
 	m_pBlindText(nullptr),
-	m_fCameraSpeed(200.f),
+	m_fCameraSpeed(400.f),
 	m_iCameraMove(false),
 	m_ptResolution{},
 	m_iLevelWidth(0),

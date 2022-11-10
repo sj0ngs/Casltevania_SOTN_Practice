@@ -50,14 +50,15 @@ void CSlograMoveState::Final_Tick()
 			pSlogra->Turn();
 	}
 
-	LARGE_INTEGER llCount;
-	QueryPerformanceCounter(&llCount);
-	srand((UINT)llCount.QuadPart);
+	//LARGE_INTEGER llCount;
+	//QueryPerformanceCounter(&llCount);
+	//srand((UINT)llCount.QuadPart);
+	srand((UINT)time(0));
 
 	int iRand = rand();
  	iRand = rand() % 100 + 1;
 
-	if (10 >= iRand)
+	if (1 >= iRand)
 	{
 		ChangeState(L"SlograIdle");
 	}

@@ -362,6 +362,7 @@ wchar_t g_arrChangeLevelType[(UINT)ELEVEL_TYPE::END][20] =
 	L"STAGE_01",
 	L"STAGE_02",
 	L"STAGE_03",
+	L"Boss",
 	L"EDITOR",
 };
 

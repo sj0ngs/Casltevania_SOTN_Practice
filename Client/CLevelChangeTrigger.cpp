@@ -42,6 +42,9 @@ void CLevelChangeTrigger::Render(HDC _DC)
 	case ELEVEL_TYPE::STAGE_03:
 		strName = L"Stage 03";
 		break;
+	case ELEVEL_TYPE::BOSS:
+		strName = L"Boss";
+		break;
 	case ELEVEL_TYPE::EDITOR:
 		strName = L"Editor";
 		break;

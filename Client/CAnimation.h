@@ -46,6 +46,8 @@ private:
     void SetCurFrame(int _CurFame);
     vector<tAnimFrm>* GetAnimFrame() { return &m_vecFrm; }
 
+    void CreateBackBuffer();
+
     friend class CAnimator;
     friend class CAnimationEditor;
 };

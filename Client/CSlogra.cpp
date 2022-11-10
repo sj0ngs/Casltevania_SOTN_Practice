@@ -10,6 +10,8 @@
 #include "CSlograAttackState.h"
 #include "CSlograHitState.h"
 #include "CSlograFireState.h"
+#include "CSlograStandBy.h"
+#include "CSlograDropState.h"
 
 #include "CProjectile.h"
 #include "CMonsterAttack.h"
@@ -27,10 +29,12 @@ CSlogra::CSlogra()	:
 	m_faccFireCool(0.f),
 	m_bDeadSequence(false),
 	m_faccDeathTime(0.f),
-	m_faccDeathEffectSpawnTime(0.f)
+	m_faccDeathEffectSpawnTime(0.f),
+	m_bIsHit(false),
+	m_bIsCatch(false)
 {
 	GetCollider()->SetScale(Vec2(70.f, 220.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, -100.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, -110.f));
 
 	GetRigidBody()->SetFriction(1000.f);
 	GetRigidBody()->SetGravity(true);
@@ -77,7 +81,9 @@ CSlogra::CSlogra()	:
 	GetAI()->AddState(L"SlograAttack", new CSlograAttackState);
 	GetAI()->AddState(L"SlograHit", new CSlograHitState);
 	GetAI()->AddState(L"SlograFire", new CSlograFireState);
-	GetAI()->ChangeState(L"SlograMove");
+	GetAI()->AddState(L"SlograStandBy", new CSlograStandBy);
+	GetAI()->AddState(L"SlograDrop", new CSlograDropState);
+	GetAI()->ChangeState(L"SlograStandBy");
 }
 
 CSlogra::~CSlogra()
@@ -189,7 +195,8 @@ void CSlogra::BeginOverlap(CCollider* _pOther)
 
 		TakeDamage(pProjectile->GetDamage());
 
-		if (GetAI()->FindState(L"SlograHit") != GetAI()->GetCurState())
+		if (GetAI()->FindState(L"SlograHit") != GetAI()->GetCurState() && 
+			GetAI()->FindState(L"SlograDrop") != GetAI()->GetCurState())
 		{
 			GetAI()->ChangeState(L"SlograHit");
 		}
@@ -292,6 +299,8 @@ void CSlogra::Attack()
 
 void CSlogra::Hit()
 {
+	SetSlograHit(true);
+
 	if (ESLOGRA_STATE::SPEAR == GetSlograState() && (int)GetMonsterInfo().m_iMaxHP / 2 >= GetMonsterInfo().m_iHP)
 	{
 		ChangeSlograState(ESLOGRA_STATE::BEAK);
@@ -327,11 +336,11 @@ void CSlogra::Hit()
 
 	if (GetFaceDir())
 	{
-		GetRigidBody()->AddVelocity(Vec2(-200.f, -800.f));
+		GetRigidBody()->AddVelocity(Vec2(-100.f, -800.f));
 	}
 	else
 	{
-		GetRigidBody()->AddVelocity(Vec2(200.f, -800.f));
+		GetRigidBody()->AddVelocity(Vec2(100.f, -800.f));
 	}
 }
 
@@ -442,6 +451,42 @@ void CSlogra::Fire()
 	pPrj->GetAnimator()->Play(true);
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
+}
+
+void CSlogra::Wake()
+{
+	GetAI()->ChangeState(L"SlograMove");
+}
+
+void CSlogra::Drop()
+{
+	switch (m_eState)
+	{
+	case ESLOGRA_STATE::SPEAR:
+	{
+		if (GetFaceDir())
+		{
+			GetAnimator()->Play(L"Slogra_Spear_Drop_Right", false);
+		}
+		else
+		{
+			GetAnimator()->Play(L"Slogra_Spear_Drop_Left", false);
+		}
+	}
+	break;
+	case ESLOGRA_STATE::BEAK:
+	{
+		if (GetFaceDir())
+		{
+			GetAnimator()->Play(L"Slogra_Beak_Drop_Right", false);
+		}
+		else
+		{
+			GetAnimator()->Play(L"Slogra_Beak_Drop_Left", false);
+		}
+	}
+	break;
+	}
 }
 
 void CSlogra::Dead()

@@ -13,9 +13,9 @@ CSlograAttackState::~CSlograAttackState()
 
 void CSlograAttackState::Final_Tick()
 {
-	GET_MON();
+	CSlogra* pSlogra = (CSlogra*)GetOwnerObj();
 
-	if (!pMon->IsAttack())
+	if (!pSlogra->IsAttack())
 		ChangeState(L"SlograMove");
 
 	Dead();

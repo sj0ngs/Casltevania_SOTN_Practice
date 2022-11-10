@@ -1,7 +1,7 @@
 #pragma once
 #include "CMonsterState.h"
 
-const float SLOGRA_HIT_TIME = 2.f;
+const float SLOGRA_HIT_TIME = 1.f;
 
 class CSlograHitState :
     public CMonsterState

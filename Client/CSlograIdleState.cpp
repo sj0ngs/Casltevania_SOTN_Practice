@@ -25,9 +25,9 @@ void CSlograIdleState::Final_Tick()
 
 void CSlograIdleState::Enter()
 {
-	GET_MON();
+	CSlogra* pSlogra = (CSlogra*)GetOwnerObj();
 
-	pMon->Idle();
+	pSlogra->Idle();
 	m_fStopTime = 0.5f;
 }
 

@@ -5,10 +5,12 @@
 #include "CRigidBody.h"
 
 #include "CGaibon.h"
+#include "CSlogra.h"
 
 CGaibonSkyAttack::CGaibonSkyAttack()	:
 	m_fSkyAttackTime(0.f),
-	m_faccAttackTime(0.f)
+	m_faccAttackTime(0.f),
+	m_faccFireTime(0.f)
 {
 }
 
@@ -21,24 +23,58 @@ void CGaibonSkyAttack::Final_Tick()
 	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
 
 	// ³«ÇÏ
-	if (m_fSkyAttackTime <= m_faccAttackTime)
+	if (m_fSkyAttackTime < m_faccAttackTime)
 	{
 		pGaibon->GetRigidBody()->SetGravity(true);
+		pGaibon->Landing();
+		pGaibon->GetCollider()->SetScale(Vec2(70.f, 220.f));
+		pGaibon->GetCollider()->SetOffsetPos(Vec2(0.f, -110.f));
+		m_faccAttackTime = m_fSkyAttackTime;
 	}
-	else
+	else if( m_fSkyAttackTime > m_faccAttackTime)
 	{
 		Vec2 vMonPos = pGaibon->GetPos();
 
 		vMonPos.y -= 100.f * DELTATIME;
 		m_faccAttackTime += DELTATIME;
+
+		if (pGaibon->GetFaceDir())
+		{
+			vMonPos.x -= 150.f * DELTATIME;
+		}
+		else
+		{
+			vMonPos.x += 150.f * DELTATIME;
+		}
+
 		pGaibon->SetPos(vMonPos);
+
+		m_faccFireTime += DELTATIME;
+
+		if (0.2f <= m_faccFireTime)
+		{
+			pGaibon->SkyFire();
+			m_faccFireTime = 0.f;
+		}
 	}
 
 	if (pGaibon->GetRigidBody()->IsGround())
 	{
-		ChangeState(L"GaibonMove");
+		ChangeState(L"GaibonLandAttack");
 		return;
 	}
+
+	if (pGaibon->GetSlogra())
+	{
+		CSlogra* pSlogra = pGaibon->GetSlogra();
+
+		if (pSlogra->IsSlograHit())
+		{
+			ChangeState(L"GaibonTraceSlogra");
+		}
+	}
+
+	Dead();
 }
 
 void CGaibonSkyAttack::Enter()
@@ -52,7 +88,7 @@ void CGaibonSkyAttack::Enter()
 	srand((UINT)llCount.QuadPart);
 	int a = rand();
 
-	m_fSkyAttackTime = (float)(rand() % 5 + 2);
+	m_fSkyAttackTime = (float)(rand() % 2  + 2);
 }
 
 void CGaibonSkyAttack::Exit()
