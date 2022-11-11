@@ -18,7 +18,7 @@ CBible::CBible() :
 	m_pTex(nullptr)
 {
 	GetCollider()->SetScale(Vec2(60.f, 80.f));
-	m_pTex = CResMgr::GetInst()->LoadTexture(L"Bible", L"texture\\Weapon\\Bible.bmp");
+	m_pTex = CResMgr::GetInst()->FindTexture(L"Bible");
 }
 
 CBible::~CBible()

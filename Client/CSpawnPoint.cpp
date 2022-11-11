@@ -81,6 +81,16 @@ void CSpawnPoint::Tick()
 		Instantiate(pMon, GetPos(), ELAYER::MONSTER);
 	}
 		break;
+
+	/// <summary>
+	/// Map Object
+	/// </summary>
+	case ESPAWNABLE_OBJECT::CANDLE:
+	{
+		CObj* pObj = CObjMgr::GetInst()->FindObj(L"Candle")->Clone();
+		Instantiate(pObj, GetPos(), ELAYER::MAP_OBJECT);
+	}
+	break;
 	}
 
 	SetDead();
@@ -130,6 +140,9 @@ void CSpawnPoint::Render(HDC _DC)
 		break;
 	case ESPAWNABLE_OBJECT::SLOGRA:
 		strName = L"Slogra";
+		break;
+	case ESPAWNABLE_OBJECT::CANDLE:
+		strName = L"Candle";
 		break;
 	}
 

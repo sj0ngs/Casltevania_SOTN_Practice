@@ -32,10 +32,13 @@ void CStartLevel::Init()
 	// Level의 충돌 설정
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER_PROJECTILE);
+	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::ITEM);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MONSTER_PROJECTILE);
+	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MAP_OBJECT);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::PLATFORM);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::MONSTER, ELAYER::PLATFORM);
+	CCollisionMgr::GetInst()->LayerCheck(ELAYER::ITEM, ELAYER::PLATFORM);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::TRIGGER);
 	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::PLAYER);
 	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::MONSTER);

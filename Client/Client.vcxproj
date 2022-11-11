@@ -155,6 +155,7 @@
     <ClInclude Include="CBossLevel.h" />
     <ClInclude Include="CButton.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCandle.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CComponent.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="CGaibonTraceSlograState.h" />
     <ClInclude Include="CGaibonSkyAttack.h" />
     <ClInclude Include="CGaibonStandByState.h" />
+    <ClInclude Include="CHeart.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CLevelChangeTrigger.h" />
@@ -238,6 +240,7 @@
     <ClInclude Include="CStartPoint.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStraightProjectile.h" />
+    <ClInclude Include="CSubWeapon.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimeMgr.h" />
@@ -275,6 +278,7 @@
     <ClCompile Include="CBossLevel.cpp" />
     <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCandle.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CComponent.cpp" />
@@ -293,6 +297,7 @@
     <ClCompile Include="CGaibonTraceSlograState.cpp" />
     <ClCompile Include="CGaibonSkyAttack.cpp" />
     <ClCompile Include="CGaibonStandByState.cpp" />
+    <ClCompile Include="CHeart.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CLevelChangeTrigger.cpp" />
@@ -359,6 +364,7 @@
     <ClCompile Include="CStartPoint.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStraightProjectile.cpp" />
+    <ClCompile Include="CSubWeapon.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />

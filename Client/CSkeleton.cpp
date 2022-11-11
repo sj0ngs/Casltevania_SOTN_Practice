@@ -2,8 +2,7 @@
 #include "CSkeleton.h"
 
 #include "CLevelMgr.h"
-
-#include "CLevel.h";
+#include "CLevel.h"
 
 #include "CEffect.h"
 #include "CPlayer.h"

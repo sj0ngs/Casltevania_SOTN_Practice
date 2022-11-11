@@ -15,8 +15,8 @@ CDagger::CDagger()	:
 	SetPenatrate(false);
 
 	GetCollider()->SetScale(Vec2(70.f, 20.f));
-	m_pRightTex = CResMgr::GetInst()->LoadTexture(L"Dagger_Right", L"texture\\Weapon\\Dagger_Right.bmp");
-	m_pLeftTex = CResMgr::GetInst()->LoadTexture(L"Dagger_Left", L"texture\\Weapon\\Dagger_Left.bmp");
+	m_pRightTex = CResMgr::GetInst()->FindTexture(L"Dagger_Right");
+	m_pLeftTex = CResMgr::GetInst()->FindTexture(L"Dagger_Left");
 }
 
 CDagger::~CDagger()

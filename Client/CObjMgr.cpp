@@ -9,6 +9,9 @@
 #include "CWeapon.h"
 #include "CEffect.h"
 
+#include "CHeart.h"
+#include "CSubWeapon.h"
+
 #include "CSkeleton.h"
 #include "CBloodSkeleton.h"
 #include "CBoneScimitar.h"
@@ -16,6 +19,8 @@
 
 #include "CSlogra.h"
 #include "CGaibon.h"
+
+#include "CCandle.h"
 
 #include "CAnimator.h"
 
@@ -61,9 +66,19 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
 
+	// Sub Weapon Axe Anim
 	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
 
+	// Sub Weapon Dagger Anim
+	CResMgr::GetInst()->LoadTexture(L"Dagger_Right", L"texture\\Weapon\\Dagger_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Dagger_Left", L"texture\\Weapon\\Dagger_Left.bmp");
+
+	// SubWeapon
+	CResMgr::GetInst()->LoadTexture(L"Drop_Axe", L"texture\\Weapon\\Drop_Axe.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Drop_Dagger", L"texture\\Weapon\\Drop_Dagger.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Bible", L"texture\\Weapon\\Bible.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Bible_Trail", L"texture\\Weapon\\Bible_Trail_2.bmp");
 
 	// Level
 	CResMgr::GetInst()->LoadTexture(L"Debug_Map", L"texture\\Map\\Debug_Map.bmp");
@@ -139,6 +154,28 @@ void CObjMgr::Init()
 
 	// Burn 2
 	CResMgr::GetInst()->LoadTexture(L"Burn_Effect_2", L"texture\\Effect\\Burn_Effect_2.bmp");
+
+	// Burn 3
+	CResMgr::GetInst()->LoadTexture(L"Burn_Effect_3", L"texture\\Effect\\Burn_Effect_3.bmp");
+
+	// Drop_SubWeapon
+	CResMgr::GetInst()->LoadTexture(L"Drop_Effect", L"texture\\Effect\\Drop_Effect.bmp");
+
+	// ==========
+	// Map Object
+	// ==========
+
+	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\MapObj\\Candle.bmp");
+
+	// ====
+	// Item
+	// ====
+
+	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\Large_Heart.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\Small_Heart.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\HP_Heart.bmp");
 
 	// ==============
 	// Monster Origin
@@ -247,6 +284,21 @@ void CObjMgr::Init()
 	// Effect Origin
 	// =============
 
+	// Burn 3
+	CEffect* pEffect = new CEffect;
+	pEffect->SetName(L"Burn_Effect_3");
+	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\BURN_EFFECT_3.anim");
+	pEffect->GetAnimator()->Play(false);
+	m_mapObj.insert(make_pair(pEffect->GetName(), pEffect));
+
+	// =================
+	// Map Object Origin
+	// =================
+
+	// Candle
+	CObj* pObj = new CCandle;
+	pObj->SetName(L"Candle");
+	m_mapObj.insert(make_pair(pObj->GetName(), pObj));
 
 	// ===========
 	// Item Origin
@@ -262,6 +314,29 @@ void CObjMgr::Init()
 							L"EFFECT_RIGHT.anim", L"EFFECT_LEFT.anim",
 							L"JUMP_EFFECT_RIGHT.anim", L"JUMP_EFFECT_LEFT.anim");
 	m_mapObj.insert(make_pair(pWeapon->GetName(), pWeapon));
+
+	// Small Heart
+	CHeart* pHeart = new CHeart;
+	pHeart->SetHeartType(EHEART_TYPE::SMALL_HEART);
+	pHeart->SetName(L"Small_Heart");
+	m_mapObj.insert(make_pair(pHeart->GetName(), pHeart));
+
+	// Large Heart
+	pHeart = new CHeart;
+	pHeart->SetHeartType(EHEART_TYPE::LARGE_HEART);
+	pHeart->SetName(L"Large_Heart");
+	m_mapObj.insert(make_pair(pHeart->GetName(), pHeart));
+
+	// HP Heart
+	pHeart = new CHeart;
+	pHeart->SetHeartType(EHEART_TYPE::HP_HEART);
+	pHeart->SetName(L"HP_Heart");
+	m_mapObj.insert(make_pair(pHeart->GetName(), pHeart));
+
+	// Drop SubWeapon
+	CSubWeapon* pSubWeapon = new CSubWeapon;
+	pSubWeapon->SetName(L"Drop_SubWeapon");
+	m_mapObj.insert(make_pair(pSubWeapon->GetName(), pSubWeapon));
 
 	// =============
 	// Player Origin

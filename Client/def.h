@@ -55,6 +55,7 @@ enum class ELAYER
 	BACKGROUND,
 	FOREGROUND,
 	TILE,
+	MAP_OBJECT,
 	MONSTER,
 	EFFECT,
 	ITEM,
@@ -90,6 +91,7 @@ enum class ECAMERA_EFFECT
 
 enum class ESPAWNABLE_OBJECT
 {
+	// Monster
 	BONE_SCIMITAR,
 	AXE_ARMOR,
 	SKELETON,
@@ -97,6 +99,9 @@ enum class ESPAWNABLE_OBJECT
 	SPITTLE_BONE,
 	GAIBON,
 	SLOGRA,
+
+	// Map Object
+	CANDLE,
 
 	NONE
 };
@@ -116,4 +121,15 @@ enum class EPLAYER_STATE
 	HIT,
 	
 	NONE
+};
+
+enum class ESUB_WEAPON_TYPE
+{
+	DAGGER,
+	AXE,
+	BIBLE,
+	NONE
+
+	//WATCH,
+	//HOLY_WATER
 };

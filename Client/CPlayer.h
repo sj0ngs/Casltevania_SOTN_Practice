@@ -1,17 +1,6 @@
 #pragma once
 #include "CObj.h"
 
-enum class ESUB_WEAPON_TYPE
-{
-    DAGGER,
-    AXE,
-    BIBLE,
-    NONE,
-
-    WATCH,
-    HOLY_WATER
-};
-
 const float ATTACK_COOL = 0.7f;
 const float DAGGER_COOL = 0.1f;
 const float AXE_COOL = 1.f;
@@ -62,7 +51,7 @@ public:
     void SetWeapon(CWeapon* _pWeapon);
     CWeapon* GetWeapon() const { return m_pWeapon; }
 
-    void ChangeSubWeapon(ESUB_WEAPON_TYPE _eType) { m_eSubWeapon = _eType; }
+    void ChangeSubWeapon(ESUB_WEAPON_TYPE _eType);
 
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
@@ -99,6 +88,8 @@ public:
 
     void TakeDamage(int _iDmg, bool _bDir);
     int GetDamage();
+
+    void AddHeart(int _iValue);
 
 private:
     void LoadAnim(const wstring& _strFile);

@@ -10,7 +10,7 @@ CBibleTrail::CBibleTrail()	:
 	m_fLifeTime(0.f),
 	m_pTex(nullptr)
 {
-	m_pTex = CResMgr::GetInst()->LoadTexture(L"Bible_Trail", L"texture\\Weapon\\Bible_Trail_2.bmp");
+	m_pTex = CResMgr::GetInst()->FindTexture(L"Bible_Trail");
 }
 
 CBibleTrail::~CBibleTrail()

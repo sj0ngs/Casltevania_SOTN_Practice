@@ -370,6 +370,21 @@
     <Filter Include="Game\07. State\Boss\Gaibon\PickUp\PickUp">
       <UniqueIdentifier>{8a71a461-0f1d-428b-889d-386f26ca46fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\MapObj">
+      <UniqueIdentifier>{dd2afdcb-1ef2-4eda-ae31-a07cf840c62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\MapObj\DropObj">
+      <UniqueIdentifier>{38950dfe-1c22-4516-bc27-1e970cc9ebff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\MapObj\DropObj\Candle">
+      <UniqueIdentifier>{9beafe76-1d70-42a3-b41e-8df2921f7c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Item\Heart">
+      <UniqueIdentifier>{339549d5-f874-41fd-9939-a745dfb1fedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Item\SubWeapon">
+      <UniqueIdentifier>{10da7261-5ae2-4678-b8e9-639a9ae7cbc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -726,6 +741,15 @@
     <ClInclude Include="CGaibonPickUpState.h">
       <Filter>Game\07. State\Boss\Gaibon\PickUp\PickUp</Filter>
     </ClInclude>
+    <ClInclude Include="CCandle.h">
+      <Filter>Game\04. Object\MapObj\DropObj\Candle</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeart.h">
+      <Filter>Game\04. Object\Item\Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSubWeapon.h">
+      <Filter>Game\04. Object\Item\SubWeapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1078,6 +1102,15 @@
     </ClCompile>
     <ClCompile Include="CGaibonPickUpState.cpp">
       <Filter>Game\07. State\Boss\Gaibon\PickUp\PickUp</Filter>
+    </ClCompile>
+    <ClCompile Include="CCandle.cpp">
+      <Filter>Game\04. Object\MapObj\DropObj\Candle</Filter>
+    </ClCompile>
+    <ClCompile Include="CHeart.cpp">
+      <Filter>Game\04. Object\Item\Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="CSubWeapon.cpp">
+      <Filter>Game\04. Object\Item\SubWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

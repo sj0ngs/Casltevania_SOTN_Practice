@@ -17,6 +17,7 @@
 #include "CMonster.h"
 #include "CEffect.h"
 
+#include "CSubWeapon.h"
 #include "CDagger.h"
 #include "CAxe.h"
 #include "CBible.h"
@@ -333,6 +334,34 @@ void CPlayer::SetWeapon(CWeapon* _pWeapon)
 		m_pWeapon->SetOwner(this);
 }
 
+void CPlayer::ChangeSubWeapon(ESUB_WEAPON_TYPE _eType)
+{
+	if (ESUB_WEAPON_TYPE::NONE != m_eSubWeapon)
+	{
+		CSubWeapon* pSubWeapon = (CSubWeapon*)CObjMgr::GetInst()->FindObj(L"Drop_SubWeapon")->Clone();
+		pSubWeapon->SetSubWeaponType(m_eSubWeapon);
+
+		Vec2 vPos = GetPos();
+
+		if (GetFaceDir())
+		{
+			vPos.x -= 80.f;
+			pSubWeapon->GetRigidBody()->AddVelocity(Vec2(-100.f, -500.f));
+		}
+		else
+		{
+			vPos.x += 80.f;
+			pSubWeapon->GetRigidBody()->AddVelocity(Vec2(100.f, -500.f));
+		}
+
+		vPos.y -= 200.f;
+
+		Instantiate(pSubWeapon, vPos, ELAYER::ITEM);
+	}
+
+	m_eSubWeapon = _eType;
+}
+
 void CPlayer::Duck()
 {
 	m_bIsDuck = true;
@@ -381,10 +410,6 @@ void CPlayer::UseSubWeapon()
 		break;
 	case ESUB_WEAPON_TYPE::AXE:
 		UseAxe();
-		break;
-	case ESUB_WEAPON_TYPE::WATCH:
-		break;
-	case ESUB_WEAPON_TYPE::HOLY_WATER:
 		break;
 	case ESUB_WEAPON_TYPE::BIBLE:
 		UseBible();
@@ -468,13 +493,17 @@ void CPlayer::TakeDamage(int _iDmg, bool _bDir)
 	if (true == m_bIsHit)
 		return;
 
-	m_bIsHit = true;
-	SetFaceDir(_bDir);
+	int iDamage = _iDmg;
 
-	int iDamage = _iDmg - m_tInfo.m_iCon;
+	if (0 < _iDmg)
+	{
+		m_bIsHit = true;
+		SetFaceDir(_bDir);
+		iDamage = _iDmg - m_tInfo.m_iCon;
 
-	if (0 >= iDamage)
-		iDamage = 1;
+		if (0 >= iDamage)
+			iDamage = 1;
+	}
 
 	m_tInfo.m_iHP -= iDamage;
 
@@ -496,6 +525,11 @@ int CPlayer::GetDamage()
 		iDmg += m_pWeapon->GetWeaponInfo().m_iStr;
 
 	return iDmg;
+}
+
+void CPlayer::AddHeart(int _iValue)
+{
+	m_tInfo.m_iHeart += _iValue;
 }
 
 

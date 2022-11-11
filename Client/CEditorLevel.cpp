@@ -342,7 +342,9 @@ wchar_t g_arrSpawnPointOption[(UINT)ESPAWNABLE_OBJECT::NONE][20] =
 	L"Blood Skeleton",
 	L"Spittle Bone",
 	L"Gaibon",
-	L"Slogra"
+	L"Slogra",
+
+	L"Candle"
 };
 
 wchar_t g_arrFaceDir[2][10] =
