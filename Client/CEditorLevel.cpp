@@ -355,7 +355,8 @@ wchar_t g_arrFaceDir[2][10] =
 
 wchar_t g_arrTriggerType[(UINT)ETRIGGER_TYPE::NONE][20] =
 {
-	L"Level Change"
+	L"Level Change",
+	L"Button"
 };
 
 wchar_t g_arrChangeLevelType[(UINT)ELEVEL_TYPE::END][20] =

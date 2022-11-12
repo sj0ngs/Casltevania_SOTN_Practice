@@ -154,6 +154,7 @@
     <ClInclude Include="CBoneScimitar.h" />
     <ClInclude Include="CBossLevel.h" />
     <ClInclude Include="CButton.h" />
+    <ClInclude Include="CButtonTrigger.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCandle.h" />
     <ClInclude Include="CCollider.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="CBoneScimitar.cpp" />
     <ClCompile Include="CBossLevel.cpp" />
     <ClCompile Include="CButton.cpp" />
+    <ClCompile Include="CButtonTrigger.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCandle.cpp" />
     <ClCompile Include="CCollider.cpp" />

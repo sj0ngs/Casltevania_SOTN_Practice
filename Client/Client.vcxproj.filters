@@ -385,6 +385,12 @@
     <Filter Include="Game\04. Object\Item\SubWeapon">
       <UniqueIdentifier>{10da7261-5ae2-4678-b8e9-639a9ae7cbc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Trigger\ButtonTrigger">
+      <UniqueIdentifier>{2cb62e95-696a-469b-b96f-73e1bfa15a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\UI\HUD">
+      <UniqueIdentifier>{f8f6dec6-291e-465e-bd23-b095a730c89c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -750,6 +756,9 @@
     <ClInclude Include="CSubWeapon.h">
       <Filter>Game\04. Object\Item\SubWeapon</Filter>
     </ClInclude>
+    <ClInclude Include="CButtonTrigger.h">
+      <Filter>Game\04. Object\Trigger\ButtonTrigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1111,6 +1120,9 @@
     </ClCompile>
     <ClCompile Include="CSubWeapon.cpp">
       <Filter>Game\04. Object\Item\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CButtonTrigger.cpp">
+      <Filter>Game\04. Object\Trigger\ButtonTrigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -166,6 +166,7 @@ void CObjMgr::Init()
 	// ==========
 
 	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\MapObj\\Candle.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Button", L"texture\\MapObj\\Button.bmp");
 
 	// ====
 	// Item

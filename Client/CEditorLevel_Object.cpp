@@ -14,6 +14,7 @@
 #include "CStartPoint.h"
 #include "CTrigger.h"
 #include "CLevelChangeTrigger.h"
+#include "CButtonTrigger.h"
 
 #include "CCollider.h"
 #include "CTexture.h"
@@ -179,7 +180,7 @@ void CEditorLevel::EditTrigger()
 					{
 					case ETRIGGER_TYPE::LEVEL_CHANGE:
 					{
-						CLevelChangeTrigger* pLevelChange = new CLevelChangeTrigger();
+						CLevelChangeTrigger* pLevelChange = new CLevelChangeTrigger;
 						pLevelChange->GetCollider()->SetScale(vScale);
 						pLevelChange->SetPos(m_vMousePos1);
 						pLevelChange->SetLevelType(GetChangeLevelType());
@@ -187,6 +188,15 @@ void CEditorLevel::EditTrigger()
 						pTrigger = pLevelChange;
 					}
 						break;
+					case ETRIGGER_TYPE::BUTTON:
+					{
+						CButtonTrigger* pButtonTrigger = new CButtonTrigger;
+						pButtonTrigger->GetCollider()->SetScale(vScale);
+						pButtonTrigger->SetPos(m_vMousePos1);
+						pButtonTrigger->SetBoxIdx(GetStartPointIdx());
+						pTrigger = pButtonTrigger;
+					}
+					break;
 					}
 					AddObj(pTrigger, ELAYER::TRIGGER);
 				}
@@ -311,6 +321,9 @@ void CLevel::LoadTrigger(FILE* _pFile)
 		{
 		case ETRIGGER_TYPE::LEVEL_CHANGE:
 			pTrigger = new CLevelChangeTrigger;
+			break;
+		case ETRIGGER_TYPE::BUTTON:
+			pTrigger = new CButtonTrigger;
 			break;
 		}
 		pTrigger->Load(_pFile);

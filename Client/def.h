@@ -54,6 +54,7 @@ enum class ELAYER
 {
 	BACKGROUND,
 	FOREGROUND,
+	TRIGGER,
 	TILE,
 	MAP_OBJECT,
 	MONSTER,
@@ -66,11 +67,10 @@ enum class ELAYER
 	LINE,
 	PLAYER_START,
 	SPAWN_POINT,
-	TRIGGER,
 	OBJECT,
 
 
-	UI = 15,
+	UI = 31,
 	END = 32
 };
 
@@ -109,6 +109,7 @@ enum class ESPAWNABLE_OBJECT
 enum class ETRIGGER_TYPE
 {
 	LEVEL_CHANGE,
+	BUTTON,
 
 	NONE
 };
