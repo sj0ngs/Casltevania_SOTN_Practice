@@ -10,6 +10,7 @@ CUI::CUI()	:
 	m_pParentUI(nullptr),
 	m_pIdleTex(nullptr),
 	m_vFinalPos{},
+	m_bMouseAfctd(false),
 	m_bLbtnDown(false),
 	m_bMouseOn(false),
 	m_bCmrAfctd(false)
@@ -22,6 +23,7 @@ CUI::CUI(const CUI& _Other)		:
 	m_pParentUI(nullptr),
 	m_pIdleTex(_Other.m_pIdleTex),
 	m_vFinalPos{},
+	m_bMouseAfctd(_Other.m_bMouseAfctd),
 	m_bLbtnDown(false),
 	m_bMouseOn(false),
 	m_bCmrAfctd(_Other.m_bCmrAfctd)
@@ -55,10 +57,13 @@ void CUI::Tick()
 		m_vFinalPos += m_pParentUI->GetFinalPos();
 	}
 
-	// 마우스 온 체크
-	MouseOnCheck();
+	if (m_bMouseAfctd)
+	{
+		// 마우스 온 체크
+		MouseOnCheck();
+	}
 		
-	// 자기 부모들의 Tick도 전부 돌려준다
+	// 자기 자식들의 Tick도 전부 돌려준다
 	for (size_t i = 0; i < m_vecChildUI.size(); i++)
 	{
 		m_vecChildUI[i]->Tick();

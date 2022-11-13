@@ -73,6 +73,8 @@ public:
 
     void SetFocusedUI(CObj* _pUI);
 
+    void CreateHUD();
+
 private:
     void FindTileSreen();
 };

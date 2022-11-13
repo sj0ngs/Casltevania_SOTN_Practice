@@ -33,7 +33,6 @@ void CPlayerJumpAttackState::Final_Tick()
 
 	Move();
 
-
 	CPlayerState::Final_Tick();
 	//Hit();
 }

@@ -66,7 +66,11 @@ void CAnimation::Tick()
 void CAnimation::Render(HDC _hDC)
 {
 	CObj* pOwnerObj = m_pAnimator->GetOwner();
+
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(pOwnerObj->GetPos());
+
+	if (!m_pAnimator->IsCameraAffected())
+		vPos = pOwnerObj->GetPos();
 
 	tAnimFrm frm = m_vecFrm[m_iCurFrm];
 

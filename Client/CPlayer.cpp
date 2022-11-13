@@ -56,11 +56,12 @@ CPlayer::CPlayer() :
 	m_eState(EPLAYER_STATE::STAND),
 	m_fAttackAcc(ATTACK_COOL),
 	m_pWeapon(nullptr),
-	m_eSubWeapon(ESUB_WEAPON_TYPE::AXE),
-	m_bIsHit(false)
+	m_eSubWeapon(ESUB_WEAPON_TYPE::NONE),
+	m_bIsHit(false),
+	m_faccMPGenTime(0.f)
 {
 	// 플레이어 초기 정보 세팅
-	m_tInfo.m_iMaxHP = 100;
+	m_tInfo.m_iMaxHP = 1000;
 	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
 
 	m_tInfo.m_iMaxMP = 50;
@@ -248,7 +249,11 @@ void CPlayer::Tick()
 			iSubWeapon = 0;
 
 		ChangeSubWeapon((ESUB_WEAPON_TYPE)iSubWeapon);
+
+		m_tInfo.m_iMP -= 10;
 	}
+
+	MPRegen();
 
 	//if (IS_TAP(EKEY::key1))
 	//{
@@ -287,6 +292,8 @@ void CPlayer::Render(HDC _DC)
 	strDebug = L"Heart : ";
 	strDebug += std::to_wstring(m_tInfo.m_iHeart);
 	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 120, strDebug.c_str(), (int)strDebug.length());
+
+	CObjMgr::GetInst()->UpDatePlayer(this);
 }
 
 void CPlayer::BeginOverlap(CCollider* _pOther)
@@ -527,6 +534,27 @@ int CPlayer::GetDamage()
 	return iDmg;
 }
 
+void CPlayer::MPRegen()
+{
+	if ((int)m_tInfo.m_iMaxMP > m_tInfo.m_iMP)
+	{
+		m_faccMPGenTime += DELTATIME;
+
+		if (1.f <= m_faccMPGenTime)
+		{
+			m_tInfo.m_iMP += 5;
+			m_faccMPGenTime = 0.f;
+
+			if ((int)m_tInfo.m_iMaxMP <= m_tInfo.m_iMP)
+			{
+				m_tInfo.m_iMP = m_tInfo.m_iMaxMP;
+				m_faccMPGenTime = 0.f;
+			}
+		}
+	}
+}
+
+
 void CPlayer::AddHeart(int _iValue)
 {
 	m_tInfo.m_iHeart += _iValue;
@@ -550,12 +578,12 @@ void CPlayer::LoadAnim(const wstring& _strFile)
 void CPlayer::Copy(CPlayer* _Other)
 {
 	SetFaceDir(_Other->GetFaceDir());
+	SetPos(_Other->GetPos());
 	m_tInfo = _Other->m_tInfo;
 	m_bPrevFaceDir = _Other->m_bPrevFaceDir;
 	m_pWeapon = _Other->m_pWeapon;
 	m_eSubWeapon = _Other->m_eSubWeapon;
 }
-
 
 // ====================
 // MISSILE_MAKE_EXAMPLE

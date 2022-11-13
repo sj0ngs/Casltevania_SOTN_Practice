@@ -338,7 +338,7 @@ void CGaibon::Wake()
 	}
 	assert(iter != vecMon.end());
 
-	m_pSlogra->Wake();
+	//m_pSlogra->Wake();
 }
 
 void CGaibon::Change()

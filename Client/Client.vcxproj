@@ -174,6 +174,9 @@
     <ClInclude Include="CGaibonSkyAttack.h" />
     <ClInclude Include="CGaibonStandByState.h" />
     <ClInclude Include="CHeart.h" />
+    <ClInclude Include="CHeartUI.h" />
+    <ClInclude Include="CHP.h" />
+    <ClInclude Include="CHUD.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CLevelChangeTrigger.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="CMonsterAxe.h" />
     <ClInclude Include="CMonsterProjectile.h" />
     <ClInclude Include="CMonsterState.h" />
+    <ClInclude Include="CMPBar.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjMgr.h" />
     <ClInclude Include="CPanel.h" />
@@ -242,6 +246,7 @@
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStraightProjectile.h" />
     <ClInclude Include="CSubWeapon.h" />
+    <ClInclude Include="CSubWeaponUI.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimeMgr.h" />
@@ -300,6 +305,9 @@
     <ClCompile Include="CGaibonSkyAttack.cpp" />
     <ClCompile Include="CGaibonStandByState.cpp" />
     <ClCompile Include="CHeart.cpp" />
+    <ClCompile Include="CHeartUI.cpp" />
+    <ClCompile Include="CHP.cpp" />
+    <ClCompile Include="CHUD.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CLevelChangeTrigger.cpp" />
@@ -319,6 +327,7 @@
     <ClCompile Include="CMonsterAxe.cpp" />
     <ClCompile Include="CMonsterProjectile.cpp" />
     <ClCompile Include="CMonsterState.cpp" />
+    <ClCompile Include="CMPBar.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
     <ClCompile Include="CPanel.cpp" />
@@ -367,6 +376,7 @@
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStraightProjectile.cpp" />
     <ClCompile Include="CSubWeapon.cpp" />
+    <ClCompile Include="CSubWeaponUI.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />

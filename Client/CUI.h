@@ -13,6 +13,7 @@ private:
 
     CTexture*       m_pIdleTex;     // 일반 텍스쳐
  
+    bool            m_bMouseAfctd;  // 마우스 입력을 받는지 여부
     bool            m_bLbtnDown;    // 좌버튼이 눌러졌는지 여부
     bool            m_bMouseOn;     // 마우스가 자신에 올라와 있는지 여부
     bool            m_bCmrAfctd;    // 카메라에 영향을 받는지 여부
@@ -32,7 +33,7 @@ public:
 
     void AddChildUI(CUI* _pChildUI)
     {
-        // 자신을 부모로 지정해준달
+        // 자신을 부모로 지정해준다
         _pChildUI->m_pParentUI = this;
         m_vecChildUI.push_back(_pChildUI);
     }

@@ -65,9 +65,9 @@ void CLevelChangeTrigger::BeginOverlap(CCollider* _pOther)
 	CLevel* pLevel = CLevelMgr::GetInst()->GetLevel(m_eLevelChangeType);
 	pLevel->SetStartPointIdx(m_iStartPointIdx);
 	
-	CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
-	CPlayer* pPlayer = pCurLevel->GetPlayer();
-	CObjMgr::GetInst()->UpDatePlayer(pPlayer);
+	//CLevel* pCurLevel = CLevelMgr::GetInst()->GetCurLevel();
+	//CPlayer* pPlayer = pCurLevel->GetPlayer();
+	//CObjMgr::GetInst()->UpDatePlayer(pPlayer);
 }
 
 void CLevelChangeTrigger::OnOverlap(CCollider* _pOther)

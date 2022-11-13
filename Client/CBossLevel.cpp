@@ -28,6 +28,9 @@ void CBossLevel::Init()
 {
 	LoadLevel(L"level\\Boss_Level.level");
 
+	// HUD 생성
+	CreateHUD();
+
 	// Level의 충돌 설정
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::MONSTER_PROJECTILE);

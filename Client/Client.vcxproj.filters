@@ -391,6 +391,18 @@
     <Filter Include="Game\04. Object\UI\HUD">
       <UniqueIdentifier>{f8f6dec6-291e-465e-bd23-b095a730c89c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\UI\HUD\MPBar">
+      <UniqueIdentifier>{7ce15399-379e-432c-bb97-c307508eebf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\UI\HUD\HP">
+      <UniqueIdentifier>{4cb05490-d3be-454f-857f-c20b103a5ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\UI\HUD\Heart">
+      <UniqueIdentifier>{2ed9e26b-3bd4-4c49-b8d0-514f60134ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\UI\HUD\SubWeapon">
+      <UniqueIdentifier>{95ff1038-d0b8-4d19-8a79-e7ec8761f4b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -759,6 +771,21 @@
     <ClInclude Include="CButtonTrigger.h">
       <Filter>Game\04. Object\Trigger\ButtonTrigger</Filter>
     </ClInclude>
+    <ClInclude Include="CHUD.h">
+      <Filter>Game\04. Object\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMPBar.h">
+      <Filter>Game\04. Object\UI\HUD\MPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="CHP.h">
+      <Filter>Game\04. Object\UI\HUD\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeartUI.h">
+      <Filter>Game\04. Object\UI\HUD\Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSubWeaponUI.h">
+      <Filter>Game\04. Object\UI\HUD\SubWeapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1123,6 +1150,21 @@
     </ClCompile>
     <ClCompile Include="CButtonTrigger.cpp">
       <Filter>Game\04. Object\Trigger\ButtonTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="CHUD.cpp">
+      <Filter>Game\04. Object\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMPBar.cpp">
+      <Filter>Game\04. Object\UI\HUD\MPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="CHP.cpp">
+      <Filter>Game\04. Object\UI\HUD\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="CHeartUI.cpp">
+      <Filter>Game\04. Object\UI\HUD\Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="CSubWeaponUI.cpp">
+      <Filter>Game\04. Object\UI\HUD\SubWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

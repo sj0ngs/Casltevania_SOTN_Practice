@@ -13,6 +13,12 @@ private:
     CAnimation*                 m_pCurAnim;
     bool                        m_bRepeat;
 
+    bool                        m_bCameraAfctd;
+
+public:
+    bool IsCameraAffected() const { return m_bCameraAfctd; }
+    void SetCameraAffected(bool _bCameraAfctd) { m_bCameraAfctd = _bCameraAfctd; }
+
 public:
     CLONE(CAnimator);
 

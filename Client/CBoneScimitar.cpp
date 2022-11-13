@@ -145,7 +145,7 @@ void CBoneScimitar::Slash()
 	CMonsterAttack* pAttack = new CMonsterAttack;
 
 	pAttack->SetDamage(GetMonsterInfo().m_iAtk);
-	pAttack->SetLifeSpan(0.5f);
+	pAttack->SetLifeSpan(0.3f);
 	pAttack->GetCollider()->SetScale(Vec2(120.f, 25.f));
 
 	Vec2 vPos = {};

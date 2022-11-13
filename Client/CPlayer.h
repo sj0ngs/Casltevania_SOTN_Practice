@@ -31,6 +31,8 @@ private:
 
     ESUB_WEAPON_TYPE m_eSubWeapon;
 
+    float m_faccMPGenTime;
+
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
 
@@ -52,6 +54,7 @@ public:
     CWeapon* GetWeapon() const { return m_pWeapon; }
 
     void ChangeSubWeapon(ESUB_WEAPON_TYPE _eType);
+    ESUB_WEAPON_TYPE GetSubWeapon() const { return m_eSubWeapon; }
 
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
@@ -88,6 +91,8 @@ public:
 
     void TakeDamage(int _iDmg, bool _bDir);
     int GetDamage();
+
+    void MPRegen();
 
     void AddHeart(int _iValue);
 

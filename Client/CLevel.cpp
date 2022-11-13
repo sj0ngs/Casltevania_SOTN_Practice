@@ -3,6 +3,7 @@
 #include "CObj.h"
 
 #include "CEngine.h"
+#include "CResMgr.h"
 #include "CCamera.h"
 #include "CPathMgr.h"
 #include "CObjMgr.h"
@@ -11,6 +12,14 @@
 #include "CLine.h"
 #include "CTile.h"
 #include "CBackGround.h"
+
+#include "CTexture.h"
+
+#include "CHUD.h"
+#include "CMPBar.h"
+#include "CHP.h"
+#include "CHeartUI.h"
+#include "CSubWeaponUI.h"
 
 CLevel::CLevel()	:
 	m_iStartPointIdx(0),
@@ -223,6 +232,45 @@ void CLevel::SetFocusedUI(CObj* _pUI)
 	}
 
 	assert(nullptr);
+}
+
+void CLevel::CreateHUD()
+{
+	// UI ¹èÄ¡
+
+	// MP Bar
+	CMPBar* pMPBar = new CMPBar;
+	CTexture* pTex = CResMgr::GetInst()->FindTexture(L"MPBar");
+	pMPBar->SetIdleTex(pTex);
+	pMPBar->SetPos(Vec2(130.f, 42.f));
+
+	// SubWeapon UI
+	CSubWeaponUI* pSbUI = new CSubWeaponUI;
+	pSbUI->SetPos(Vec2(390.f, 56.f));
+
+	// HUD
+	CHUD* pHUD = new CHUD;
+	pTex = CResMgr::GetInst()->FindTexture(L"HUD");
+	pHUD->SetIdleTex(pTex);
+	pHUD->SetPos(Vec2(10.f, 10.f));
+
+	// HP 
+	CHP* pHP = new CHP;
+	pTex = CResMgr::GetInst()->FindTexture(L"HP_Num");
+	pHP->SetPos(Vec2(40.f, 56.f));
+	pHP->SetIdleTex(pTex);
+	pHUD->AddChildUI(pHP);
+
+	// Heart
+	CHeartUI* pHeart = new CHeartUI;
+	pTex = CResMgr::GetInst()->FindTexture(L"Heart_Num");
+	pHeart->SetPos(Vec2(232.f, 52.f));
+	pHeart->SetIdleTex(pTex);
+	pHUD->AddChildUI(pHeart);
+	
+	AddObj(pMPBar, ELAYER::UI);
+	AddObj(pSbUI, ELAYER::UI);
+	AddObj(pHUD, ELAYER::UI);
 }
 
 void CLevel::FindTileSreen()

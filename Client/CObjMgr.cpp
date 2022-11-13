@@ -50,7 +50,7 @@ CObj* CObjMgr::FindObj(wstring _strName)
 // 레벨이 바뀔 때, 현재 레벨의 플레이어 정보를 원본에 업데이트 해준다
 void CObjMgr::UpDatePlayer(CPlayer* _pPlayer)
 {
-	CPlayer* pOrigin = dynamic_cast<CPlayer*>(FindObj(L"Player"));
+	CPlayer* pOrigin = (CPlayer*)(FindObj(L"Player"));
 
 	pOrigin->Copy(_pPlayer);
 }
@@ -177,6 +177,26 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\Small_Heart.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\HP_Heart.bmp");
+
+	// ==
+	// UI
+	// ==
+
+	CResMgr::GetInst()->LoadTexture(L"HUD", L"texture\\UI\\HUD.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"MPBar", L"texture\\UI\\MPBar.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"HP_Num", L"texture\\UI\\HP_Num.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Heart_Num", L"texture\\UI\\Heart_Num.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"SubWeapon_Shine", L"texture\\UI\\SubWeapon_Shine.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Dagger_UI", L"texture\\UI\\Dagger_UI.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Axe_UI", L"texture\\UI\\Axe_UI.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Bible_UI", L"texture\\UI\\Bible_UI.bmp");
 
 	// ==============
 	// Monster Origin

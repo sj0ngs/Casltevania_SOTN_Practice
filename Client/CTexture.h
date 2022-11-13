@@ -14,7 +14,7 @@ public:
     UINT GetWidth() const { return m_tBitMapInfo.bmWidth; }
     UINT GetHeight() const { return m_tBitMapInfo.bmHeight; }
 
-    HDC GetDC() { return m_hDC; }
+     HDC GetDC() { return m_hDC; }
 
     void Resize(UINT _iWidth, UINT _iHeight);
 

@@ -28,7 +28,7 @@ void CGaibonTraceSlograState::Final_Tick()
 
 			Vec2 vDist = vTargetPos - vMonPos;;
 
-			if (0.1 >= vDist.Length())
+			if (1.f >= vDist.Length())
 			{
 				ChangeState(L"GaibonPickUp");
 				return;
