@@ -139,7 +139,7 @@ void CObj::CreateRigidBody()
 
 void CObj::CreateAI()
 {
-	m_pAI = new CAI(this);
+	m_pAI = new AI(this);
 }
 
 

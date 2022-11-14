@@ -9,6 +9,7 @@
 #include "CCamera.h"
 #include "CLevelMgr.h"
 #include "CPathMgr.h"
+#include "CTimeMgr.h"
 
 #include "CBackGround.h"
 #include "CPlatform.h"
@@ -82,9 +83,9 @@ void CEditorLevel::Tick()
 		{
 			ChangeLevel(ELEVEL_TYPE::ANIMATION);
 		}
-		if (IS_TAP(EKEY::key1))
+		if (IS_TAP(EKEY::ESC))
 		{
-			ChangeLevel(ELEVEL_TYPE::START);
+			ChangeLevel(ELEVEL_TYPE::TITLE);
 		}
 
 		Update();
@@ -117,6 +118,8 @@ void CEditorLevel::Enter()
 	Init();
 
 	CCamera::GetInst()->SetCameraMove(true);
+
+	CTimeMgr::GetInst()->SetTimeLock(false);
 }
 
 void CEditorLevel::Exit()

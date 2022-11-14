@@ -55,7 +55,7 @@ void CLevelChangeTrigger::Render(HDC _DC)
 	TextOut(_DC, (int)vPos.x, (int)vPos.y - 15, strName.c_str(), (int)strName.length());
 
 	strName = std::to_wstring(m_iStartPointIdx);
-	TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());
+	TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());	
 }
 
 void CLevelChangeTrigger::BeginOverlap(CCollider* _pOther)

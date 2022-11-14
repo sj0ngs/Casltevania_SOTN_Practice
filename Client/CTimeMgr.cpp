@@ -8,7 +8,8 @@ CTimeMgr::CTimeMgr() :
 	m_llFrequency{},
 	m_iFPS(0),
 	m_fDeltaTime(0.f),
-	m_fTime(0.f)
+	m_fTime(0.f),
+	m_bTimeLock(false)
 {
 }
 
@@ -48,4 +49,15 @@ void CTimeMgr::Render()
 		m_fTime = 0;
 		m_iFPS = 0;
 	}
+}
+
+void CTimeMgr::SetTimeLock(bool _bTimeLock)
+{
+	if (!_bTimeLock)
+	{
+		QueryPerformanceCounter(&m_llCurCount);
+		m_llPrevCount = m_llCurCount;
+		m_fDeltaTime = 0.f;
+	}
+	m_bTimeLock = _bTimeLock;
 }

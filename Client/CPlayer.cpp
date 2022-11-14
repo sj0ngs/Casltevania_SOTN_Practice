@@ -263,6 +263,8 @@ void CPlayer::Tick()
 	if (nullptr != m_pWeapon)
 		m_pWeapon->Tick();
 
+	//float fDt = CTimeMgr::GetInst()->GetDeltaTime();
+
 	CObj::Tick();
 }
 
@@ -272,26 +274,26 @@ void CPlayer::Render(HDC _DC)
 
 	m_bPrevFaceDir = GetFaceDir();
 
-	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
-	wstring strDebug = L"xPos : ";
-	strDebug += std::to_wstring(GetPos().x);
-	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 200, strDebug.c_str(), (int)strDebug.length());
+	//Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+	//wstring strDebug = L"xPos : ";
+	//strDebug += std::to_wstring(GetPos().x);
+	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 200, strDebug.c_str(), (int)strDebug.length());
 
-	strDebug = L"yPos : ";
-	strDebug += std::to_wstring(GetPos().y);
-	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 180, strDebug.c_str(), (int)strDebug.length());
+	//strDebug = L"yPos : ";
+	//strDebug += std::to_wstring(GetPos().y);
+	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 180, strDebug.c_str(), (int)strDebug.length());
 
-	strDebug = L"HP : ";
-	strDebug += std::to_wstring(m_tInfo.m_iHP);
-	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 160, strDebug.c_str(), (int)strDebug.length());
+	//strDebug = L"HP : ";
+	//strDebug += std::to_wstring(m_tInfo.m_iHP);
+	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 160, strDebug.c_str(), (int)strDebug.length());
 
-	strDebug = L"MP : ";
-	strDebug += std::to_wstring(m_tInfo.m_iMP);
-	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 140, strDebug.c_str(), (int)strDebug.length());
+	//strDebug = L"MP : ";
+	//strDebug += std::to_wstring(m_tInfo.m_iMP);
+	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 140, strDebug.c_str(), (int)strDebug.length());
 
-	strDebug = L"Heart : ";
-	strDebug += std::to_wstring(m_tInfo.m_iHeart);
-	TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 120, strDebug.c_str(), (int)strDebug.length());
+	//strDebug = L"Heart : ";
+	//strDebug += std::to_wstring(m_tInfo.m_iHeart);
+	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 120, strDebug.c_str(), (int)strDebug.length());
 
 	CObjMgr::GetInst()->UpDatePlayer(this);
 }

@@ -38,7 +38,6 @@ void CPlayerStandAttackState::Final_Tick()
 		return;
 	}
 
-
 	CPlayerState::Final_Tick();
 
 	//Hit();

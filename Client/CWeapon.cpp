@@ -115,7 +115,7 @@ void CWeapon::Attack(bool _bDir)
 	m_pSword->GetAnimator()->Play(pAnim->GetName(), false);
 
 	Instantiate(m_pEffect, vPos, ELAYER::EFFECT);
-	Instantiate(m_pSword, vPos, ELAYER::EFFECT);
+	Instantiate(m_pSword, vPos, ELAYER::EFFECT);	
 }
 
 void CWeapon::AttackEnd()

@@ -11,17 +11,22 @@ private:
 	UINT m_iFPS;
 	float m_fDeltaTime;
 	float m_fTime;
+	
+	bool m_bTimeLock;
+
+public:
+	void SetTimeLock(bool _bTimeLock);
 
 public:
 	float GetDeltaTime()
 	{
-		return m_fDeltaTime;
+		if (m_bTimeLock)
+			return 0.f;
+		else
+			return m_fDeltaTime;
 	}
 
-	UINT GetFPS()
-	{
-		return m_iFPS;
-	}
+	UINT GetFPS() { return m_iFPS; }
 
 public:
 	void Init();

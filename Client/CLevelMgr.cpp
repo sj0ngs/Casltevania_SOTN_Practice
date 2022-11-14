@@ -2,6 +2,7 @@
 #include "CLevelMgr.h"
 
 #include "CLevel.h"
+#include "CTitle.h"
 #include "CStartLevel.h"
 #include "CStage01.h"
 #include "CBossLevel.h"
@@ -25,13 +26,14 @@ CLevelMgr::~CLevelMgr()	// 동적 할당된 레벨들을 전부 해제해준다
 
 void CLevelMgr::Init()
 {
+	m_arrLevel[(UINT)ELEVEL_TYPE::TITLE] = new CTitle;
 	m_arrLevel[(UINT)ELEVEL_TYPE::START] = new CStartLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_01] = new CStage01;
 	m_arrLevel[(UINT)ELEVEL_TYPE::BOSS] = new CBossLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::EDITOR] = new CEditorLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::ANIMATION] = new CAnimationEditor;
 
-	ChangeLevel(ELEVEL_TYPE::EDITOR);
+	ChangeLevel(ELEVEL_TYPE::TITLE);
 }
 
 void CLevelMgr::Tick()

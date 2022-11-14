@@ -8,6 +8,8 @@
 #include "CCamera.h"
 #include "CKeyMgr.h"
 
+#include "CSound.h"
+
 #include "CObj.h"
 #include "CPlayer.h"
 #include "CMonster.h"

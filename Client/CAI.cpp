@@ -3,13 +3,13 @@
 
 #include "CState.h"
 
-CAI::CAI(CObj* _pOwner)	:
+AI::AI(CObj* _pOwner)	:
 	CComponent(_pOwner),
 	m_pCurState(nullptr)
 {
 }
 
-CAI::CAI(const CAI& _Other)	:
+AI::AI(const AI& _Other)	:
 	CComponent(nullptr),
 	m_pCurState(nullptr)
 {
@@ -26,7 +26,7 @@ CAI::CAI(const CAI& _Other)	:
 	}
 }
 
-CAI::~CAI()
+AI::~AI()
 {
 	map<wstring, CState*>::iterator iter = m_mapState.begin();
 
@@ -37,7 +37,7 @@ CAI::~CAI()
 	m_mapState.clear();
 }
 
-void CAI::Final_Tick()
+void AI::Final_Tick()
 {
 	if (nullptr == m_pCurState)
 		return;
@@ -45,13 +45,13 @@ void CAI::Final_Tick()
 	m_pCurState->Final_Tick();
 }
 
-void CAI::AddState(const wstring& _strKey, CState* _pState)
+void AI::AddState(const wstring& _strKey, CState* _pState)
 {
 	_pState->m_pOwnerAI = this;
 	m_mapState.insert(make_pair(_strKey, _pState));
 }
 
-CState* CAI::FindState(const wstring& _strKey)
+CState* AI::FindState(const wstring& _strKey)
 {
 	map<wstring, CState*>::iterator iter = m_mapState.find(_strKey);
 
@@ -61,7 +61,7 @@ CState* CAI::FindState(const wstring& _strKey)
 	return nullptr;
 }
 
-void CAI::ChangeState(const wstring& _strKey)
+void AI::ChangeState(const wstring& _strKey)
 {
 	CState* pNextState = FindState(_strKey);
 	assert(pNextState);

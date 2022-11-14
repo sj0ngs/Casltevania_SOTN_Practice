@@ -403,6 +403,12 @@
     <Filter Include="Game\04. Object\UI\HUD\SubWeapon">
       <UniqueIdentifier>{95ff1038-d0b8-4d19-8a79-e7ec8761f4b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\02. Mananger\11. SoundManager">
+      <UniqueIdentifier>{b46dc1ca-d481-44b8-92ec-7ca6659a3a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\00. Title">
+      <UniqueIdentifier>{c8a4ab1f-ea34-4e78-a516-39a10275034b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -491,9 +497,6 @@
     </ClInclude>
     <ClInclude Include="CTexture.h">
       <Filter>Game\06. Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="CSound.h">
-      <Filter>Game\06. Resource\Sound</Filter>
     </ClInclude>
     <ClInclude Include="CAnimation.h">
       <Filter>Game\05. Component\Animator\Animation</Filter>
@@ -786,6 +789,15 @@
     <ClInclude Include="CSubWeaponUI.h">
       <Filter>Game\04. Object\UI\HUD\SubWeapon</Filter>
     </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>Game\06. Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>Game\02. Mananger\11. SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTitle.h">
+      <Filter>Game\03. Level\00. Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -856,9 +868,6 @@
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
       <Filter>Game\06. Resource\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CSound.cpp">
-      <Filter>Game\06. Resource\Sound</Filter>
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>Game\05. Component\Animator\Animation</Filter>
@@ -1165,6 +1174,15 @@
     </ClCompile>
     <ClCompile Include="CSubWeaponUI.cpp">
       <Filter>Game\04. Object\UI\HUD\SubWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>Game\06. Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>Game\02. Mananger\11. SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTitle.cpp">
+      <Filter>Game\03. Level\00. Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

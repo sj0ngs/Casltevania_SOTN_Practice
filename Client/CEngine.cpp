@@ -12,6 +12,7 @@
 #include "CResMgr.h"
 #include "CUIMgr.h"
 #include "CObjMgr.h"
+#include "CSoundMgr.h"
 
 #include "CTexture.h"
 
@@ -52,6 +53,7 @@ void CEngine::Init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
 	CPathMgr::GetInst()->Init();
 	CTimeMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
+	CSoundMgr::GetInst()->Init();
 	CObjMgr::GetInst()->Init();
 	CLevelMgr::GetInst()->Init();
 }

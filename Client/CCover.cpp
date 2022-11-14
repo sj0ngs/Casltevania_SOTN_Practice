@@ -3,7 +3,6 @@
 
 CCover::CCover()
 {
-	CreateCollider();
 }
 
 CCover::~CCover()

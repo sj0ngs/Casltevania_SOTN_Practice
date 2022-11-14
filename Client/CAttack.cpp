@@ -6,7 +6,6 @@
 
 CAttack::CAttack(CObj* _pOwner)
 {
-	CreateCollider();
 }
 
 CAttack::~CAttack()

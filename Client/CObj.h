@@ -5,7 +5,7 @@
 class CCollider;
 class CAnimator;
 class CRigidBody;
-class CAI;
+class AI;
 
 class CObj :
     public CEntity
@@ -24,7 +24,7 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
     CCollider*  m_pCollider;
     CAnimator*  m_pAnimator;
     CRigidBody* m_pRigidBody;
-    CAI*        m_pAI;
+    AI*        m_pAI;
 
     bool m_bDead;
 
@@ -57,7 +57,7 @@ public:
     CRigidBody* GetRigidBody() { return m_pRigidBody; }
 
     void CreateAI();
-    CAI* GetAI() { return m_pAI; }
+    AI* GetAI() { return m_pAI; }
     
 public:
     bool IsDead() { return m_bDead; }

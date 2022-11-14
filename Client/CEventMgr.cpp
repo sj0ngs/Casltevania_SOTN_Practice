@@ -70,7 +70,7 @@ void CEventMgr::Tick()
 		{
 			// wParam  : AI Address			
 			//lParam : State Type
-			CAI* pAI = (CAI*)m_vecEvent[i].wParam;
+			AI* pAI = (AI*)m_vecEvent[i].wParam;
 			const wchar_t* pName = (const wchar_t*)m_vecEvent[i].lParam;
 			pAI->ChangeState(pName);
 		}

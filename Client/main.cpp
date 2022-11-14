@@ -35,10 +35,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     // 메모리 릭 체크
-    _CrtSetBreakAlloc(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     // 메모리 릭이 난 메모리 주소를 넣어준다 쓰고 나서 다시 주석 걸자
-    // _CrtSetBreakAlloc();
+    //_CrtSetBreakAlloc(70974);
      
     // 윈도우, DC, Brush, Pen, AccelTable 등등 
     // Handle 로 다루는 오브젝트은 Kernel Object(OS가 관리하는 오브젝트)

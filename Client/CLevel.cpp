@@ -7,6 +7,7 @@
 #include "CCamera.h"
 #include "CPathMgr.h"
 #include "CObjMgr.h"
+#include "CTimeMgr.h"
 #include "CPlayer.h"
 
 #include "CLine.h"
@@ -111,12 +112,16 @@ void CLevel::Enter()
 {
 	POINT ptResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetMapSize(ptResolution, m_iWidth, m_iHeight);
+
+	//CTimeMgr::GetInst()->SetTimeLock(false);
 }
 
 void CLevel::Exit()
 {
 	POINT ptResolution = {};
 	CCamera::GetInst()->SetMapSize(ptResolution, 0, 0);
+
+	CTimeMgr::GetInst()->SetTimeLock(true);
 }
 
 void CLevel::LoadLevel(const wstring& _strRelativePath)
@@ -142,8 +147,6 @@ void CLevel::LoadLevel(const wstring& _strRelativePath)
 		fclose(pFile);
 	}
 }
-
-
 
 void CLevel::AddObj(CObj* _pObj, ELAYER _Layer)
 {

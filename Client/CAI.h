@@ -4,7 +4,7 @@
 class CObj;
 class CState;
 
-class CAI :
+class AI :
     public CComponent
 {
 private:
@@ -15,12 +15,12 @@ public:
     CState* GetCurState() const { return m_pCurState; }
 
 public:
-    CLONE(CAI);
+    CLONE(AI);
 
 public:
-    CAI(CObj* _pOwner);
-    CAI(const CAI& _Other);
-    ~CAI();
+    AI(CObj* _pOwner);
+    AI(const AI& _Other);
+    ~AI();
 
 public:
     virtual void Tick() override {};

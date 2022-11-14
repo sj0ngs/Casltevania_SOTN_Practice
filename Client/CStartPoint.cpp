@@ -5,6 +5,7 @@
 #include "CCamera.h"
 #include "CLevelMgr.h"
 #include "CObjMgr.h"
+#include "CTimeMgr.h"
 
 #include "clevel.h"
 #include "CEditorLevel.h"
@@ -44,6 +45,7 @@ void CStartPoint::Tick()
 			//pPlayer->SetFaceDir(GetFaceDir());
 			pPlayer->SetPos(GetPos());
 			pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);
+			CTimeMgr::GetInst()->SetTimeLock(false);
 		}
 	}
 

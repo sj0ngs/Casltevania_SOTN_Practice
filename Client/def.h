@@ -38,6 +38,7 @@ enum class ELEVEL_TYPE
 	BOSS,
 	EDITOR,
 	ANIMATION,
+	TITLE,
 	END
 };
 

@@ -3,6 +3,7 @@
 
 #include "CAI.h"
 #include "CResMgr.h"
+#include "CSoundMgr.h"
 
 #include "CObj.h"
 #include "CPlayer.h"
@@ -58,6 +59,9 @@ void CObjMgr::UpDatePlayer(CPlayer* _pPlayer)
 // 사용할 오브젝트 미리 모두 생성
 void CObjMgr::Init()
 {
+	// Sound 로딩
+	CResMgr::GetInst()->LoadSound(L"Dance_of_Gold", L"sound\\Dance_of_Gold.wav");
+
 	// 텍스쳐 모두 로딩
 
 	// 플레이어 텍스쳐
@@ -168,6 +172,24 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\MapObj\\Candle.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Button", L"texture\\MapObj\\Button.bmp");
 
+	// ===
+	// Map
+	// ===
+
+	CResMgr::GetInst()->LoadTexture(L"Title_BackGround", L"texture\\Map\\Title_BackGround.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Title", L"texture\\Map\\Title.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Title_Anim", L"texture\\Map\\Title_Anim.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Title_Anim_2", L"texture\\Map\\Title_Anim_2.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Debug_Map", L"texture\\Map\\Debug_Map.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"BackGround", L"texture\\Map\\BackGround.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Room_1", L"texture\\Map\\Room_1.bmp");
+
 	// ====
 	// Item
 	// ====
@@ -197,6 +219,12 @@ void CObjMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Axe_UI", L"texture\\UI\\Axe_UI.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Bible_UI", L"texture\\UI\\Bible_UI.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Game_Start_Select", L"texture\\UI\\Game_Start_Select.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Debug_Mode_Select", L"texture\\UI\\Debug_Mode_Select.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Select_Frame", L"texture\\UI\\Select_Frame.bmp");
 
 	// ==============
 	// Monster Origin

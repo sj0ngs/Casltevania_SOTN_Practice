@@ -239,6 +239,7 @@
     <ClInclude Include="CSlograMoveState.h" />
     <ClInclude Include="CSlograStandBy.h" />
     <ClInclude Include="CSound.h" />
+    <ClInclude Include="CSoundMgr.h" />
     <ClInclude Include="CSpawnPoint.h" />
     <ClInclude Include="CStage01.h" />
     <ClInclude Include="CStartLevel.h" />
@@ -250,6 +251,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimeMgr.h" />
+    <ClInclude Include="CTitle.h" />
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CUI.h" />
@@ -369,6 +371,7 @@
     <ClCompile Include="CSlograMoveState.cpp" />
     <ClCompile Include="CSlograStandBy.cpp" />
     <ClCompile Include="CSound.cpp" />
+    <ClCompile Include="CSoundMgr.cpp" />
     <ClCompile Include="CSpawnPoint.cpp" />
     <ClCompile Include="CStage01.cpp" />
     <ClCompile Include="CStartLevel.cpp" />
@@ -380,6 +383,7 @@
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />
+    <ClCompile Include="CTitle.cpp" />
     <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CUI.cpp" />
