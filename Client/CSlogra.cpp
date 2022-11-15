@@ -445,7 +445,7 @@ void CSlogra::Fire()
 
 	pPrj->SetDamage(GetMonsterInfo().m_iAtk);
 	pPrj->SetFaceDir(GetFaceDir());
-	pPrj->SetSpeed(500.f);
+	pPrj->SetSpeed(700.f);
 
 	pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
 
