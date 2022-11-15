@@ -4,6 +4,7 @@
 #include "CGaibon.h"
 #include "CSlogra.h"
 
+
 CGaibonTraceSlograState::CGaibonTraceSlograState()
 {
 }
@@ -20,7 +21,7 @@ void CGaibonTraceSlograState::Final_Tick()
 
 	if (nullptr != pSlogra)
 	{
-		if (pSlogra->IsSlograHit())
+		if (pSlogra->IsSlograHit() && pGaibon->IsFly())
 		{
 			Vec2 vMonPos = pGaibon->GetPos();
 			Vec2 vTargetPos = pSlogra->GetPos();
@@ -63,8 +64,13 @@ void CGaibonTraceSlograState::Enter()
 
 	pGaibon->PickUp();
 	//CSlogra* pSlogra = pGaibon->GetSlogra();
+
+	pGaibon->SetFly(true);
 }
 
 void CGaibonTraceSlograState::Exit()
 {
+	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
+
+	pGaibon->SetFly(false);
 }

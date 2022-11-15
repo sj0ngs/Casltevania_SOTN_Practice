@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CGaibonPickUpState.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 #include "CTimeMgr.h"
 
@@ -9,6 +10,8 @@
 #include "CPlayer.h"
 #include "CGaibon.h"
 #include "CSlogra.h"
+
+#include "CSound.h"
 
 CGaibonPickUpState::CGaibonPickUpState()	:
 	m_faccPickUpTime(0.f)
@@ -33,7 +36,7 @@ void CGaibonPickUpState::Final_Tick()
 
 		m_faccPickUpTime += DELTATIME;
 
-		if (3.f <= m_faccPickUpTime)
+		if (3.f <= m_faccPickUpTime || !pGaibon->IsFly())
 		{
 			pSlogra->SetSlograCatch(false);
 			ChangeState(L"GaibonMove");
@@ -47,7 +50,6 @@ void CGaibonPickUpState::Final_Tick()
 		else
 		{
 			float fDist = vPlayerPos.x - vMonPos.x;
-
 			vMonPos.x += fDist * DELTATIME;
 		}
 
@@ -73,6 +75,12 @@ void CGaibonPickUpState::Enter()
 	{
 		pSlogra->SetSlograCatch(true);
 	}
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Flap");
+	pSound->Play(true);
+
+	pGaibon->SetFly(true);
+
 }
 
 void CGaibonPickUpState::Exit()
@@ -82,4 +90,9 @@ void CGaibonPickUpState::Exit()
 
 	m_faccPickUpTime = 0.f;
 	pSlogra->SetSlograCatch(false);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Flap");
+	pSound->Stop();
+
+	pGaibon->SetFly(false);
 }

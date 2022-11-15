@@ -39,6 +39,8 @@ void CPlayerDuckAttackState::Final_Tick()
 
 void CPlayerDuckAttackState::Enter()
 {
+	CPlayerAttackState::Enter();
+
 	GET_PLAYER();
 
 	CAttack* pAttack = new CAttack(GetOwnerObj());

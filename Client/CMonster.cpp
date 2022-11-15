@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMonster.h"
 
+#include "CResMgr.h"
 #include "CTimeMgr.h"
 #include "CResMgr.h"
 
@@ -14,6 +15,8 @@
 
 #include "CProjectile.h"
 
+#include "CSound.h"
+
 CMonster::CMonster()	:
 	m_tInfo{},
 	m_bOnAttack(false)
@@ -24,6 +27,7 @@ CMonster::CMonster()	:
 	CreateAI();
 	
 	GetRigidBody()->SetGravity(true);
+	GetRigidBody()->SetGravityAccel(1000.f);
 
 	GetAI()->AddState(L"Dead", new CDeadState);
 }
@@ -99,6 +103,8 @@ void CMonster::BeginOverlap(CCollider* _pOther)
 		CProjectile* pProjectile = (CProjectile*)pObj;
 
 		TakeDamage(pProjectile->GetDamage());
+
+		PLAY_SOUND(L"Hit");
 	}
 }
 

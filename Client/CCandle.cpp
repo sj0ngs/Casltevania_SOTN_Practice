@@ -2,6 +2,7 @@
 #include "CCandle.h"
 
 #include "CObjMgr.h"
+#include "CResMgr.h"
 
 #include "CCollider.h"
 #include "CAnimator.h"
@@ -11,6 +12,8 @@
 #include "CHeart.h"
 
 #include "CSubWeapon.h"
+
+#include "CSound.h"
 
 CCandle::CCandle()
 {
@@ -35,6 +38,9 @@ void CCandle::BeginOverlap(CCollider* _pOther)
 	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
 
 	DropItem();
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Projectile_Explot");
+	pSound->Play();
 }
 
 void CCandle::DropItem()

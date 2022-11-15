@@ -10,6 +10,8 @@ private:
 
     float m_faccFireTime;
 
+    bool m_bAttackEnd;
+
 public:
     CLONE(CGaibonSkyAttack);
 

@@ -124,6 +124,8 @@ void CEditorLevel::Enter()
 
 void CEditorLevel::Exit()
 {
+	//DeleteAllObject();
+
 	HWND hWnd = CEngine::GetInst()->GetMainWnd();
 	SetMenu(hWnd, nullptr);
 
@@ -369,6 +371,7 @@ wchar_t g_arrChangeLevelType[(UINT)ELEVEL_TYPE::END][20] =
 	L"STAGE_02",
 	L"STAGE_03",
 	L"Boss",
+	L"Ending",
 	L"EDITOR",
 };
 

@@ -7,10 +7,11 @@
 #include "CGaibon.h"
 #include "CSlogra.h"
 
-CGaibonSkyAttack::CGaibonSkyAttack()	:
+CGaibonSkyAttack::CGaibonSkyAttack() :
 	m_fSkyAttackTime(0.f),
 	m_faccAttackTime(0.f),
-	m_faccFireTime(0.f)
+	m_faccFireTime(0.f),
+	m_bAttackEnd(false)
 {
 }
 
@@ -23,15 +24,16 @@ void CGaibonSkyAttack::Final_Tick()
 	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
 
 	// ³«ÇÏ
-	if (m_fSkyAttackTime < m_faccAttackTime)
+	if (!m_bAttackEnd && m_fSkyAttackTime <= m_faccAttackTime || !pGaibon->IsFly())
 	{
 		pGaibon->GetRigidBody()->SetGravity(true);
 		pGaibon->Landing();
 		pGaibon->GetCollider()->SetScale(Vec2(70.f, 220.f));
 		pGaibon->GetCollider()->SetOffsetPos(Vec2(0.f, -110.f));
-		m_faccAttackTime = m_fSkyAttackTime;
+		m_faccAttackTime = m_faccAttackTime;
+		m_bAttackEnd = true;
 	}
-	else if( m_fSkyAttackTime > m_faccAttackTime)
+	else if(m_fSkyAttackTime > m_faccAttackTime)
 	{
 		Vec2 vMonPos = pGaibon->GetPos();
 
@@ -75,6 +77,8 @@ void CGaibonSkyAttack::Final_Tick()
 	}
 
 	Dead();
+
+
 }
 
 void CGaibonSkyAttack::Enter()
@@ -89,10 +93,18 @@ void CGaibonSkyAttack::Enter()
 	int a = rand();
 
 	m_fSkyAttackTime = (float)(rand() % 2  + 2);
+
+	pGaibon->SetFly(true);
 }
 
 void CGaibonSkyAttack::Exit()
 {
+	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
+
 	m_fSkyAttackTime = 0.f;
 	m_faccAttackTime = 0.f;
+
+	pGaibon->SetFly(false);
+
+	m_bAttackEnd = false;
 }

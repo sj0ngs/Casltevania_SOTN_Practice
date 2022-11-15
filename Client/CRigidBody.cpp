@@ -32,7 +32,7 @@ CRigidBody::CRigidBody(const CRigidBody& _Other)	:
 	m_fGravityVLimit(_Other.m_fGravityVLimit),
 	m_fGravityAccel(_Other.m_fGravityAccel),
 	m_bGravityUse(_Other.m_bGravityUse),
-	m_bGround(false)
+	m_bGround(_Other.m_bGround)
 {
 }
 

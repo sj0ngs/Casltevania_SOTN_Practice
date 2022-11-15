@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "CPlayerJumpState.h"
 
+#include "CResMgr.h"
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CPlayerJumpState::CPlayerJumpState()	:
 	m_accJumpTime(0.f)
@@ -73,6 +76,8 @@ void CPlayerJumpState::Enter()
 			Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
 			pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
 			pPlayer->GetAnimator()->Play(L"Double_Jump_Right", false);
+
+			PLAY_SOUND(L"Double_Jump");
 		}
 	}
 	else
@@ -89,6 +94,8 @@ void CPlayerJumpState::Enter()
 			Vec2 vVelocity = pPlayer->GetRigidBody()->GetVelocity();
 			pPlayer->GetRigidBody()->AddVelocity(Vec2(0.f, -vVelocity.y));
 			pPlayer->GetAnimator()->Play(L"Double_Jump_Left", false);
+
+			PLAY_SOUND(L"Double_Jump");
 		}
 	}
 

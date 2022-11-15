@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CHeart.h"
 
+#include "CResMgr.h"
 #include "CTimeMgr.h"
 
 #include "CCollider.h"
@@ -8,6 +9,8 @@
 #include "CAnimator.h"
 
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CHeart::CHeart()	:
 	m_eType(EHEART_TYPE::NONE),
@@ -102,6 +105,8 @@ void CHeart::BeginOverlap(CCollider* _pOther)
 		}
 
 		SetDead();
+
+		PLAY_SOUND(L"GETHEART");
 	}
 }
 

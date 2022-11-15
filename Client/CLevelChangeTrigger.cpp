@@ -48,6 +48,9 @@ void CLevelChangeTrigger::Render(HDC _DC)
 	case ELEVEL_TYPE::EDITOR:
 		strName = L"Editor";
 		break;
+	case ELEVEL_TYPE::ENDING:
+		strName = L"Ending";
+		break;
 	case ELEVEL_TYPE::END:
 		strName = L"Error";
 		break;

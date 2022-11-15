@@ -26,6 +26,17 @@ void CSlograMoveState::Final_Tick()
 	
 	Vec2 vDir = pPlayer->GetPos() - pSlogra->GetPos();
 
+	if (0 <= vDir.x)
+	{
+		if (!pSlogra->GetFaceDir())
+			pSlogra->Turn();
+	}
+	else
+	{
+		if (pSlogra->GetFaceDir())
+			pSlogra->Turn();
+	}
+
 	float fAttackRange = pSlogra->GetMonsterInfo().m_fAttackRange;
 
 	if (pSlogra->SlograCanAttack() &&  fAttackRange > vDir.Length())
@@ -37,17 +48,6 @@ void CSlograMoveState::Final_Tick()
 	{
 		ChangeState(L"SlograFire");
 		return;
-	}
-
-	if (0 <= vDir.x)
-	{
-		if (!pSlogra->GetFaceDir())
-			pSlogra->Turn();
-	}
-	else
-	{
-		if (pSlogra->GetFaceDir())
-			pSlogra->Turn();
 	}
 
 	//LARGE_INTEGER llCount;

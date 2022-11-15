@@ -16,6 +16,8 @@ private:
     EGAIBON_STATE   m_eState;
     CSlogra*        m_pSlogra;
 
+    bool m_bFly;
+
     bool m_bDeadSequence;
     float m_faccDeathTime;
     float m_faccDeathEffectSpawnTime;
@@ -25,6 +27,9 @@ private:
 public:
     EGAIBON_STATE GetGaibonState() { return m_eState; }
     void ChangeGaibonState(EGAIBON_STATE _eState) { m_eState = _eState; }
+
+    bool IsFly() const { return m_bFly; }
+    void SetFly(bool _bFly) { m_bFly = _bFly; }
 
     CSlogra* GetSlogra();
 
@@ -38,6 +43,9 @@ public:
 public:
     virtual void Tick() override;
     virtual void Render(HDC _DC)   override;
+
+public:
+    virtual void BeginOverlap(CCollider* _pOther) override;
 
 public:
     virtual void Walk() override;

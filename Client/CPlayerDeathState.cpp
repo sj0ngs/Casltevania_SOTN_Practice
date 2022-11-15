@@ -14,7 +14,12 @@ CPlayerDeathState::~CPlayerDeathState()
 void CPlayerDeathState::Final_Tick()
 {
 	if (GetAnim()->IsFinish())
-		ChangeLevel(ELEVEL_TYPE::EDITOR);
+	{
+		ChangeLevel(ELEVEL_TYPE::GAME_OVER);
+		GET_PLAYER();
+
+		pPlayer->Revive();
+	}
 }
 
 void CPlayerDeathState::Enter()

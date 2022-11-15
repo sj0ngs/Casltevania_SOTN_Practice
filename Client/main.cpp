@@ -53,7 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // 엔진 초기화
-    CEngine::GetInst()->Init(g_hWnd, 1280, 720);
+    CEngine::GetInst()->Init(g_hWnd, 1020, 720);
 
     // 단축키 테이블 정보를 가져옴
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));

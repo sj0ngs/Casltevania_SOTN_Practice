@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CSkeleton.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
@@ -18,6 +19,8 @@
 #include "CDeadState.h"
 
 #include "CBone.h"
+
+#include "CSound.h"
 
 CSkeleton::CSkeleton()	:
 	m_bThrowEnd(false)
@@ -144,6 +147,8 @@ void CSkeleton::Dead()
 
 	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
 	SetDead();
+
+	PLAY_SOUND(L"Skeleton_Die");
 }
 
 void CSkeleton::Throw()
@@ -174,4 +179,6 @@ void CSkeleton::Throw()
 	}
 
 	Instantiate(pBone, vPos, ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"Mon_Attack_01");
 }

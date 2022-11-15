@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "CMonsterProjectile.h"
 
+#include "CResMgr.h"
 #include "CObjMgr.h"
 #include "CPlayer.h"
 #include "CEffect.h"
 
 #include "CAnimator.h"
+
+#include "CSound.h"
 
 CMonsterProjectile::CMonsterProjectile()
 {
@@ -21,6 +24,9 @@ void CMonsterProjectile::BeginOverlap(CCollider* _pOther)
 	
 	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
 	SetDead();
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Projectile_Explot");
+	pSound->Play();
 }
 
 void CMonsterProjectile::OnOverlap(CCollider* _pOther)

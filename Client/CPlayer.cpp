@@ -28,6 +28,8 @@
 #include "CAnimation.h"
 #include "CRigidBody.h"
 
+#include "CSound.h"
+
 // State 
 #include "CPlayerIdleState.h"
 #include "CPlayerLeftMoveState.h"
@@ -69,7 +71,7 @@ CPlayer::CPlayer() :
 
 	m_tInfo.m_iHeart = 50;
 
-	m_tInfo.m_iStr = 20;
+	m_tInfo.m_iStr = 100;//20;
 	m_tInfo.m_iCon = 5;
 	m_tInfo.m_iInt = 10;
 
@@ -220,10 +222,13 @@ void CPlayer::Tick()
 {
 	if (m_bIsDuck)
 		m_eState = EPLAYER_STATE::DUCK;
-	else if (!GetRigidBody()->IsGround())
-		m_eState = EPLAYER_STATE::AIR;
 	else
-		m_eState = EPLAYER_STATE::STAND;
+	{
+		if (!GetRigidBody()->IsGround())
+			m_eState = EPLAYER_STATE::AIR;
+		else
+			m_eState = EPLAYER_STATE::STAND;
+	}
 
 	if (ATTACK_COOL > m_fAttackAcc)
 	{
@@ -259,6 +264,11 @@ void CPlayer::Tick()
 	//{
 	//	Skill();
 	//};
+
+	if (IS_TAP(EKEY::key0))
+	{
+		m_tInfo.m_iHP = 0;
+	}
 
 	if (nullptr != m_pWeapon)
 		m_pWeapon->Tick();
@@ -449,6 +459,10 @@ void CPlayer::UseDagger()
 		vPos.y -= 150.f;
 	}
 	Instantiate(pDagger, vPos, ELAYER::PLAYER_PROJECTILE);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"KNIFE");
+	pSound->Play();
+	pSound->SetVolume(50.f);
 }
 
 void CPlayer::UseAxe()
@@ -478,6 +492,10 @@ void CPlayer::UseAxe()
 		pAxe->GetAnimator()->Play(L"Axe_Left", true);
 	}
 	Instantiate(pAxe, vPos, ELAYER::PLAYER_PROJECTILE);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"ONO");
+	pSound->Play();
+	pSound->SetVolume(50.f);
 }
 
 void CPlayer::UseBible()
@@ -544,7 +562,7 @@ void CPlayer::MPRegen()
 
 		if (1.f <= m_faccMPGenTime)
 		{
-			m_tInfo.m_iMP += 5;
+			m_tInfo.m_iMP += 1;
 			m_faccMPGenTime = 0.f;
 
 			if ((int)m_tInfo.m_iMaxMP <= m_tInfo.m_iMP)
@@ -560,6 +578,13 @@ void CPlayer::MPRegen()
 void CPlayer::AddHeart(int _iValue)
 {
 	m_tInfo.m_iHeart += _iValue;
+}
+
+void CPlayer::Revive()
+{
+	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+
+	CObjMgr::GetInst()->UpDatePlayer(this);
 }
 
 
@@ -579,12 +604,13 @@ void CPlayer::LoadAnim(const wstring& _strFile)
 
 void CPlayer::Copy(CPlayer* _Other)
 {
-	SetFaceDir(_Other->GetFaceDir());
-	SetPos(_Other->GetPos());
-	m_tInfo = _Other->m_tInfo;
-	m_bPrevFaceDir = _Other->m_bPrevFaceDir;
+	//SetFaceDir(_Other->GetFaceDir());
+	//SetPos(_Other->GetPos());
+	m_tInfo = _Other->GetPlayerInfo();
+	//m_bPrevFaceDir = _Other->m_bPrevFaceDir;
 	m_pWeapon = _Other->m_pWeapon;
 	m_eSubWeapon = _Other->m_eSubWeapon;
+	//m_eState = _Other->m_eState;
 }
 
 // ====================

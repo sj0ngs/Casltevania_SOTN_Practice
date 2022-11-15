@@ -70,14 +70,6 @@ void CStartLevel::Tick()
 		CCamera::GetInst()->TracePlayer(vPlayerPos);
 	}
 	
-	if (IS_TAP(EKEY::ENTER))
-	{
-		//CCamera::GetInst()->FadeOut(1.f);
-		//CCamera::GetInst()->FadeIn(1.f);
-
-		ChangeLevel(ELEVEL_TYPE::EDITOR);
-	}
-
 	//if (IS_TAP(EKEY::key1))
 	//{
 	//	ChangeLevel(ELEVEL_TYPE::STAGE_01);

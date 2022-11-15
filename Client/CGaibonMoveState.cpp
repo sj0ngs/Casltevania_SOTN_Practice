@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "CGaibonMoveState.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
 #include "CPlayer.h"
 #include "CGaibon.h"
 #include "CSlogra.h"
+
+#include "CSound.h"
 
 CGaibonMoveState::CGaibonMoveState()	:
 	vDest(0.f, 0.f)
@@ -42,7 +45,7 @@ void CGaibonMoveState::Final_Tick()
 	
 	//Vec2 vPrevPos = pGaibon->GetPrevPos();
 
-	if (0.1f >= fDist)
+	if (1.f >= fDist || !pGaibon->IsFly())
 	{
 		ChangeState(L"GaibonSkyAttack");
 		return;
@@ -107,9 +110,21 @@ void CGaibonMoveState::Enter()
 	vPos.y -=  200.f;
 
 	vDest = vPos;
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Flap");
+	pSound->Play(true);
+
+	pGaibon->SetFly(true);
 }
 
 void CGaibonMoveState::Exit()
 {
+	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
+
 	vDest = Vec2(0.f, 0.f);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Flap");
+	pSound->Stop();
+
+	pGaibon->SetFly(false);
 }

@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "CGaibonStandByState.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 #include "CLevel.h"
 
 #include "CPlayer.h"
 #include "CGaibon.h"
+
+#include "CSound.h"
 
 CGaibonStandByState::CGaibonStandByState()
 {
@@ -44,6 +47,8 @@ void CGaibonStandByState::Enter()
 	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
 
 	pGaibon->Walk();
+
+	pGaibon->SetFly(true);
 }
 
 void CGaibonStandByState::Exit()
@@ -51,4 +56,9 @@ void CGaibonStandByState::Exit()
 	CGaibon* pGaibon = (CGaibon*)GetOwnerObj();
 
 	pGaibon->Wake();
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Festival_of_Servants");
+	pSound->PlayToBGM(true);
+
+	pGaibon->SetFly(false);
 }

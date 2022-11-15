@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CGaibon.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 
 #include "CLevel.h"
@@ -20,9 +21,12 @@
 
 #include "CEffect.h"
 
+#include "CSound.h"
+
 CGaibon::CGaibon()	:
 	m_eState(EGAIBON_STATE::PHASE_1),
 	m_pSlogra(nullptr),
+	m_bFly(true),
 	m_bDeadSequence(false),
 	m_faccDeathTime(0.f),
 	m_faccDeathEffectSpawnTime(0.f),
@@ -117,6 +121,7 @@ void CGaibon::Tick()
 		if (4.f <= m_faccDeathTime)
 		{
 			SetDead();
+
 			return;
 		}
 
@@ -131,6 +136,21 @@ void CGaibon::Tick()
 void CGaibon::Render(HDC _DC)
 {
 	CMonster::Render(_DC);
+}
+
+void CGaibon::BeginOverlap(CCollider* _pOther)
+{
+	CMonster::BeginOverlap(_pOther);
+
+	if (IsFly())
+	{
+		CObj* pObj = _pOther->GetOwner();
+
+		if (ELAYER::PLATFORM == pObj->GetLayer())
+		{
+			SetFly(false);
+		}
+	}
 }
 
 CSlogra* CGaibon::GetSlogra()
@@ -289,6 +309,8 @@ void CGaibon::SkyFire()
 	}
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"Gaibon_Fire_01");
 }
 
 void CGaibon::LandFire()
@@ -318,6 +340,8 @@ void CGaibon::LandFire()
 	}
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"Gaibon_Fire_01");
 }
 
 void CGaibon::Wake()
@@ -355,6 +379,10 @@ void CGaibon::Change()
 	}
 
 	// 데미지 올려주는 작업 등등 페이즈 변경 작업
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Roar");
+	pSound->SetVolume(100.f);
+	pSound->Play();
 }
 
 void CGaibon::PickUp()
@@ -412,6 +440,10 @@ void CGaibon::DeathEffect()
 	vPos = Vec2((float)iRandX, (float)iRandY);
 
 	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Mon_Explot");
+	pSound->SetVolume(100.f);
+	pSound->Play();
 }
 
 void CGaibon::DeathStart()
@@ -456,4 +488,12 @@ void CGaibon::Dead()
 	{
 		m_pSlogra->SetSlograCatch(false);
 	}
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Roar");
+	pSound->SetVolume(100.f);
+	pSound->Play();
+
+	pSound = CResMgr::GetInst()->FindSound(L"Mon_Explot_Into");
+	pSound->SetVolume(100.f);
+	pSound->Play();
 }

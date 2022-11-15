@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CPlayerLandingState.h"
 
+#include "CResMgr.h"
+
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CPlayerLandingState::CPlayerLandingState()
 {
@@ -63,6 +67,12 @@ void CPlayerLandingState::Enter()
 	}
 
 	pPlayer->ResetJump();
+
+	PLAY_SOUND(L"Landing");
+
+	//CSound* pSound = CResMgr::GetInst()->FindSound(L"");
+
+	//pSound->Play();
 }
 
 void CPlayerLandingState::Exit()

@@ -16,6 +16,9 @@
 // DeltaTime을 가져온다
 #define DELTATIME CTimeMgr::GetInst()->GetDeltaTime()
 
+#define PLAY_SOUND(str)	CSound* pSound = CResMgr::GetInst()->FindSound(str);\
+						pSound->Play();
+
 #define CLONE(type) virtual type* Clone() { return new type(*this); }
 #define CLONE_DEACTIVATE(type)	virtual type* Clone() { assert(nullptr); return nullptr; }
 
@@ -36,6 +39,8 @@ enum class ELEVEL_TYPE
 	STAGE_02,
 	STAGE_03,
 	BOSS,
+	ENDING,
+	GAME_OVER,
 	EDITOR,
 	ANIMATION,
 	TITLE,

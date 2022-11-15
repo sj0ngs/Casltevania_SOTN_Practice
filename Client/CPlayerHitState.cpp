@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CPlayerHitState.h"
 
+#include "CResMgr.h"
+
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CPlayerHitState::CPlayerHitState()
 {
@@ -41,6 +45,8 @@ void CPlayerHitState::Enter()
 	pPlayer->GetRigidBody()->OffGround();
 	pPlayer->GetRigidBody()->SetGravity(true);
 	pPlayer->GetUp();
+
+	HitSound();
 }
 
 void CPlayerHitState::Exit()
@@ -49,4 +55,31 @@ void CPlayerHitState::Exit()
 	CPlayerState::Exit();
 	pPlayer->GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 	pPlayer->EndHit();
+}
+
+void CPlayerHitState::HitSound()
+{
+	LARGE_INTEGER llCount;
+	QueryPerformanceCounter(&llCount);
+	srand((UINT)llCount.QuadPart);
+	int iRand = rand();
+
+	iRand = rand() % 3;
+
+	CSound* pSound = nullptr;
+
+	switch (iRand)
+	{
+	case 0:
+		pSound = CResMgr::GetInst()->FindSound(L"DAM_S");
+		break;
+	case 1:
+		pSound = CResMgr::GetInst()->FindSound(L"DAM_S_02");
+		break;
+	case 2:
+		pSound = CResMgr::GetInst()->FindSound(L"DAM_S_03");
+		break;
+	}
+
+	pSound->Play();
 }

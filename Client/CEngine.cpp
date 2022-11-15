@@ -54,6 +54,7 @@ void CEngine::Init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
 	CTimeMgr::GetInst()->Init();
 	CKeyMgr::GetInst()->Init();
 	CSoundMgr::GetInst()->Init();
+	CResMgr::GetInst()->Init();
 	CObjMgr::GetInst()->Init();
 	CLevelMgr::GetInst()->Init();
 }

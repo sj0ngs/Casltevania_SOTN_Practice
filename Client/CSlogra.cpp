@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CSlogra.h"
 
+#include "CResMgr.h"
 #include "CTimeMgr.h"
 
 #include "CAnimator.h"
@@ -18,6 +19,7 @@
 #include "CStraightProjectile.h"
 
 #include "CEffect.h"
+#include "CSound.h"
 
 CSlogra::CSlogra()	:
 	m_eState(ESLOGRA_STATE::SPEAR),
@@ -200,6 +202,8 @@ void CSlogra::BeginOverlap(CCollider* _pOther)
 		{
 			GetAI()->ChangeState(L"SlograHit");
 		}
+
+		PLAY_SOUND(L"Hit");
 	}
 }
 
@@ -342,6 +346,8 @@ void CSlogra::Hit()
 	{
 		GetRigidBody()->AddVelocity(Vec2(100.f, -800.f));
 	}
+
+	PLAY_SOUND(L"LIZ_DEAD1");
 }
 
 void CSlogra::Sting()
@@ -391,6 +397,8 @@ void CSlogra::Sting()
 	pAttack->GetCollider()->SetOffsetPos(vPos);
 
 	Instantiate(pAttack, GetPos(), ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"Mon_Attack_02");
 }
 
 void CSlogra::DeathEffect()
@@ -421,6 +429,10 @@ void CSlogra::DeathEffect()
 	vPos = Vec2((float)iRandX, (float)iRandY);
 
 	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Mon_Explot");
+	pSound->SetVolume(100.f);
+	pSound->Play();
 }
 
 void CSlogra::Fire()
@@ -451,6 +463,8 @@ void CSlogra::Fire()
 	pPrj->GetAnimator()->Play(true);
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"Slogra_Fire");
 }
 
 void CSlogra::Wake()
@@ -505,4 +519,8 @@ void CSlogra::Dead()
 	GetCollider()->SetScale(Vec2(0.f, 0.f));
 	GetRigidBody()->SetGravity(false);
 	GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Mon_Explot_Into");
+	pSound->SetVolume(100.f);
+	pSound->Play();
 }

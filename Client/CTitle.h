@@ -24,6 +24,9 @@ private:
     Vec2 m_vStartMode;
     Vec2 m_vDebugMode;
 
+    float m_faccStartTime;
+    bool  m_bStart;
+
 public:
     CLONE_DEACTIVATE(CTitle);
 

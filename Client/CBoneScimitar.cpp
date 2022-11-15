@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CBoneScimitar.h"
 
+#include "CResMgr.h"
+
 #include "CEffect.h"
 
 #include "CCollider.h"
@@ -14,6 +16,8 @@
 #include "CDeadState.h"
 
 #include "CMonsterAttack.h"
+
+#include "CSound.h"
 
 CBoneScimitar::CBoneScimitar()	:
 	m_bAttackEnd(false)
@@ -119,6 +123,8 @@ void CBoneScimitar::Attack()
 	}
 
 	SetOnAttack(true);
+
+	PLAY_SOUND(L"Mon_Attack_02");
 }
 
 void CBoneScimitar::Dead()
@@ -138,6 +144,8 @@ void CBoneScimitar::Dead()
 
 	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
 	SetDead();
+
+	PLAY_SOUND(L"Skeleton_Die");
 }
 
 void CBoneScimitar::Slash()

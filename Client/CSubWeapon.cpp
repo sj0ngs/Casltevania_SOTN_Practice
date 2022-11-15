@@ -13,6 +13,8 @@
 #include "CTexture.h"
 #include "CPlayer.h"
 
+#include "CSound.h"
+
 CSubWeapon::CSubWeapon()	:
 	m_eType(ESUB_WEAPON_TYPE::NONE),
 	m_pTex(nullptr),
@@ -89,5 +91,7 @@ void CSubWeapon::BeginOverlap(CCollider* _pOther)
 		CPlayer* pPlayer = (CPlayer*)pObj;
 		pPlayer->ChangeSubWeapon(m_eType);
 		SetDead();
+
+		PLAY_SOUND(L"GETSUB");
 	}
 }

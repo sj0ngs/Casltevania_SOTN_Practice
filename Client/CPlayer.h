@@ -96,6 +96,8 @@ public:
 
     void AddHeart(int _iValue);
 
+    void Revive();
+
 private:
     void LoadAnim(const wstring& _strFile);
 };

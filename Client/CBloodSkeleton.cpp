@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CBloodSkeleton.h"
 
+#include "CResMgr.h"
 #include "CTimeMgr.h"
 
 #include "CTimeMgr.h"
@@ -11,6 +12,8 @@
 #include "CRigidBody.h"
 
 #include "CPatrolState.h"
+
+#include "CSound.h"
 
 CBloodSkeleton::CBloodSkeleton() :
 	m_bCollapse(false),
@@ -98,6 +101,8 @@ void CBloodSkeleton::Dead()
 	GetCollider()->SetOffsetPos(Vec2(0.f, 1.f));
 	GetRigidBody()->SetGravity(false);
 	m_bCollapse = true;
+
+	PLAY_SOUND(L"Skeleton_Die");
 }
 
 void CBloodSkeleton::Revive()

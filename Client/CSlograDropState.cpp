@@ -1,9 +1,13 @@
 #include "pch.h"
 #include "CSlograDropState.h"
 
+#include "CResMgr.h"
+
 #include "CCamera.h"
 
 #include "CSlogra.h"
+
+#include "CSound.h"
 
 CSlograDropState::CSlograDropState()	:
 	m_faccGroundTime(0.f),
@@ -45,6 +49,8 @@ void CSlograDropState::Final_Tick()
 	{
 		m_bIsGround = true;
 		CCamera::GetInst()->CameraShake(1.f, 2, 100.f);
+
+		PLAY_SOUND(L"GOLEM_MOVE1");
 	}
 
 	if (m_bIsGround)

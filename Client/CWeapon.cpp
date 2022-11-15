@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CWeapon.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 #include "CAnimator.h"
 
@@ -9,6 +10,8 @@
 #include "CAnimation.h"
 
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CWeapon::CWeapon() :
 	m_tInfo{},
@@ -116,6 +119,9 @@ void CWeapon::Attack(bool _bDir)
 
 	Instantiate(m_pEffect, vPos, ELAYER::EFFECT);
 	Instantiate(m_pSword, vPos, ELAYER::EFFECT);	
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Slash");
+	pSound->Play();
 }
 
 void CWeapon::AttackEnd()

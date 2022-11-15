@@ -409,6 +409,18 @@
     <Filter Include="Game\03. Level\00. Title">
       <UniqueIdentifier>{c8a4ab1f-ea34-4e78-a516-39a10275034b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\03. Level\03.Stage_02">
+      <UniqueIdentifier>{c1de9be8-d5a3-4760-814e-35dcfad9c04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\04.Stage_03">
+      <UniqueIdentifier>{b538e12b-8424-4d26-9ca4-44fe43f1322c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\05. Ending">
+      <UniqueIdentifier>{2e02796c-b7e5-4ea2-b635-3a166a4e4f71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\GameOver">
+      <UniqueIdentifier>{8175bb9e-ca7d-4670-afec-686dc4a7f6e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -798,6 +810,18 @@
     <ClInclude Include="CTitle.h">
       <Filter>Game\03. Level\00. Title</Filter>
     </ClInclude>
+    <ClInclude Include="CStage02.h">
+      <Filter>Game\03. Level\03.Stage_02</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage03.h">
+      <Filter>Game\03. Level\04.Stage_03</Filter>
+    </ClInclude>
+    <ClInclude Include="CEndingLevel.h">
+      <Filter>Game\03. Level\05. Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameOverLevel.h">
+      <Filter>Game\03. Level\GameOver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1183,6 +1207,18 @@
     </ClCompile>
     <ClCompile Include="CTitle.cpp">
       <Filter>Game\03. Level\00. Title</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage02.cpp">
+      <Filter>Game\03. Level\03.Stage_02</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage03.cpp">
+      <Filter>Game\03. Level\04.Stage_03</Filter>
+    </ClCompile>
+    <ClCompile Include="CEndingLevel.cpp">
+      <Filter>Game\03. Level\05. Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameOverLevel.cpp">
+      <Filter>Game\03. Level\GameOver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CAxeArmor.h"
 
+#include "CResMgr.h"
 #include "CLevelMgr.h"
 
 #include "CCollider.h"
@@ -19,6 +20,8 @@
 #include "CPlayer.h"
 #include "CEffect.h"
 #include "CLevel.h"
+
+#include "CSound.h"
 
 CAxeArmor::CAxeArmor()	:
 	m_bAttackEnd(false),
@@ -240,6 +243,11 @@ void CAxeArmor::Dead()
 	vPos.y -= 100.f;
 
 	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+
+	PLAY_SOUND(L"AXE_AMOR_DEAD");
+
+	pSound = CResMgr::GetInst()->FindSound(L"DRACULA_FIRE");
+	pSound->Play();
 }
 
 void CAxeArmor::Slash()
@@ -265,6 +273,8 @@ void CAxeArmor::Slash()
 	pAttack->GetCollider()->SetOffsetPos(vPos);
 
 	Instantiate(pAttack, GetPos(), ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"AXE_AMOR_ATK2");
 }
 
 void CAxeArmor::Throw()
@@ -301,4 +311,6 @@ void CAxeArmor::Throw()
 	}
 
 	Instantiate(pAxe, vPos, ELAYER::MONSTER_PROJECTILE);
+
+	PLAY_SOUND(L"AXE_AMOR_ATK1");
 }

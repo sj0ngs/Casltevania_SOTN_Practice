@@ -5,7 +5,11 @@
 #include "CTitle.h"
 #include "CStartLevel.h"
 #include "CStage01.h"
+#include "CStage02.h"
+#include "CStage03.h"
 #include "CBossLevel.h"
+#include "CEndingLevel.h"
+#include "CGameOverLevel.h"
 
 #include "CEditorLevel.h"
 #include "CAnimationEditor.h"
@@ -29,7 +33,11 @@ void CLevelMgr::Init()
 	m_arrLevel[(UINT)ELEVEL_TYPE::TITLE] = new CTitle;
 	m_arrLevel[(UINT)ELEVEL_TYPE::START] = new CStartLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_01] = new CStage01;
+	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_02] = new CStage02;
+	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_03] = new CStage03;
 	m_arrLevel[(UINT)ELEVEL_TYPE::BOSS] = new CBossLevel;
+	m_arrLevel[(UINT)ELEVEL_TYPE::ENDING] = new CEndingLevel;
+	m_arrLevel[(UINT)ELEVEL_TYPE::GAME_OVER] = new CGameOverLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::EDITOR] = new CEditorLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::ANIMATION] = new CAnimationEditor;
 

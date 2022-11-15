@@ -23,9 +23,11 @@ CTitle::CTitle()	:
 	m_pDebugMode(nullptr),
 	m_pSelect(nullptr),
 	m_eSelect(ETITLE_SELECT::START),
-	m_vTitle(640.f, 260.f),
-	m_vStartMode(640.f, 460.f),
-	m_vDebugMode(640.f, 560.f)
+	m_vTitle(510.f, 260.f),
+	m_vStartMode(510.f, 460.f),
+	m_vDebugMode(510.f, 560.f),
+	m_faccStartTime(0.f),
+	m_bStart(false)
 {
 }
 
@@ -63,6 +65,9 @@ void CTitle::Init()
 	pObj->GetAnimator()->Play(true);
 	pObj->GetCollider()->SetScale(Vec2(0.f, 0.f));
 	Instantiate(pObj, vPos, ELAYER::OBJECT);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Prayer");
+	pSound->PlayToBGM(true);
 }
 
 void CTitle::Tick()
@@ -73,24 +78,42 @@ void CTitle::Tick()
 		{
 		case ETITLE_SELECT::START:
 		{
-			//CCamera::GetInst()->FadeOut(0.01f);
-			//CCamera::GetInst()->FadeIn(0.01f);
+			CCamera::GetInst()->FadeOut(1.f);
 
-			// Sound 실행
-			CSound* pSound = CResMgr::GetInst()->FindSound(L"Dance_of_Gold");
-			pSound->PlayToBGM(true);
+			CSound* pSound = CResMgr::GetInst()->FindSound(L"Start");
+			pSound->Play();
 
-			ChangeLevel(ELEVEL_TYPE::START);
+			m_bStart = true;
 		}
 			break;
 		case ETITLE_SELECT::DEBUG:
 			ChangeLevel(ELEVEL_TYPE::EDITOR);
+			CSound* pSound = CResMgr::GetInst()->FindSound(L"Prayer");
+			pSound->Stop();
 			break;
 		}
 	}
 	else if (IS_TAP(EKEY::UP) || IS_TAP(EKEY::DOWN))
 	{
 		ChangeMode();
+	}
+
+	if (m_bStart)
+	{
+		m_faccStartTime += DELTATIME;
+
+		if (1.f <= m_faccStartTime)
+		{
+			m_bStart = false;
+			m_faccStartTime = 0.f;
+
+			// Sound 실행
+			CSound* pSound = CResMgr::GetInst()->FindSound(L"Dance_of_Gold");
+			pSound->PlayToBGM(true);
+
+			CCamera::GetInst()->FadeIn(0.1f);
+			ChangeLevel(ELEVEL_TYPE::START);
+		}
 	}
 
 	CLevel::Tick();
@@ -187,10 +210,6 @@ void CTitle::Render(HDC _DC)
 			tBlend);
 	}
 
-	// Debug 출력
-
-
-	// Frame 출력
 	Vec2 vPos = {};
 	switch (m_eSelect)
 	{
@@ -220,6 +239,8 @@ void CTitle::Enter()
 {
 	Init();
 
+	CTimeMgr::GetInst()->SetTimeLock(false);
+
 	CLevel::Enter();
 }
 
@@ -240,4 +261,7 @@ void CTitle::ChangeMode()
 	{
 		m_eSelect = ETITLE_SELECT::START;
 	}
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"Select_Change");
+	pSound->Play();
 }
