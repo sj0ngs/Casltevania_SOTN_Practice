@@ -62,8 +62,6 @@ public:
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
 
-    void Set
-
 public:
     CLONE(CPlayer);
 
