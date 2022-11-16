@@ -421,6 +421,9 @@
     <Filter Include="Game\03. Level\GameOver">
       <UniqueIdentifier>{8175bb9e-ca7d-4670-afec-686dc4a7f6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Trail">
+      <UniqueIdentifier>{1144794f-c81c-43e2-857d-d80de711b162}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -822,6 +825,9 @@
     <ClInclude Include="CGameOverLevel.h">
       <Filter>Game\03. Level\GameOver</Filter>
     </ClInclude>
+    <ClInclude Include="CTrail.h">
+      <Filter>Game\04. Object\Trail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1219,6 +1225,9 @@
     </ClCompile>
     <ClCompile Include="CGameOverLevel.cpp">
       <Filter>Game\03. Level\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrail.cpp">
+      <Filter>Game\04. Object\Trail</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

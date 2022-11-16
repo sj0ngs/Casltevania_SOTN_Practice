@@ -30,6 +30,8 @@
 
 #include "CSound.h"
 
+#include "CTrail.h"
+
 // State 
 #include "CPlayerIdleState.h"
 #include "CPlayerLeftMoveState.h"
@@ -60,7 +62,8 @@ CPlayer::CPlayer() :
 	m_pWeapon(nullptr),
 	m_eSubWeapon(ESUB_WEAPON_TYPE::NONE),
 	m_bIsHit(false),
-	m_faccMPGenTime(0.f)
+	m_faccMPGenTime(0.f),
+	m_faccTrailTime(0.f)
 {
 	// 플레이어 초기 정보 세팅
 	m_tInfo.m_iMaxHP = 1000;
@@ -276,6 +279,20 @@ void CPlayer::Tick()
 	//float fDt = CTimeMgr::GetInst()->GetDeltaTime();
 
 	CObj::Tick();
+
+	if (0.15f <= m_faccTrailTime)
+	{
+		CTrail* pTrail = new CTrail;
+		pTrail->SetTrailTex(GetAnimator()->GetCurAnimation()->GetAltasTex());
+		pTrail->SetAnimFrm(GetAnimator()->GetCurAnimation()->GetCurFrm());
+		pTrail->SetLifeTime(0.6f);
+
+		Instantiate(pTrail, GetPos(), ELAYER::EFFECT);
+
+		m_faccTrailTime = 0.f;
+	}
+
+	m_faccTrailTime += DELTATIME;
 }
 
 void CPlayer::Render(HDC _DC)

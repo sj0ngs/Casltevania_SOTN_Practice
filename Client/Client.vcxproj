@@ -257,6 +257,7 @@
     <ClInclude Include="CTimeMgr.h" />
     <ClInclude Include="CTitle.h" />
     <ClInclude Include="CTraceState.h" />
+    <ClInclude Include="CTrail.h" />
     <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CUIMgr.h" />
@@ -393,6 +394,7 @@
     <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="CTitle.cpp" />
     <ClCompile Include="CTraceState.cpp" />
+    <ClCompile Include="CTrail.cpp" />
     <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUIMgr.cpp" />

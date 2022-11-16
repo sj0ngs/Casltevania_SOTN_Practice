@@ -75,6 +75,7 @@ void CAnimation::Render(HDC _hDC)
 	tAnimFrm frm = m_vecFrm[m_iCurFrm];
 
 	float X = fabsf(frm.vSize.x);
+
 	TransparentBlt(_hDC, 
 		(int)(vPos.x - X / 2.f + frm.vOffset.x),
 		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),

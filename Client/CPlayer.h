@@ -33,6 +33,9 @@ private:
 
     float m_faccMPGenTime;
 
+    bool m_bOnTrail;
+    float m_faccTrailTime;
+
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
 
@@ -58,6 +61,8 @@ public:
 
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
+
+    void Set
 
 public:
     CLONE(CPlayer);

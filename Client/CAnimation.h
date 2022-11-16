@@ -17,6 +17,10 @@ private:
     bool                m_bStop;
 
 public:
+    CTexture* GetAltasTex() { return m_pAtlas; }
+    const tAnimFrm& GetCurFrm() const { return m_vecFrm[m_iCurFrm]; }
+
+public:
     CLONE(CAnimation);
 
 public:
