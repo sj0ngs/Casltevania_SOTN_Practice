@@ -67,6 +67,7 @@ public:
     virtual void Attack() override;
     void Hit();
     void Fire();
+    void Wave();
 
     void Wake();
     void Drop();

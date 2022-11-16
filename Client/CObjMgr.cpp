@@ -8,6 +8,8 @@
 #include "CObj.h"
 #include "CPlayer.h"
 #include "CWeapon.h"
+#include "CHellFire.h"
+
 #include "CEffect.h"
 
 #include "CHeart.h"
@@ -23,7 +25,10 @@
 
 #include "CCandle.h"
 
+#include "CTrail.h"
+
 #include "CAnimator.h"
+
 
 CObjMgr::CObjMgr()
 {
@@ -229,4 +234,8 @@ void CObjMgr::Init()
 	pPlayer->GetAI()->ChangeState(L"Idle");
 	pPlayer->SetWeapon(pWeapon);
 	m_mapObj.insert(make_pair(pPlayer->GetName(), pPlayer));
+
+	CProjectile* pProjectile = new CHellFire;
+	pProjectile->SetName(L"Hell_Fire");
+	m_mapObj.insert(make_pair(pProjectile->GetName(), pProjectile));
 }

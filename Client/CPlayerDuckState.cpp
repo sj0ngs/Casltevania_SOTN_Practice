@@ -74,9 +74,14 @@ void CPlayerDuckState::Enter()
 	}
 
 	pPlayer->Duck();
+
+	pPlayer->SetOnTrail(true);
 }
 
 void CPlayerDuckState::Exit()
 {
+	GET_PLAYER();
+
+	pPlayer->SetOnTrail(false);
 	CPlayerState::Exit();
 }

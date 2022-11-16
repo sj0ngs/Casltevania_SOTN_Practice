@@ -6,7 +6,8 @@
 CTexture::CTexture() :
 	m_hBit(nullptr),
 	m_hDC(nullptr),
-	m_tBitMapInfo{}
+	m_tBitMapInfo{},
+	m_pBit(nullptr)
 {
 }
 
@@ -22,6 +23,7 @@ int CTexture::Load(const wstring& _strFilePath)
 	m_hBit = (HBITMAP)LoadImage(nullptr, _strFilePath.c_str(), 
 		IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 	GetObject(m_hBit, sizeof(BITMAP), &m_tBitMapInfo);
+	m_pBit = m_tBitMapInfo.bmBits;
 	
 	// Bitmap 과 연결 시킬 DC 생성
 	m_hDC = CreateCompatibleDC(CEngine::GetInst()->GetMainDC());
@@ -63,4 +65,26 @@ void CTexture::Resize(UINT _iWidth, UINT _iHeight)
 	m_hDC = hNewDC;
 
 	GetObject(m_hBit, sizeof(BITMAP), &m_tBitMapInfo);
+}
+
+
+void CTexture::SetPixelColor(int _x, int _y, tPixel _pixel)
+{
+	_y = m_tBitMapInfo.bmHeight - (_y + 1);
+
+	tPixel* pPixel = (tPixel*)m_pBit;
+	pPixel += (m_tBitMapInfo.bmWidth * _y + _x);
+
+	*pPixel = _pixel;
+}
+
+tPixel CTexture::GetPixelColor(int _x, int _y)
+{
+	// 실제 비트맵 픽셀은 아랫줄 부터 시작하기 때문에,
+	// 위에서부터로 계산하는 윈도우 좌표계랑 맞추어주기 위해서 행을 뒤집어서 접근한다.
+	_y = m_tBitMapInfo.bmHeight - (_y + 1);
+
+	tPixel* pPixel = (tPixel*)m_pBit;
+	pPixel += (m_tBitMapInfo.bmWidth * _y + _x);
+	return *pPixel;
 }

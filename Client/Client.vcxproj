@@ -177,6 +177,7 @@
     <ClInclude Include="CGameOverLevel.h" />
     <ClInclude Include="CHeart.h" />
     <ClInclude Include="CHeartUI.h" />
+    <ClInclude Include="CHellFire.h" />
     <ClInclude Include="CHP.h" />
     <ClInclude Include="CHUD.h" />
     <ClInclude Include="CIdleState.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="CPlayerMoveEndState.h" />
     <ClInclude Include="CPlayerProjectile.h" />
     <ClInclude Include="CPlayerRightMoveState.h" />
+    <ClInclude Include="CPlayerSkillState.h" />
     <ClInclude Include="CPlayerStandAttackState.h" />
     <ClInclude Include="CPlayerStandCoverState.h" />
     <ClInclude Include="CPlayerState.h" />
@@ -315,6 +317,7 @@
     <ClCompile Include="CGameOverLevel.cpp" />
     <ClCompile Include="CHeart.cpp" />
     <ClCompile Include="CHeartUI.cpp" />
+    <ClCompile Include="CHellFire.cpp" />
     <ClCompile Include="CHP.cpp" />
     <ClCompile Include="CHUD.cpp" />
     <ClCompile Include="CIdleState.cpp" />
@@ -361,6 +364,7 @@
     <ClCompile Include="CPlayerMoveEndState.cpp" />
     <ClCompile Include="CPlayerProjectile.cpp" />
     <ClCompile Include="CPlayerRightMoveState.cpp" />
+    <ClCompile Include="CPlayerSkillState.cpp" />
     <ClCompile Include="CPlayerStandAttackState.cpp" />
     <ClCompile Include="CPlayerStandCoverState.cpp" />
     <ClCompile Include="CPlayerState.cpp" />

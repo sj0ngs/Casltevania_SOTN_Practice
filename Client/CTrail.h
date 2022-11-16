@@ -18,7 +18,7 @@ private:
     float m_fRatio;
 
 public:
-    void SetTrailTex(CTexture* _pTex) { m_pTex = _pTex; }
+    void SetTrailTex(CTexture* _pTex);
 
     void SetAnimFrm(const tAnimFrm& _tFrm) { m_tAnimFrm = _tFrm; }
 

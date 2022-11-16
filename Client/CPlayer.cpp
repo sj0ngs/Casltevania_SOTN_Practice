@@ -50,6 +50,7 @@
 #include "CPlayerDuckCoverState.h"
 #include "CPlayerHitState.h"
 #include "CPlayerDeathState.h"
+#include "CPlayerSkillState.h"
 
 CPlayer::CPlayer() :
 	m_tInfo{},
@@ -63,7 +64,9 @@ CPlayer::CPlayer() :
 	m_eSubWeapon(ESUB_WEAPON_TYPE::NONE),
 	m_bIsHit(false),
 	m_faccMPGenTime(0.f),
-	m_faccTrailTime(0.f)
+	m_faccTrailTime(0.f),
+	m_bOnTrail(false),
+	m_eSkill(EPLAYER_SKILL::NONE)
 {
 	// 플레이어 초기 정보 세팅
 	m_tInfo.m_iMaxHP = 1000;
@@ -198,6 +201,7 @@ CPlayer::CPlayer() :
 	GetAI()->AddState(L"DuckCover", new CPlayerDuckCoverState);
 	GetAI()->AddState(L"Hit", new CPlayerHitState);
 	GetAI()->AddState(L"Death", new CPlayerDeathState);
+	GetAI()->AddState(L"Skill", new CPlayerSkillState);
 	GetAI()->ChangeState(L"Idle");
 }
 
@@ -212,7 +216,11 @@ CPlayer::CPlayer(const CPlayer& _pOrigin)	:
 	m_fAttackAcc(_pOrigin.m_fAttackAcc),
 	m_pWeapon(_pOrigin.m_pWeapon),
 	m_eSubWeapon(_pOrigin.m_eSubWeapon),
-	m_bIsHit(_pOrigin.m_bIsHit)
+	m_bIsHit(_pOrigin.m_bIsHit),
+	m_faccMPGenTime(0.f),
+	m_faccTrailTime(0.f),
+	m_bOnTrail(false),
+	m_eSkill(EPLAYER_SKILL::NONE)
 {
 	SetWeapon(_pOrigin.m_pWeapon);
 }
@@ -263,10 +271,10 @@ void CPlayer::Tick()
 
 	MPRegen();
 
-	//if (IS_TAP(EKEY::key1))
-	//{
-	//	Skill();
-	//};
+	if (IS_TAP(EKEY::key1))
+	{
+		Skill();
+	};
 
 	if (IS_TAP(EKEY::key0))
 	{
@@ -280,19 +288,22 @@ void CPlayer::Tick()
 
 	CObj::Tick();
 
-	if (0.15f <= m_faccTrailTime)
+	if (m_bOnTrail)
 	{
-		CTrail* pTrail = new CTrail;
-		pTrail->SetTrailTex(GetAnimator()->GetCurAnimation()->GetAltasTex());
-		pTrail->SetAnimFrm(GetAnimator()->GetCurAnimation()->GetCurFrm());
-		pTrail->SetLifeTime(0.6f);
+		if (0.1f <= m_faccTrailTime)
+		{
+			CTrail* pTrail = new CTrail;
+			pTrail->SetAnimFrm(GetAnimator()->GetCurAnimation()->GetCurFrm());
+			pTrail->SetTrailTex(GetAnimator()->GetCurAnimation()->GetAltasTex());
+			pTrail->SetLifeTime(0.4f);
 
-		Instantiate(pTrail, GetPos(), ELAYER::EFFECT);
+			Instantiate(pTrail, GetPos(), ELAYER::EFFECT);
 
-		m_faccTrailTime = 0.f;
+			m_faccTrailTime = 0.f;
+		}
+
+		m_faccTrailTime += DELTATIME;
 	}
-
-	m_faccTrailTime += DELTATIME;
 }
 
 void CPlayer::Render(HDC _DC)
@@ -437,6 +448,32 @@ void CPlayer::Skill()
 	Instantiate(pEffect, vPos, ELAYER::EFFECT);
 }
 
+void CPlayer::HellFire()
+{
+	Vec2 vPos = GetPos();
+
+	CProjectile* pProjecitle = (CProjectile*)CObjMgr::GetInst()->FindObj(L"Hell_Fire")->Clone();
+
+	// 데미지 계산
+	pProjecitle->SetDamage(m_tInfo.m_iInt * 10);
+
+	pProjecitle->SetFaceDir(GetFaceDir());
+	if (GetFaceDir())
+	{
+		vPos.x -= 10.f;
+	}
+	else
+	{
+		vPos.x -= 10.f;
+	}
+
+	vPos.y -= 90.f;
+
+	Instantiate(pProjecitle, vPos, ELAYER::PLAYER_PROJECTILE);
+
+	PLAY_SOUND(L"DRACULA_FIRE");
+}
+
 void CPlayer::UseSubWeapon()
 {
 	switch (m_eSubWeapon)
@@ -534,7 +571,7 @@ void CPlayer::UseBible()
 // 데미지 주는 함수
 void CPlayer::TakeDamage(int _iDmg, bool _bDir)
 {
-	if (true == m_bIsHit)
+	if (true == m_bIsHit || EPLAYER_SKILL::NONE != m_eSkill)
 		return;
 
 	int iDamage = _iDmg;
@@ -579,7 +616,7 @@ void CPlayer::MPRegen()
 
 		if (1.f <= m_faccMPGenTime)
 		{
-			m_tInfo.m_iMP += 1;
+			m_tInfo.m_iMP += 5;
 			m_faccMPGenTime = 0.f;
 
 			if ((int)m_tInfo.m_iMaxMP <= m_tInfo.m_iMP)
@@ -602,6 +639,11 @@ void CPlayer::Revive()
 	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
 
 	CObjMgr::GetInst()->UpDatePlayer(this);
+}
+
+void CPlayer::UseMp(int _iMP)
+{
+	m_tInfo.m_iMP -= _iMP;
 }
 
 

@@ -9,6 +9,16 @@ const int   USE_DAGGER = 1;
 const int   USE_AXE = 5;
 const int   USE_BIBLE = 5;
 
+#define USE_HELL_FIRE 30
+
+enum class EPLAYER_SKILL
+{
+    ITEM_CRASH,
+    HELL_FIRE,
+
+    NONE
+};
+
 class CTexture;
 class CWeapon;
 class CPlayer :
@@ -36,6 +46,8 @@ private:
     bool m_bOnTrail;
     float m_faccTrailTime;
 
+    EPLAYER_SKILL m_eSkill;
+
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
 
@@ -62,6 +74,11 @@ public:
     bool IsHit() const { return m_bIsHit; }
     void EndHit() { m_bIsHit = false; }
 
+    void SetOnTrail(bool _bTrail) { m_bOnTrail = _bTrail; }
+
+    void SetPlayerSkill(EPLAYER_SKILL _eSKill) { m_eSkill = _eSKill; }
+    EPLAYER_SKILL GetPlayerSkill() const { return m_eSkill; }
+
 public:
     CLONE(CPlayer);
 
@@ -86,6 +103,7 @@ public:
     bool Attack();
     
     void Skill();
+    void HellFire();
 
     void UseSubWeapon();
     void UseDagger();
@@ -100,6 +118,8 @@ public:
     void AddHeart(int _iValue);
 
     void Revive();
+
+    void UseMp(int _iMP);
 
 private:
     void LoadAnim(const wstring& _strFile);

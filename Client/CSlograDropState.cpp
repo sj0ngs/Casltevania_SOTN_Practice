@@ -60,6 +60,7 @@ void CSlograDropState::Final_Tick()
 		if (0.1f <= m_faccGroundTime)
 		{
 			ChangeState(L"SlograIdle");
+			pSlogra->Wave();
 		}
 	}
 

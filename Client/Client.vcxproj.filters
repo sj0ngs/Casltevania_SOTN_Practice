@@ -424,6 +424,12 @@
     <Filter Include="Game\04. Object\Trail">
       <UniqueIdentifier>{1144794f-c81c-43e2-857d-d80de711b162}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\07. State\PlayerState\Skill">
+      <UniqueIdentifier>{9b1a2f56-4b50-4d6f-8924-8cf3632d94f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\HellFire">
+      <UniqueIdentifier>{19414eac-c5cf-4476-845d-6fd388fad67a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -828,6 +834,12 @@
     <ClInclude Include="CTrail.h">
       <Filter>Game\04. Object\Trail</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerSkillState.h">
+      <Filter>Game\07. State\PlayerState\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CHellFire.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\HellFire</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1228,6 +1240,12 @@
     </ClCompile>
     <ClCompile Include="CTrail.cpp">
       <Filter>Game\04. Object\Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerSkillState.cpp">
+      <Filter>Game\07. State\PlayerState\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CHellFire.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\HellFire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

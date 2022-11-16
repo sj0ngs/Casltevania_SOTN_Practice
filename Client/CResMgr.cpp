@@ -53,6 +53,7 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadSound(L"DAM_S", L"sound\\Player\\DAM_S.wav");
 	CResMgr::GetInst()->LoadSound(L"DAM_S_02", L"sound\\Player\\DAM_S_02.wav");
 	CResMgr::GetInst()->LoadSound(L"DAM_S_03", L"sound\\Player\\DAM_S_03.wav");
+	CResMgr::GetInst()->LoadSound(L"SLIDE", L"sound\\Player\\SLIDE.wav");
 
 	CResMgr::GetInst()->LoadSound(L"Slash", L"sound\\Player\\Slash.wav");
 	CResMgr::GetInst()->LoadSound(L"Projectile", L"sound\\Player\\Projectile.wav");
@@ -63,6 +64,12 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadSound(L"GETHEART", L"sound\\Player\\GETHEART.wav");
 	CResMgr::GetInst()->LoadSound(L"GETSUB", L"sound\\Player\\GETSUB.wav");
 	CResMgr::GetInst()->LoadSound(L"Double_Jump", L"sound\\Player\\Double_Jump.wav");
+
+	CResMgr::GetInst()->LoadSound(L"SKILL_1", L"sound\\Player\\SKILL_1.wav");
+	CResMgr::GetInst()->LoadSound(L"SKILL_2", L"sound\\Player\\SKILL_2.wav");
+	CResMgr::GetInst()->LoadSound(L"SKILL_3", L"sound\\Player\\SKILL_3.wav");
+
+	CResMgr::GetInst()->LoadSound(L"DRACULA_FIRE", L"sound\\Player\\DRACULA_FIRE.wav");
 
 	// Monster
 	CResMgr::GetInst()->LoadSound(L"Projectile_Explot", L"sound\\Monster\\Projectile_Explot.wav");
@@ -93,7 +100,13 @@ void CResMgr::Init()
 
 	// 플레이어 텍스쳐
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_1", L"texture\\Alucard\\alucard_left_1.bmp");
+	CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"alucard_left_1_Trail", L"texture\\Alucard\\alucard_left_1.bmp");
+	ColorChange(pTex);
+
 	CResMgr::GetInst()->LoadTexture(L"alucard_right_1", L"texture\\Alucard\\alucard_right_1.bmp");
+	pTex = CResMgr::GetInst()->LoadTexture(L"alucard_right_1_Trail", L"texture\\Alucard\\alucard_right_1.bmp");
+	ColorChange(pTex);
+
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
 
@@ -110,6 +123,10 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Drop_Dagger", L"texture\\Weapon\\Drop_Dagger.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Bible", L"texture\\Weapon\\Bible.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Bible_Trail", L"texture\\Weapon\\Bible_Trail_2.bmp");
+
+	// Skill
+	CResMgr::GetInst()->LoadTexture(L"HellFire", L"texture\\Weapon\\HellFire.bmp");
+
 
 	// Level
 	CResMgr::GetInst()->LoadTexture(L"Debug_Map", L"texture\\Map\\Debug_Map.bmp");
@@ -168,6 +185,7 @@ void CResMgr::Init()
 	// Slogra
 	CResMgr::GetInst()->LoadTexture(L"Slogra_Left", L"texture\\Monster\\Slogra\\Slogra_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Slogra_Right", L"texture\\Monster\\Slogra\\Slogra_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Slogra_Drop", L"texture\\Monster\\Slogra\\Slogra_Drop.bmp");
 
 	// Gaibon
 	CResMgr::GetInst()->LoadTexture(L"Gaibon_Left", L"texture\\Monster\\Gaibon\\Gaibon_Left.bmp");
@@ -193,6 +211,8 @@ void CResMgr::Init()
 
 	// Drop_SubWeapon
 	CResMgr::GetInst()->LoadTexture(L"Drop_Effect", L"texture\\Effect\\Drop_Effect.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Dust", L"texture\\Effect\\Dust.bmp");
 
 	// ==========
 	// Map Object
@@ -318,6 +338,7 @@ CSound* CResMgr::FindSound(const wstring& _strKey)
 	return (CSound*)iter->second;
 }
 
+
 CSound* CResMgr::LoadSound(const wstring& _strKey, const wstring& _strRelativePath)
 {
 	CSound* pSound = FindSound(_strKey);
@@ -345,4 +366,20 @@ CSound* CResMgr::LoadSound(const wstring& _strKey, const wstring& _strRelativePa
 	m_mapSound.insert(make_pair(_strKey, pSound));
 
 	return pSound;
+}
+
+void CResMgr::ColorChange(CTexture* _pTex)
+{
+	for (int i = 0; i < (int)_pTex->GetWidth(); i++)
+	{
+		for (int j = 0; j < (int)_pTex->GetHeight(); j++)
+		{
+			tPixel tPixel = _pTex->GetPixelColor(i, j);
+			if (0 != tPixel.a)
+			{
+				tPixel.b *= 2;
+				_pTex->SetPixelColor(i, j, tPixel);
+			}
+		}
+	}
 }

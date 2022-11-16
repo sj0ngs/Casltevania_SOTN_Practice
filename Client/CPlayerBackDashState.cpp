@@ -1,11 +1,16 @@
 #include "pch.h"
 #include "CPlayerBackDashState.h"
 
+#include "CResMgr.h"
 #include "CPlayer.h"
+#include "CSound.h"
+
+#include "CEffect.h"
 
 CPlayerBackDashState::CPlayerBackDashState()	:
 	m_faccDashTime(0.f),
-	m_fDashSpeed(400.f)
+	m_fDashSpeed(400.f),
+	m_bEffect(false)
 {
 }
 
@@ -51,6 +56,31 @@ void CPlayerBackDashState::Final_Tick()
 			m_faccDashTime += DELTATIME;
 			pPlayer->SetPos(vPos);
 		}
+
+		if (!m_bEffect && 12 == GetAnim()->GetCurFrame())
+		{
+			Vec2 vPos = pPlayer->GetPos();
+
+			if (pPlayer->GetFaceDir())
+			{
+				vPos.x -= 30.f;
+			}
+			else
+			{
+				vPos.x += 30.f;
+			}
+
+			vPos.y -= 25.f;
+
+			CEffect* pEffect = new CEffect;
+
+			pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\DUST.anim");
+			pEffect->GetAnimator()->Play(false);
+
+			Instantiate(pEffect, vPos, ELAYER::FRONT_EFFECT);
+
+			m_bEffect = true;
+		}
 	}
 	else
 	{
@@ -76,10 +106,19 @@ void CPlayerBackDashState::Enter()
 		SetAnim(pPlayer->GetAnimator()->FindAnimation(L"Walk_End_Left"));
 		pPlayer->GetAnimator()->Play(L"Walk_End_Left", false);
 	}
+
+	pPlayer->SetOnTrail(true);
+
+	PLAY_SOUND(L"SLIDE");
 }
 
 void CPlayerBackDashState::Exit()
 {
+	GET_PLAYER();
+	pPlayer->SetOnTrail(false);
+
 	CPlayerState::Exit();
 	m_faccDashTime = 0.f;
+
+	m_bEffect = false;
 }

@@ -1,20 +1,18 @@
 #pragma once
 #include "CPlayerState.h"
-class CPlayerBackDashState :
+
+class CPlayerSkillState :
     public CPlayerState
 {
-private:
-    float m_faccDashTime;
-    float m_fDashSpeed;
-
-    bool m_bEffect;
+public:
+    bool m_bSkillEnd;
 
 public:
-    CLONE(CPlayerBackDashState);
+    CLONE(CPlayerSkillState);
 
 public:
-    CPlayerBackDashState();
-    ~CPlayerBackDashState();
+    CPlayerSkillState();
+    ~CPlayerSkillState();
 
 public:
     virtual void Final_Tick() override;

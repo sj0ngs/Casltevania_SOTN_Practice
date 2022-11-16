@@ -467,6 +467,44 @@ void CSlogra::Fire()
 	PLAY_SOUND(L"Slogra_Fire");
 }
 
+void CSlogra::Wave()
+{
+	Vec2 vPos = GetPos();
+
+	vPos.y -= 58.f;
+
+	bool bDir = false;
+
+	for (int i = 0;  i < 2;  i++)
+	{
+		CStraightProjectile* pPrj = new CStraightProjectile;
+
+		pPrj->SetDamage(GetMonsterInfo().m_iAtk);
+		pPrj->SetFaceDir(bDir);
+		pPrj->SetSpeed(500.f);
+
+		pPrj->GetCollider()->SetScale(Vec2(60.f, 60.f));
+		pPrj->GetCollider()->SetOffsetPos(Vec2(0, 28.f));
+
+		if (pPrj->GetFaceDir())
+		{
+			pPrj->GetAnimator()->LoadAnimation(L"animation\\Monster\\Slogra\\SLOGRA_WAVE_RIGHT.anim");
+			vPos.x += 50.f;
+		}
+		else
+		{
+			pPrj->GetAnimator()->LoadAnimation(L"animation\\Monster\\Slogra\\SLOGRA_WAVE_LEFT.anim");
+			vPos.x -= 50.f;
+		}
+
+		pPrj->GetAnimator()->Play(true);
+
+		Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
+
+		bDir = true;
+	}
+}
+
 void CSlogra::Wake()
 {
 	GetAI()->ChangeState(L"SlograMove");

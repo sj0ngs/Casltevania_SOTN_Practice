@@ -69,9 +69,15 @@ void CPlayerFallState::Enter()
 
 	pPlayer->GetRigidBody()->SetGravity(true);
 	pPlayer->GetRigidBody()->OffGround();
+
+	pPlayer->SetOnTrail(true);
 }
 
 void CPlayerFallState::Exit()
 {
+	GET_PLAYER();
+
+	pPlayer->SetOnTrail(false);
+
 	CPlayerState::Exit();
 }

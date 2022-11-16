@@ -101,10 +101,14 @@ void CPlayerJumpState::Enter()
 
 	pPlayer->GetRigidBody()->SetGravity(false);
 	pPlayer->GetRigidBody()->OffGround();
+
+	pPlayer->SetOnTrail(true);
 }
 
 void CPlayerJumpState::Exit()
 {
+	GET_PLAYER();
+	pPlayer->SetOnTrail(false);
 	SetAnim(nullptr);
 	m_accJumpTime = 0.f;
 }

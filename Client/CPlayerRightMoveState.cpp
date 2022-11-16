@@ -46,6 +46,7 @@ void CPlayerRightMoveState::Final_Tick()
 		if (GetAnim()->IsFinish())
 		{
 			pPlayer->GetAnimator()->Play(L"Walk_Right", true);
+			//pPlayer->SetOnTrail(false);
 		}
 
 		Vec2 vPos = pPlayer->GetPos();
@@ -75,9 +76,14 @@ void CPlayerRightMoveState::Enter()
 		SetAnim(pPlayer->GetAnimator()->FindAnimation(L"Walk_Start_Right"));
 		pPlayer->GetAnimator()->Play(L"Walk_Start_Right", false);
 	}
+
+	pPlayer->SetOnTrail(true);
 }
 
 void CPlayerRightMoveState::Exit()
 {
+	GET_PLAYER();
+	pPlayer->SetOnTrail(false);
+
 	CPlayerState::Exit();
 }
