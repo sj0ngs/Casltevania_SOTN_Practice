@@ -161,6 +161,7 @@
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CCover.h" />
+    <ClInclude Include="CDamage.h" />
     <ClInclude Include="CDeadState.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEndingLevel.h" />
@@ -299,6 +300,7 @@
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CCover.cpp" />
+    <ClCompile Include="CDamage.cpp" />
     <ClCompile Include="CDeadState.cpp" />
     <ClCompile Include="CEditorLevel_Map.cpp" />
     <ClCompile Include="CEditorLevel_Object.cpp" />
@@ -418,6 +420,7 @@
   <ItemGroup>
     <Image Include="Client.ico" />
     <Image Include="small.ico" />
+    <Image Include="SOTN.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,13 @@
 #pragma once
 #include "CComponent.h"
 
+//enum class EANIM_OPT
+//{
+//    NORMAL,
+//    ALPHA_BLEND,
+//    HIT
+//}; 
+
 class CObj;
 class CAnimation;
 class CTexture;
@@ -15,9 +22,17 @@ private:
 
     bool                        m_bCameraAfctd;
 
+    //EANIM_OPT                   m_eOpt;   
+
+    //float                       m_fRatio;
+    //float                       m_fDir;
+
 public:
     bool IsCameraAffected() const { return m_bCameraAfctd; }
     void SetCameraAffected(bool _bCameraAfctd) { m_bCameraAfctd = _bCameraAfctd; }
+
+    //void SetAnimOpt(EANIM_OPT _eOpt) { m_eOpt = _eOpt; }
+    //EANIM_OPT GetAnimOpt() const { return m_eOpt; }
 
 public:
     CLONE(CAnimator);

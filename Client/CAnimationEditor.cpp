@@ -56,9 +56,7 @@ void CAnimationEditor::Init()
 
 	AddObj(m_pDebugObj, ELAYER::PLAYER);
 
-	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_left_1");
-	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_left_2");
-	//m_pAtlas = CResMgr::GetInst()->FindTexture(L"alucard_right_1");
+	CObj::OnDebug();
 }
 
 void CAnimationEditor::Tick()
@@ -133,6 +131,8 @@ void CAnimationEditor::Exit()
 	m_fDuration = 0.f;
 	m_iOffsetX = 0;
 	m_iOffsetY = 0;
+
+	CObj::OffDebug();
 }
 
 void CAnimationEditor::Update()

@@ -86,6 +86,97 @@ void CAnimation::Render(HDC _hDC)
 		RGB(255, 0, 255));
 }
 
+//void CAnimation::AlphaRender(HDC _hDC, float _fRatio)
+//{
+//	CObj* pOwnerObj = m_pAnimator->GetOwner();
+//
+//	Vec2 vPos = CCamera::GetInst()->GetRenderPos(pOwnerObj->GetPos());
+//
+//	if (!m_pAnimator->IsCameraAffected())
+//		vPos = pOwnerObj->GetPos();
+//
+//	tAnimFrm frm = m_vecFrm[m_iCurFrm];
+//
+//	float X = fabsf(frm.vSize.x);
+//
+//	BLENDFUNCTION tBlend = {};
+//	tBlend.AlphaFormat = AC_SRC_ALPHA;
+//	tBlend.BlendFlags = 0;
+//	tBlend.BlendOp = AC_SRC_OVER;
+//	tBlend.SourceConstantAlpha = (int)(255 * _fRatio);
+//
+//	AlphaBlend(_hDC,
+//		(int)(vPos.x - X / 2.f + frm.vOffset.x),
+//		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),
+//		(int)(X), (int)(frm.vSize.y),
+//		m_pAtlas->GetDC(),
+//		(int)(frm.vLeftTop.x), (int)(frm.vLeftTop.y),
+//		(int)(X), (int)(frm.vSize.y),
+//		tBlend);
+//}
+//
+//void CAnimation::HitRender(HDC _hDC)
+//{
+//	CObj* pOwnerObj = m_pAnimator->GetOwner();
+//
+//	Vec2 vPos = CCamera::GetInst()->GetRenderPos(pOwnerObj->GetPos());
+//
+//	if (!m_pAnimator->IsCameraAffected())
+//		vPos = pOwnerObj->GetPos();
+//
+//	tAnimFrm frm = m_vecFrm[m_iCurFrm];
+//
+//	float X = fabsf(frm.vSize.x);
+//
+//	//CTexture* pTex = new CTexture;
+//	//pTex->Create((UINT)X, (UINT)frm.vSize.y);
+//
+//	for (int i = (int)(frm.vLeftTop.x); i < (int)(frm.vLeftTop.x + X); i++)
+//	{
+//		for (int j = (int)(frm.vLeftTop.y); j < (int)(frm.vLeftTop.y + frm.vSize.y); j++)
+//		{
+//			tPixel tPixel = m_pAtlas->GetPixelColor(i, j);
+//			if (0 != tPixel.a)
+//			{
+//				tPixel.r *= 8;
+//				tPixel.g = 0;
+//				tPixel.b = 0;
+//				m_pAtlas->SetPixelColor(i, j, tPixel);
+//			}
+//		}
+//	}
+//
+//	BLENDFUNCTION tBlend = {};
+//	tBlend.AlphaFormat = AC_SRC_ALPHA;
+//	tBlend.BlendFlags = 0;
+//	tBlend.BlendOp = AC_SRC_OVER;
+//	tBlend.SourceConstantAlpha = (int)(255);
+//
+//	TransparentBlt(_hDC,
+//		(int)(vPos.x - X / 2.f + frm.vOffset.x),
+//		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),
+//		(int)(X), (int)(frm.vSize.y),
+//		m_pAtlas->GetDC(),
+//		(int)(frm.vLeftTop.x), (int)(frm.vLeftTop.y),
+//		(int)(X), (int)(frm.vSize.y),
+//		RGB(255, 0, 255));
+//
+//	for (int i = (int)(frm.vLeftTop.x); i < (int)(frm.vLeftTop.x + X); i++)
+//	{
+//		for (int j = (int)(frm.vLeftTop.y); j < (int)(frm.vLeftTop.y + frm.vSize.y); j++)
+//		{
+//			tPixel tPixel = m_pAtlas->GetPixelColor(i, j);
+//			if (0 != tPixel.a)
+//			{
+//				tPixel.r /= 8;
+//				m_pAtlas->SetPixelColor(i, j, tPixel);
+//			}
+//		}
+//	}
+//
+//	//delete pTex;
+//}
+
 void CAnimation::Save(const wstring& _strRelativePath)
 {
 	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();

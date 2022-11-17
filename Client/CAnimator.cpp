@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CAnimator.h"
 
+#include "CTimeMgr.h"
+
 #include "CAnimation.h"
 
 CAnimator::CAnimator(CObj* _pOwner)	:
@@ -8,6 +10,9 @@ CAnimator::CAnimator(CObj* _pOwner)	:
 	m_pCurAnim(nullptr),
 	m_bRepeat(false),
 	m_bCameraAfctd(true)
+	//m_eOpt(EANIM_OPT::NORMAL)
+	//m_fRatio(0.f),
+	//m_fDir(0.f)
 {
 }
 
@@ -16,6 +21,9 @@ CAnimator::CAnimator(const CAnimator& _Other) :
 	m_pCurAnim(nullptr),
 	m_bRepeat(_Other.m_bRepeat),
 	m_bCameraAfctd(_Other.m_bCameraAfctd)
+	//m_eOpt(EANIM_OPT::NORMAL)
+	//m_fRatio(0.f),
+	//m_fDir(0.f)
 {
 	map<wstring, CAnimation*>::const_iterator iter = _Other.m_mapAnim.begin();
 	for (; iter != _Other.m_mapAnim.end(); ++iter)
@@ -57,6 +65,34 @@ void CAnimator::Render(HDC _hDC)
 		return;
 
 	m_pCurAnim->Render(_hDC);
+
+	//switch (m_eOpt)
+	//{
+	//case EANIM_OPT::NORMAL:
+
+	//	break;
+	//case EANIM_OPT::ALPHA_BLEND:
+	//{
+	//	m_fRatio += DELTATIME * m_fDir * 5;
+
+	//	if (1.f <= m_fRatio)
+	//	{
+	//		m_fDir = -1.f;
+	//		m_fRatio = 1.f;
+	//	}
+	//	else if (0.5 >= m_fRatio)
+	//	{
+	//		m_fDir = 1.f;
+	//		m_fRatio = 0.5f;
+	//	}
+
+	//	m_pCurAnim->AlphaRender(_hDC, m_fRatio);
+	//}
+	//	break;
+	//case EANIM_OPT::HIT:
+	//	m_pCurAnim->HitRender(_hDC);
+	//	break;
+	//}
 }
 
 void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, 

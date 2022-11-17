@@ -22,12 +22,13 @@
 #include "CHeartUI.h"
 #include "CSubWeaponUI.h"
 
-CLevel::CLevel()	:
+CLevel::CLevel() :
 	m_iStartPointIdx(0),
 	m_iTileXCount(0),
 	m_iTileYCount(0),
 	m_iWidth(0),
-	m_iHeight(0)
+	m_iHeight(0),
+	m_bDebug(false)
 {
 }
 
@@ -71,7 +72,7 @@ void CLevel::Final_Tick()
 		}
 		else
 		{
- 			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
+			for (size_t j = 0; j < m_arrLayer[i].size(); j++)
 			{
 				m_arrLayer[i][j]->Final_Tick();
 			}
@@ -267,7 +268,7 @@ void CLevel::CreateHUD()
 	// Heart
 	CHeartUI* pHeart = new CHeartUI;
 	pTex = CResMgr::GetInst()->FindTexture(L"Heart_Num");
-	pHeart->SetPos(Vec2(232.f, 52.f));
+	pHeart->SetPos(Vec2(212.f, 52.f));
 	pHeart->SetIdleTex(pTex);
 	pHUD->AddChildUI(pHeart);
 	

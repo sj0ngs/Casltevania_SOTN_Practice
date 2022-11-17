@@ -45,18 +45,21 @@ CPlatform::~CPlatform()
 
 void CPlatform::Render(HDC _DC)
 {
-	CObj::Render(_DC);
-
-	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
-
-	switch (m_eType)
+	if (CObj::GetDebug())
 	{
-	case EPLATFORM_TYPE::FLOOR:
-		TextOut(_DC, (int)vPos.x, (int)vPos.y, L"Floor", lstrlen(L"Floor"));
-		break;
-	case EPLATFORM_TYPE::PLATFORM:
-		TextOut(_DC, (int)vPos.x, (int)vPos.y, L"Platform", lstrlen(L"Platform"));
-		break;
+		CObj::Render(_DC);
+
+		Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+
+		switch (m_eType)
+		{
+		case EPLATFORM_TYPE::FLOOR:
+			TextOut(_DC, (int)vPos.x, (int)vPos.y, L"Floor", lstrlen(L"Floor"));
+			break;
+		case EPLATFORM_TYPE::PLATFORM:
+			TextOut(_DC, (int)vPos.x, (int)vPos.y, L"Platform", lstrlen(L"Platform"));
+			break;
+		}
 	}
 }
 

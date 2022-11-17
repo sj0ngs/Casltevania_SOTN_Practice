@@ -294,18 +294,42 @@ void CGaibon::SkyFire()
 	pPrj->SetFaceDir(GetFaceDir());
 	pPrj->SetSpeed(500.f);
 
-	pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
-	Vec2 vOffset = {};
+	switch (m_eState)
+	{
+	case EGAIBON_STATE::PHASE_1:
+	{
+		pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
+		Vec2 vOffset = {};
 
-	if (pPrj->GetFaceDir())
-	{
-		pPrj->GetAnimator()->Play(L"Gaibon_Sky_Fire_Right", true);
-		vPos.x += 60.f;
+		if (pPrj->GetFaceDir())
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Sky_Small_Fire_Right", true);
+			vPos.x += 60.f;
+		}
+		else
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Sky_Small_Fire_Left", true);
+			vPos.x -= 60.f;
+		}
 	}
-	else
+		break;
+	case EGAIBON_STATE::PHASE_2:
 	{
-		pPrj->GetAnimator()->Play(L"Gaibon_Sky_Fire_Left", true);
-		vPos.x -= 60.f;
+		pPrj->GetCollider()->SetScale(Vec2(60.f, 60.f));
+		Vec2 vOffset = {};
+
+		if (pPrj->GetFaceDir())
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Sky_Fire_Right", true);
+			vPos.x += 60.f;
+		}
+		else
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Sky_Fire_Left", true);
+			vPos.x -= 60.f;
+		}
+	}
+		break;
 	}
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
@@ -318,25 +342,48 @@ void CGaibon::LandFire()
 	CGaibonFireBall* pPrj = new CGaibonFireBall;
 
 	Vec2 vPos = GetPos();
-
 	vPos.y -= 150.f;
 
 	pPrj->SetDamage(GetMonsterInfo().m_iAtk);
 	pPrj->SetFaceDir(GetFaceDir());
 	pPrj->SetSpeed(500.f);
 
-	pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
-	Vec2 vOffset = {};
+	switch (m_eState)
+	{
+	case EGAIBON_STATE::PHASE_1:
+	{
+		pPrj->GetCollider()->SetScale(Vec2(30.f, 30.f));
+		Vec2 vOffset = {};
 
-	if (pPrj->GetFaceDir())
-	{
-		pPrj->GetAnimator()->Play(L"Gaibon_Land_Fire_Right", true);
-		vPos.x += 60.f;
+		if (pPrj->GetFaceDir())
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Land_Fire_Right", true);
+			vPos.x += 60.f;
+		}
+		else
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Land_Fire_Left", true);
+			vPos.x -= 60.f;
+		}
 	}
-	else
+		break;
+	case EGAIBON_STATE::PHASE_2:
 	{
-		pPrj->GetAnimator()->Play(L"Gaibon_Land_Fire_Left", true);
-		vPos.x -= 60.f;
+		pPrj->GetCollider()->SetScale(Vec2(60.f, 60.f));
+		Vec2 vOffset = {};
+
+		if (pPrj->GetFaceDir())
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Land_Large_Fire_Right", true);
+			vPos.x += 80.f;
+		}
+		else
+		{
+			pPrj->GetAnimator()->Play(L"Gaibon_Land_Large_Fire_Left", true);
+			vPos.x -= 80.f;
+		}
+	}
+		break;
 	}
 
 	Instantiate(pPrj, vPos, ELAYER::MONSTER_PROJECTILE);
@@ -383,6 +430,11 @@ void CGaibon::Change()
 	CSound* pSound = CResMgr::GetInst()->FindSound(L"Gaibon_Roar");
 	pSound->SetVolume(100.f);
 	pSound->Play();
+
+	tMonsterInfo tMonInfo = GetMonsterInfo();
+	tMonInfo.m_iAtk += 5;
+	tMonInfo.m_fTraceSpeed += 50.f;
+	SetMonsterInfo(tMonInfo);
 }
 
 void CGaibon::PickUp()

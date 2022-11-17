@@ -14,6 +14,7 @@
 #include "CDeadState.h"
 
 #include "CProjectile.h"
+#include "CDamage.h"
 
 #include "CSound.h"
 
@@ -86,12 +87,15 @@ void CMonster::Render(HDC _DC)
 
 	CObj::Render(_DC);
 
-	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+	if (CObj::GetDebug())
+	{
+		Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 
-	wstring strHp = L"HP : ";
-	strHp += std::to_wstring(m_tInfo.m_iHP);
+		wstring strHp = L"HP : ";
+		strHp += std::to_wstring(m_tInfo.m_iHP);
 
-	TextOut(_DC, (int)vPos.x, (int)vPos.y, strHp.c_str(), (int)strHp.length());
+		TextOut(_DC, (int)vPos.x, (int)vPos.y, strHp.c_str(), (int)strHp.length());
+	}
 }
 
 void CMonster::BeginOverlap(CCollider* _pOther)
@@ -116,6 +120,14 @@ void CMonster::TakeDamage(int _iDmg)
 		iDamage = 1;
 
 	m_tInfo.m_iHP -= iDamage;
+
+	CDamage* pDmg = new CDamage;	
+	pDmg->SetDmg(iDamage);
+	pDmg->SetDmgType(EDMG_TYPE::MONSTER);
+
+	Vec2 vPos = GetPos();
+	vPos.y -= GetCollider()->GetScale().y + 20.f;
+	Instantiate(pDmg, vPos, ELAYER::FRONT_EFFECT);
 
 	if (0 >= m_tInfo.m_iHP)
 	{

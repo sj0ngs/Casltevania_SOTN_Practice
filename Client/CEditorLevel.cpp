@@ -44,6 +44,8 @@ void CEditorLevel::Init()
 	// 카메라 시점
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);
+
+	CObj::OnDebug();
 }
 
 void CEditorLevel::CreateUI(Vec2 _vResolution)
@@ -133,6 +135,8 @@ void CEditorLevel::Exit()
 	CEngine::GetInst()->ChangeWindowSize(ptResolution.x, ptResolution.y);
 
 	CCamera::GetInst()->SetCameraMove(false);
+
+	CObj::OffDebug();
 }
 
 void CEditorLevel::Update()

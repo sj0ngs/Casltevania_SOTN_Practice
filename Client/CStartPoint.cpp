@@ -46,6 +46,7 @@ void CStartPoint::Tick()
 			pPlayer->SetPos(GetPos());
 			pCurLevel->AddObj(pPlayer, ELAYER::PLAYER);
 			CTimeMgr::GetInst()->SetTimeLock(false);
+			//pCurLevel->CreateHUD();
 		}
 	}
 

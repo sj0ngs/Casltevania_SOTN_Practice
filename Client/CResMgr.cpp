@@ -191,6 +191,12 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Gaibon_Left", L"texture\\Monster\\Gaibon\\Gaibon_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Gaibon_Right", L"texture\\Monster\\Gaibon\\Gaibon_Right.bmp");
 
+	CResMgr::GetInst()->LoadTexture(L"Large_Fire_Right", L"texture\\Monster\\Gaibon\\Large_Fire_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Large_Fire_Left", L"texture\\Monster\\Gaibon\\Large_Fire_Left.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Small_Fire_Right", L"texture\\Monster\\Gaibon\\Small_Fire_Right.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Small_Fire_Left", L"texture\\Monster\\Gaibon\\Small_Fire_Left.bmp");
+
 	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
 
 	// ======
@@ -266,6 +272,10 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"HP_Num", L"texture\\UI\\HP_Num.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Heart_Num", L"texture\\UI\\Heart_Num.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Red_Num", L"texture\\UI\\Red_Num.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Lemon_Num", L"texture\\UI\\Lemon_Num.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"SubWeapon_Shine", L"texture\\UI\\SubWeapon_Shine.bmp");
 
@@ -378,6 +388,8 @@ void CResMgr::ColorChange(CTexture* _pTex)
 			if (0 != tPixel.a)
 			{
 				tPixel.b *= 2;
+				tPixel.r /= 2;
+				tPixel.g /= 2;
 				_pTex->SetPixelColor(i, j, tPixel);
 			}
 		}

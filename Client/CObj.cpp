@@ -3,12 +3,15 @@
 #include "CObj.h"
 #include "CTimeMgr.h"
 #include "CEventMgr.h"
+#include "CKeyMgr.h"
 
 #include "CComponent.h"
 #include "CCollider.h"
 #include "CAnimator.h"
 #include "CRigidBody.h"
 #include "CAI.h"
+
+bool CObj::m_bDebug = false;
 
 // 오브젝트 dead 처리 함수
 void CObj::SetDead()
@@ -117,7 +120,7 @@ void CObj::Render(HDC _DC)
 	if (nullptr != m_pAnimator)
 		m_pAnimator->Render(_DC);
 
-	if (nullptr != m_pCollider)
+	if (m_bDebug && nullptr != m_pCollider)
 		m_pCollider->Render(_DC);
 
 	m_PrevPos = m_vPos;

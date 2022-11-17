@@ -36,7 +36,7 @@ void CGaibonLandAttackState::Final_Tick()
 		m_faccAttackTime += DELTATIME;
 		m_faccFireTime += DELTATIME;
 
-		if (1.f <= m_faccAttackTime && 0.2f <= m_faccFireTime)
+		if (1.f <= m_faccAttackTime && 0.3f <= m_faccFireTime)
 		{
 			pGaibon->LandFire();
 			m_faccFireTime = 0.f;

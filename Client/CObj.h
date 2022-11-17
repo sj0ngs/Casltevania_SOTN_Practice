@@ -28,6 +28,7 @@ private: // 논리 오류를 찾기 쉽게하기 위해 멤버변수를 함수를 통해 따로 접근한다
 
     bool m_bDead;
 
+    static bool m_bDebug;
 
 public: 
     void SetPos(Vec2 _pt) { m_vPos = _pt; }
@@ -58,6 +59,11 @@ public:
 
     void CreateAI();
     AI* GetAI() { return m_pAI; }
+
+    static void SwitchDebug() { m_bDebug = !m_bDebug; }
+    static void OnDebug() { m_bDebug = true; }
+    static void OffDebug() { m_bDebug = false; }
+    static bool GetDebug() { return m_bDebug; }
     
 public:
     bool IsDead() { return m_bDead; }

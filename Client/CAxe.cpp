@@ -92,4 +92,24 @@ void CAxe::Render(HDC _DC)
 void CAxe::BeginOverlap(CCollider* _pOther)
 {
 	CPlayerProjectile::BeginOverlap(_pOther);
+
+	CObj* pObj = _pOther->GetOwner();
+
+	if (ELAYER::MONSTER == pObj->GetLayer())
+	{
+		GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
+
+		if (GetFaceDir())
+		{
+			SetFaceDir(false);
+			GetRigidBody()->AddVelocity(Vec2(-200.f, -500.f));
+			GetAnimator()->Play(L"Axe_Left", true);
+		}
+		else
+		{
+			SetFaceDir(true);
+			GetRigidBody()->AddVelocity(Vec2(200.f, -500.f));
+			GetAnimator()->Play(L"Axe_Right", true);
+		}
+	}
 }

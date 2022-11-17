@@ -20,6 +20,8 @@ private:
     UINT                m_iWidth;
     UINT                m_iHeight;
 
+    bool                m_bDebug;
+
 public:
     void SetStartPointIdx(UINT _iIdx) { m_iStartPointIdx = _iIdx; }
     UINT GetStartPointIdx() const { return m_iStartPointIdx; }
@@ -29,6 +31,8 @@ public:
 
     UINT GetLevelWidth()    const { return m_iWidth; }
     UINT GetLevelHeight()   const { return m_iHeight; }
+
+    bool IsDebug() const { return m_bDebug; }
 
 public:
     CLONE_DEACTIVATE(CLevel);

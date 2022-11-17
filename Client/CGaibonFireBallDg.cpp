@@ -11,6 +11,9 @@ CGaibonFireBallDg::CGaibonFireBallDg()	:
 
 	GetCollider()->SetScale(Vec2(64.f, 64.f));
 
+	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_SKY_SMALL_FIRE_RIGHT.anim");
+	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_SKY_SMALL_FIRE_LEFT.anim");
+
 	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_SKY_FIRE_RIGHT.anim");
 	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_SKY_FIRE_LEFT.anim");
 }

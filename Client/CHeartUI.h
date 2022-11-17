@@ -5,7 +5,10 @@ class CHeartUI :
     public CUI
 {
 private:
-    int m_iLength;
+    BLENDFUNCTION  m_tBlend;
+    float m_fRatio;
+
+    float m_fDir;
 
 public:
     CLONE(CHeartUI);

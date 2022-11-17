@@ -13,6 +13,9 @@ CGaibonFireBall::CGaibonFireBall()	:
 
 	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_LAND_FIRE_RIGHT.anim");
 	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\Gaibon_Land_Fire_Left.anim");
+
+	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_LAND_LARGE_FIRE_RIGHT.anim");
+	GetAnimator()->LoadAnimation(L"animation\\Monster\\Gaibon\\GAIBON_LAND_LARGE_FIRE_LEFT.anim");
 }
 
 CGaibonFireBall::~CGaibonFireBall()

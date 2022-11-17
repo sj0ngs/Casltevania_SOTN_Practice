@@ -47,6 +47,8 @@ void CPlayerHitState::Enter()
 	pPlayer->GetUp();
 
 	HitSound();
+
+	//pPlayer->GetAnimator()->SetAnimOpt(EANIM_OPT::ALPHA_BLEND);
 }
 
 void CPlayerHitState::Exit()
@@ -55,6 +57,8 @@ void CPlayerHitState::Exit()
 	CPlayerState::Exit();
 	pPlayer->GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 	pPlayer->EndHit();
+
+	//pPlayer->GetAnimator()->SetAnimOpt(EANIM_OPT::NORMAL);
 }
 
 void CPlayerHitState::HitSound()

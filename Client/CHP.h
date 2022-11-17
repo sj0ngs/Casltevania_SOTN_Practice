@@ -6,10 +6,6 @@ class CTexture;
 class CHP :
     public CUI
 {
-private:
-    int m_iLength;
-    Vec2 m_arrPos[4];
-
 public:
     CLONE(CHP);
 

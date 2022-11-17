@@ -23,6 +23,8 @@ CHellFire::CHellFire() :
 
 	GetCollider()->SetScale(Vec2(100.f, 100.f));
 	m_pTex = CResMgr::GetInst()->FindTexture(L"HellFire");
+
+
 }
 
 CHellFire::~CHellFire()
@@ -75,8 +77,8 @@ void CHellFire::Render(HDC _DC)
 
 	POINT pt[3] = {};	
 	Vec2 vScale = {};
-	vScale.x = m_pTex->GetWidth();
-	vScale.y = m_pTex->GetHeight();
+	vScale.x = (float)m_pTex->GetWidth();
+	vScale.y = (float)m_pTex->GetHeight();
 
 	pt[0].x = (int)(vPos.x - vScale.x / 2.f);
 	pt[0].y = (int)(vPos.y - vScale.y / 2.f);
@@ -167,8 +169,8 @@ void CHellFire::BeginOverlap(CCollider* _pOther)
 void CHellFire::Dead()
 {
 	CEffect* pEffect = new CEffect;
-	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\Axe_Armor_Death_Effect.anim");
-	pEffect->GetAnimator()->Play(L"Axe_Armor_Death_Effect", false);
+	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\SLOGRA_DEATH_EFFECT.anim");
+	pEffect->GetAnimator()->Play(false);
 
 	Instantiate(pEffect, GetPos(), ELAYER::EFFECT);
 	PLAY_SOUND(L"DRACULA_FIRE");

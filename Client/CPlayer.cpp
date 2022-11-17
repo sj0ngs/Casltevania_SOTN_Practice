@@ -16,6 +16,7 @@
 #include "CWeapon.h"
 #include "CMonster.h"
 #include "CEffect.h"
+#include "CDamage.h"
 
 #include "CSubWeapon.h"
 #include "CDagger.h"
@@ -75,9 +76,9 @@ CPlayer::CPlayer() :
 	m_tInfo.m_iMaxMP = 50;
 	m_tInfo.m_iMP = m_tInfo.m_iMaxMP;
 
-	m_tInfo.m_iHeart = 50;
+	m_tInfo.m_iHeart = 100;//50;
 
-	m_tInfo.m_iStr = 100;//20;
+	m_tInfo.m_iStr = 20;
 	m_tInfo.m_iCon = 5;
 	m_tInfo.m_iInt = 10;
 
@@ -455,7 +456,7 @@ void CPlayer::HellFire()
 	CProjectile* pProjecitle = (CProjectile*)CObjMgr::GetInst()->FindObj(L"Hell_Fire")->Clone();
 
 	// 데미지 계산
-	pProjecitle->SetDamage(m_tInfo.m_iInt * 10);
+	pProjecitle->SetDamage(m_tInfo.m_iInt * 5);
 
 	pProjecitle->SetFaceDir(GetFaceDir());
 	if (GetFaceDir())
@@ -587,6 +588,14 @@ void CPlayer::TakeDamage(int _iDmg, bool _bDir)
 	}
 
 	m_tInfo.m_iHP -= iDamage;
+
+	CDamage* pDmg = new CDamage;
+	pDmg->SetDmg(iDamage);
+	pDmg->SetDmgType(EDMG_TYPE::PLAYER);
+
+	Vec2 vPos = GetPos();
+	vPos.y -= GetCollider()->GetScale().y + 20.f;
+	Instantiate(pDmg, vPos, ELAYER::FRONT_EFFECT);
 
 	if (0 > m_tInfo.m_iHP)
 	{

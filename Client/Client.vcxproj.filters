@@ -430,6 +430,9 @@
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\HellFire">
       <UniqueIdentifier>{19414eac-c5cf-4476-845d-6fd388fad67a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\Effect\Damage">
+      <UniqueIdentifier>{f172b779-61bc-4553-b742-78bfda3cff3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -840,12 +843,18 @@
     <ClInclude Include="CHellFire.h">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\HellFire</Filter>
     </ClInclude>
+    <ClInclude Include="CDamage.h">
+      <Filter>Game\04. Object\Effect\Damage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
       <Filter>Default</Filter>
     </Image>
     <Image Include="Client.ico">
+      <Filter>Default</Filter>
+    </Image>
+    <Image Include="SOTN.ico">
       <Filter>Default</Filter>
     </Image>
   </ItemGroup>
@@ -1246,6 +1255,9 @@
     </ClCompile>
     <ClCompile Include="CHellFire.cpp">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\HellFire</Filter>
+    </ClCompile>
+    <ClCompile Include="CDamage.cpp">
+      <Filter>Game\04. Object\Effect\Damage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
 #define IDD_EDITMAP                     132
 #define IDD_DIALOG2                     133
 #define IDD_CREATEANIM                  134
+#define IDI_ICON1                       140
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define IDC_FLOOR_OPTION                1002
@@ -54,7 +55,6 @@
 #define IDC_CHANGE_OFFSET_Y             1037
 #define IDC_EDIT_FRM                    1038
 #define IDC_BUTTON2                     1039
-#define IDC_CHECK1                      1040
 #define ID_32771                        32771
 #define ID_Menu                         32772
 #define IDM_CHANGE                      32773
@@ -73,7 +73,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           110

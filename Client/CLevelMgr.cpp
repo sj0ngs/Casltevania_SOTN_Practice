@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CLevelMgr.h"
 
+#include "CKeyMgr.h"
+
 #include "CLevel.h"
 #include "CTitle.h"
 #include "CStartLevel.h"
@@ -13,6 +15,8 @@
 
 #include "CEditorLevel.h"
 #include "CAnimationEditor.h"
+
+#include "CObj.h"
 
 CLevelMgr::CLevelMgr()	:
 	m_arrLevel{},
@@ -46,6 +50,11 @@ void CLevelMgr::Init()
 
 void CLevelMgr::Tick()
 {
+	if (IS_TAP(EKEY::key9))
+	{
+		CObj::SwitchDebug();
+	}
+
 	m_pCurLevel->Tick();
 	m_pCurLevel->Final_Tick();
 }

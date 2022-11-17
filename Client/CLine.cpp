@@ -45,40 +45,43 @@ void CLine::Tick()
 
 void CLine::Render(HDC _DC)
 {
-	// 충돌체를 그린다
-	HPEN hPen = nullptr;
-
-	if (0 < m_iOverlapCount)
- 		hPen = CEngine::GetInst()->GetPen(EPEN_TYPE::RED);
-	else
-		hPen = CEngine::GetInst()->GetPen(EPEN_TYPE::GREEN);
-
-	HPEN hPrevPen = (HPEN)SelectObject(_DC, hPen);
-
-	Vec2 vPos1 = CCamera::GetInst()->GetRenderPos(m_vPos1);
-	Vec2 vPos2 = CCamera::GetInst()->GetRenderPos(m_vPos2);
-
-	MoveToEx(_DC, (int)vPos2.x, (int)vPos2.y, NULL);
-	LineTo(_DC, (int)vPos1.x, (int)vPos1.y); 
-
-	// 기존 팬과 브러쉬로 돌려놓는다
-	SelectObject(_DC, hPrevPen);
-
-	Vec2 vPos = vPos1 + vPos2;
-	vPos /= 2.f;
-
-	wstring strName;
-	switch (m_eType)
+	if (CObj::GetDebug())
 	{
-	case ELINE_TYPE::UP:
-		strName = L"Up Line";
-		break;
-	case ELINE_TYPE::DOWN:
-		strName = L"Down Line";
-		break;
-	}
+		// 충돌체를 그린다
+		HPEN hPen = nullptr;
 
-	TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());
+		if (0 < m_iOverlapCount)
+			hPen = CEngine::GetInst()->GetPen(EPEN_TYPE::RED);
+		else
+			hPen = CEngine::GetInst()->GetPen(EPEN_TYPE::GREEN);
+
+		HPEN hPrevPen = (HPEN)SelectObject(_DC, hPen);
+
+		Vec2 vPos1 = CCamera::GetInst()->GetRenderPos(m_vPos1);
+		Vec2 vPos2 = CCamera::GetInst()->GetRenderPos(m_vPos2);
+
+		MoveToEx(_DC, (int)vPos2.x, (int)vPos2.y, NULL);
+		LineTo(_DC, (int)vPos1.x, (int)vPos1.y);
+
+		// 기존 팬과 브러쉬로 돌려놓는다
+		SelectObject(_DC, hPrevPen);
+
+		Vec2 vPos = vPos1 + vPos2;
+		vPos /= 2.f;
+
+		wstring strName;
+		switch (m_eType)
+		{
+		case ELINE_TYPE::UP:
+			strName = L"Up Line";
+			break;
+		case ELINE_TYPE::DOWN:
+			strName = L"Down Line";
+			break;
+		}
+
+		TextOut(_DC, (int)vPos.x, (int)vPos.y, strName.c_str(), (int)strName.length());
+	}
 }
 
 void CLine::BeginOverlap(CObj* _pOther)
