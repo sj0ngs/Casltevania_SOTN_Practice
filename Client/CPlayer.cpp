@@ -33,6 +33,8 @@
 
 #include "CTrail.h"
 
+#include "CBibleCrash.h"
+
 // State 
 #include "CPlayerIdleState.h"
 #include "CPlayerLeftMoveState.h"
@@ -62,12 +64,15 @@ CPlayer::CPlayer() :
 	m_eState(EPLAYER_STATE::STAND),
 	m_fAttackAcc(ATTACK_COOL),
 	m_pWeapon(nullptr),
-	m_eSubWeapon(ESUB_WEAPON_TYPE::NONE),
+	m_eSubWeapon(ESUB_WEAPON_TYPE::BIBLE),
 	m_bIsHit(false),
 	m_faccMPGenTime(0.f),
+	m_faccHPGenTime(0.f),
 	m_faccTrailTime(0.f),
 	m_bOnTrail(false),
-	m_eSkill(EPLAYER_SKILL::NONE)
+	m_eSkill(EPLAYER_SKILL::NONE),
+	m_bOnHeal(false),
+	m_bOnCrash(false)
 {
 	// 플레이어 초기 정보 세팅
 	m_tInfo.m_iMaxHP = 1000;
@@ -118,6 +123,7 @@ CPlayer::CPlayer() :
 	LoadAnim(L"PRESS_UP");
 	LoadAnim(L"PRESS_UP_HILL");
 	LoadAnim(L"HELLFIRE");
+	LoadAnim(L"ITEM_CRASH");
 
 	//KICK
 	LoadAnim(L"DRAGON_KICK");
@@ -219,9 +225,12 @@ CPlayer::CPlayer(const CPlayer& _pOrigin)	:
 	m_eSubWeapon(_pOrigin.m_eSubWeapon),
 	m_bIsHit(_pOrigin.m_bIsHit),
 	m_faccMPGenTime(0.f),
+	m_faccHPGenTime(0.f),
 	m_faccTrailTime(0.f),
 	m_bOnTrail(false),
-	m_eSkill(EPLAYER_SKILL::NONE)
+	m_eSkill(EPLAYER_SKILL::NONE),
+	m_bOnHeal(false),
+	m_bOnCrash(false)
 {
 	SetWeapon(_pOrigin.m_pWeapon);
 }
@@ -272,10 +281,10 @@ void CPlayer::Tick()
 
 	MPRegen();
 
-	if (IS_TAP(EKEY::key1))
+	if (m_bOnHeal)
 	{
-		Skill();
-	};
+		HPRegen();
+	}
 
 	if (IS_TAP(EKEY::key0))
 	{
@@ -434,20 +443,20 @@ bool CPlayer::Attack()
 	else
 		return false;
 }
-
-void CPlayer::Skill()
-{
-	CEffect* pEffect = new CEffect;
-
-	pEffect->GetAnimator()->LoadAnimation(L"animation\\Weapon\\BIBLE_CRASH.anim");
-	pEffect->GetAnimator()->Play(L"Bible_Crash", false);
-
-	Vec2 vPos = GetPos();
-
-	vPos.x -= 500.f;
-	//vPos.y -= 200.f;
-	Instantiate(pEffect, vPos, ELAYER::EFFECT);
-}
+//
+//void CPlayer::Skill()
+//{
+//	CEffect* pEffect = new CEffect;
+//
+//	pEffect->GetAnimator()->LoadAnimation(L"animation\\Weapon\\BIBLE_CRASH.anim");
+//	pEffect->GetAnimator()->Play(L"Bible_Crash", false);
+//
+//	Vec2 vPos = GetPos();
+//
+//	vPos.x -= 500.f;
+//	//vPos.y -= 200.f;
+//	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+//}
 
 void CPlayer::HellFire()
 {
@@ -473,6 +482,50 @@ void CPlayer::HellFire()
 	Instantiate(pProjecitle, vPos, ELAYER::PLAYER_PROJECTILE);
 
 	PLAY_SOUND(L"DRACULA_FIRE");
+}
+
+bool CPlayer::ItemCrash()
+{
+	switch (m_eSubWeapon)
+	{
+	case ESUB_WEAPON_TYPE::BIBLE:
+	{
+		if (USE_BIBLE * 3 > GetPlayerInfo().m_iHeart)
+			return false;
+
+		BibleCrash();
+		return true;
+	}
+	default:
+		return false;
+	}
+}
+
+void CPlayer::BibleCrash()
+{
+	m_bOnCrash = true;
+
+	Vec2 vPos = CCamera::GetInst()->GetRealPos(Vec2(510.f, 0.f));
+
+	vPos.y = GetPos().y;
+
+	m_tInfo.m_iHeart -= USE_BIBLE * 3;
+	CBibleCrash* pCrash = new CBibleCrash;
+	int iDmg = (int)((float)m_tInfo.m_iStr * 1.5);
+	pCrash->SetDamage(iDmg);
+	pCrash->SetFaceDir(GetFaceDir());
+	if (GetFaceDir())
+	{
+		vPos.x += 100.f;
+		vPos.y -= 200.f;
+	}
+	else
+	{
+		vPos.x -= 100.f;
+		vPos.y -= 200.f;
+	}
+	Instantiate(pCrash, vPos, ELAYER::PLAYER_PROJECTILE);
+	pCrash->SetOwner(this);
 }
 
 void CPlayer::UseSubWeapon()
@@ -567,6 +620,10 @@ void CPlayer::UseBible()
 	
 	pBible->SetCenter(this);
 	Instantiate(pBible, vPos, ELAYER::PLAYER_PROJECTILE);
+
+	CSound* pSound = CResMgr::GetInst()->FindSound(L"THROWTEKI");
+	pSound->Play();
+	pSound->SetVolume(50.f);
 }
 
 // 데미지 주는 함수
@@ -637,6 +694,26 @@ void CPlayer::MPRegen()
 	}
 }
 
+void CPlayer::HPRegen()
+{
+	if ((int)m_tInfo.m_iMaxHP > m_tInfo.m_iHP)
+	{
+		m_faccHPGenTime += DELTATIME;
+
+		if (0.1f <= m_faccHPGenTime)
+		{
+			m_tInfo.m_iHP += 1;
+			m_faccHPGenTime = 0.f;
+
+			if ((int)m_tInfo.m_iMaxHP <= m_tInfo.m_iHP)
+			{
+				m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+				m_faccHPGenTime = 0.f;
+				m_bOnHeal = false;
+			}
+		}
+	}
+}
 
 void CPlayer::AddHeart(int _iValue)
 {
@@ -646,6 +723,7 @@ void CPlayer::AddHeart(int _iValue)
 void CPlayer::Revive()
 {
 	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+	m_tInfo.m_iHeart = 100;
 
 	CObjMgr::GetInst()->UpDatePlayer(this);
 }

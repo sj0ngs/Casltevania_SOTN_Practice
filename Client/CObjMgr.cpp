@@ -29,7 +29,6 @@
 
 #include "CAnimator.h"
 
-
 CObjMgr::CObjMgr()
 {
 }

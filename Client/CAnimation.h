@@ -18,7 +18,8 @@ private:
 
 public:
     CTexture* GetAltasTex() { return m_pAtlas; }
-    const tAnimFrm& GetCurFrm() const { return m_vecFrm[m_iCurFrm]; }
+    // 프레임 데이터 넘겨주는 함수
+    const tAnimFrm& GetCurFrm() const { return m_vecFrm[m_iCurFrm]; }   
 
 public:
     CLONE(CAnimation);
@@ -30,6 +31,9 @@ public:
 private:
     void Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop,
         Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, Vec2 _vOffset);
+
+    void Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop,
+        Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, int _iRow, Vec2 _vOffset);
 
 public:
     void Tick();
@@ -43,13 +47,14 @@ public:
 
     void Save(const wstring& _strRelativePath);
     void Load(const wstring& _strRelativePath);
+
     int GetCurFrame() const { return m_iCurFrm; } 
+    void SetCurFrame(int _CurFame);
 
 private:
     void SwitchStop() { m_bStop = m_bStop ? false : true; }
     void PrevFrame();
     void NextFrame();
-    void SetCurFrame(int _CurFame);
     vector<tAnimFrm>* GetAnimFrame() { return &m_vecFrm; }
 
     friend class CAnimator;

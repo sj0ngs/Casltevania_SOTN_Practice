@@ -40,11 +40,12 @@ void CPlayerIdleState::Final_Tick()
 		ChangeState(L"BackDash");
 		return;
 	}
-	//else if (IS_PRESSED(EKEY::key1))
-	//{
-	//	ChangeState(L"Skill");
-	//	return;
-	//}
+	else if (IS_PRESSED(EKEY::key1))
+	{
+		ChangeState(L"Skill");
+		pPlayer->SetPlayerSkill(EPLAYER_SKILL::ITEM_CRASH);
+		return;
+	}
 	// Hell Fire
 	else if (IS_TAP(EKEY::key2))
 	{

@@ -111,6 +111,20 @@ void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2
 	m_mapAnim.insert(make_pair(_strName, pAnim));
 }
 
+void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, Vec2 _vSize, int _iMaxFrmCount, float _fDuration, int _iRow, Vec2 _vPadding, Vec2 _vOffset)
+{	// 애니메이션은 중복되서 만들어지면 안되므로 중복 확인
+	CAnimation* pAnim = FindAnimation(_strName);
+	assert(!pAnim);
+
+	// 애니메이션이 소유자를 알 수 있도록,
+	// 자신(애니메이터)를 넘겨준다
+	pAnim = new CAnimation(this);
+	// 인자로 받아온 값으로 새로운 애니메이션 생성
+	pAnim->Init(_strName, _pAtlas, _vLeftTop, _vSize, _iMaxFrmCount, _fDuration, _vPadding, _iRow, _vOffset);
+	// 완성된 애니메이션을 map 컨테이너에 담아준다
+	m_mapAnim.insert(make_pair(_strName, pAnim));
+}
+
 CAnimation* CAnimator::FindAnimation(const wstring& _strName)
 {
 	map<wstring, CAnimation*>::iterator iter = m_mapAnim.find(_strName);

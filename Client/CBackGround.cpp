@@ -27,27 +27,31 @@ void CBackGround::Render(HDC _DC)
 
 	Vec2 vPos = GetPos();
 
-	if(m_bIsForeGround)
+	if (m_bIsForeGround)
+	{
 		vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+	
+		TransparentBlt(_DC,
+			(int)(vPos.x),
+			(int)(vPos.y),
+			(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
+			m_pBackGroundTex->GetDC(),
+			0, 0,
+			(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
+			RGB(255, 0, 255));
+	}
+	else
+	{
+		BitBlt(_DC,
+			(int)(vPos.x),
+			(int)(vPos.y),
+			(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
+			m_pBackGroundTex->GetDC(),
+			0, 0,
+			SRCCOPY);
+	}
 
-	//BitBlt(_DC,
-	//	(int)(vPos.x),
-	//	(int)(vPos.y),
-	//	(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
-	//	m_pBackGroundTex->GetDC(),
-	//	0, 0,
-	//	SRCCOPY);
-
-	TransparentBlt(_DC,
-		(int)(vPos.x),
-		(int)(vPos.y),
-		(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
-		m_pBackGroundTex->GetDC(),
-		0, 0,
-		(int)m_pBackGroundTex->GetWidth(), (int)m_pBackGroundTex->GetHeight(),
-		RGB(255, 0, 255));
-
-	CObj::Render(_DC);
+	//CObj::Render(_DC);
 }
 
 void CBackGround::Save(FILE* _pFile)

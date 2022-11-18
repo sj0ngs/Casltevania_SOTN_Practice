@@ -28,12 +28,6 @@
     <Filter Include="Game\03. Level">
       <UniqueIdentifier>{10942d0a-ebff-4144-a6b1-36101e795a97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\03. Level\01. Start">
-      <UniqueIdentifier>{8eb299df-6669-459e-8c14-0a623b25c3ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\03. Level\02. Stage_01">
-      <UniqueIdentifier>{3b662432-e112-4ef8-ad24-31fc2b49c792}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object">
       <UniqueIdentifier>{1fc6eb65-5b35-4650-be78-84a63cc2caf4}</UniqueIdentifier>
     </Filter>
@@ -406,15 +400,6 @@
     <Filter Include="Game\02. Mananger\11. SoundManager">
       <UniqueIdentifier>{b46dc1ca-d481-44b8-92ec-7ca6659a3a93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\03. Level\00. Title">
-      <UniqueIdentifier>{c8a4ab1f-ea34-4e78-a516-39a10275034b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\03. Level\03.Stage_02">
-      <UniqueIdentifier>{c1de9be8-d5a3-4760-814e-35dcfad9c04e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\03. Level\04.Stage_03">
-      <UniqueIdentifier>{b538e12b-8424-4d26-9ca4-44fe43f1322c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\03. Level\05. Ending">
       <UniqueIdentifier>{2e02796c-b7e5-4ea2-b635-3a166a4e4f71}</UniqueIdentifier>
     </Filter>
@@ -432,6 +417,36 @@
     </Filter>
     <Filter Include="Game\04. Object\Effect\Damage">
       <UniqueIdentifier>{f172b779-61bc-4553-b742-78bfda3cff3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\06. Save">
+      <UniqueIdentifier>{ffda9698-09d8-4852-bb0a-71a849ee8b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\07. Reward">
+      <UniqueIdentifier>{2028de7b-db05-4aea-8a21-c34986302d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\00. Title">
+      <UniqueIdentifier>{c8a4ab1f-ea34-4e78-a516-39a10275034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\01. Start">
+      <UniqueIdentifier>{8eb299df-6669-459e-8c14-0a623b25c3ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\02. Stage_01">
+      <UniqueIdentifier>{3b662432-e112-4ef8-ad24-31fc2b49c792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\03. Stage_02">
+      <UniqueIdentifier>{c1de9be8-d5a3-4760-814e-35dcfad9c04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\03. Level\04. Stage_03">
+      <UniqueIdentifier>{b538e12b-8424-4d26-9ca4-44fe43f1322c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Effect\Particle">
+      <UniqueIdentifier>{c5ff79cd-f40f-4a75-af74-753d15808b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Trigger\SaveTrigger">
+      <UniqueIdentifier>{47d32ad2-7a89-41c9-956e-c13a6c4a6260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\BibleCrash">
+      <UniqueIdentifier>{78bf5de6-5631-44fb-81f0-02d5653c8716}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -823,10 +838,10 @@
       <Filter>Game\03. Level\00. Title</Filter>
     </ClInclude>
     <ClInclude Include="CStage02.h">
-      <Filter>Game\03. Level\03.Stage_02</Filter>
+      <Filter>Game\03. Level\03. Stage_02</Filter>
     </ClInclude>
     <ClInclude Include="CStage03.h">
-      <Filter>Game\03. Level\04.Stage_03</Filter>
+      <Filter>Game\03. Level\04. Stage_03</Filter>
     </ClInclude>
     <ClInclude Include="CEndingLevel.h">
       <Filter>Game\03. Level\05. Ending</Filter>
@@ -845,6 +860,18 @@
     </ClInclude>
     <ClInclude Include="CDamage.h">
       <Filter>Game\04. Object\Effect\Damage</Filter>
+    </ClInclude>
+    <ClInclude Include="CSave_Level.h">
+      <Filter>Game\03. Level\06. Save</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticle.h">
+      <Filter>Game\04. Object\Effect\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CSaveTrigger.h">
+      <Filter>Game\04. Object\Trigger\SaveTrigger</Filter>
+    </ClInclude>
+    <ClInclude Include="CBibleCrash.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1236,10 +1263,10 @@
       <Filter>Game\03. Level\00. Title</Filter>
     </ClCompile>
     <ClCompile Include="CStage02.cpp">
-      <Filter>Game\03. Level\03.Stage_02</Filter>
+      <Filter>Game\03. Level\03. Stage_02</Filter>
     </ClCompile>
     <ClCompile Include="CStage03.cpp">
-      <Filter>Game\03. Level\04.Stage_03</Filter>
+      <Filter>Game\03. Level\04. Stage_03</Filter>
     </ClCompile>
     <ClCompile Include="CEndingLevel.cpp">
       <Filter>Game\03. Level\05. Ending</Filter>
@@ -1258,6 +1285,18 @@
     </ClCompile>
     <ClCompile Include="CDamage.cpp">
       <Filter>Game\04. Object\Effect\Damage</Filter>
+    </ClCompile>
+    <ClCompile Include="CSave_Level.cpp">
+      <Filter>Game\03. Level\06. Save</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticle.cpp">
+      <Filter>Game\04. Object\Effect\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CSaveTrigger.cpp">
+      <Filter>Game\04. Object\Trigger\SaveTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="CBibleCrash.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

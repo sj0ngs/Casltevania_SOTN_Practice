@@ -26,7 +26,7 @@ public:
     virtual void EndOverlap(CCollider* _pOther) override {};
 
 public:
-    virtual void Save(FILE* _pFile) override = 0;
-    virtual void Load(FILE* _pFile) override = 0;
+    virtual void Save(FILE* _pFile) override;
+    virtual void Load(FILE* _pFile) override;
 };
 

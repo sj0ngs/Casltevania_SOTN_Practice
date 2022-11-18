@@ -43,6 +43,26 @@ void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop
 	}
 }
 
+void CAnimation::Init(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, Vec2 _vSize, int _iMaxFrmCount, float _fDuration, Vec2 _vPadding, int _iRow, Vec2 _vOffset)
+{
+	SetName(_strName);	// 이름
+	m_pAtlas = _pAtlas;	// 아틀라스 이미지
+
+	for (int j = 0; j < _iRow; j++)
+	{
+		for (int i = 0; i < _iMaxFrmCount; i++)
+		{
+			tAnimFrm frm = {};
+			frm.vLeftTop = Vec2(_vLeftTop.x + (float)i * (_vSize.x + _vPadding.x), _vLeftTop.y + (float)j * (_vSize.y + _vPadding.y));
+			frm.vSize = _vSize;
+			frm.fDuration = _fDuration;
+			frm.vOffset = _vOffset;
+
+			m_vecFrm.push_back(frm);
+		}
+	}
+}
+
 void CAnimation::Tick()
 {
 	if (m_bFinish || m_bStop)

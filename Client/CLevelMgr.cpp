@@ -12,6 +12,7 @@
 #include "CBossLevel.h"
 #include "CEndingLevel.h"
 #include "CGameOverLevel.h"
+#include "CSave_Level.h"
 
 #include "CEditorLevel.h"
 #include "CAnimationEditor.h"
@@ -39,6 +40,7 @@ void CLevelMgr::Init()
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_01] = new CStage01;
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_02] = new CStage02;
 	m_arrLevel[(UINT)ELEVEL_TYPE::STAGE_03] = new CStage03;
+	m_arrLevel[(UINT)ELEVEL_TYPE::SAVE] = new CSave_Level;
 	m_arrLevel[(UINT)ELEVEL_TYPE::BOSS] = new CBossLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::ENDING] = new CEndingLevel;
 	m_arrLevel[(UINT)ELEVEL_TYPE::GAME_OVER] = new CGameOverLevel;

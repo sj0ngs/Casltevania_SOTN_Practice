@@ -148,6 +148,7 @@
     <ClInclude Include="CAxeArmor.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBible.h" />
+    <ClInclude Include="CBibleCrash.h" />
     <ClInclude Include="CBibleTrail.h" />
     <ClInclude Include="CBloodSkeleton.h" />
     <ClInclude Include="CBone.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjMgr.h" />
     <ClInclude Include="CPanel.h" />
+    <ClInclude Include="CParticle.h" />
     <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CPatrolState.h" />
     <ClInclude Include="CPlatform.h" />
@@ -234,6 +236,8 @@
     <ClInclude Include="CRes.h" />
     <ClInclude Include="CResMgr.h" />
     <ClInclude Include="CRigidBody.h" />
+    <ClInclude Include="CSaveTrigger.h" />
+    <ClInclude Include="CSave_Level.h" />
     <ClInclude Include="CSkeleton.h" />
     <ClInclude Include="CSlogra.h" />
     <ClInclude Include="CSlograAttackState.h" />
@@ -287,6 +291,7 @@
     <ClCompile Include="CAxeArmor.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBible.cpp" />
+    <ClCompile Include="CBibleCrash.cpp" />
     <ClCompile Include="CBibleTrail.cpp" />
     <ClCompile Include="CBloodSkeleton.cpp" />
     <ClCompile Include="CBone.cpp" />
@@ -345,6 +350,7 @@
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
     <ClCompile Include="CPanel.cpp" />
+    <ClCompile Include="CParticle.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CPatrolState.cpp" />
     <ClCompile Include="CPlatform.cpp" />
@@ -374,6 +380,8 @@
     <ClCompile Include="CRes.cpp" />
     <ClCompile Include="CResMgr.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
+    <ClCompile Include="CSaveTrigger.cpp" />
+    <ClCompile Include="CSave_Level.cpp" />
     <ClCompile Include="CSkeleton.cpp" />
     <ClCompile Include="CSlogra.cpp" />
     <ClCompile Include="CSlograAttackState.cpp" />

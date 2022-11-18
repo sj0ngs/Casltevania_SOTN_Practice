@@ -42,11 +42,16 @@ private:
     ESUB_WEAPON_TYPE m_eSubWeapon;
 
     float m_faccMPGenTime;
+    float m_faccHPGenTime;
 
     bool m_bOnTrail;
     float m_faccTrailTime;
 
     EPLAYER_SKILL m_eSkill;
+
+    bool m_bOnHeal;
+
+    bool m_bOnCrash;
 
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
@@ -79,6 +84,9 @@ public:
     void SetPlayerSkill(EPLAYER_SKILL _eSKill) { m_eSkill = _eSKill; }
     EPLAYER_SKILL GetPlayerSkill() const { return m_eSkill; }
 
+    void SetOnCrash(bool _bOnCrash) { m_bOnCrash = _bOnCrash; }
+    bool IsOnCrash() const { return m_bOnCrash; }
+
 public:
     CLONE(CPlayer);
 
@@ -102,8 +110,10 @@ public:
 
     bool Attack();
     
-    void Skill();
     void HellFire();
+    bool ItemCrash();
+
+    void BibleCrash();
 
     void UseSubWeapon();
     void UseDagger();
@@ -114,12 +124,15 @@ public:
     int GetDamage();
 
     void MPRegen();
+    void HPRegen();
+    void Heal() { m_bOnHeal = true; }
 
     void AddHeart(int _iValue);
 
     void Revive();
 
     void UseMp(int _iMP);
+
 
 private:
     void LoadAnim(const wstring& _strFile);

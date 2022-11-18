@@ -40,6 +40,7 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadSound(L"Select_Change", L"sound\\Select_Change.wav");
 	CResMgr::GetInst()->LoadSound(L"Start", L"sound\\Start.wav");
 	CResMgr::GetInst()->LoadSound(L"DOORBS", L"sound\\DOORBS.wav");
+	CResMgr::GetInst()->LoadSound(L"GETMEAT", L"sound\\GETMEAT.wav");
 
 	CResMgr::GetInst()->LoadSound(L"FIRE", L"sound\\FIRE.wav");
 
@@ -64,12 +65,15 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadSound(L"GETHEART", L"sound\\Player\\GETHEART.wav");
 	CResMgr::GetInst()->LoadSound(L"GETSUB", L"sound\\Player\\GETSUB.wav");
 	CResMgr::GetInst()->LoadSound(L"Double_Jump", L"sound\\Player\\Double_Jump.wav");
+	CResMgr::GetInst()->LoadSound(L"THROWTEKI", L"sound\\Player\\THROWTEKI.wav");
 
 	CResMgr::GetInst()->LoadSound(L"SKILL_1", L"sound\\Player\\SKILL_1.wav");
 	CResMgr::GetInst()->LoadSound(L"SKILL_2", L"sound\\Player\\SKILL_2.wav");
 	CResMgr::GetInst()->LoadSound(L"SKILL_3", L"sound\\Player\\SKILL_3.wav");
 
 	CResMgr::GetInst()->LoadSound(L"DRACULA_FIRE", L"sound\\Player\\DRACULA_FIRE.wav");
+
+	CResMgr::GetInst()->LoadSound(L"BOSSEYE_BEAM", L"sound\\Player\\BOSSEYE_BEAM.wav");
 
 	// Monster
 	CResMgr::GetInst()->LoadSound(L"Projectile_Explot", L"sound\\Monster\\Projectile_Explot.wav");
@@ -135,6 +139,8 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Boss", L"texture\\Map\\Boss_Room.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Ending", L"texture\\Map\\Ending.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Game_Over_Screen", L"texture\\Map\\Game_Over_Screen.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Save_Room", L"texture\\Map\\Save_Room.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Save_Room_Front", L"texture\\Map\\Save_Room_Front.bmp");
 
 	// =======
 	// Monster
@@ -197,7 +203,8 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Small_Fire_Right", L"texture\\Monster\\Gaibon\\Small_Fire_Right.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Small_Fire_Left", L"texture\\Monster\\Gaibon\\Small_Fire_Left.bmp");
 
-	//CResMgr::GetInst()->LoadTexture(L"Bible_Crash_Right", L"texture\\Weapon\\Item_Crash_Bible.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Item_Crash_Bible_Left", L"texture\\Weapon\\Item_Crash_Bible_Left.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Item_Crash_Bible_Right", L"texture\\Weapon\\Item_Crash_Bible_Right.bmp");
 
 	// ======
 	// Effect
@@ -219,6 +226,9 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Drop_Effect", L"texture\\Effect\\Drop_Effect.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Dust", L"texture\\Effect\\Dust.bmp");
+
+	// Light
+	CResMgr::GetInst()->LoadTexture(L"Light", L"texture\\Effect\\Light.bmp");
 
 	// ==========
 	// Map Object
