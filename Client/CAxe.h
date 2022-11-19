@@ -8,6 +8,8 @@ private:
     CTexture* m_pRightTex;
     CTexture* m_pLeftTex;
 
+    float m_faccTrailTime;
+
 public:
     CLONE(CAxe);
 

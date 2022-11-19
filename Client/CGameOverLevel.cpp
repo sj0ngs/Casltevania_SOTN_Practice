@@ -56,6 +56,8 @@ void CGameOverLevel::Enter()
 	CTimeMgr::GetInst()->SetTimeLock(false);
 
 	CLevel::Enter();
+
+	CCamera::GetInst()->FadeIn(1.f);
 }
 
 void CGameOverLevel::Exit()

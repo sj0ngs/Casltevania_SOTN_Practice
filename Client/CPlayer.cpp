@@ -17,6 +17,7 @@
 #include "CMonster.h"
 #include "CEffect.h"
 #include "CDamage.h"
+#include "CLetter.h"
 
 #include "CSubWeapon.h"
 #include "CDagger.h"
@@ -72,7 +73,8 @@ CPlayer::CPlayer() :
 	m_bOnTrail(false),
 	m_eSkill(EPLAYER_SKILL::NONE),
 	m_bOnHeal(false),
-	m_bOnCrash(false)
+	m_bOnCrash(false),
+	m_bInvincible(false)
 {
 	// 플레이어 초기 정보 세팅
 	m_tInfo.m_iMaxHP = 1000;
@@ -179,6 +181,9 @@ CPlayer::CPlayer() :
 	LoadAnim(L"HIT_4");
 	LoadAnim(L"HIT_5");
 	LoadAnim(L"HIT_6");
+
+	// Death
+	GetAnimator()->LoadAnimation(L"animation\\Player\\ALUCARD_DEATH.anim");
 	
 	// =================
 	// RigidBody Setting
@@ -230,7 +235,8 @@ CPlayer::CPlayer(const CPlayer& _pOrigin)	:
 	m_bOnTrail(false),
 	m_eSkill(EPLAYER_SKILL::NONE),
 	m_bOnHeal(false),
-	m_bOnCrash(false)
+	m_bOnCrash(false),
+	m_bInvincible(false)
 {
 	SetWeapon(_pOrigin.m_pWeapon);
 }
@@ -266,17 +272,33 @@ void CPlayer::Tick()
 		else
 			SetWeapon(nullptr);
 	}
-
-	if (IS_TAP(EKEY::F))
+	else if (IS_TAP(EKEY::F))
 	{
 		int iSubWeapon = (int)m_eSubWeapon;
 
-		if (++iSubWeapon == (UINT)ESUB_WEAPON_TYPE::NONE)
+		if (++iSubWeapon == (UINT)ESUB_WEAPON_TYPE::NONE + 1)
 			iSubWeapon = 0;
 
 		ChangeSubWeapon((ESUB_WEAPON_TYPE)iSubWeapon);
 
 		m_tInfo.m_iMP -= 10;
+	}
+	else if (IS_TAP(EKEY::key0))
+	{
+		m_tInfo.m_iHP = 0;
+	}
+	else if (IS_TAP(EKEY::key8))
+	{
+		m_bInvincible = !m_bInvincible;
+
+		if (m_bInvincible)
+		{
+			GetAnimator()->SetAnimOpt(EANIM_OPT::ALPHA_BLEND);
+		}
+		else
+		{
+			GetAnimator()->SetAnimOpt(EANIM_OPT::NORMAL);
+		}
 	}
 
 	MPRegen();
@@ -284,11 +306,6 @@ void CPlayer::Tick()
 	if (m_bOnHeal)
 	{
 		HPRegen();
-	}
-
-	if (IS_TAP(EKEY::key0))
-	{
-		m_tInfo.m_iHP = 0;
 	}
 
 	if (nullptr != m_pWeapon)
@@ -443,20 +460,6 @@ bool CPlayer::Attack()
 	else
 		return false;
 }
-//
-//void CPlayer::Skill()
-//{
-//	CEffect* pEffect = new CEffect;
-//
-//	pEffect->GetAnimator()->LoadAnimation(L"animation\\Weapon\\BIBLE_CRASH.anim");
-//	pEffect->GetAnimator()->Play(L"Bible_Crash", false);
-//
-//	Vec2 vPos = GetPos();
-//
-//	vPos.x -= 500.f;
-//	//vPos.y -= 200.f;
-//	Instantiate(pEffect, vPos, ELAYER::EFFECT);
-//}
 
 void CPlayer::HellFire()
 {
@@ -629,7 +632,7 @@ void CPlayer::UseBible()
 // 데미지 주는 함수
 void CPlayer::TakeDamage(int _iDmg, bool _bDir)
 {
-	if (true == m_bIsHit || EPLAYER_SKILL::NONE != m_eSkill)
+	if (m_bInvincible || true == m_bIsHit || EPLAYER_SKILL::NONE != m_eSkill)
 		return;
 
 	int iDamage = _iDmg;
@@ -718,6 +721,24 @@ void CPlayer::HPRegen()
 void CPlayer::AddHeart(int _iValue)
 {
 	m_tInfo.m_iHeart += _iValue;
+}
+
+void CPlayer::LifeMaxUp()
+{
+	m_tInfo.m_iMaxHP += 30;
+	m_tInfo.m_iHP = m_tInfo.m_iMaxHP;
+
+	CObjMgr::GetInst()->UpDatePlayer(this);
+
+	CLetter* pLetter = new CLetter;
+	CTexture* pTex = CResMgr::GetInst()->FindTexture(L"Life_Up");
+	pLetter->SetLifeTime(3.f);
+	pLetter->SetLetterTex(pTex);
+	
+	Vec2 vPos = GetPos();
+	vPos.y -= 100.f;
+
+	Instantiate(pLetter, vPos, ELAYER::FRONT_EFFECT);
 }
 
 void CPlayer::Revive()

@@ -22,8 +22,9 @@ CCandle::CCandle()
 
 	GetCollider()->SetScale(Vec2(50.f, 80.f));
 	GetAnimator()->LoadAnimation(L"animation\\MapObj\\CANDLE.anim");
+	GetAnimator()->LoadAnimation(L"animation\\MapObj\\CANDLE_2.anim");
 
-	GetAnimator()->Play(true);
+	//GetAnimator()->Play(true);
 }
 
 CCandle::~CCandle()

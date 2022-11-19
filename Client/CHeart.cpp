@@ -17,7 +17,9 @@ CHeart::CHeart()	:
 	m_iHealValue(0),
 	m_faccMoveTime(0.f),
 	m_iDir(1),
-	m_fDegree(0.f)
+	m_fDegree(0.f),
+	m_faccDeathTime(0.f),
+	m_bDeadSoon(false)
 {
 	CreateCollider();
 	CreateAnimator();
@@ -79,6 +81,27 @@ void CHeart::Tick()
 	case EHEART_TYPE::HP_HEART:
 		break;
 	}
+
+	m_faccDeathTime += DELTATIME;
+
+	if (!m_bDeadSoon)
+	{
+		if (5.f <= m_faccDeathTime)
+		{
+			m_bDeadSoon = true;
+			GetAnimator()->SetAnimOpt(EANIM_OPT::ALPHA_BLEND);
+			m_faccDeathTime = 0.f;
+		}
+	}
+	else
+	{
+		if (3.f <= m_faccDeathTime)
+		{
+			SetDead();
+			return;
+		}
+	}
+
 
 	CObj::Tick();
 }

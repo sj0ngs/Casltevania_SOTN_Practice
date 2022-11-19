@@ -24,6 +24,7 @@
 #include "CGaibon.h"
 
 #include "CCandle.h"
+#include "CBench.h"
 
 #include "CTrail.h"
 
@@ -184,6 +185,11 @@ void CObjMgr::Init()
 	// Candle
 	CObj* pObj = new CCandle;
 	pObj->SetName(L"Candle");
+	pObj->GetAnimator()->Play(L"Candle", true);
+	m_mapObj.insert(make_pair(pObj->GetName(), pObj));
+
+	pObj = new CBench;
+	pObj->SetName(L"Bench");
 	m_mapObj.insert(make_pair(pObj->GetName(), pObj));
 
 	// ===========

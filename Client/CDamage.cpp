@@ -45,7 +45,7 @@ void CDamage::Tick()
 {
     Vec2 vPos = GetPos();
 
-    vPos.y -= 15.f * DELTATIME;
+    vPos.y -= 20.f * DELTATIME;
 
     m_faccTime += DELTATIME;
 

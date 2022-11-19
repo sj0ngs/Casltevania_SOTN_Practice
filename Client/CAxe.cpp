@@ -1,15 +1,20 @@
 #include "pch.h"
 #include "CAxe.h"
 
+#include "CAnimator.h"
 #include "CRigidBody.h"
 #include "CResMgr.h"
 #include "CTexture.h"
 
-#include "CAnimator.h"
+#include "CAnimation.h"
+
+#include "CTrail.h"
+
 
 CAxe::CAxe()	:
 	m_pLeftTex(nullptr),
-	m_pRightTex(nullptr)
+	m_pRightTex(nullptr),
+	m_faccTrailTime(0.f)
 {
 	CreateRigidBody();
 	CreateAnimator();
@@ -30,62 +35,25 @@ CAxe::~CAxe()
 
 void CAxe::Tick()
 {
+	if (0.2f <= m_faccTrailTime)
+	{
+		CTrail* pTrail = new CTrail;
+		pTrail->SetAnimFrm(GetAnimator()->GetCurAnimation()->GetCurFrm());
+		pTrail->SetTrailTex(GetAnimator()->GetCurAnimation()->GetAltasTex());
+		pTrail->SetLifeTime(0.4f);
+
+		Instantiate(pTrail, GetPos(), ELAYER::EFFECT);
+
+		m_faccTrailTime = 0.f;
+	}
+
+	m_faccTrailTime += DELTATIME;
+
 	MapOut();
 }
 
 void CAxe::Render(HDC _DC)
 {
-	//Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
-	//Vec2 vRealPos = GetPos();
-
-	//CTexture* pTex = nullptr;
-	//if (GetFaceDir())
-	//	pTex = m_pRightTex;
-	//else
-	//	pTex = m_pLeftTex;
-
-	//TransparentBlt(_DC,
-	//	(int)(vPos.x - pTex->GetWidth() / 2.f),
-	//	(int)(vPos.y - pTex->GetHeight() / 2.f),
-	//	(int)(pTex->GetWidth()),
-	//	(int)(pTex->GetHeight()),
-	//	pTex->GetDC(),
-	//	0, 0,
-	//	(int)(pTex->GetWidth()),
-	//	(int)(pTex->GetHeight()),
-	//	RGB(255, 0, 255));
-	
-	//POINT point[3];
-	//point[0].x = (int)vPos.x - (int)(pTex->GetWidth() / 2.f);
-	//point[0].y = (int)vPos.y - (int)(pTex->GetHeight() / 2.f);
-	//						   
-	//point[1].x = (int)vPos.x + (int)(pTex->GetWidth() / 2.f);
-	//point[1].y = (int)vPos.y - (int)(pTex->GetHeight() / 2.f);
-	//						   
-	//point[2].x = (int)vPos.x - (int)(pTex->GetWidth() / 2.f);
-	//point[2].y = (int)vPos.y + (int)(pTex->GetHeight() / 2.f);
-
-	//Vec2 DirVec[3];
-	//Vec2 RotVec[3];5
-	//
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	Vec2 vPoint = point[i];
-	//	DirVec[i] = vPoint - vPos;
-	//	float Dist = DirVec[i].Length();
-	//	DirVec[i].Normalize();
-	//	RotateVec(DirVec[i], 15.f);
-	//	RotVec[i] *= Dist; 
-	//	point[i].x = RotVec[i].x + vPos.x;
-	//	point[i].y = RotVec[i].y + vPos.y;
-	//}
-	
-	//int a = PlgBlt(_DC, point, pTex->GetDC(), 
-	//	vPos.x - pTex->GetWidth() / 2.f, 
-	//	vPos.y - pTex->GetHeight() / 2.f,
-	//	pTex->GetWidth(), pTex->GetHeight(),
-	//	nullptr, 0, 0);
-
 	CObj::Render(_DC);
 }
 

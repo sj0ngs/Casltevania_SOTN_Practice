@@ -15,10 +15,14 @@
 
 #include "CSound.h"
 
-CSubWeapon::CSubWeapon()	:
+CSubWeapon::CSubWeapon() :
 	m_eType(ESUB_WEAPON_TYPE::NONE),
 	m_pTex(nullptr),
-	vOffsetPos{}
+	vOffsetPos{},
+	m_faccDeathTime(0.f),
+	m_bDeadSoon(false),
+	m_fRatio(0.f),
+	m_fDir(1.f)
 {
 	CreateCollider();
 	CreateRigidBody();
@@ -61,6 +65,25 @@ void CSubWeapon::SetSubWeaponType(ESUB_WEAPON_TYPE _eType)
 
 void CSubWeapon::Tick()
 {
+	m_faccDeathTime += DELTATIME;
+
+	if (!m_bDeadSoon)
+	{
+		if (3.f <= m_faccDeathTime)
+		{
+			m_bDeadSoon = true;
+			GetAnimator()->SetAnimOpt(EANIM_OPT::ALPHA_BLEND);
+			m_faccDeathTime = 0.f;
+		}
+	}
+	else
+	{
+		if (3.f <= m_faccDeathTime)
+		{
+			SetDead();
+			return;
+		}
+	}
 }
 
 void CSubWeapon::Render(HDC _DC)
@@ -70,16 +93,51 @@ void CSubWeapon::Render(HDC _DC)
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	vPos += vOffsetPos; 
 
-	TransparentBlt(_DC,
-		(int)(vPos.x - m_pTex->GetWidth() / 2.f),
-		(int)(vPos.y - m_pTex->GetHeight() / 2.f),
-		(int)(m_pTex->GetWidth()),
-		(int)(m_pTex->GetHeight()),
-		m_pTex->GetDC(),
-		0, 0,
-		(int)(m_pTex->GetWidth()),
-		(int)(m_pTex->GetHeight()),
-		RGB(255, 0, 255));
+	if (!m_bDeadSoon)
+	{
+		TransparentBlt(_DC,
+			(int)(vPos.x - m_pTex->GetWidth() / 2.f),
+			(int)(vPos.y - m_pTex->GetHeight() / 2.f),
+			(int)(m_pTex->GetWidth()),
+			(int)(m_pTex->GetHeight()),
+			m_pTex->GetDC(),
+			0, 0,
+			(int)(m_pTex->GetWidth()),
+			(int)(m_pTex->GetHeight()),
+			RGB(255, 0, 255));
+	}
+	else
+	{
+		m_fRatio += DELTATIME * m_fDir * 5;
+
+		if (1.f <= m_fRatio)
+		{
+			m_fDir = -1.f;
+			m_fRatio = 1.f;
+		}
+		else if (0.0 >= m_fRatio)
+		{
+			m_fDir = 1.f;
+			m_fRatio = 0.0f;
+		}
+
+		BLENDFUNCTION tBlend = {};
+		tBlend.AlphaFormat = AC_SRC_ALPHA;
+		tBlend.BlendFlags = 0;
+		tBlend.BlendOp = AC_SRC_OVER;
+		tBlend.SourceConstantAlpha = (int)(255 * m_fRatio);
+
+		AlphaBlend(_DC,
+			(int)(vPos.x - m_pTex->GetWidth() / 2.f),
+			(int)(vPos.y - m_pTex->GetHeight() / 2.f),
+			(int)(m_pTex->GetWidth()),
+			(int)(m_pTex->GetHeight()),
+			m_pTex->GetDC(),
+			0, 0,
+			(int)(m_pTex->GetWidth()),
+			(int)(m_pTex->GetHeight()),
+			tBlend);
+	}
 }
 
 void CSubWeapon::BeginOverlap(CCollider* _pOther)

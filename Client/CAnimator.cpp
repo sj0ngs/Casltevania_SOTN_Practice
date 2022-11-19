@@ -64,35 +64,32 @@ void CAnimator::Render(HDC _hDC)
 	if (nullptr == m_pCurAnim)
 		return;
 
-	m_pCurAnim->Render(_hDC);
+	//m_pCurAnim->Render(_hDC);
 
-	//switch (m_eOpt)
-	//{
-	//case EANIM_OPT::NORMAL:
+	switch (m_eOpt)
+	{
+	case EANIM_OPT::NORMAL:
+		m_pCurAnim->Render(_hDC);
+		break;
+	case EANIM_OPT::ALPHA_BLEND:
+	{
+		m_fRatio += DELTATIME * m_fDir * 5;
 
-	//	break;
-	//case EANIM_OPT::ALPHA_BLEND:
-	//{
-	//	m_fRatio += DELTATIME * m_fDir * 5;
+		if (1.f <= m_fRatio)
+		{
+			m_fDir = -1.f;
+			m_fRatio = 1.f;
+		}
+		else if (0.0 >= m_fRatio)
+		{
+			m_fDir = 1.f;
+			m_fRatio = 0.0f;
+		}
 
-	//	if (1.f <= m_fRatio)
-	//	{
-	//		m_fDir = -1.f;
-	//		m_fRatio = 1.f;
-	//	}
-	//	else if (0.5 >= m_fRatio)
-	//	{
-	//		m_fDir = 1.f;
-	//		m_fRatio = 0.5f;
-	//	}
-
-	//	m_pCurAnim->AlphaRender(_hDC, m_fRatio);
-	//}
-	//	break;
-	//case EANIM_OPT::HIT:
-	//	m_pCurAnim->HitRender(_hDC);
-	//	break;
-	//}
+		m_pCurAnim->AlphaRender(_hDC, m_fRatio);
+	}
+		break;
+	}
 }
 
 void CAnimator::CreateAnimation(const wstring& _strName, CTexture* _pAtlas, Vec2 _vLeftTop, 

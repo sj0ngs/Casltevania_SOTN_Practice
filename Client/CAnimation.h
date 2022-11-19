@@ -38,8 +38,8 @@ private:
 public:
     void Tick();
     void Render(HDC _hDC);
- /*   void AlphaRender(HDC _hDC, float _fRatio);
-    void HitRender(HDC _hDC);*/
+    void AlphaRender(HDC _hDC, float _fRatio);
+   //void HitRender(HDC _hDC);
 
 public:
     bool IsFinish() { return m_bFinish; }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CDagger.h"
 
+#include "CEngine.h"
 #include "CResMgr.h"
 #include "CTexture.h"
 
@@ -10,7 +11,8 @@
 CDagger::CDagger()	:
 	m_fSpeed(1000.f),
 	m_pRightTex(nullptr),
-	m_pLeftTex(nullptr)
+	m_pLeftTex(nullptr),
+	m_faccTime(0.f)
 {
 	SetPenatrate(false);
 
@@ -32,6 +34,8 @@ void CDagger::Tick()
 	else
 		vPos.x -= m_fSpeed * DELTATIME;
 
+	m_faccTime += DELTATIME;
+
 	SetPos(vPos);
 
 	MapOut();
@@ -40,6 +44,29 @@ void CDagger::Tick()
 void CDagger::Render(HDC _DC)
 {
 	Vec2 vPos = CCamera::GetInst()->GetRenderPos(GetPos());
+
+	HPEN hPen = nullptr;
+
+	hPen = CEngine::GetInst()->GetPen(EPEN_TYPE::DAGGER_TRAIL);
+
+	HPEN hPrevPen = (HPEN)SelectObject(_DC, hPen);
+
+	Vec2 vPos1 = GetPos();
+	if (GetFaceDir())
+	{	
+		vPos1.x -= 200.f * (m_faccTime + 0.5f);
+	}
+	else
+	{
+		vPos1.x += 200.f * (m_faccTime + 0.5f);
+	}
+	vPos1 = CCamera::GetInst()->GetRenderPos(vPos1);
+
+	MoveToEx(_DC, (int)vPos1.x, (int)vPos1.y, NULL);
+	LineTo(_DC, (int)vPos.x, (int)vPos.y);
+
+	// 기존 팬과 브러쉬로 돌려놓는다
+	SelectObject(_DC, hPrevPen);
 
 	CTexture* pTex = nullptr;
 	if (GetFaceDir())

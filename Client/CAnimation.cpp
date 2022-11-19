@@ -106,34 +106,34 @@ void CAnimation::Render(HDC _hDC)
 		RGB(255, 0, 255));
 }
 
-//void CAnimation::AlphaRender(HDC _hDC, float _fRatio)
-//{
-//	CObj* pOwnerObj = m_pAnimator->GetOwner();
-//
-//	Vec2 vPos = CCamera::GetInst()->GetRenderPos(pOwnerObj->GetPos());
-//
-//	if (!m_pAnimator->IsCameraAffected())
-//		vPos = pOwnerObj->GetPos();
-//
-//	tAnimFrm frm = m_vecFrm[m_iCurFrm];
-//
-//	float X = fabsf(frm.vSize.x);
-//
-//	BLENDFUNCTION tBlend = {};
-//	tBlend.AlphaFormat = AC_SRC_ALPHA;
-//	tBlend.BlendFlags = 0;
-//	tBlend.BlendOp = AC_SRC_OVER;
-//	tBlend.SourceConstantAlpha = (int)(255 * _fRatio);
-//
-//	AlphaBlend(_hDC,
-//		(int)(vPos.x - X / 2.f + frm.vOffset.x),
-//		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),
-//		(int)(X), (int)(frm.vSize.y),
-//		m_pAtlas->GetDC(),
-//		(int)(frm.vLeftTop.x), (int)(frm.vLeftTop.y),
-//		(int)(X), (int)(frm.vSize.y),
-//		tBlend);
-//}
+void CAnimation::AlphaRender(HDC _hDC, float _fRatio)
+{
+	CObj* pOwnerObj = m_pAnimator->GetOwner();
+
+	Vec2 vPos = CCamera::GetInst()->GetRenderPos(pOwnerObj->GetPos());
+
+	if (!m_pAnimator->IsCameraAffected())
+		vPos = pOwnerObj->GetPos();
+
+	tAnimFrm frm = m_vecFrm[m_iCurFrm];
+
+	float X = fabsf(frm.vSize.x);
+
+	BLENDFUNCTION tBlend = {};
+	tBlend.AlphaFormat = AC_SRC_ALPHA;
+	tBlend.BlendFlags = 0;
+	tBlend.BlendOp = AC_SRC_OVER;
+	tBlend.SourceConstantAlpha = (int)(255 * _fRatio);
+
+	AlphaBlend(_hDC,
+		(int)(vPos.x - X / 2.f + frm.vOffset.x),
+		(int)(vPos.y - frm.vSize.y / 2.f + frm.vOffset.y),
+		(int)(X), (int)(frm.vSize.y),
+		m_pAtlas->GetDC(),
+		(int)(frm.vLeftTop.x), (int)(frm.vLeftTop.y),
+		(int)(X), (int)(frm.vSize.y),
+		tBlend);
+}
 //
 //void CAnimation::HitRender(HDC _hDC)
 //{

@@ -448,6 +448,12 @@
     <Filter Include="Game\04. Object\Projectile\PlayerProjectile\BibleCrash">
       <UniqueIdentifier>{78bf5de6-5631-44fb-81f0-02d5653c8716}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\04. Object\MapObj\Bench">
+      <UniqueIdentifier>{ec26ed84-37db-4174-b455-a0b54cc1e736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Effect\Letter">
+      <UniqueIdentifier>{fcc5bce5-d32e-4d25-9d3b-2a4e23a97c31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -873,6 +879,15 @@
     <ClInclude Include="CBibleCrash.h">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
     </ClInclude>
+    <ClInclude Include="CRewardLevel.h">
+      <Filter>Game\03. Level\07. Reward</Filter>
+    </ClInclude>
+    <ClInclude Include="CBench.h">
+      <Filter>Game\04. Object\MapObj\Bench</Filter>
+    </ClInclude>
+    <ClInclude Include="CLetter.h">
+      <Filter>Game\04. Object\Effect\Letter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -1297,6 +1312,15 @@
     </ClCompile>
     <ClCompile Include="CBibleCrash.cpp">
       <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
+    </ClCompile>
+    <ClCompile Include="CRewardLevel.cpp">
+      <Filter>Game\03. Level\07. Reward</Filter>
+    </ClCompile>
+    <ClCompile Include="CBench.cpp">
+      <Filter>Game\04. Object\MapObj\Bench</Filter>
+    </ClCompile>
+    <ClCompile Include="CLetter.cpp">
+      <Filter>Game\04. Object\Effect\Letter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

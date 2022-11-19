@@ -147,6 +147,7 @@
     <ClInclude Include="CAxe.h" />
     <ClInclude Include="CAxeArmor.h" />
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CBench.h" />
     <ClInclude Include="CBible.h" />
     <ClInclude Include="CBibleCrash.h" />
     <ClInclude Include="CBibleTrail.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="CHUD.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CItem.h" />
+    <ClInclude Include="CLetter.h" />
     <ClInclude Include="CLevelChangeTrigger.h" />
     <ClInclude Include="CLine.h" />
     <ClInclude Include="CEditorLevel.h" />
@@ -235,6 +237,7 @@
     <ClInclude Include="CProjectile.h" />
     <ClInclude Include="CRes.h" />
     <ClInclude Include="CResMgr.h" />
+    <ClInclude Include="CRewardLevel.h" />
     <ClInclude Include="CRigidBody.h" />
     <ClInclude Include="CSaveTrigger.h" />
     <ClInclude Include="CSave_Level.h" />
@@ -290,6 +293,7 @@
     <ClCompile Include="CAxe.cpp" />
     <ClCompile Include="CAxeArmor.cpp" />
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CBench.cpp" />
     <ClCompile Include="CBible.cpp" />
     <ClCompile Include="CBibleCrash.cpp" />
     <ClCompile Include="CBibleTrail.cpp" />
@@ -329,6 +333,7 @@
     <ClCompile Include="CHUD.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CItem.cpp" />
+    <ClCompile Include="CLetter.cpp" />
     <ClCompile Include="CLevelChangeTrigger.cpp" />
     <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CEditorLevel.cpp" />
@@ -379,6 +384,7 @@
     <ClCompile Include="CProjectile.cpp" />
     <ClCompile Include="CRes.cpp" />
     <ClCompile Include="CResMgr.cpp" />
+    <ClCompile Include="CRewardLevel.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CSaveTrigger.cpp" />
     <ClCompile Include="CSave_Level.cpp" />

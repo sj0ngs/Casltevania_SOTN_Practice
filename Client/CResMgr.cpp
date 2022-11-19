@@ -44,6 +44,8 @@ void CResMgr::Init()
 
 	CResMgr::GetInst()->LoadSound(L"FIRE", L"sound\\FIRE.wav");
 
+	CResMgr::GetInst()->LoadSound(L"CANDLE", L"sound\\CANDLE.wav");
+
 	// Player
 	CResMgr::GetInst()->LoadSound(L"ATTACK_01", L"sound\\Player\\ATTACK_01.wav");
 	CResMgr::GetInst()->LoadSound(L"ATTACK_02", L"sound\\Player\\ATTACK_02.wav");
@@ -55,6 +57,7 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadSound(L"DAM_S_02", L"sound\\Player\\DAM_S_02.wav");
 	CResMgr::GetInst()->LoadSound(L"DAM_S_03", L"sound\\Player\\DAM_S_03.wav");
 	CResMgr::GetInst()->LoadSound(L"SLIDE", L"sound\\Player\\SLIDE.wav");
+	CResMgr::GetInst()->LoadSound(L"DIE", L"sound\\Player\\DIE.wav");
 
 	CResMgr::GetInst()->LoadSound(L"Slash", L"sound\\Player\\Slash.wav");
 	CResMgr::GetInst()->LoadSound(L"Projectile", L"sound\\Player\\Projectile.wav");
@@ -111,12 +114,19 @@ void CResMgr::Init()
 	pTex = CResMgr::GetInst()->LoadTexture(L"alucard_right_1_Trail", L"texture\\Alucard\\alucard_right_1.bmp");
 	ColorChange(pTex);
 
+	CResMgr::GetInst()->LoadTexture(L"Alucrad_Death", L"texture\\Alucard\\Alucrad_Death.bmp");
+
 	CResMgr::GetInst()->LoadTexture(L"alucard_left_2", L"texture\\Alucard\\alucard_left_2.bmp");
 	CResMgr::GetInst()->LoadTexture(L"alucard_right_2", L"texture\\Alucard\\alucard_right_2.bmp");
 
 	// Sub Weapon Axe Anim
 	CResMgr::GetInst()->LoadTexture(L"Axe_Left", L"texture\\Weapon\\Axe_Left.bmp");
+	pTex = CResMgr::GetInst()->LoadTexture(L"Axe_Left_Trail", L"texture\\Weapon\\Axe_Left.bmp");
+	ColorChange(pTex);
+
 	CResMgr::GetInst()->LoadTexture(L"Axe_Right", L"texture\\Weapon\\Axe_Right.bmp");
+	pTex = CResMgr::GetInst()->LoadTexture(L"Axe_Right_Trail", L"texture\\Weapon\\Axe_Right.bmp");
+	ColorChange(pTex);
 
 	// Sub Weapon Dagger Anim
 	CResMgr::GetInst()->LoadTexture(L"Dagger_Right", L"texture\\Weapon\\Dagger_Right.bmp");
@@ -130,7 +140,6 @@ void CResMgr::Init()
 
 	// Skill
 	CResMgr::GetInst()->LoadTexture(L"HellFire", L"texture\\Weapon\\HellFire.bmp");
-
 
 	// Level
 	CResMgr::GetInst()->LoadTexture(L"Debug_Map", L"texture\\Map\\Debug_Map.bmp");
@@ -149,7 +158,7 @@ void CResMgr::Init()
 	// Skeleton
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Left", L"texture\\Monster\\SKeleton\\Skeleton_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Right", L"texture\\Monster\\SKeleton\\Skeleton_Right.bmp");
-
+	
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Death_Left", L"texture\\Monster\\SKeleton\\Skeleton_Death_Left.bmp");
 	CResMgr::GetInst()->LoadTexture(L"Skeleton_Death_Right", L"texture\\Monster\\SKeleton\\Skeleton_Death_Right.bmp");
 
@@ -265,11 +274,11 @@ void CResMgr::Init()
 	// Item
 	// ====
 
-	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\Large_Heart.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Large_Heart", L"texture\\Item\\Large_Heart.bmp");
 
-	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\Small_Heart.bmp");
+	CResMgr::GetInst()->LoadTexture(L"Small_Heart", L"texture\\Item\\Small_Heart.bmp");
 
-	CResMgr::GetInst()->LoadTexture(L"Candle", L"texture\\Item\\HP_Heart.bmp");
+	CResMgr::GetInst()->LoadTexture(L"HP_Heart", L"texture\\Item\\HP_Heart.bmp");
 
 	// ==
 	// UI
@@ -300,6 +309,8 @@ void CResMgr::Init()
 	CResMgr::GetInst()->LoadTexture(L"Debug_Mode_Select", L"texture\\UI\\Debug_Mode_Select.bmp");
 
 	CResMgr::GetInst()->LoadTexture(L"Select_Frame", L"texture\\UI\\Select_Frame.bmp");
+
+	CResMgr::GetInst()->LoadTexture(L"Life_Up", L"texture\\UI\\Life_Up.bmp");
 }
 
 CTexture* CResMgr::FindTexture(const wstring& _strKey)

@@ -376,7 +376,8 @@ wchar_t g_arrChangeLevelType[(UINT)ELEVEL_TYPE::END][20] =
 	L"STAGE_03",
 	L"Boss",
 	L"Ending",
-	L"Save"
+	L"Save",
+	L"Reward"
 };
 
 INT_PTR CALLBACK LevelEdit(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

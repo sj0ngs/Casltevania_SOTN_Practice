@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "CPlayerDeathState.h"
 
+#include "CResMgr.h"
+
 #include "CPlayer.h"
+
+#include "CSound.h"
 
 CPlayerDeathState::CPlayerDeathState()
 {
@@ -26,7 +30,11 @@ void CPlayerDeathState::Enter()
 {
 	GET_PLAYER();
 
-	SET_ANIM(L"Hit_6_Left");
+	SET_ANIM(L"Alucrad_Death");
+
+	PLAY_SOUND(L"DIE");
+
+	CCamera::GetInst()->FadeOut(11.f);
 }
 
 void CPlayerDeathState::Exit()

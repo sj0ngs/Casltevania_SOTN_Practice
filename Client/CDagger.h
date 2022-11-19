@@ -11,6 +11,8 @@ private:
     CTexture* m_pRightTex;
     CTexture* m_pLeftTex;
 
+    float m_faccTime;
+
 public:
     void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
 

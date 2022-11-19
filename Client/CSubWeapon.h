@@ -12,6 +12,13 @@ private:
 
     Vec2 vOffsetPos;
 
+    float       m_faccDeathTime;
+
+    bool        m_bDeadSoon;
+
+    float       m_fRatio;
+    float       m_fDir;
+
 public:
     void SetSubWeaponType(ESUB_WEAPON_TYPE _eType);
 

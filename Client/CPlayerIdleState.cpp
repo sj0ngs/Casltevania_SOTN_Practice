@@ -76,9 +76,9 @@ void CPlayerIdleState::Final_Tick()
 	else if (IS_RELEASED(EKEY::UP))
 	{
 		if (pPlayer->GetFaceDir())
-			pPlayer->GetAnimator()->Play(L"Idle_First_Right", false);
+			pPlayer->GetAnimator()->Play(L"Idle_First_Right", true);
 		else
-			pPlayer->GetAnimator()->Play(L"Idle_First_Left", false);
+			pPlayer->GetAnimator()->Play(L"Idle_First_Left", true);
 	}
 
 	CPlayerState::Final_Tick();;

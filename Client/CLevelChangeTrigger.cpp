@@ -53,6 +53,12 @@ void CLevelChangeTrigger::Render(HDC _DC)
 		case ELEVEL_TYPE::ENDING:
 			strName = L"Ending";
 			break;
+		case ELEVEL_TYPE::SAVE:
+			strName = L"Save";
+			break;
+		case ELEVEL_TYPE::REWARD:
+			strName = L"Reward";
+			break;
 		case ELEVEL_TYPE::END:
 			strName = L"Error";
 			break;

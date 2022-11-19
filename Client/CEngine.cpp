@@ -113,6 +113,8 @@ void CEngine::CreatePenBrush()
 	m_arrPen[(UINT)EPEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_arrPen[(UINT)EPEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_arrPen[(UINT)EPEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+
+	m_arrPen[(UINT)EPEN_TYPE::DAGGER_TRAIL] = CreatePen(PS_SOLID, 4, RGB(135, 206, 235));
 }
 
 void CEngine::ChangeWindowSize(UINT _iWidth, UINT _iHeight)

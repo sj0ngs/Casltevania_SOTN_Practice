@@ -53,6 +53,8 @@ private:
 
     bool m_bOnCrash;
 
+    bool m_bInvincible;
+
 public:
     const tPlayerInfo& GetPlayerInfo() const { return m_tInfo; }
 
@@ -128,6 +130,7 @@ public:
     void Heal() { m_bOnHeal = true; }
 
     void AddHeart(int _iValue);
+    void LifeMaxUp();
 
     void Revive();
 

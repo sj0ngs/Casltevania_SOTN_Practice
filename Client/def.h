@@ -55,6 +55,8 @@ enum class EPEN_TYPE
 	RED,
 	BLUE,
 
+	DAGGER_TRAIL,
+
 	END
 };
 

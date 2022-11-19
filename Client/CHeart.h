@@ -24,6 +24,10 @@ private:
     int         m_iDir;
     float       m_fDegree;
 
+    float       m_faccDeathTime;
+
+    bool        m_bDeadSoon;
+
 public:
     void SetHeartType(EHEART_TYPE _eType);
 
