@@ -9,10 +9,10 @@ CAnimator::CAnimator(CObj* _pOwner)	:
 	CComponent(_pOwner),
 	m_pCurAnim(nullptr),
 	m_bRepeat(false),
-	m_bCameraAfctd(true)
-	//m_eOpt(EANIM_OPT::NORMAL)
-	//m_fRatio(0.f),
-	//m_fDir(0.f)
+	m_bCameraAfctd(true),
+	m_eOpt(EANIM_OPT::NORMAL),
+	m_fRatio(0.f),
+	m_fDir(0.f)
 {
 }
 
@@ -20,10 +20,10 @@ CAnimator::CAnimator(const CAnimator& _Other) :
 	CComponent(nullptr),
 	m_pCurAnim(nullptr),
 	m_bRepeat(_Other.m_bRepeat),
-	m_bCameraAfctd(_Other.m_bCameraAfctd)
-	//m_eOpt(EANIM_OPT::NORMAL)
-	//m_fRatio(0.f),
-	//m_fDir(0.f)
+	m_bCameraAfctd(_Other.m_bCameraAfctd),
+	m_eOpt(EANIM_OPT::NORMAL),
+	m_fRatio(0.f),
+	m_fDir(0.f)
 {
 	map<wstring, CAnimation*>::const_iterator iter = _Other.m_mapAnim.begin();
 	for (; iter != _Other.m_mapAnim.end(); ++iter)

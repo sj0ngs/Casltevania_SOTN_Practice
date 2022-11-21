@@ -84,7 +84,7 @@ void CAxeArmor::Tick()
 				SetPos(vPos);
 			}
 
-			if (!m_bAttackEnd && 4 == GetAnimator()->GetCurAnimation()->GetCurFrame())
+			if (!m_bAttackEnd && 3 == GetAnimator()->GetCurAnimation()->GetCurFrame())
 			{
 				Slash();
 				m_bAttackEnd = true;
@@ -256,18 +256,18 @@ void CAxeArmor::Slash()
 
 	pAttack->SetDamage(GetMonsterInfo().m_iAtk);
 	pAttack->SetLifeSpan(0.5f);
-	pAttack->GetCollider()->SetScale(Vec2(64.f, 64.f));
+	pAttack->GetCollider()->SetScale(Vec2(64.f, 64.f * 2.f));
 
 	Vec2 vPos = {};
 	vPos.y -= 80.f;
 
 	if (GetFaceDir())
 	{
-		vPos.x += (25.f + 32.f);
+		vPos.x += (25.f + 32.f + 25.f);
 	}
 	else
 	{
-		vPos.x -= (25.f + 32.f);
+		vPos.x -= (25.f + 32.f + 25.f);
 	}
 
 	pAttack->GetCollider()->SetOffsetPos(vPos);

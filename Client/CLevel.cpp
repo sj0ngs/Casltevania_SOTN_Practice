@@ -183,7 +183,7 @@ void CLevel::DeleteAllObject()
 	{
 		if (m_vecLine[i]->IsDead())
 			continue;
-
+		
 		DYNAMIC_DELETE(m_vecLine[i]);
 	}
 	m_vecLine.clear();

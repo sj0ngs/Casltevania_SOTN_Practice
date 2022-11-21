@@ -445,14 +445,26 @@
     <Filter Include="Game\04. Object\Trigger\SaveTrigger">
       <UniqueIdentifier>{47d32ad2-7a89-41c9-956e-c13a6c4a6260}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\BibleCrash">
-      <UniqueIdentifier>{78bf5de6-5631-44fb-81f0-02d5653c8716}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\04. Object\MapObj\Bench">
       <UniqueIdentifier>{ec26ed84-37db-4174-b455-a0b54cc1e736}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\04. Object\Effect\Letter">
       <UniqueIdentifier>{fcc5bce5-d32e-4d25-9d3b-2a4e23a97c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\Crash">
+      <UniqueIdentifier>{ea4e5e73-12cb-4c1e-906a-51c52d1a93e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\Crash\BibleCrash">
+      <UniqueIdentifier>{78bf5de6-5631-44fb-81f0-02d5653c8716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\Crash\DaggerCrash">
+      <UniqueIdentifier>{99a974da-e0ad-4c1e-82e3-ba4bcfbb8da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\Crash\AxeCrash">
+      <UniqueIdentifier>{4122836d-08c1-4225-b317-2c5c1f3792e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\04. Object\Projectile\PlayerProjectile\Axe\CSprialAxe">
+      <UniqueIdentifier>{cda95e3f-31e0-4258-8af8-40614705843f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -877,7 +889,7 @@
       <Filter>Game\04. Object\Trigger\SaveTrigger</Filter>
     </ClInclude>
     <ClInclude Include="CBibleCrash.h">
-      <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
+      <Filter>Game\04. Object\Projectile\Crash\BibleCrash</Filter>
     </ClInclude>
     <ClInclude Include="CRewardLevel.h">
       <Filter>Game\03. Level\07. Reward</Filter>
@@ -887,6 +899,15 @@
     </ClInclude>
     <ClInclude Include="CLetter.h">
       <Filter>Game\04. Object\Effect\Letter</Filter>
+    </ClInclude>
+    <ClInclude Include="CDaggerCrash.h">
+      <Filter>Game\04. Object\Projectile\Crash\DaggerCrash</Filter>
+    </ClInclude>
+    <ClInclude Include="CAxeCrash.h">
+      <Filter>Game\04. Object\Projectile\Crash\AxeCrash</Filter>
+    </ClInclude>
+    <ClInclude Include="CSprialAxe.h">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe\CSprialAxe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1311,7 +1332,7 @@
       <Filter>Game\04. Object\Trigger\SaveTrigger</Filter>
     </ClCompile>
     <ClCompile Include="CBibleCrash.cpp">
-      <Filter>Game\04. Object\Projectile\PlayerProjectile\BibleCrash</Filter>
+      <Filter>Game\04. Object\Projectile\Crash\BibleCrash</Filter>
     </ClCompile>
     <ClCompile Include="CRewardLevel.cpp">
       <Filter>Game\03. Level\07. Reward</Filter>
@@ -1321,6 +1342,15 @@
     </ClCompile>
     <ClCompile Include="CLetter.cpp">
       <Filter>Game\04. Object\Effect\Letter</Filter>
+    </ClCompile>
+    <ClCompile Include="CDaggerCrash.cpp">
+      <Filter>Game\04. Object\Projectile\Crash\DaggerCrash</Filter>
+    </ClCompile>
+    <ClCompile Include="CAxeCrash.cpp">
+      <Filter>Game\04. Object\Projectile\Crash\AxeCrash</Filter>
+    </ClCompile>
+    <ClCompile Include="CSprialAxe.cpp">
+      <Filter>Game\04. Object\Projectile\PlayerProjectile\Axe\CSprialAxe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -86,7 +86,7 @@ void CSave_Level::SetTrigger()
 {
 	CSaveTrigger* pTrigger = new CSaveTrigger;
 	pTrigger->GetCollider()->SetScale(Vec2(180.f, 390.f));
-	pTrigger->GetCollider()->SetOffsetPos(Vec2(0.f, 195.f));
+	pTrigger->GetCollider()->SetOffsetPos(Vec2(0.f, -195.f));
 	Instantiate(pTrigger, Vec2(500.f, 670.f), ELAYER::TRIGGER);
 
 	LARGE_INTEGER llCount;

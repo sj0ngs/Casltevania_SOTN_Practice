@@ -128,6 +128,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,6 +147,7 @@
     <ClInclude Include="CAttackState.h" />
     <ClInclude Include="CAxe.h" />
     <ClInclude Include="CAxeArmor.h" />
+    <ClInclude Include="CAxeCrash.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBench.h" />
     <ClInclude Include="CBible.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CCover.h" />
+    <ClInclude Include="CDaggerCrash.h" />
     <ClInclude Include="CDamage.h" />
     <ClInclude Include="CDeadState.h" />
     <ClInclude Include="CEffect.h" />
@@ -253,6 +256,7 @@
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CSoundMgr.h" />
     <ClInclude Include="CSpawnPoint.h" />
+    <ClInclude Include="CSprialAxe.h" />
     <ClInclude Include="CStage01.h" />
     <ClInclude Include="CStage02.h" />
     <ClInclude Include="CStage03.h" />
@@ -292,6 +296,7 @@
     <ClCompile Include="CAttackState.cpp" />
     <ClCompile Include="CAxe.cpp" />
     <ClCompile Include="CAxeArmor.cpp" />
+    <ClCompile Include="CAxeCrash.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBench.cpp" />
     <ClCompile Include="CBible.cpp" />
@@ -309,6 +314,7 @@
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CCover.cpp" />
+    <ClCompile Include="CDaggerCrash.cpp" />
     <ClCompile Include="CDamage.cpp" />
     <ClCompile Include="CDeadState.cpp" />
     <ClCompile Include="CEditorLevel_Map.cpp" />
@@ -400,6 +406,7 @@
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CSoundMgr.cpp" />
     <ClCompile Include="CSpawnPoint.cpp" />
+    <ClCompile Include="CSprialAxe.cpp" />
     <ClCompile Include="CStage01.cpp" />
     <ClCompile Include="CStage02.cpp" />
     <ClCompile Include="CStage03.cpp" />

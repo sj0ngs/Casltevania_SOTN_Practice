@@ -43,6 +43,7 @@ void CRewardLevel::Init()
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER, ELAYER::PLATFORM);
 	CCollisionMgr::GetInst()->LayerCheck(ELAYER::PLAYER_PROJECTILE, ELAYER::MAP_OBJECT);
 	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::PLAYER);
+	CLineCollisionMgr::GetInst()->CollisionSet(ELAYER::MAP_OBJECT);
 
 	Vec2 vResolution = CEngine::GetInst()->GetResolution();
 	CCamera::GetInst()->SetLook(vResolution / 2.f);

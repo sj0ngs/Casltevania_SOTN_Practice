@@ -188,6 +188,14 @@ void CObjMgr::Init()
 	pObj->GetAnimator()->Play(L"Candle", true);
 	m_mapObj.insert(make_pair(pObj->GetName(), pObj));
 
+	pObj = new CCandle;
+	pObj->SetName(L"Candle_2");
+	pObj->GetCollider()->SetScale(Vec2(50.f, 50.f));
+	pObj->GetAnimator()->Play(L"Candle_2", true);
+
+	m_mapObj.insert(make_pair(pObj->GetName(), pObj));
+
+	// Bench
 	pObj = new CBench;
 	pObj->SetName(L"Bench");
 	m_mapObj.insert(make_pair(pObj->GetName(), pObj));

@@ -116,6 +116,8 @@ public:
     bool ItemCrash();
 
     void BibleCrash();
+    void DaggerCrash();
+    void AxeCrash();
 
     void UseSubWeapon();
     void UseDagger();

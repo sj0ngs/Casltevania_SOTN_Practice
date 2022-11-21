@@ -35,6 +35,8 @@
 #include "CTrail.h"
 
 #include "CBibleCrash.h"
+#include "CDaggerCrash.h"
+#include "CAxeCrash.h"
 
 // State 
 #include "CPlayerIdleState.h"
@@ -361,6 +363,10 @@ void CPlayer::Render(HDC _DC)
 	//TextOut(_DC, (int)vPos.x + 50, (int)vPos.y - 120, strDebug.c_str(), (int)strDebug.length());
 
 	CObjMgr::GetInst()->UpDatePlayer(this);
+
+	Vec2 vPos = GetPos();
+	vPos.y -= 100.f;
+	CCamera::GetInst()->TracePlayer(vPos);
 }
 
 void CPlayer::BeginOverlap(CCollider* _pOther)
@@ -491,6 +497,22 @@ bool CPlayer::ItemCrash()
 {
 	switch (m_eSubWeapon)
 	{
+	case ESUB_WEAPON_TYPE::DAGGER:
+	{
+		if (USE_DAGGER * 10 > GetPlayerInfo().m_iHeart)
+			return false;
+
+		DaggerCrash();
+		return true;
+	}
+	case ESUB_WEAPON_TYPE::AXE:
+	{
+		if (USE_AXE * 3 > GetPlayerInfo().m_iHeart)
+			return false;
+
+		AxeCrash();
+		return true;
+	}
 	case ESUB_WEAPON_TYPE::BIBLE:
 	{
 		if (USE_BIBLE * 3 > GetPlayerInfo().m_iHeart)
@@ -531,6 +553,51 @@ void CPlayer::BibleCrash()
 	pCrash->SetOwner(this);
 }
 
+void CPlayer::DaggerCrash()
+{
+	m_bOnCrash = true;
+
+	Vec2 vPos = GetPos();
+
+	m_tInfo.m_iHeart -= USE_DAGGER * 10;
+	CDaggerCrash* pCrash = new CDaggerCrash;
+	pCrash->SetFaceDir(GetFaceDir());
+	if (GetFaceDir())
+	{
+		vPos.x -= 100.f;
+		vPos.y -= 150.f;
+	}
+	else
+	{
+		vPos.x += 100.f;
+		vPos.y -= 150.f;
+	}
+
+	pCrash->SetOwner(this);
+	pCrash->SetDmg((int)((float)m_tInfo.m_iStr * 0.5));
+
+	Instantiate(pCrash, vPos, ELAYER::EFFECT);
+}
+
+void CPlayer::AxeCrash()
+{
+	m_bOnCrash = true;
+
+	Vec2 vPos = GetPos();
+		
+	m_tInfo.m_iHeart -= USE_AXE * 3;
+	CAxeCrash* pCrash = new CAxeCrash;
+
+	vPos.y -= 350.f;
+
+	pCrash->SetOwner(this);
+	pCrash->SetDmg((int)((float)m_tInfo.m_iStr * 2.f));
+	pCrash->SetPos(vPos);
+	pCrash->Init();
+
+	Instantiate(pCrash, vPos, ELAYER::EFFECT);
+}
+
 void CPlayer::UseSubWeapon()
 {
 	switch (m_eSubWeapon)
@@ -556,7 +623,7 @@ void CPlayer::UseDagger()
 
 	m_tInfo.m_iHeart -= USE_DAGGER;
 	CDagger* pDagger = new CDagger;
-	int iDmg = (int)((float)m_tInfo.m_iStr * 1.2);
+	int iDmg = (int)((float)m_tInfo.m_iStr * 0.5);
 	pDagger->SetDamage(iDmg);
 	pDagger->SetFaceDir(GetFaceDir());
 	if (GetFaceDir())

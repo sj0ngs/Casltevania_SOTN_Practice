@@ -41,17 +41,6 @@ void CStage03::Init()
 void CStage03::Tick()
 {
 	CLevel::Tick();
-
-	const vector<CObj*>& vecPlayer = GetLayer(ELAYER::PLAYER);
-
-	CPlayer* pPlayer = (CPlayer*)vecPlayer[0];
-
-	if (nullptr != pPlayer)
-	{
-		Vec2 vPlayerPos = pPlayer->GetPos();
-		vPlayerPos.y -= 100.f;
-		CCamera::GetInst()->TracePlayer(vPlayerPos);
-	}
 }
 
 void CStage03::Enter()

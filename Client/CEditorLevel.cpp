@@ -353,7 +353,8 @@ wchar_t g_arrSpawnPointOption[(UINT)ESPAWNABLE_OBJECT::NONE][20] =
 	L"Gaibon",
 	L"Slogra",
 
-	L"Candle"
+	L"Candle",
+	L"Candle_2"
 };
 
 wchar_t g_arrFaceDir[2][10] =

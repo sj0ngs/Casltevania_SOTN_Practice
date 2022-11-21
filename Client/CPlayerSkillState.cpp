@@ -123,6 +123,9 @@ void CPlayerSkillState::Enter()
 	pEffect->GetAnimator()->LoadAnimation(L"animation\\Effect\\LIGHT.anim");
 	pEffect->GetAnimator()->Play(false);
 	Instantiate(pEffect, vPos, ELAYER::EFFECT);
+
+	pSound = CResMgr::GetInst()->FindSound(L"DRACULA_WARP");
+	pSound->Play(false);
 }
 
 void CPlayerSkillState::Exit()

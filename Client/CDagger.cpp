@@ -54,11 +54,11 @@ void CDagger::Render(HDC _DC)
 	Vec2 vPos1 = GetPos();
 	if (GetFaceDir())
 	{	
-		vPos1.x -= 200.f * (m_faccTime + 0.5f);
+		vPos1.x -= 200.f * (m_faccTime);
 	}
 	else
 	{
-		vPos1.x += 200.f * (m_faccTime + 0.5f);
+		vPos1.x += 200.f * (m_faccTime);
 	}
 	vPos1 = CCamera::GetInst()->GetRenderPos(vPos1);
 

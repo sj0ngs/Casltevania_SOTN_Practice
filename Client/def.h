@@ -113,6 +113,7 @@ enum class ESPAWNABLE_OBJECT
 
 	// Map Object
 	CANDLE,
+	CANDLE_2,
 
 	NONE
 };

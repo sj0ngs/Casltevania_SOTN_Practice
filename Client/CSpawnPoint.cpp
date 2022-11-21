@@ -91,6 +91,15 @@ void CSpawnPoint::Tick()
 		Instantiate(pObj, GetPos(), ELAYER::MAP_OBJECT);
 	}
 	break;
+	case ESPAWNABLE_OBJECT::CANDLE_2:
+	{
+		Vec2 vPos = GetPos();
+		vPos.x += 16.f;
+		vPos.y -= 40.f;
+		CObj* pObj = CObjMgr::GetInst()->FindObj(L"Candle_2")->Clone();
+		Instantiate(pObj, vPos, ELAYER::MAP_OBJECT);
+	}
+	break;
 	}
 
 	SetDead();
@@ -143,6 +152,9 @@ void CSpawnPoint::Render(HDC _DC)
 		break;
 	case ESPAWNABLE_OBJECT::CANDLE:
 		strName = L"Candle";
+		break;
+	case ESPAWNABLE_OBJECT::CANDLE_2:
+		strName = L"Candle_2";
 		break;
 	}
 

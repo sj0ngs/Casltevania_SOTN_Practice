@@ -108,17 +108,6 @@ void CBossLevel::Tick()
 			m_pWallTex = nullptr;
 		}
 	}
-
-	const vector<CObj*>& vecPlayer = GetLayer(ELAYER::PLAYER);
-
-	CPlayer* pPlayer = (CPlayer*)vecPlayer[0];
-
-	if (nullptr != pPlayer)
-	{
-		Vec2 vPlayerPos = pPlayer->GetPos();
-		vPlayerPos.y -= 100.f;
-		CCamera::GetInst()->TracePlayer(vPlayerPos);
-	}
 }
 
 void CBossLevel::Render(HDC _DC)

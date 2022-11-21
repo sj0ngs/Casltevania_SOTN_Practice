@@ -78,6 +78,8 @@ void CResMgr::Init()
 
 	CResMgr::GetInst()->LoadSound(L"BOSSEYE_BEAM", L"sound\\Player\\BOSSEYE_BEAM.wav");
 
+	CResMgr::GetInst()->LoadSound(L"DRACULA_WARP", L"sound\\Player\\DRACULA_WARP.wav");
+
 	// Monster
 	CResMgr::GetInst()->LoadSound(L"Projectile_Explot", L"sound\\Monster\\Projectile_Explot.wav");
 	CResMgr::GetInst()->LoadSound(L"Mon_Attack_01", L"sound\\Monster\\Mon_Attack_01.wav");
